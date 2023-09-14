@@ -69,5 +69,3 @@ CALL {
     MERGE (f)-[r:ProGo]-(g)
 } IN TRANSACTIONS OF 100 ROWS
 ```
-
-8. 
