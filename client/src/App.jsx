@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
+import NavBar from "./components/NavBar";
 
 import "./index.css";
 
@@ -8,19 +9,10 @@ function App() {
 
   return (
     <div>
-      <div className="navbar">
-        <h1>Bio-Net-Viz</h1>
-        <ul className="navbar-menu">
-          <li>
-            <Link to={`/testing`}>Testing</Link>
-          </li>
-          <li>
-            <Link to={`/about`}>About</Link>
-          </li>
-        </ul>
-      </div>
-      <div id="detail">
-        <Outlet />
+      <NavBar />
+      <div className="main-layout-body">
+        <h2>Home Page</h2>
+        <p>Welcome to the Bio-Net-Viz Website</p>
       </div>
     </div>
   );

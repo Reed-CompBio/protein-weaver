@@ -72,11 +72,17 @@ ul > * {
   align-items: center;
   padding-left: 25px;
   padding-right: 25px;
+  border-bottom: solid;
 }
 
 .navbar-menu {
   display: flex;
   margin-left: auto;
+}
+
+.main-layout-body {
+  align-items: center;
+  margin-left: 25px
 }
 
 

@@ -1,46 +1,52 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-export default function Movie(){
-    const [backendData, setBackendData] = useState([{}])
-    const [movieData, setMovieData] = useState()
-    const [showResponse, setShowResponse] = useState(0)
+export default function Movie() {
+  const [backendData, setBackendData] = useState([{}]);
+  const [movieData, setMovieData] = useState();
+  const [showResponse, setShowResponse] = useState(0);
 
-    const getApiStatus = () => {
-        fetch("/api/test").then(
-            response => response.json()
-        ).then(
-            data => {
-            setBackendData(data)
-            }
-        )
-    }
+  const getApiStatus = () => {
+    fetch("/api/test")
+      .then((response) => response.json())
+      .then((data) => {
+        setBackendData(data);
+      });
+  };
 
-    useEffect(() => {
-        getApiStatus()
-    }, [])
+  useEffect(() => {
+    getApiStatus();
+  }, []);
 
-    const getMovieApi = () => {
-        fetch("/api/getMovie")
-        .then(response => response.json()
-        ).then(response => {console.log(response); setMovieData(response); console.log(response.properties); }
-        )
-    }
+  const getMovieApi = () => {
+    fetch("/api/getMovie")
+      .then((response) => response.json())
+      .then((response) => {
+        setMovieData(response);
+      });
+  };
 
-    return(
+  return (
+    <div>
+      {typeof backendData.message === "undefined" ? (
+        <p>Loading...</p>
+      ) : (
+        <p> {backendData.message}</p>
+      )}
+      <button
+        onClick={() => {
+          getMovieApi();
+          setShowResponse(1);
+        }}
+      >
+        Click to do getMovie API call
+      </button>
+      {showResponse === 1 && (
         <div>
-            {(typeof backendData.message === 'undefined') ? (
-                <p>Loading...</p>
-                ): (
-                <p> {backendData.message}</p>
-            )}
-            <button onClick={() => {getMovieApi(); setShowResponse(1)}}>Click to do getMovie API call</button>
-            {showResponse === 1 &&
-                <div>
-                    <p>Showing Response Data</p>
-                    <p>{JSON.stringify(movieData)}</p>
-                </div>
-            }
+          <p>Showing Response Data</p>
+          <p>{JSON.stringify(movieData)}</p>
         </div>
-    )
+      )}
+    </div>
+  );
 }
