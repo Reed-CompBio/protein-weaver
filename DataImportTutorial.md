@@ -48,7 +48,7 @@ CALL {
     MERGE (a:txid7227 {id: flybase.FlyBase1})
     MERGE (b:txid7227 {id: flybase.FlyBase2})
     MERGE (a)-[r:ProPro]-(b)
-} IN TRANSACTIONS OF 1000 ROWS
+} IN TRANSACTIONS OF 100 ROWS
 ```
 - This will create all of the protein-protein relationships and populate the database.
 
