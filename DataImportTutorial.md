@@ -1,9 +1,9 @@
 **How to get started with Neo4j and upload the FlyBase data**
-1. Create a directory in you $HOME name `neo4j`
- - Within "~/neo4j" directory create the following directories:
-    - "~/neo4j/data/" to allow storage of data between docker instances
-    - "~/neo4j/logs/" to allow storage of logs between docker instances
-    - "~/neo4j/import/" to import data
+1. Create a directory in your $HOME named `neo4j`
+ - Within `~/neo4j` directory create the following directories:
+    - `~/neo4j/data/` to allow storage of data between docker instances
+    - `~/neo4j/logs/` to allow storage of logs between docker instances
+    - `~/neo4j/import/` to import data
         - Load any FlyBase data by copying `interactome-flybase-collapsed-weighted.txt`
         into import directory
         - Import the GO terms using the following command:
@@ -12,7 +12,7 @@
 
         - Unzip the .gz before continuing.
         - Remove the first few lines from the file that do not contain the data.
-    - "~/neo4j/plugins/" to store any necessary plugins for production environments
+    - `~/neo4j/plugins/` to store any necessary plugins for production environments
 
 2. Create a docker instance with APOC plugin using the following command:
 ```sh
