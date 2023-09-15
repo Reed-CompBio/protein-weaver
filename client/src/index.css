@@ -85,6 +85,11 @@ ul > * {
   margin-left: 25px
 }
 
+.cytoscape-graph{
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
