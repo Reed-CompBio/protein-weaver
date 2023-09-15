@@ -6,12 +6,7 @@
     - `~/neo4j/import/` to import data
         - Load any FlyBase data by copying `interactome-flybase-collapsed-weighted.txt`
         into import directory
-        - Import the GO terms using the following command:
-
-        `wget ftp://ftp.flybase.net/releases/current/precomputed_files/go/gene_association.fb.gz ~/neo4j/import`
-
-        - Unzip the .gz before continuing.
-        - Remove the first few lines from the file that do not contain the data.
+        - Import the properly formatted GO terms file `gene_association.fb` from the GitHub repository.
     - `~/neo4j/plugins/` to store any necessary plugins for production environments
 
 2. Create a docker instance with APOC plugin using the following command:
@@ -37,7 +32,7 @@ docker run \
 3. Access the docker image at http://localhost:7474/
 
 4. Create constraints before data import.
-    `CREATE CONSTRAINT FOR (n:txid7227) REQUIRE n.id IS UNIQUE;`
+    `CREATE CONSTRAINT fly_constraint FOR (n:txid7227) REQUIRE n.id IS UNIQUE;`
 
 5. Import data using the following command:
 ```js
@@ -48,24 +43,21 @@ CALL {
     MERGE (a:txid7227 {id: flybase.FlyBase1})
     MERGE (b:txid7227 {id: flybase.FlyBase2})
     MERGE (a)-[r:ProPro]-(b)
-} IN TRANSACTIONS OF 100 ROWS
+} IN TRANSACTIONS OF 100 ROWS;
 ```
 - This will create all of the protein-protein relationships and populate the database.
 
 6. Create a constraint for the GO terms in the database using the following command:
-    `CREATE CONSTRAINT FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
+    `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
 
-7. Import the Gene Ontology data in chunks of 10000 for all 133824 rows into the database using the following command:
+7. Import the Gene Ontology data into the database using the following command:
 ```js
-:auto LOAD CSV FROM 'file:///gene_association.fb' AS flygo
+:auto LOAD CSV WITH HEADERS FROM 'file:///gene_association.fb' AS flygo
 FIELDTERMINATOR '\t'
-WITH flygo
-SKIP 0  // Adjust the starting point for each batch (10000 next time)
-LIMIT 10000  // The number of rows to import in each batch
 CALL {
     with flygo
-    MERGE (g:go_term {id: flygo[4]})
-    MERGE (f:txid7227 {id: flygo[1], go: flygo[4]})
-    MERGE (f)-[r:ProGo]-(g)
-} IN TRANSACTIONS OF 100 ROWS
+    MATCH (n:txid7227 {id: flygo.db_object_id})
+    MERGE (g:go_term {id: flygo.go_id})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
 ```
