@@ -31,7 +31,11 @@ The node version is outlined in the `.nvmrc` file in both of the client and serv
 ```
 nvm use
 ```
-If the node version is not installed, follow the instuction to do so. You can verify the node version currently being used using:
+If the node version is not installed, follow the instuction to do so.
+```
+npm install
+```
+You can verify the node version currently being used using:
 ```
 node -v
 ```
@@ -49,9 +53,11 @@ Open a new terminal window and clone the repository. Locate the server in the `s
 cd client
 ```
 
-Similar to the backend server setup, we need to use and install the correct node.js version. Follow the commands below, and you may need to install the correct node version:
+Similar to the backend server setup, we need to use and install the correct node.js version.
+Follow the commands below, and you may need to install the correct node version:
 ```
 nvm use
+npm install
 node -v
 ```
 
