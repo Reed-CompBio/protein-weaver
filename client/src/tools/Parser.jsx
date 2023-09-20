@@ -1,4 +1,4 @@
-export function Neo4jParser(data) {
+export function Neo4jParser(data, source, go_term) {
   let parsedData = { nodes: [], edges: [] };
   let nodeList = [];
   let edgeList = [];
@@ -11,8 +11,13 @@ export function Neo4jParser(data) {
         let endNode = null;
         for (let j = 0; j < value[3].length - 1; j++) {
           let nodeEntry = {
-            data: { id: value[3][j], label: value[3][j], type: "interest" },
+            data: { id: value[3][j], label: value[3][j]},
           };
+          if(value[3][j] === source){
+            nodeEntry.data.type = "source"
+          }else if(j == value[3].length - 2){
+            nodeEntry.data.type = "go_protein"
+          }
           if (!nodeList.includes(value[3][j])) {
             nodeList.push(value[3][j]);
             parsedData.nodes.push(nodeEntry);

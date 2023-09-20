@@ -27,7 +27,7 @@ export default function TestParser() {
       },
     },
     {
-      selector: "node[term='GO-PROTEIN']",
+      selector: "node[type='go_protein']",
       style: {
         shape: "rectangle",
         "background-color": "purple",
@@ -76,7 +76,7 @@ export default function TestParser() {
     fetch("/api/getNetwork")
       .then((response) => response.json())
       .then((data) => {
-        setElements(Neo4jParser(data));
+        setElements(Neo4jParser(data,"FBgn0031985", "GO:0003674" ));
       });
   };
 
