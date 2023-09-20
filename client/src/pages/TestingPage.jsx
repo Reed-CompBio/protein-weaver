@@ -1,7 +1,5 @@
 import React from "react";
 import MainLayout from "../layout/MainLayout";
-import Movie from "../components/Movie.jsx";
-import Cytoscape from "../components/Cytoscape";
 import TestParser from "../components/TestParser";
 
 export default function TestingPage() {
