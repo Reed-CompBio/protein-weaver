@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { getDriver } from '../src/neo4j.js'
 import MovieService from '../services/movie.service.js'
+import NetworkService from '../services/network.service copy.js'
 
 const router = new Router()
 
@@ -24,5 +25,22 @@ router.get('/getMovie', async (req, res, next) => {
       next(e)
     }
   })
+
+router.get('/getNetwork', async (req, res, next) => {
+  try {
+
+    const networkService = new NetworkService(
+      getDriver()
+    )
+
+    const network = await networkService.getNetwork(
+    )
+
+    res.json(network)
+  }
+  catch (e) {
+    next(e)
+  }
+})
 
 export default router
