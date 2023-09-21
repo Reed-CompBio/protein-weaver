@@ -8,7 +8,7 @@ export default function TestingPage() {
     <div>
       <MainLayout>
         <div className="main-layout-body">
-          <h2>Testing Page Page</h2>
+          <h2>Testing Page</h2>
           <Movie></Movie>
           <Cytoscape />
         </div>
