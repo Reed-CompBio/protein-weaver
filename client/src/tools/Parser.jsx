@@ -11,7 +11,7 @@ export function Neo4jParser(data, source, go_term) {
         let endNode = null;
         for (let j = 0; j < value[3].length - 1; j++) {
           let nodeEntry = {
-            data: { id: value[3][j], label: value[3][j], path_rank: path_rank.push(i)},
+            data: { id: value[3][j], label: value[3][j]},
           };
           if(value[3][j] === source){
             nodeEntry.data.type = "source"
@@ -33,7 +33,7 @@ export function Neo4jParser(data, source, go_term) {
             !edgeList.includes(endNode + startNode)
           ) {
             let edgeEntry = {
-              data: { source: endNode, target: startNode, path_rank: path_rank.push(i)},
+              data: { source: endNode, target: startNode},
             };
             edgeList.push(startNode + endNode);
             parsedData.edges.push(edgeEntry);

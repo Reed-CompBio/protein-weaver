@@ -43,4 +43,9 @@ router.get('/getNetwork', async (req, res, next) => {
   }
 })
 
+router.post('/postRequest', async(req, res, next) => {
+  const body = req.body
+  res.json(body)
+})
+
 export default router

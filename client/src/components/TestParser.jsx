@@ -2,14 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { Neo4jParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape, { Stylesheet } from "cytoscape";
-import coseBilkent from 'cytoscape-cose-bilkent';
+import coseBilkent from "cytoscape-cose-bilkent";
 
-cytoscape.use( coseBilkent );
+cytoscape.use(coseBilkent);
 
 export default function TestParser() {
   const [elements, setElements] = useState({});
   const [showResults, setShowResults] = useState(false);
   const cyRef = useRef(cytoscape.Core | undefined);
+  const [test, setTest] = useState({});
 
   const cytoscapeStyle = [
     {
@@ -20,7 +21,7 @@ export default function TestParser() {
         "background-color": "#03c2fc",
         label: "data(label)",
         color: "black",
-        "font-size" : "12px"
+        "font-size": "12px",
       },
     },
     {
@@ -80,7 +81,6 @@ export default function TestParser() {
     idealEdgeLength: 50,
     idealEdgeLength: 50,
     nestingFactor: 0.1,
-
   };
 
   const getNetwork = () => {
@@ -88,6 +88,26 @@ export default function TestParser() {
       .then((response) => response.json())
       .then((data) => {
         setElements(Neo4jParser(data, "FBgn0031985", "GO:0003674"));
+      });
+  };
+
+  const postRequest = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+    console.log(formJson);
+
+    fetch("/api/postRequest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Object.fromEntries(formData.entries())),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setTest(data);
       });
   };
 
@@ -113,23 +133,19 @@ export default function TestParser() {
               height: "500px",
             }}
             stylesheet={cytoscapeStyle}
-            // cy={(cy) => (cyRef.current = cy)}
-            // cy={(cy) => {
-            //   cyRef.current = cy;
-            //   cy.elements("node[type='source']").position({ x: 350, y: 300 });
-            //   cy.center(cy.elements("node[type='source']"));
-            //   cy.elements("node[type='intermediate']").positions(function( node, i ){
-            //     return {
-            //       x: i * 100,
-            //       y: i * 100
-            //     };
-            //   });
-            //   cy.fit(cy.elements("node"), 50);
-            // }}
             layout={layout}
           />
         </div>
       )}
+      <form method="post" onSubmit={postRequest}>
+        <label>
+          Edit your post:
+          <textarea name="postContent" defaultValue="" rows={4} cols={20} />
+        </label>
+        <hr />
+        <button type="submit">Click postRequest</button>
+      </form>
+      <p>{JSON.stringify(test)}</p>
     </div>
   );
 }
