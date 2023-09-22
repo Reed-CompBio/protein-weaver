@@ -2,14 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { Neo4jParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape, { Stylesheet } from "cytoscape";
+import FlyBaseService from "../../../server/services/flybase.service";
 
-export default function TestParser() {
-  const [elements, setElements] = useState({});
-  const cyRef = useRef(cytoscape.Core | undefined);
-  const [proteinInput, setProteinInput] = useState('Enter FlyBase ID: "FBgn0031985"');
-  const [goTermInput, setGoTermInput] = useState('Enter GO Term: "GO:0003674"');
-  const [kInput, setKInput] = useState('Number of Pathways to Display: 5');
-  const [showResults, setShowResults] = useState(false);
+export default function FlyQuery() {
+    const [elements, setElements] = useState({});
+    const cyRef = useRef(cytoscape.Core | undefined);
+    const [proteinInput, setProteinInput] = useState('FBgn0031985'); // Default value
+    const [goTermInput, setGoTermInput] = useState('GO:0003674'); // Default value
+    const [kInput, setKInput] = useState('5'); // Default value
+    const [showResults, setShowResults] = useState(false);
 
   const cytoscapeStyle = [
     {
@@ -75,8 +76,8 @@ export default function TestParser() {
     // center: ""
   };
 
-  const getNetwork = () => {
-    fetch("/api/getNetwork")
+  const getFlyBase = () => {
+    fetch("/api/getFlyBase?proteinInput=${proteinInput}&goTermInput=${goTermInput}")
       .then((response) => response.json())
       .then((data) => {
         setElements(Neo4jParser( data, proteinInput, goTermInput ));
@@ -86,28 +87,31 @@ export default function TestParser() {
   return (
     <div>
       <input
-            type="text"
-            value={proteinInput}
-            onChange={(e) => setProteinInput(e.target.value)}
+        type="text"
+        placeholder="Enter source node ID"
+        value={proteinInput}
+        onChange={(e) => setProteinInput(e.target.value)}
       />
       <input
-            type="text"
-            value={goTermInput}
-            onChange={(e) => setGoTermInput(e.target.value)}
+        type="text"
+        placeholder="Enter target node ID"
+        value={goTermInput}
+        onChange={(e) => setGoTermInput(e.target.value)}
       />
       <input
-            type="text"
-            value={kInput}
-            onChange={(e) => setKInput(e.target.value)}
+        type="text"
+        placeholder="Enter number of pathways to display"
+        value={kInput}
+        onChange={(e) => setKInput(e.target.value)}
       />
         <br/>
       <button
         onClick={() => {
-          getNetwork();
+          getFlyBase();
           setShowResults(true);
         }}
       >
-        Click to do getNetwork API call
+        Click to Query FlyBase API
       </button>
       {JSON.stringify(elements) === "{}" ? (
         <p>Loading...</p>

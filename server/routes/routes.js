@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { getDriver } from '../src/neo4j.js'
 import MovieService from '../services/movie.service.js'
 import NetworkService from '../services/network.service copy.js'
+import FlyBaseService from '../services/flybase.service.js'
 
 const router = new Router()
 
@@ -34,6 +35,23 @@ router.get('/getNetwork', async (req, res, next) => {
     )
 
     const network = await networkService.getNetwork(
+    )
+
+    res.json(network)
+  }
+  catch (e) {
+    next(e)
+  }
+})
+
+router.get('/getFlyBase', async (req, res, next) => {
+  try {
+
+    const flyBaseService = new FlyBaseService(
+      getDriver()
+    )
+
+    const network = await flyBaseService.getFlyBase(
     )
 
     res.json(network)

@@ -16,7 +16,7 @@ export function Neo4jParser(data, source, go_term) {
           if(value[3][j] === source){
             nodeEntry.data.type = "source"
           }else if(j == value[3].length - 2){
-            nodeEntry.data.type = "go_protein"
+            nodeEntry.data.type = "go_term"
           }
           if (!nodeList.includes(value[3][j])) {
             nodeList.push(value[3][j]);
