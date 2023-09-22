@@ -11,12 +11,14 @@ export function Neo4jParser(data, source, go_term) {
         let endNode = null;
         for (let j = 0; j < value[3].length - 1; j++) {
           let nodeEntry = {
-            data: { id: value[3][j], label: value[3][j]},
+            data: { id: value[3][j], label: value[3][j], path_rank: path_rank.push(i)},
           };
           if(value[3][j] === source){
             nodeEntry.data.type = "source"
           }else if(j == value[3].length - 2){
             nodeEntry.data.type = "go_protein"
+          }else {
+            nodeEntry.data.type = "intermediate"
           }
           if (!nodeList.includes(value[3][j])) {
             nodeList.push(value[3][j]);
@@ -31,15 +33,15 @@ export function Neo4jParser(data, source, go_term) {
             !edgeList.includes(endNode + startNode)
           ) {
             let edgeEntry = {
-              data: { source: endNode, target: startNode, label: "TEST" },
+              data: { source: endNode, target: startNode, path_rank: path_rank.push(i)},
             };
             edgeList.push(startNode + endNode);
             parsedData.edges.push(edgeEntry);
-          }else {console.log("Omitted Edge")}
+          }
         }
       }
     }
-    console.log(edgeList)
   }
+  console.log(parsedData)
   return parsedData;
 }

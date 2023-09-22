@@ -56,9 +56,6 @@ export default function Cytoscape() {
       { data: { source: "6", target: "4", label: "Edge from Node1 to Node2" } },
       { data: { source: "6", target: "7", label: "Edge from Node1 to Node2" } },
       { data: { source: "6", target: "8", label: "Edge from Node1 to Node2" } },
-
-
-
     ],
   };
   const cytoscapeStyle = [
@@ -133,10 +130,10 @@ export default function Cytoscape() {
         style={{ width: "450px", height: "450px" }}
         stylesheet={cytoscapeStyle}
         // layout={layout}
-        cy={cy => {
-            cy.center(cy.elements('node[type=\'source\']'));
-          }}
-          layout={layout}
+        cy={(cy) => {
+          cy.center(cy.elements("node[type='source']"));
+        }}
+        layout={layout}
       />
     </div>
   );
