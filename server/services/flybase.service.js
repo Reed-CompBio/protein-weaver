@@ -3,8 +3,6 @@ export default class FlyBaseService {
    * @type {neo4j.Driver}
    */
   driver;
-  proteinNodeId;
-  goNodeId;
 
   /**
    * The constructor expects an instance of the Neo4j Driver, which will be
@@ -14,36 +12,28 @@ export default class FlyBaseService {
    */
   constructor(driver) {
     this.driver = driver;
-    this.proteinNodeId = null; // Initialize to null or a default value
-    this.goNodeId = null; // Initialize to null or a default value
   }
 
-  // Method to set source and target nodes based on user input
-  setSourceAndTargetNodes(proteinNodeId, goNodeId) {
-    this.proteinNodeId = proteinNodeId;
-    this.goNodeId = goNodeId;
-  }
-
-  async getFlyBase() {
-    if (!this.proteinNodeId || !this.goNodeId) {
-      console.error('Source and target nodes are not set.');
+  async getFlyBase(proteinInput, goTermInput, kInput) {
+    if (!proteinInput || !goTermInput || !kInput) {
+      console.error('Protein, GO Term and Number of Pathways are required inputs.');
       return null;
     }
-
-    console.log("getting network");
-
+  
+    console.log("Getting k networks for Protein:", proteinInput, "and GO Term:", goTermInput, "with k =", kInput);
+  
     const session = this.driver.session();
-
-    const res = await session.executeRead(
-      (tx) =>
-        tx.run(
+  
+    try {
+      const res = await session.executeRead(async (tx) => {
+        const network = await tx.run(
           `
-          MATCH (source:txid7227 {id: $sourceId})
-          MATCH (target:go_term {id: $targetId})
+          MATCH (source:txid7227 {id: $protein})
+          MATCH (target:go_term {id: $goTerm})
           CALL gds.shortestPath.yens.stream('myGraph', {
               sourceNode: source,
               targetNode: target,
-              k: 3
+              k: toInteger($k)
           })
           YIELD index, sourceNode, targetNode, nodeIds, path
           RETURN
@@ -55,18 +45,23 @@ export default class FlyBaseService {
           ORDER BY index
           `,
           {
-            sourceId: this.proteinNodeId,
-            targetId: this.goNodeId,
+            protein: proteinInput,
+            goTerm: goTermInput,
+            k: kInput
           }
-        )
-    );
-
-    const network = res.records;
-
-    await session.close();
-
-    console.log(network);
-
-    return network;
+        );
+        return network.records;
+      });
+  
+      console.log("Network result:", res);
+  
+      return res;
+    } catch (error) {
+      console.error('Error in getFlyBase:', error);
+      return null; // You can handle the error in a more appropriate way
+    } finally {
+      await session.close();
+    }
   }
-}
+  
+};

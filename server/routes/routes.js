@@ -1,10 +1,12 @@
-import { Router } from 'express'
-import { getDriver } from '../src/neo4j.js'
-import MovieService from '../services/movie.service.js'
-import NetworkService from '../services/network.service copy.js'
-import FlyBaseService from '../services/flybase.service.js'
+import { Router } from 'express';
+import { getDriver } from '../src/neo4j.js';
+import bodyParser from 'body-parser';
+import MovieService from '../services/movie.service.js';
+import NetworkService from '../services/network.service copy.js';
+import FlyBaseService from '../services/flybase.service.js';
 
 const router = new Router()
+const jsonParser = bodyParser.json();
 
 router.get("/test", (req,res) =>{
   res.json({"message": "Successfully connected to the backend API"})
@@ -34,31 +36,38 @@ router.get('/getNetwork', async (req, res, next) => {
       getDriver()
     )
 
-    const network = await networkService.getNetwork(
-    )
+    const network = await networkService.getNetwork()
 
     res.json(network)
   }
   catch (e) {
     next(e)
   }
-})
+});
 
-router.get('/getFlyBase', async (req, res, next) => {
+router.post('/getFlyBase', jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const protein = data.protein;
+  const goTerm = data.goTerm;
+  const k = data.k;
+
+  console.log('Protein:', protein);
+  console.log('GO Term:', goTerm);
+  console.log('k:', k);
+
   try {
+    const flyBaseService = new FlyBaseService(getDriver());
+    const queryResult = await flyBaseService.getFlyBase(protein, goTerm, k);
 
-    const flyBaseService = new FlyBaseService(
-      getDriver()
-    )
-
-    const network = await flyBaseService.getFlyBase(
-    )
-
-    res.json(network)
+    if (!queryResult) {
+      res.status(404).json({ error: 'No data found' });
+    } else {
+      res.status(200).json(queryResult);
+    }
+  } catch (error) {
+    console.error('Error in /getFlyBase:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-  catch (e) {
-    next(e)
-  }
-})
+});
 
 export default router

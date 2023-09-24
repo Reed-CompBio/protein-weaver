@@ -1,7 +1,6 @@
 import React from "react";
 import MainLayout from "../layout/MainLayout";
 import FlyQuery from "../components/FlyQuery.jsx";
-import Cytoscape from "../components/Cytoscape";
 
 export default function FlyBasePage() {
     return (
@@ -10,7 +9,6 @@ export default function FlyBasePage() {
             <div className="main-layout-body">
               <h2>Query FlyBase</h2>
               <FlyQuery />
-              <Cytoscape />
             </div>
           </MainLayout>
         </div>

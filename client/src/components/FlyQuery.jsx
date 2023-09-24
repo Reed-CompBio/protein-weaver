@@ -2,15 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Neo4jParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape, { Stylesheet } from "cytoscape";
-import FlyBaseService from "../../../server/services/flybase.service";
 
 export default function FlyQuery() {
-    const [elements, setElements] = useState({});
-    const cyRef = useRef(cytoscape.Core | undefined);
-    const [proteinInput, setProteinInput] = useState('FBgn0031985'); // Default value
-    const [goTermInput, setGoTermInput] = useState('GO:0003674'); // Default value
-    const [kInput, setKInput] = useState('5'); // Default value
-    const [showResults, setShowResults] = useState(false);
+  const [query, setQuery] = useState({ "protein": "", "goTerm": "", "k" : []});
+  const [networkResult, setNetworkResult] = useState({});
+  const cyRef = useRef(cytoscape.Core | undefined);
 
   const cytoscapeStyle = [
     {
@@ -76,50 +72,73 @@ export default function FlyQuery() {
     // center: ""
   };
 
-  const getFlyBase = () => {
-    fetch("/api/getFlyBase?proteinInput=${proteinInput}&goTermInput=${goTermInput}")
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log(query)
+
+    fetch('/api/getFlyBase', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(query),
+    })
       .then((response) => response.json())
       .then((data) => {
-        setElements(Neo4jParser( data, proteinInput, goTermInput ));
+        setNetworkResult(Neo4jParser(data, query.protein, query.goTerm));
+      })
+      .catch((error) => {
+        console.error('Error getting the network:', error);
       });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setQuery((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Enter source node ID"
-        value={proteinInput}
-        onChange={(e) => setProteinInput(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Enter target node ID"
-        value={goTermInput}
-        onChange={(e) => setGoTermInput(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Enter number of pathways to display"
-        value={kInput}
-        onChange={(e) => setKInput(e.target.value)}
-      />
-        <br/>
-      <button
-        onClick={() => {
-          getFlyBase();
-          setShowResults(true);
-        }}
-      >
-        Click to Query FlyBase API
-      </button>
-      {JSON.stringify(elements) === "{}" ? (
+      <h2>Enter Protein, GO Term and Number of Networks</h2>
+      <form method="post" onSubmit={handleSubmit} action='api/getFlyBase'>
+        <label>FlyBase Protein ID:</label>
+        <input
+          type="text"
+          name="protein"
+          value={query.protein}
+          onChange={handleInputChange}
+          required
+        />
+        <label>GO Term:</label>
+        <input
+          type="text"
+          name="goTerm"
+          value={query.goTerm}
+          onChange={handleInputChange}
+          required
+        />
+        <label>Number of Pathways:</label>
+        <input
+          type="number"
+          name="k"
+          value={query.k}
+          onChange={handleInputChange}
+          required
+        />
+        <button type="submit">Search for Networks</button>
+      </form>
+      {JSON.stringify(networkResult) === "{}" ? (
         <p>Loading...</p>
+
       ) : (
         <div>
           <CytoscapeComponent
             className="cytoscape-graph"
-            elements={CytoscapeComponent.normalizeElements(elements)}
+            elements={CytoscapeComponent.normalizeElements(networkResult)}
             style={{
               width: "800px",
               height: "500px",
@@ -130,7 +149,8 @@ export default function FlyQuery() {
             cy={(cy) => (cyRef.current = cy)}
           />
         </div>
-      )}
+      )
+      }
     </div>
   );
 }
