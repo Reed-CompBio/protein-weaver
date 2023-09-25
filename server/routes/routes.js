@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { getDriver } from '../src/neo4j.js';
 import bodyParser from 'body-parser';
 import MovieService from '../services/movie.service.js';
-import NetworkService from '../services/network.service copy.js';
+import NetworkService from '../services/network.service.js';
 import FlyBaseService from '../services/flybase.service.js';
 
 const router = new Router()
