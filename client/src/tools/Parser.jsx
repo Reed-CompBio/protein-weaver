@@ -42,6 +42,5 @@ export function Neo4jParser(data, source, go_term) {
       }
     }
   }
-  console.log(parsedData)
   return parsedData;
 }

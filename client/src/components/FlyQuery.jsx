@@ -1,86 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Neo4jParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
-import cytoscape, { Stylesheet } from "cytoscape";
+import cytoscape from "cytoscape";
+import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 
 export default function FlyQuery() {
-  const [query, setQuery] = useState({ "protein": "", "goTerm": "", "k" : []});
+  const [query, setQuery] = useState({ protein: "", goTerm: "", k: [] });
+  const [showResults, setShowResults] = useState(false);
   const [networkResult, setNetworkResult] = useState({});
   const cyRef = useRef(cytoscape.Core | undefined);
-
-  const cytoscapeStyle = [
-    {
-      selector: "node",
-      style: {
-        width: 20,
-        height: 20,
-        "background-color": "#03c2fc",
-        label: "data(label)",
-        color: "white",
-      },
-    },
-    {
-      selector: "node[type='source']",
-      style: {
-        shape: "rectangle",
-        "background-color": "red",
-      },
-    },
-    {
-      selector: "node[type='go_protein']",
-      style: {
-        shape: "rectangle",
-        "background-color": "purple",
-      },
-    },
-    {
-      selector: "edge",
-      style: {
-        width: 2,
-        "line-color": "white",
-        "target-arrow-color": "white",
-        "target-arrow-shape": "triangle",
-        "curve-style": "bezier",
-      },
-    },
-    {
-      selector: "node:selected",
-      style: {
-        "border-width": "3px",
-        "border-color": "white",
-        "border-opacity": "0.5",
-        "background-color": "red",
-        width: 30,
-        height: 30,
-        //text props
-        "text-outline-color": "black",
-        "text-outline-width": "3px",
-      },
-    },
-  ];
-
-  const layout = {
-    name: "random",
-    fit: true,
-    // // circle: true,
-    // directed: true,
-    padding: 50,
-    animate: false,
-    // animationDuration: 1000,
-    avoidOverlap: true,
-    // nodeDimensionsIncludeLabels: false,
-    // center: ""
-  };
+  
 
   const handleSubmit = async (e) => {
+    setNetworkResult({})
     e.preventDefault();
 
-    console.log(query)
-
-    fetch('/api/getFlyBase', {
-      method: 'POST',
+    fetch("/api/getFlyBase", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(query),
     })
@@ -89,8 +27,9 @@ export default function FlyQuery() {
         setNetworkResult(Neo4jParser(data, query.protein, query.goTerm));
       })
       .catch((error) => {
-        console.error('Error getting the network:', error);
+        console.error("Error getting the network:", error);
       });
+    setShowResults(true);
   };
 
   const handleInputChange = (e) => {
@@ -104,7 +43,7 @@ export default function FlyQuery() {
   return (
     <div>
       <h2>Enter Protein, GO Term and Number of Networks</h2>
-      <form method="post" onSubmit={handleSubmit} action='api/getFlyBase'>
+      <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
         <label>FlyBase Protein ID:</label>
         <input
           type="text"
@@ -131,10 +70,8 @@ export default function FlyQuery() {
         />
         <button type="submit">Search for Networks</button>
       </form>
-      {JSON.stringify(networkResult) === "{}" ? (
-        <p>Loading...</p>
 
-      ) : (
+      {showResults && JSON.stringify(networkResult) != "{}" && (
         <div>
           <CytoscapeComponent
             className="cytoscape-graph"
@@ -142,15 +79,12 @@ export default function FlyQuery() {
             style={{
               width: "800px",
               height: "500px",
-              border: "1px solid black",
             }}
             stylesheet={cytoscapeStyle}
             layout={layout}
-            cy={(cy) => (cyRef.current = cy)}
           />
         </div>
-      )
-      }
+      )}
     </div>
   );
 }
