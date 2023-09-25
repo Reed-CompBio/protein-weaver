@@ -20,7 +20,7 @@ export default class FlyBaseService {
       return null;
     }
   
-    console.log("Getting k networks for Protein:", proteinInput, "and GO Term:", goTermInput, "with k =", kInput);
+    console.log("Getting k paths for Protein:", proteinInput, "and GO Term:", goTermInput, "with k =", kInput);
   
     const session = this.driver.session();
   

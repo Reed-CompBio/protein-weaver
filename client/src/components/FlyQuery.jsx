@@ -121,7 +121,7 @@ export default function FlyQuery() {
           onChange={handleInputChange}
           required
         />
-        <label>Number of Pathways:</label>
+        <label>Number of Paths:</label>
         <input
           type="number"
           name="k"
