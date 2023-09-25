@@ -16,7 +16,9 @@ export function Neo4jParser(data, source, go_term) {
           if(value[3][j] === source){
             nodeEntry.data.type = "source"
           }else if(j == value[3].length - 2){
-            nodeEntry.data.type = "go_term"
+            nodeEntry.data.type = "go_protein"
+          }else {
+            nodeEntry.data.type = "intermediate"
           }
           if (!nodeList.includes(value[3][j])) {
             nodeList.push(value[3][j]);
@@ -31,15 +33,15 @@ export function Neo4jParser(data, source, go_term) {
             !edgeList.includes(endNode + startNode)
           ) {
             let edgeEntry = {
-              data: { source: endNode, target: startNode, label: "TEST" },
+              data: { source: endNode, target: startNode},
             };
             edgeList.push(startNode + endNode);
             parsedData.edges.push(edgeEntry);
-          }else {console.log("Omitted Edge")}
+          }
         }
       }
     }
-    console.log(edgeList)
   }
+  console.log(parsedData)
   return parsedData;
 }
