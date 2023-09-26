@@ -42,34 +42,42 @@ export default function FlyQuery() {
 
   return (
     <div>
-      <h2>Enter Protein, GO Term and Number of Networks</h2>
+      <div class="container">
       <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
-        <label>FlyBase Protein ID:</label>
+
+        <div class="wrapper">
+          <h3>Enter Protein, GO Term and Number of Networks</h3>
+          <div class="search-container">
         <input
           type="text"
           name="protein"
+          placeholder="FBgn0031985"
           value={query.protein}
           onChange={handleInputChange}
           required
         />
-        <label>GO Term:</label>
         <input
           type="text"
           name="goTerm"
+          placeholder="GO:0003674"
           value={query.goTerm}
           onChange={handleInputChange}
           required
         />
-        <label>Number of Paths:</label>
         <input
           type="number"
           name="k"
+          placeholder="3"
           value={query.k}
           onChange={handleInputChange}
           required
         />
-        <button type="submit">Search for Networks</button>
+        <button type="submit" class="button">Search for Networks</button>
+          </div>
+        </div>
+
       </form>
+      </div>
 
       {showResults && JSON.stringify(networkResult) != "{}" && (
         <div>
