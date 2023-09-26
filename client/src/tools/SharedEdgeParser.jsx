@@ -8,7 +8,7 @@ export function SharedEdgeParser(networkData, sharedEdgeData) {
       !networkData.edgeList.includes(endNode + startNode)
     ) {
       let edgeEntry = {
-        data: { source: endNode, target: startNode },
+        data: { source: endNode, target: startNode, type: 'shared'},
       };
       networkData.edgeList.push(startNode + endNode);
       networkData.edges.push(edgeEntry);

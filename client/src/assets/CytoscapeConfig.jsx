@@ -39,7 +39,15 @@ export const cytoscapeStyle = [
     selector: "edge",
     style: {
       width: 2,
-      "line-color": "grey",
+      "line-color": "black",
+      "curve-style": "bezier",
+    },
+  },
+  {
+    selector: "edge[type='shared']",
+    style: {
+      width: 2,
+      "line-color": "#d8d8d8",
       "curve-style": "bezier",
     },
   },
