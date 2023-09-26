@@ -4,7 +4,7 @@ import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape, { Stylesheet } from "cytoscape";
 import coseBilkent from "cytoscape-cose-bilkent";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
-import { SharedEdgeParser, getNodes } from "../tools/SharedEdgeParser";
+import { SharedEdgeParser } from "../tools/SharedEdgeParser";
 
 cytoscape.use(coseBilkent);
 

@@ -46,18 +46,19 @@ router.get('/getNetwork', async (req, res, next) => {
   }
 });
 
-router.get('/getSharedEdges', async (req, res, next) => {
-  try {
+router.post('/getSharedEdges', jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const nodeList = data.nodeList
 
+  try {
     const sharedEdgesService = new SharedEdgesService(
       getDriver()
     )
 
-    const sharedEdges = await sharedEdgesService.getSharedEdges()
+    const sharedEdges = await sharedEdgesService.getSharedEdges(nodeList)
 
     res.json(sharedEdges)
-  }
-  catch (e) {
+  }catch (e) {
     next(e)
   }
 });
