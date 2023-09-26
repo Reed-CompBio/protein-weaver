@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import MovieService from '../services/movie.service.js';
 import NetworkService from '../services/network.service.js';
 import FlyBaseService from '../services/flybase.service.js';
+import SharedEdgesService from '../services/shared.edges.service.js';
 
 const router = new Router()
 const jsonParser = bodyParser.json();
@@ -39,6 +40,22 @@ router.get('/getNetwork', async (req, res, next) => {
     const network = await networkService.getNetwork()
 
     res.json(network)
+  }
+  catch (e) {
+    next(e)
+  }
+});
+
+router.get('/getSharedEdges', async (req, res, next) => {
+  try {
+
+    const sharedEdgesService = new SharedEdgesService(
+      getDriver()
+    )
+
+    const sharedEdges = await sharedEdgesService.getSharedEdges()
+
+    res.json(sharedEdges)
   }
   catch (e) {
     next(e)

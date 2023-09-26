@@ -1,7 +1,6 @@
 export function Neo4jParser(data, source, go_term) {
-  let parsedData = { nodes: [], edges: [] };
-  let nodeList = [];
-  let edgeList = [];
+  let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
+
 
   for (let i = 0; i < data.length; i++) {
     let current = data[i];
@@ -20,8 +19,8 @@ export function Neo4jParser(data, source, go_term) {
           }else {
             nodeEntry.data.type = "intermediate"
           }
-          if (!nodeList.includes(value[3][j])) {
-            nodeList.push(value[3][j]);
+          if (!parsedData.nodeList.includes(value[3][j])) {
+            parsedData.nodeList.push(value[3][j]);
             parsedData.nodes.push(nodeEntry);
           }
         }
@@ -29,13 +28,13 @@ export function Neo4jParser(data, source, go_term) {
           startNode = value[3][j - 1];
           endNode = value[3][j];
           if (
-            !edgeList.includes(startNode + endNode) &&
-            !edgeList.includes(endNode + startNode)
+            !parsedData.edgeList.includes(startNode + endNode) &&
+            !parsedData.edgeList.includes(endNode + startNode)
           ) {
             let edgeEntry = {
               data: { source: endNode, target: startNode},
             };
-            edgeList.push(startNode + endNode);
+            parsedData.edgeList.push(startNode + endNode);
             parsedData.edges.push(edgeEntry);
           }
         }
