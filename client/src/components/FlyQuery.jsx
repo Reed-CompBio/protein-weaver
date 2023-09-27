@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Neo4jParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
+import Sidebar from "./Sidebar";
+
 import { SharedEdgeParser } from "../tools/SharedEdgeParser";
 
 export default function FlyQuery() {
@@ -101,7 +103,7 @@ export default function FlyQuery() {
       </div>
 
       {showResults && JSON.stringify(networkResult) != "{}" && (
-        <div>
+        <div className="sidebar-align">
           <CytoscapeComponent
             className="cytoscape-graph"
             elements={CytoscapeComponent.normalizeElements(networkResult)}
@@ -112,8 +114,9 @@ export default function FlyQuery() {
             stylesheet={cytoscapeStyle}
             layout={layout}
           />
+          <Sidebar />
         </div>
       )}
     </div>
   );
-}
+};
