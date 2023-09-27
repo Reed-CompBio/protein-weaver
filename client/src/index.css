@@ -56,6 +56,12 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.close-button {
+  float: right;
+  font-size: 0.6em;
+  margin: 0;
+}
+
 ul {
   list-style-type: none;
 }
@@ -93,6 +99,13 @@ ul > * {
 
 .sidebar-align {
   display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: lightgrey;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 @media (prefers-color-scheme: light) {

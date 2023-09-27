@@ -19,8 +19,9 @@ export default function Sidebar() {
         {showSidebar && (
             <div 
             id="sidebarContent"
+            className="sidebar"
             >
-                <button onClick={closeSidebar}>Close Sidebar</button>
+                <button className="close-button" onClick={closeSidebar}>&#x2715;</button>
                 <h2>Sidebar Title</h2>
                 <p>Main content goes here...</p>
             </div>

@@ -11,7 +11,6 @@ export default function FlyQuery() {
   const [showResults, setShowResults] = useState(false);
   const [networkResult, setNetworkResult] = useState({});
   const cyRef = useRef(cytoscape.Core | undefined);
-  const [showSidebar, setShowSidebar] = useState(false);
   
 
   const handleSubmit = async (e) => {
@@ -91,4 +90,4 @@ export default function FlyQuery() {
       )}
     </div>
   );
-}
+};
