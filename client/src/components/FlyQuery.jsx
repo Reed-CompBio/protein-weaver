@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Neo4jParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
+import Sidebar from "./Sidebar";
+
 
 export default function FlyQuery() {
   const [query, setQuery] = useState({ protein: "", goTerm: "", k: [] });
   const [showResults, setShowResults] = useState(false);
   const [networkResult, setNetworkResult] = useState({});
   const cyRef = useRef(cytoscape.Core | undefined);
+  const [showSidebar, setShowSidebar] = useState(false);
   
 
   const handleSubmit = async (e) => {
@@ -72,7 +75,7 @@ export default function FlyQuery() {
       </form>
 
       {showResults && JSON.stringify(networkResult) != "{}" && (
-        <div>
+        <div className="sidebar-align">
           <CytoscapeComponent
             className="cytoscape-graph"
             elements={CytoscapeComponent.normalizeElements(networkResult)}
@@ -83,6 +86,7 @@ export default function FlyQuery() {
             stylesheet={cytoscapeStyle}
             layout={layout}
           />
+          <Sidebar />
         </div>
       )}
     </div>

@@ -91,6 +91,9 @@ ul > * {
   background-color: #ffffff;
 }
 
+.sidebar-align {
+  display: flex;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
