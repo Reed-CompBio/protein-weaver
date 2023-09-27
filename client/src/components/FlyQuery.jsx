@@ -83,13 +83,17 @@ export default function FlyQuery() {
         />
         <input
           type="number"
+          min="0"
           name="k"
           placeholder="3"
           value={query.k}
           onChange={handleInputChange}
           required
         />
-        <button type="submit" class="button">Search for Networks</button>
+        <button
+        type="submit"
+        class="button"
+        >Search for Networks</button>
           </div>
         </div>
 
