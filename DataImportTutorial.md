@@ -41,8 +41,8 @@ docker run \
 FIELDTERMINATOR '\t'
 CALL {
     with flybase
-    MERGE (a:txid7227 {id: flybase.FlyBase1})
-    MERGE (b:txid7227 {id: flybase.FlyBase2})
+    MERGE (a:txid7227 {id: flybase.FlyBase1, name: flybase.symbol1})
+    MERGE (b:txid7227 {id: flybase.FlyBase2, name: flybase.symbol1})
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
@@ -60,16 +60,5 @@ CALL {
     MATCH (n:txid7227 {id: flygo.db_object_id})
     MERGE (g:go_term {id: flygo.go_id})
     MERGE (n)-[r:ProGo]-(g)
-} IN TRANSACTIONS OF 1000 ROWS;
-```
-
-8. Add protein names to the FlyBase data:
-```
-:auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS flybase
-FIELDTERMINATOR '\t'
-CALL {
-    with flybase
-    MATCH (n:txid7227 {id: flybase.FlyBase1})
-    SET n.name = flybase.symbol1
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
