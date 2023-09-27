@@ -6,6 +6,7 @@
     - `~/neo4j/import/` to import data
         - Load any FlyBase data by copying `interactome-flybase-collapsed-weighted.txt`
         into import directory
+        	- Delete 'sy#' preceding the first column name in `interactome-flybase-collapsed-weighted.txt`
         - Import the properly formatted GO terms file `gene_association.fb` from the GitHub repository.
     - `~/neo4j/plugins/` to store any necessary plugins for production environments
 
@@ -40,8 +41,8 @@ docker run \
 FIELDTERMINATOR '\t'
 CALL {
     with flybase
-    MERGE (a:txid7227 {id: flybase.FlyBase1})
-    MERGE (b:txid7227 {id: flybase.FlyBase2})
+    MERGE (a:txid7227 {id: flybase.FlyBase1, name: flybase.symbol1})
+    MERGE (b:txid7227 {id: flybase.FlyBase2, name: flybase.symbol1})
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
