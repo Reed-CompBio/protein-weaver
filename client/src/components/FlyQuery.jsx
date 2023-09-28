@@ -79,43 +79,46 @@ export default function FlyQuery() {
 
   return (
     <div>
-      <div className="container">
-      <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
+      <div className="search-box-align">
 
-        <div className="wrapper">
-          <h3>Enter Protein, GO Term and Number of Networks</h3>
-          <div className="search-container">
-        <input
-          type="text"
-          name="protein"
-          placeholder="FBgn0031985"
-          value={query.protein}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="goTerm"
-          placeholder="GO:0003674"
-          value={query.goTerm}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          min="0"
-          name="k"
-          placeholder="3"
-          value={query.k}
-          onChange={handleInputChange}
-          required
-        />
-        <button
-        type="submit"
-        className="button"
-        >Search for Networks</button>
+        <div className="container">
+        <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
+
+          <div className="wrapper">
+            <h2>Enter protein, GO term and number of paths to visualize...</h2>
+            <div className="search-container">
+          <input
+            type="text"
+            name="protein"
+            placeholder="FBgn0031985"
+            value={query.protein}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="text"
+            name="goTerm"
+            placeholder="GO:0003674"
+            value={query.goTerm}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+           type="number"
+            min="0"
+            name="k"
+            placeholder="3"
+            value={query.k}
+            onChange={handleInputChange}
+            required
+          />
+          <button
+          type="submit"
+          className="button"
+          >Search for Networks</button>
+            </div>
           </div>
-        </div>
+
       </form>
       </div>
 
@@ -139,6 +142,8 @@ export default function FlyQuery() {
           props={sidebarNode}/>
         </div>
       )}
+
+      </div>
     </div>
   );
 };
