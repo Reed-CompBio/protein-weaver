@@ -1,6 +1,8 @@
-import { React, useState } from "react";
+import React from "react";
 
-export default function Sidebar() {
+export default function Sidebar({props}) {
+
+
     return (
     <div>
         <div 
@@ -8,7 +10,10 @@ export default function Sidebar() {
         className="sidebar"
         >
             <h2>Sidebar Title</h2>
-            <p>Main content goes here...</p>
+            <p>Protein: {props.label}</p>
+            <p>Type of node: {props.type}</p>
+            <p>Associated GO Terms: </p>
+            <p></p>
         </div>
     </div>
     );
