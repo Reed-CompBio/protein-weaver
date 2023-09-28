@@ -59,14 +59,19 @@ export default function FlyQuery() {
     }));
   };
 
+  const getSidePanelData = (node) => {
+                    let currentNode = node.target.data();
+                console.log(currentNode);
+  }
+
   return (
     <div>
-      <div class="container">
+      <div className="container">
       <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
 
-        <div class="wrapper">
+        <div className="wrapper">
           <h3>Enter Protein, GO Term and Number of Networks</h3>
-          <div class="search-container">
+          <div className="search-container">
         <input
           type="text"
           name="protein"
@@ -94,11 +99,10 @@ export default function FlyQuery() {
         />
         <button
         type="submit"
-        class="button"
+        className="button"
         >Search for Networks</button>
           </div>
         </div>
-
       </form>
       </div>
 
@@ -113,7 +117,11 @@ export default function FlyQuery() {
             }}
             stylesheet={cytoscapeStyle}
             layout={layout}
-          />
+            cy={(cy) => {
+              cyRef.current = cy;
+              cy.on('click', 'node', (evt) => {getSidePanelData(evt)});
+            }}
+           />
           <Sidebar />
         </div>
       )}
