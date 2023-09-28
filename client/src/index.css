@@ -176,6 +176,7 @@ input {
 
 .sidebar {
   width: 250px;
+  height: 484px;
   background-color: lightgrey;
   border-radius: 10px;
   padding: 10px;

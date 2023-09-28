@@ -12,6 +12,7 @@ export default function FlyQuery() {
   const [showResults, setShowResults] = useState(false);
   const [networkResult, setNetworkResult] = useState({});
   const cyRef = useRef(cytoscape.Core | undefined);
+  const [sidebarNode, setSidebarNode] = useState("")
 
   async function handleSubmit(e) {
     setNetworkResult({});
@@ -27,7 +28,7 @@ export default function FlyQuery() {
       .then((response) => response.json())
       .then((data) => {
         setNetworkResult(Neo4jParser(data, query.protein, query.goTerm));
-        return Neo4jParser(data, "FBgn0031985", "GO:0003674");
+        return Neo4jParser(data, query.protein, query.goTerm);
       })
       .catch((error) => {
         console.error("Error getting the network:", error);
@@ -60,9 +61,21 @@ export default function FlyQuery() {
   };
 
   const getSidePanelData = (node) => {
-                    let currentNode = node.target.data();
-                console.log(currentNode);
-  }
+    let currentNode = node.target.data();
+
+    if (currentNode.type === "source") {
+                console.log(currentNode.label, currentNode.type);
+                setSidebarNode(currentNode);
+    }
+    if (currentNode.type === "intermediate") {
+                console.log(currentNode.label, currentNode.type);
+                setSidebarNode(currentNode);
+    }
+    else if (currentNode.type === "go_protein") {
+                console.log(currentNode.label, currentNode.type);
+                setSidebarNode(currentNode);
+    }
+};
 
   return (
     <div>
@@ -122,7 +135,8 @@ export default function FlyQuery() {
               cy.on('click', 'node', (evt) => {getSidePanelData(evt)});
             }}
            />
-          <Sidebar />
+          <Sidebar 
+          props={sidebarNode}/>
         </div>
       )}
     </div>

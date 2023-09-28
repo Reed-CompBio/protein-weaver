@@ -1,7 +1,5 @@
 export function Neo4jParser(data, source, go_term) {
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
-
-
   for (let i = 0; i < data.length; i++) {
     let current = data[i];
     for (let [key, value] of Object.entries(current)) {
