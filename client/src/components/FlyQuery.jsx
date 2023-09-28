@@ -135,7 +135,7 @@ export default function FlyQuery() {
               cy.on('click', 'node', (evt) => {getSidePanelData(evt)});
             }}
            />
-          <Sidebar 
+          <Sidebar
           props={sidebarNode}/>
         </div>
       )}
