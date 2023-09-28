@@ -26,8 +26,6 @@ export function SharedEdgeParser(networkData, sharedEdgeData) {
       }
     }
   }
-  console.log(networkData.nodes);
-
   return networkData;
 }
 

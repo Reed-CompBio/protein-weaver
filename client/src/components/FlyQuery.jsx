@@ -73,15 +73,15 @@ export default function FlyQuery() {
     let currentNode = node.target.data();
 
     if (currentNode.type === "source") {
-                console.log(currentNode.label, currentNode.type);
+                console.log(currentNode);
                 setSidebarNode(currentNode);
     }
     else if (currentNode.type === "intermediate") {
-                console.log(currentNode.label, currentNode.type);
+                console.log(currentNode);
                 setSidebarNode(currentNode);
     }
     else if (currentNode.type === "go_protein") {
-                console.log(currentNode.label, currentNode.type);
+                console.log(currentNode);
                 setSidebarNode(currentNode);
     }
 };
