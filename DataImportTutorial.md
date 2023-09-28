@@ -62,3 +62,26 @@ CALL {
     MERGE (n)-[r:ProGo]-(g)
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
+
+8. Import the common names of the proteins using the following command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS flybase
+FIELDTERMINATOR '\t'
+CALL {
+    with flybase
+    MATCH (n:txid7227 {id: flybase.FlyBase1})
+    SET n.name = flybase.symbol1
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+
+9. Import the relationships for the GO terms and proteins using the following commands:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///gene_association.fb' AS flygo
+FIELDTERMINATOR '\t'
+CALL {
+    with flygo
+    MATCH (p:txid7227 {id: flygo.db_object_id})-[r:ProGo]-(g:go_term {id: flygo.go_id})
+    SET r.relationship = flygo.qualifier
+} IN TRANSACTIONS OF 1000 ROWS;
+```
