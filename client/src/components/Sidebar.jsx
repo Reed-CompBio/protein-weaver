@@ -1,7 +1,7 @@
 import React from "react";
 import ExportJSON from "./ExportJSON";
 
-export default function Sidebar({ currentNode, sourceNode, log }) {
+export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
 
     return (
     <div>
@@ -16,11 +16,11 @@ export default function Sidebar({ currentNode, sourceNode, log }) {
             <p>Source node GO terms: </p>
             <p>Queried GO term: 
                 <a
-                href={`https://amigo.geneontology.org/amigo/term/${log.goTerm}`}
+                href={`https://amigo.geneontology.org/amigo/term/${goTerm}`}
                 target="_blank"
                 rel="noopener"
                 >
-                    &nbsp;{log.goTerm}
+                    &nbsp;{goTerm}
                 </a>
             </p>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}

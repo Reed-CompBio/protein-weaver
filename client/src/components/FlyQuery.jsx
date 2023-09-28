@@ -12,8 +12,9 @@ export default function FlyQuery() {
   const [showResults, setShowResults] = useState(false);
   const [networkResult, setNetworkResult] = useState({});
   const cyRef = useRef(cytoscape.Core | undefined);
-  const [sidebarNode, setSidebarNode] = useState("")
-  const [sourceNode, setSourceNode] = useState("")
+  const [sidebarNode, setSidebarNode] = useState("");
+  const [sourceNode, setSourceNode] = useState("");
+  const [goTerm, setGoTerm] = useState("");
 
   async function handleSubmit(e) {
     setNetworkResult({});
@@ -38,6 +39,9 @@ export default function FlyQuery() {
     const nodeList = {nodeList: network.nodeList}
 
     setSourceNode(network.nodes[0].data.label)
+
+    setGoTerm(query.goTerm)
+    // need to deal with errors such as if the GO term does not return a network with the protein
 
     const sharedEdges = await fetch("/api/getSharedEdges", {
       method: "POST",
@@ -146,6 +150,7 @@ export default function FlyQuery() {
           currentNode = {sidebarNode}
           sourceNode = {sourceNode}
           log = {query}
+          goTerm = {goTerm}
           />
         </div>
       )}
