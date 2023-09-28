@@ -12,6 +12,9 @@ export default function FlyQuery() {
   const [showResults, setShowResults] = useState(false);
   const [networkResult, setNetworkResult] = useState({});
   const cyRef = useRef(cytoscape.Core | undefined);
+  const [sidebarNode, setSidebarNode] = useState("");
+  const [sourceNode, setSourceNode] = useState("");
+  const [goTerm, setGoTerm] = useState("");
 
   async function handleSubmit(e) {
     setNetworkResult({});
@@ -44,7 +47,10 @@ export default function FlyQuery() {
     }
 
     if(network != null){
-      const nodeList = { nodeList: network.nodeList };
+      let nodeList = {nodeList: network.nodeList}
+      nodeList.nodeList.push(query.goTerm)
+      setSourceNode(network.nodes[0].data.label)
+      setGoTerm(query.goTerm)
       let sharedEdges = null
       try{
         sharedEdges = await fetch("/api/getSharedEdges", {
@@ -84,57 +90,67 @@ export default function FlyQuery() {
     }));
   };
 
-  const useThrowAsyncError = () => {
-    const [state, setState] = useState();
-
-    return (error) => {
-      setState(() => {throw error})
-    }
-  }
 
   const getSidePanelData = (node) => {
     let currentNode = node.target.data();
-    console.log(currentNode);
-  };
+
+    if (currentNode.type === "source") {
+                console.log(currentNode);
+                setSidebarNode(currentNode);
+    }
+    else if (currentNode.type === "intermediate") {
+                console.log(currentNode);
+                setSidebarNode(currentNode);
+    }
+    else if (currentNode.type === "go_protein") {
+                console.log(currentNode);
+                setSidebarNode(currentNode);
+    }
+};
 
   return (
     <div>
-      <div className="container">
+      <div className="search-box-align">
+
+        <div className="container">
         <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
+
           <div className="wrapper">
-            <h3>Enter Protein, GO Term and Number of Networks</h3>
+            <h2>Enter protein, GO term and number of paths to visualize...</h2>
             <div className="search-container">
-              <input
-                type="text"
-                name="protein"
-                placeholder="FBgn0031985"
-                value={query.protein}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="goTerm"
-                placeholder="GO:0003674"
-                value={query.goTerm}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="number"
-                min="0"
-                name="k"
-                placeholder="3"
-                value={query.k}
-                onChange={handleInputChange}
-                required
-              />
-              <button type="submit" className="button">
-                Search for Networks
-              </button>
+          <input
+            type="text"
+            name="protein"
+            placeholder="FBgn0031985"
+            value={query.protein}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="text"
+            name="goTerm"
+            placeholder="GO:0003674"
+            value={query.goTerm}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+           type="number"
+            min="0"
+            name="k"
+            placeholder="3"
+            value={query.k}
+            onChange={handleInputChange}
+            required
+          />
+          <button
+          type="submit"
+          className="button"
+          >Search for Networks</button>
             </div>
           </div>
-        </form>
+
+      </form>
       </div>
 
       {showResults && JSON.stringify(networkResult) != "{}" && (
@@ -154,10 +170,17 @@ export default function FlyQuery() {
                 getSidePanelData(evt);
               });
             }}
+           />
+          <Sidebar
+          currentNode = {sidebarNode}
+          sourceNode = {sourceNode}
+          log = {query}
+          goTerm = {goTerm}
           />
-          <Sidebar />
         </div>
       )}
+
+      </div>
     </div>
   );
 }
