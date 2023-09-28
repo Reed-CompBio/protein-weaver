@@ -36,7 +36,8 @@ export default function FlyQuery() {
         console.error("Error getting the network:", error);
       });
 
-    const nodeList = {nodeList: network.nodeList}
+    let nodeList = {nodeList: network.nodeList}
+    nodeList.nodeList.push(query.goTerm)
 
     setSourceNode(network.nodes[0].data.label)
 
