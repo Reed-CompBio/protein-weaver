@@ -6,9 +6,7 @@ export function Neo4jParser(data, source, go_term) {
       if (key == "_fields") {
         let startNode = null;
         let endNode = null;
-        console.log("path: ", i);
         for (let j = 0; j < value[4].length - 1; j++) {
-          console.log(value[4][j]);
           let nodeEntry = {
             data: {
               id: value[4][j].properties.id,
@@ -44,6 +42,5 @@ export function Neo4jParser(data, source, go_term) {
       }
     }
   }
-  console.log(parsedData)
   return parsedData;
 }
