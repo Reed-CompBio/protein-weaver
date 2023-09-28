@@ -3,11 +3,6 @@ import ExportJSON from "./ExportJSON";
 
 export default function Sidebar({ currentNode, sourceNode, log }) {
 
-    if (currentNode.type === "intermediate") {
-    
-    }
-
-
     return (
     <div>
         <div 
@@ -19,7 +14,15 @@ export default function Sidebar({ currentNode, sourceNode, log }) {
             <p>Type of node: {currentNode.type}</p>
             <p>Protein of interest: {sourceNode}</p>
             <p>Source node GO terms: </p>
-            <p>Selected GO term: {log.goTerm}</p>
+            <p>Queried GO term: 
+                <a
+                href={`https://amigo.geneontology.org/amigo/term/${log.goTerm}`}
+                target="_blank"
+                rel="noopener"
+                >
+                    &nbsp;{log.goTerm}
+                </a>
+            </p>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
             <ExportJSON 
             log = {log}
