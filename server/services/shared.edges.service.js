@@ -17,7 +17,7 @@ export default class SharedEdgesService {
   async getSharedEdges (nodeList) {
 
     const session = this.driver.session()
-
+    console.log(nodeList)
     const res = await session.executeRead(
       tx => tx.run(
         `
