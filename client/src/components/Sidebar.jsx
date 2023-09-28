@@ -1,6 +1,11 @@
 import React from "react";
+import ExportJSON from "./ExportJSON";
 
-export default function Sidebar({props}) {
+export default function Sidebar({ currentNode, sourceNode, log }) {
+
+    if (currentNode.type === "intermediate") {
+    
+    }
 
 
     return (
@@ -9,11 +14,16 @@ export default function Sidebar({props}) {
         id="sidebarContent"
         className="sidebar"
         >
-            <h2>Sidebar Title</h2>
-            <p>Protein: {props.label}</p>
-            <p>Type of node: {props.type}</p>
-            <p>Associated GO Terms: </p>
-            <p></p>
+            <h2>Network Data</h2>
+            <p>Protein: {currentNode.label}</p>
+            <p>Type of node: {currentNode.type}</p>
+            <p>Protein of interest: {sourceNode}</p>
+            <p>Source node GO terms: </p>
+            <p>Selected GO term: {log.goTerm}</p>
+            {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
+            <ExportJSON 
+            log = {log}
+            />
         </div>
     </div>
     );

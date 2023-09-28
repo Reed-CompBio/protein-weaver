@@ -13,6 +13,7 @@ export default function FlyQuery() {
   const [networkResult, setNetworkResult] = useState({});
   const cyRef = useRef(cytoscape.Core | undefined);
   const [sidebarNode, setSidebarNode] = useState("")
+  const [sourceNode, setSourceNode] = useState("")
 
   async function handleSubmit(e) {
     setNetworkResult({});
@@ -35,6 +36,8 @@ export default function FlyQuery() {
       });
 
     const nodeList = {nodeList: network.nodeList}
+
+    setSourceNode(network.nodes[0].data.label)
 
     const sharedEdges = await fetch("/api/getSharedEdges", {
       method: "POST",
@@ -60,6 +63,7 @@ export default function FlyQuery() {
     }));
   };
 
+
   const getSidePanelData = (node) => {
     let currentNode = node.target.data();
 
@@ -67,7 +71,7 @@ export default function FlyQuery() {
                 console.log(currentNode.label, currentNode.type);
                 setSidebarNode(currentNode);
     }
-    if (currentNode.type === "intermediate") {
+    else if (currentNode.type === "intermediate") {
                 console.log(currentNode.label, currentNode.type);
                 setSidebarNode(currentNode);
     }
@@ -139,7 +143,10 @@ export default function FlyQuery() {
             }}
            />
           <Sidebar
-          props={sidebarNode}/>
+          currentNode = {sidebarNode}
+          sourceNode = {sourceNode}
+          log = {query}
+          />
         </div>
       )}
 

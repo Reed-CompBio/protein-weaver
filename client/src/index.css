@@ -199,6 +199,12 @@ input {
 
 .sidebar h2, p {
   color: black;
+  word-wrap: break-word;
+}
+
+.export-json {
+  border: 2px solid white;
+  margin-top: 1rem;
 }
 
 @media (prefers-color-scheme: light) {
