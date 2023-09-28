@@ -61,7 +61,6 @@ export default function FlyQuery() {
 
   const getSidePanelData = (node) => {
                     let currentNode = node.target.data();
-                console.log(currentNode);
   }
 
   return (
