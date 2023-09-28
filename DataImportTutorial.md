@@ -71,6 +71,9 @@ CALL {
     with flybase
     MATCH (n:txid7227 {id: flybase.FlyBase1})
     SET n.name = flybase.symbol1
+    with flybase
+    MATCH (p:txid7227 {id: flybase.FlyBase2})
+    SET p.name = flybase.symbol2
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
