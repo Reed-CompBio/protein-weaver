@@ -16,39 +16,64 @@ export default function FlyQuery() {
   async function handleSubmit(e) {
     setNetworkResult({});
     e.preventDefault();
-
-    const network = await fetch("/api/getFlyBase", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(query),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setNetworkResult(Neo4jParser(data, query.protein, query.goTerm));
-        return Neo4jParser(data, "FBgn0031985", "GO:0003674");
+    let network = null;
+    try {
+      network = await fetch("/api/getFlyBase", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(query),
       })
-      .catch((error) => {
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else if (response.status === 404) {
+            return Promise.reject("error 404");
+          } else {
+            return Promise.reject("some other error: " + response.status);
+          }
+        })
+        .then((data) => {
+          setNetworkResult(Neo4jParser(data, query.protein, query.goTerm));
+          return Neo4jParser(data, query.protein, query.goTerm);
+        });
+    } catch (error) {
+      console.error("Error getting the network:", error, ". Protein or GO term may not exists");
+
+    }
+
+    if(network != null){
+      const nodeList = { nodeList: network.nodeList };
+      let sharedEdges = null
+      try{
+        sharedEdges = await fetch("/api/getSharedEdges", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(nodeList),
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else if (response.status === 404) {
+              return Promise.reject("error 404");
+            } else {
+              return Promise.reject("some other error: " + response.status);
+            }
+          })
+          .then((edgeData) => {
+            setNetworkResult(SharedEdgeParser(network, edgeData));
+            return SharedEdgeParser(network, edgeData);
+          });
+
+        setShowResults(true);
+      }catch (error) {
         console.error("Error getting the network:", error);
-      });
-
-    const nodeList = {nodeList: network.nodeList}
-
-    const sharedEdges = await fetch("/api/getSharedEdges", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(nodeList),
-    })
-      .then((response) => response.json())
-      .then((edgeData) => {
-        setNetworkResult(SharedEdgeParser(network, edgeData));
-        return SharedEdgeParser(network, edgeData);
-      });
-
-    setShowResults(true);
+        throwAsyncError(e)
+      }
+    }
   }
 
   const handleInputChange = (e) => {
@@ -59,51 +84,57 @@ export default function FlyQuery() {
     }));
   };
 
-  const getSidePanelData = (node) => {
-                    let currentNode = node.target.data();
-                console.log(currentNode);
+  const useThrowAsyncError = () => {
+    const [state, setState] = useState();
+
+    return (error) => {
+      setState(() => {throw error})
+    }
   }
+
+  const getSidePanelData = (node) => {
+    let currentNode = node.target.data();
+    console.log(currentNode);
+  };
 
   return (
     <div>
       <div className="container">
-      <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
-
-        <div className="wrapper">
-          <h3>Enter Protein, GO Term and Number of Networks</h3>
-          <div className="search-container">
-        <input
-          type="text"
-          name="protein"
-          placeholder="FBgn0031985"
-          value={query.protein}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="goTerm"
-          placeholder="GO:0003674"
-          value={query.goTerm}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          min="0"
-          name="k"
-          placeholder="3"
-          value={query.k}
-          onChange={handleInputChange}
-          required
-        />
-        <button
-        type="submit"
-        className="button"
-        >Search for Networks</button>
+        <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
+          <div className="wrapper">
+            <h3>Enter Protein, GO Term and Number of Networks</h3>
+            <div className="search-container">
+              <input
+                type="text"
+                name="protein"
+                placeholder="FBgn0031985"
+                value={query.protein}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                type="text"
+                name="goTerm"
+                placeholder="GO:0003674"
+                value={query.goTerm}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                type="number"
+                min="0"
+                name="k"
+                placeholder="3"
+                value={query.k}
+                onChange={handleInputChange}
+                required
+              />
+              <button type="submit" className="button">
+                Search for Networks
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
       </div>
 
       {showResults && JSON.stringify(networkResult) != "{}" && (
@@ -119,12 +150,14 @@ export default function FlyQuery() {
             layout={layout}
             cy={(cy) => {
               cyRef.current = cy;
-              cy.on('click', 'node', (evt) => {getSidePanelData(evt)});
+              cy.on("click", "node", (evt) => {
+                getSidePanelData(evt);
+              });
             }}
-           />
+          />
           <Sidebar />
         </div>
       )}
     </div>
   );
-};
+}

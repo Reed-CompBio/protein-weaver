@@ -76,9 +76,11 @@ router.post('/getFlyBase', jsonParser, async (req, res, next) => {
   try {
     const flyBaseService = new FlyBaseService(getDriver());
     const queryResult = await flyBaseService.getFlyBase(protein, goTerm, k);
+    console.log(queryResult)
 
-    if (!queryResult) {
-      res.status(404).json({ error: 'No data found' });
+    if (queryResult.length === 0) {
+      console.log("no data found")
+      res.status(404).send({ error: 'No data found' });
     } else {
       res.status(200).json(queryResult);
     }
