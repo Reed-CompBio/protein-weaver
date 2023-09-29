@@ -147,7 +147,7 @@ input {
 
 input {
     order: 0;
-    align-self: auto;  
+    align-self: auto;
 }
 
 .search {
@@ -205,6 +205,15 @@ input {
 .export-json {
   border: 2px solid white;
   margin-top: 1rem;
+}
+
+.query-error {
+  align-self: center;
+  background-color: #EED202;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding:5px;
+  color: black;
 }
 
 @media (prefers-color-scheme: light) {
