@@ -11,17 +11,28 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
         >
             <h2>Network Data</h2>
             <p>Protein: {currentNode.label}</p>
-            <p>Database ID: {currentNode.id}</p>
+            <p>Database ID:&nbsp;
+                <a
+                className="sidebar-link"
+                href={`https://flybase.org/reports/${currentNode.id}`}
+                target="_blank"
+                rel="noopener"
+                >
+                    {currentNode.id}
+                </a>
+            </p>
+            {/* In the future, we will want to cast the ID to UPPERCASE */}
             <p>Type of node: {currentNode.type}</p>
             <p>Protein of interest: {sourceNode}</p>
             <p>Source node GO terms: </p>
-            <p>Queried GO term: 
+            <p>Queried GO term:&nbsp;
                 <a
+                className="sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm}`}
                 target="_blank"
                 rel="noopener"
                 >
-                    &nbsp;{goTerm}
+                    {goTerm}
                 </a>
             </p>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
