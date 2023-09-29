@@ -207,7 +207,7 @@ input {
   padding: 10px;
 }
 
-.sidebar h2, p {
+.sidebar h2, p, h3 {
   color: black;
   word-wrap: break-word;
 }

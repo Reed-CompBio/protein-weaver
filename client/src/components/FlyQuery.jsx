@@ -93,19 +93,21 @@ export default function FlyQuery() {
 
   const getSidePanelData = (node) => {
     let currentNode = node.target.data();
+    console.log(currentNode);
+    setSidebarNode(currentNode);
 
-    if (currentNode.type === "source") {
-                console.log(currentNode);
-                setSidebarNode(currentNode);
-    }
-    else if (currentNode.type === "intermediate") {
-                console.log(currentNode);
-                setSidebarNode(currentNode);
-    }
-    else if (currentNode.type === "go_protein") {
-                console.log(currentNode);
-                setSidebarNode(currentNode);
-    }
+    // if (currentNode.type === "source") {
+    //             console.log(currentNode);
+    //             setSidebarNode(currentNode);
+    // }
+    // else if (currentNode.type === "intermediate") {
+    //             console.log(currentNode);
+    //             setSidebarNode(currentNode);
+    // }
+    // else if (currentNode.type === "go_protein") {
+    //             console.log(currentNode);
+    //             setSidebarNode(currentNode);
+    // }
 };
 
   return (
