@@ -28,20 +28,22 @@ export default class FlyBaseService {
       const res = await session.executeRead(async (tx) => {
         const network = await tx.run(
           `
-          MATCH (source:txid7227 {id: $protein})
-          MATCH (target:go_term {id: $goTerm})
+          MATCH (source:txid7227)
+          WHERE source.id = $protein OR source.name = $protein
+          MATCH (target:go_term)
+          WHERE target.id = $goTerm OR target.name = $goTerm
           CALL gds.shortestPath.yens.stream('myGraph', {
-              sourceNode: source,
-              targetNode: target,
-              k: toInteger($k)
+            sourceNode: source,
+            targetNode: target,
+            k: toInteger($k)
           })
           YIELD index, sourceNode, targetNode, nodeIds, path
           RETURN
-              index,
-              gds.util.asNode(sourceNode).id AS sourceNodeName,
-              gds.util.asNode(targetNode).id AS targetNodeName,
-              [nodeId IN nodeIds | gds.util.asNode(nodeId).id] AS nodeNames,
-              nodes(path) as path
+            index,
+            gds.util.asNode(sourceNode).id AS sourceNodeName,
+            gds.util.asNode(targetNode).id AS targetNodeName,
+            [nodeId IN nodeIds | gds.util.asNode(nodeId).id] AS nodeNames,
+            nodes(path) as path
           ORDER BY index
           `,
           {
