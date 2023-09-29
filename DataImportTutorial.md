@@ -89,3 +89,17 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
+10. Prepare the GO term common names for import with the instructions in the `ParseOBOtoTXT.ipynb` file.
+
+11. Import the GO term common names and descriptions with the following Cypher command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
+FIELDTERMINATOR '\t'
+CALL {
+    with go
+    MATCH (n:go_term {id: go.id})
+    SET n.name = go.name,
+    n.namespace = go.namespace,
+    n.def = go.def
+} IN TRANSACTIONS OF 1000 ROWS;
+```
