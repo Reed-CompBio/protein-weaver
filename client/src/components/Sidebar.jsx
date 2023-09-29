@@ -11,6 +11,7 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
         >
             <h2>Network Data</h2>
             <p>Protein: {currentNode.label}</p>
+            <p>Database ID: {currentNode.id}</p>
             <p>Type of node: {currentNode.type}</p>
             <p>Protein of interest: {sourceNode}</p>
             <p>Source node GO terms: </p>
