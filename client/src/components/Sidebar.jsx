@@ -2,6 +2,8 @@ import React from "react";
 import ExportJSON from "./ExportJSON";
 
 export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
+    // Need to generate a query that accesses all properties of the go_term node searched
+
     if (!currentNode) {
         return (
             <div>
@@ -70,6 +72,7 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
                     {goTerm}
                 </a>
             </p>
+            <p>GO TERM DEFINITION: {goTerm}</p>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
             <ExportJSON 
             log = {log}
