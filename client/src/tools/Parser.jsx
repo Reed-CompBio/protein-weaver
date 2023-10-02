@@ -1,4 +1,4 @@
-export function Neo4jParser(data, source, go_term) {
+export function NetworkParser(data, source, go_term) {
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
   for (let i = 0; i < data.length; i++) {
     let current = data[i];
@@ -13,9 +13,12 @@ export function Neo4jParser(data, source, go_term) {
               label: value[4][j].properties.name,
             },
           };
-          if (value[3][j] === source) {
+          if (
+            value[4][j].properties.name === source ||
+            value[4][j].properties.id === source
+          ) {
             nodeEntry.data.type = "source";
-          } else if (j == value[3].length - 2) {
+          } else if (j == value[4].length - 2) {
             nodeEntry.data.type = "go_protein";
           } else {
             nodeEntry.data.type = "intermediate";
@@ -43,4 +46,35 @@ export function Neo4jParser(data, source, go_term) {
     }
   }
   return parsedData;
+}
+
+export function EdgeDataParser(networkData, edgeData) {
+  for (let i = 0; i < edgeData.length; i++) {
+    let startNode = edgeData[i]._fields[0].start.properties.id;
+    let endNode = edgeData[i]._fields[0].end.properties.id;
+    if (
+      !networkData.edgeList.includes(startNode + endNode) &&
+      !networkData.edgeList.includes(endNode + startNode) &&
+      edgeData[i]._fields[0].segments[0].relationship.type != "ProGo"
+    ) {
+      let edgeEntry = {
+        data: { source: endNode, target: startNode, type: "shared" },
+      };
+      networkData.edgeList.push(startNode + endNode);
+      networkData.edges.push(edgeEntry);
+    } else if (
+      edgeData[i]._fields[0].segments[0].relationship.type === "ProGo"
+    ) {
+      for (let k = 0; k < networkData.nodes.length; k++) {
+        let currentNode = networkData.nodes[k];
+        if (currentNode.data.id === startNode) {
+          networkData.nodes[k].data.go_protein =
+            edgeData[
+              i
+            ]._fields[0].segments[0].relationship.properties.relationship;
+        }
+      }
+    }
+  }
+  return networkData;
 }

@@ -1,4 +1,4 @@
-export default class SharedEdgesService {
+export default class EdgeDataService {
   /**
    * @type {neo4j.Driver}
    */
@@ -14,7 +14,7 @@ export default class SharedEdgesService {
     this.driver = driver
   }
 
-  async getSharedEdges (nodeList) {
+  async getEdgeData (nodeList) {
 
     const session = this.driver.session()
     console.log(nodeList)
@@ -31,13 +31,13 @@ export default class SharedEdgesService {
       )
     )
 
-    const sharedEdges = res.records
+    const edgeData = res.records
 
     await session.close()
 
-    console.log(sharedEdges)
+    console.log(edgeData)
 
-    return sharedEdges
+    return edgeData
   }
 
 }
