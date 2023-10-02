@@ -17,6 +17,7 @@ export default function FlyQuery() {
   const [goTerm, setGoTerm] = useState("");
 
   async function handleSubmit(e) {
+    setSidebarNode(null);
     setNetworkResult({});
     e.preventDefault();
     let network = null;
