@@ -1,10 +1,9 @@
 import React, { useState, useRef } from "react";
-import { Neo4jParser } from "../tools/Parser";
+import { NetworkParser, EdgeDataParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
-import { SharedEdgeParser } from "../tools/SharedEdgeParser";
 import QueryError from "./QueryError";
 
 export default function FlyQuery() {
@@ -40,8 +39,8 @@ export default function FlyQuery() {
           }
         })
         .then((data) => {
-          setNetworkResult(Neo4jParser(data, query.protein, query.goTerm));
-          return Neo4jParser(data, query.protein, query.goTerm);
+          setNetworkResult(NetworkParser(data, query.protein, query.goTerm));
+          return NetworkParser(data, query.protein, query.goTerm);
         });
     } catch (error) {
       console.error(
@@ -57,9 +56,9 @@ export default function FlyQuery() {
       nodeList.nodeList.push(query.goTerm);
       setSourceNode(network.nodes[0].data.label);
       setGoTerm(query.goTerm);
-      let sharedEdges = null;
+      let edgeData = null;
       try {
-        sharedEdges = await fetch("/api/getSharedEdges", {
+        edgeData = await fetch("/api/getEdgeData", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -76,8 +75,8 @@ export default function FlyQuery() {
             }
           })
           .then((edgeData) => {
-            setNetworkResult(SharedEdgeParser(network, edgeData));
-            return SharedEdgeParser(network, edgeData);
+            setNetworkResult(EdgeDataParser(network, edgeData));
+            return EdgeDataParser(network, edgeData);
           });
 
         setShowResults(true);
@@ -98,22 +97,8 @@ export default function FlyQuery() {
 
   const getSidePanelData = (node) => {
     let currentNode = node.target.data();
-    console.log(currentNode);
     setSidebarNode(currentNode);
-
-    // if (currentNode.type === "source") {
-    //             console.log(currentNode);
-    //             setSidebarNode(currentNode);
-    // }
-    // else if (currentNode.type === "intermediate") {
-    //             console.log(currentNode);
-    //             setSidebarNode(currentNode);
-    // }
-    // else if (currentNode.type === "go_protein") {
-    //             console.log(currentNode);
-    //             setSidebarNode(currentNode);
-    // }
-};
+  };
 
   return (
     <div>
