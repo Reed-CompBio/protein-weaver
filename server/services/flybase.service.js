@@ -29,9 +29,9 @@ export default class FlyBaseService {
         const network = await tx.run(
           `
           MATCH (source:txid7227)
-          WHERE source.id = $protein OR source.name = $protein
+          WHERE source.id =~'(?i)' + $protein OR source.name =~'(?i)' + $protein
           MATCH (target:go_term)
-          WHERE target.id = $goTerm OR target.name = $goTerm
+          WHERE target.id =~'(?i)' + $goTerm OR target.name =~'(?i)' + $goTerm
           CALL gds.shortestPath.yens.stream('myGraph', {
             sourceNode: source,
             targetNode: target,

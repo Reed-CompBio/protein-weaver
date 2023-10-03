@@ -2,6 +2,8 @@ import React from "react";
 import ExportJSON from "./ExportJSON";
 
 export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
+    // Need to generate a query that accesses all properties of the go_term node searched
+
     if (!currentNode) {
         return (
             <div>
