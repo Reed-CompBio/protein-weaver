@@ -17,6 +17,7 @@ export default function FlyQuery() {
   const [hasError, setHasError] = useState(false);
 
   async function handleSubmit(e) {
+    setSidebarNode(null);
     setNetworkResult({});
     setHasError(false);
     e.preventDefault();
