@@ -14,8 +14,8 @@ export function NetworkParser(data, source, go_term) {
             },
           };
           if (
-            value[4][j].properties.name === source ||
-            value[4][j].properties.id === source
+            value[4][j].properties.name.toUpperCase() === source.toUpperCase() ||
+            value[4][j].properties.id.toUpperCase() === source.toUpperCase()
           ) {
             nodeEntry.data.type = "source";
           } else if (j == value[4].length - 2) {
