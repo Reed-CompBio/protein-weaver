@@ -56,7 +56,7 @@ export default function FlyQuery() {
       let nodeList = { nodeList: network.nodeList };
       // need to change this logic from using the query.goTerm to accessing properties of go_term nodes
       nodeList.nodeList.push(query.goTerm);
-      setSourceNode(network.nodes[0].data.label);
+      setSourceNode(network.nodes[0].data);
       setGoTerm(query.goTerm);
       let edgeData = null;
       try {
@@ -96,6 +96,18 @@ export default function FlyQuery() {
       [name]: value,
     }));
   };
+
+  const handleSourceNode = (e) => {
+    const newSource = e.target.getAttribute("new-source-node");
+    
+    if (newSource) {
+      setQuery((prevData) => ({
+        ...prevData,
+        protein: newSource,
+      }));
+    }
+  };
+
 
   const getSidePanelData = (node) => {
     let currentNode = node.target.data();
@@ -147,32 +159,35 @@ export default function FlyQuery() {
 
         {hasError && <QueryError />}
 
-        {showResults && JSON.stringify(networkResult) != "{}" && (
-          <div className="sidebar-align">
-            <CytoscapeComponent
-              className="cytoscape-graph"
-              elements={CytoscapeComponent.normalizeElements(networkResult)}
-              style={{
-                width: "800px",
-                height: "500px",
-              }}
-              stylesheet={cytoscapeStyle}
-              layout={layout}
-              cy={(cy) => {
-                cyRef.current = cy;
-                cy.on("click", "node", (evt) => {
-                  getSidePanelData(evt);
-                });
-              }}
-            />
-            <Sidebar
-              currentNode={sidebarNode}
-              sourceNode={sourceNode}
-              log={query}
-              goTerm={goTerm}
-            />
-          </div>
-        )}
+      {showResults && JSON.stringify(networkResult) != "{}" && (
+        <div className="sidebar-align">
+          <CytoscapeComponent
+            className="cytoscape-graph"
+            elements={CytoscapeComponent.normalizeElements(networkResult)}
+            style={{
+              width: "800px",
+              height: "500px",
+            }}
+            stylesheet={cytoscapeStyle}
+            layout={layout}
+            cy={(cy) => {
+              cyRef.current = cy;
+              cy.on("click", "node", (evt) => {
+                getSidePanelData(evt);
+              });
+            }}
+           />
+          <Sidebar
+          currentNode={sidebarNode}
+          sourceNode={sourceNode}
+          log={query}
+          goTerm={goTerm}
+          newSourceNode={handleSourceNode}
+          handleSubmit={handleSubmit}
+          />
+        </div>
+      )}
+
       </div>
     </div>
   );

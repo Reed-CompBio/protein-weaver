@@ -225,6 +225,14 @@ input {
   padding:5px;
   color: black;
 }
+  
+.center-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
