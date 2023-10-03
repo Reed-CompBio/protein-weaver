@@ -135,6 +135,18 @@ body {
   align-items: flex-start;
 }
 
+.example {
+  font-size: 15px;
+  text-align: center;
+  color: white;
+}
+
+.example > a {
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 input {
   min-width: 20px;
   padding: 8px;

@@ -17,6 +17,7 @@ export default function FlyQuery() {
   const [hasError, setHasError] = useState(false);
 
   async function handleSubmit(e) {
+    console.log(query)
     setNetworkResult({});
     setHasError(false);
     e.preventDefault();
@@ -101,6 +102,20 @@ export default function FlyQuery() {
     setSidebarNode(currentNode);
   };
 
+  const getExample = (i) => {
+    switch (i) {
+      case 1:
+        setQuery({protein: "slmb", goTerm: "GO:0005840", k: "4" })
+        break;
+      case 2:
+        setQuery({protein: "BicC", goTerm: "GO:0016020", k: "10" })
+        break;
+      case 3:
+        setQuery({protein: "FBgn0031985", goTerm: "GO:0003674", k: "5" })
+        break;
+    }
+  };
+
   return (
     <div>
       <div className="search-box-align">
@@ -142,6 +157,11 @@ export default function FlyQuery() {
               </div>
             </div>
           </form>
+          <p className="example">
+            Examples: <a onClick={() => getExample(1)}>#1</a>{" "}
+            <a onClick={() => getExample(2)}>#2</a>{" "}
+            <a onClick={() => getExample(3)}>#3</a>
+          </p>
         </div>
 
         {hasError && <QueryError />}
