@@ -91,24 +91,22 @@ export default function FlyQuery() {
     }));
   };
 
+  const handleSourceNode = (e) => {
+    const newSource = e.target.getAttribute("new-source-node");
+    
+    if (newSource) {
+      setQuery((prevData) => ({
+        ...prevData,
+        protein: newSource,
+      }));
+    }
+  };
+
 
   const getSidePanelData = (node) => {
     let currentNode = node.target.data();
     console.log(currentNode);
     setSidebarNode(currentNode);
-
-    // if (currentNode.type === "source") {
-    //             console.log(currentNode);
-    //             setSidebarNode(currentNode);
-    // }
-    // else if (currentNode.type === "intermediate") {
-    //             console.log(currentNode);
-    //             setSidebarNode(currentNode);
-    // }
-    // else if (currentNode.type === "go_protein") {
-    //             console.log(currentNode);
-    //             setSidebarNode(currentNode);
-    // }
 };
 
   return (
@@ -179,6 +177,8 @@ export default function FlyQuery() {
           sourceNode = {sourceNode}
           log = {query}
           goTerm = {goTerm}
+          newSourceNode={handleSourceNode}
+          handleSubmit={handleSubmit}
           />
         </div>
       )}
