@@ -50,7 +50,7 @@ export default function FlyQuery() {
     if(network != null){
       let nodeList = {nodeList: network.nodeList}
       nodeList.nodeList.push(query.goTerm)
-      setSourceNode(network.nodes[0].data.label)
+      setSourceNode(network.nodes[0].data)
       setGoTerm(query.goTerm)
       let sharedEdges = null
       try{

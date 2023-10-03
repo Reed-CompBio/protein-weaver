@@ -11,8 +11,7 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
         >
             <h2>Network Data</h2>
             <h3>Select a node to learn more</h3>
-            <p>Protein of interest: {sourceNode}</p>
-            <p>Source node GO terms: </p>
+            <p>Queried protein: {sourceNode.label}</p>
             <p>Queried GO term:&nbsp;
                 <a
                 className="sidebar-link"
@@ -23,10 +22,21 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
                     {goTerm}
                 </a>
             </p>
+            <div
+            className="center-buttons">
+                <a
+                className="sidebar-link"
+                href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+                target="_blank"
+                rel="noopener"
+                >
+                    AmiGO
+                </a>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
-            <ExportJSON 
-            log = {log}
-            />
+                <ExportJSON 
+                log = {log}
+                />
+            </div>
         </div>
     </div>
         )
@@ -38,7 +48,7 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
                 className="sidebar"
                 >
                     <h2>Network Data</h2>
-                    <p>Protein: {currentNode.label}</p>
+                    <p>Selected protein: {currentNode.label}</p>
                     <p>Database ID:&nbsp;
                         <a
                         className="sidebar-link"
@@ -49,10 +59,7 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
                             {currentNode.id}
                         </a>
                     </p>
-                    {/* In the future, we will want to cast the ID to UPPERCASE */}
-                    <p>Type of node: {currentNode.type}</p>
-                    <p>Protein of interest: {sourceNode}</p>
-                    <p>Source node GO terms: </p>
+                    <p>Protein of interest: {sourceNode.label}</p>
                     <p>Queried GO term:&nbsp;
                         <a
                         className="sidebar-link"
@@ -63,11 +70,21 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
                             {goTerm}
                         </a>
                     </p>
-                    <p>Relationship to GO term: {currentNode.go_protein}</p>
+                    <div
+                    className="center-buttons">
+                        <a
+                        className="sidebar-link"
+                        href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+                        target="_blank"
+                        rel="noopener"
+                        >
+                        AmiGO
+                        </a>
                     {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
-                    <ExportJSON 
-                    log = {log}
-                    />
+                        <ExportJSON 
+                        log = {log}
+                        />
+                    </div>
                 </div>
             </div>
             );
@@ -87,7 +104,7 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
             className="sidebar"
             >
                 <h2>Network Data</h2>
-                <p>Protein: {currentNode.label}</p>
+                <p>Selected protein: {currentNode.label}</p>
                 <p>Database ID:&nbsp;
                     <a
                     className="sidebar-link"
@@ -98,9 +115,7 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
                         {currentNode.id}
                     </a>
                 </p>
-            {/* In the future, we will want to cast the ID to UPPERCASE */}
-                <p>Type of node: {currentNode.type}</p>
-                <p>Protein of interest: {sourceNode}</p>
+                <p>Protein of interest: {sourceNode.label}</p>
                 <p>Source node GO terms: </p>
                 <p>Queried GO term:&nbsp;
                     <a
@@ -113,9 +128,21 @@ export default function Sidebar({ currentNode, sourceNode, log, goTerm }) {
                     </a>
                 </p>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
-                <ExportJSON 
-                log = {log}
-                />
+                <div
+                className="center-buttons">
+                    <a
+                    className="sidebar-link"
+                    href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+                    target="_blank"
+                    rel="noopener"
+                    >
+                        AmiGO
+                    </a>
+            {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
+                    <ExportJSON 
+                    log = {log}
+                    />
+                </div>
             </div>
         </div>
         );

@@ -217,6 +217,14 @@ input {
   margin-top: 1rem;
 }
 
+.center-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
