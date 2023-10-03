@@ -14,7 +14,8 @@ export function NetworkParser(data, source, go_term) {
             },
           };
           if (
-            value[4][j].properties.name.toUpperCase() === source.toUpperCase() ||
+            value[4][j].properties.name.toUpperCase() ===
+              source.toUpperCase() ||
             value[4][j].properties.id.toUpperCase() === source.toUpperCase()
           ) {
             nodeEntry.data.type = "source";
@@ -45,6 +46,8 @@ export function NetworkParser(data, source, go_term) {
       }
     }
   }
+  parsedData.go_term = data[0]._fields[data[0]._fields.length - 1][data[0]._fields[data[0]._fields.length - 1].length - 1].properties
+  console.log(parsedData)
   return parsedData;
 }
 
