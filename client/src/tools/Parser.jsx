@@ -46,7 +46,7 @@ export function NetworkParser(data, source, go_term) {
       }
     }
   }
-  parsedData.go_term = data[0]._fields[data[0]._fields.length - 1][data[0]._fields[data[0]._fields.length - 1].length - 1].properties
+  parsedData.goTerm = data[0]._fields[data[0]._fields.length - 1][data[0]._fields[data[0]._fields.length - 1].length - 1].properties
   console.log(parsedData)
   return parsedData;
 }
