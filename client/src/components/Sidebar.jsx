@@ -13,6 +13,8 @@ export default function Sidebar({
     const [queryCount, setQueryCount] = useState(0);
     const [proteinCount, setProteinCount] = useState(0);
 
+    console.log(goTerm)
+
     useEffect(() => {
         if (currentNode) {
           const logKey = `protein${proteinCount + 1}`;
