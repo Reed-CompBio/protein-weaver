@@ -10,6 +10,7 @@ export default function Sidebar({
   handleSubmit,
 }) {
   if (!currentNode) {
+    console.log(goTerm[2][1]);
     // if currentNode is null, display query info and a message to select a node
     return (
       <div>
@@ -18,16 +19,17 @@ export default function Sidebar({
           <h3>Select a node to learn more</h3>
           <p>Queried protein: {sourceNode.label}</p>
           <p>
-            Queried GO term:&nbsp;
+            Queried GO term:<br/><br/>
             <a
               className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm}`}
+              href={`https://amigo.geneontology.org/amigo/term/${goTerm[2][1]}`}
               target="_blank"
               rel="noopener"
             >
-              {goTerm}
+              {goTerm[1][1]}
             </a>
           </p>
+          <p>{goTerm[3][1]}</p>
           <div className="center-buttons">
             <a
               className="sidebar-link"
@@ -65,14 +67,14 @@ export default function Sidebar({
           </p>
           <p>Protein of interest: {sourceNode.label}</p>
           <p>
-            Queried GO term:&nbsp;
+            Queried GO term:<br/><br/>
             <a
               className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm}`}
+              href={`https://amigo.geneontology.org/amigo/term/${goTerm[2][1]}`}
               target="_blank"
               rel="noopener"
             >
-              {goTerm}
+              {goTerm[1][1]}
             </a>
           </p>
           <p>GO qualifier: {currentNode.go_protein}</p>
@@ -121,14 +123,14 @@ export default function Sidebar({
           </p>
           <p>Protein of interest: {sourceNode.label}</p>
           <p>
-            Queried GO term:&nbsp;
+            Queried GO term:<br/><br/>
             <a
               className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm}`}
+              href={`https://amigo.geneontology.org/amigo/term/${goTerm[2][1]}`}
               target="_blank"
               rel="noopener"
             >
-              {goTerm}
+              {goTerm[1][1]}
             </a>
           </p>
           <div className="center-buttons">
@@ -177,14 +179,14 @@ export default function Sidebar({
           <p>Protein of interest: {sourceNode.label}</p>
           <p>Source node GO terms: </p>
           <p>
-            Queried GO term:&nbsp;
+            Queried GO term:<br/><br/>
             <a
               className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm}`}
+              href={`https://amigo.geneontology.org/amigo/term/${goTerm[2][1]}`}
               target="_blank"
               rel="noopener"
             >
-              {goTerm}
+              {goTerm[1][1]}
             </a>
           </p>
           {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
