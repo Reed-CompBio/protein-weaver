@@ -20,6 +20,7 @@ export default function Sidebar({
           setLog((prevLog) => ({
             ...prevLog,
             [logKey]: currentNode,
+            timestamp: new Date().toISOString(),
           }));
           setProteinCount(proteinCount + 1);
         }
@@ -32,6 +33,7 @@ export default function Sidebar({
             setLog((prevLog) => ({
               ...prevLog,
               [logKey]: query,
+              timestamp: new Date().toISOString(),
             }));
             setQueryCount(queryCount + 1);
           }
@@ -72,7 +74,6 @@ export default function Sidebar({
             >
               AmiGO
             </a>
-            {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
             <ExportQueryJSON query={query} />
             <ExportLogJSON log={log} />
           </div>
@@ -130,7 +131,6 @@ export default function Sidebar({
                 Set as New Source Node
               </button>
             </form>
-            {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
             <ExportQueryJSON query={query} />
             <ExportLogJSON log={log} />
           </div>
@@ -224,7 +224,6 @@ export default function Sidebar({
               {goTerm[1][1]}
             </a>
           </p>
-          {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
           <div className="center-buttons">
             <a
               className="sidebar-link"
@@ -234,7 +233,6 @@ export default function Sidebar({
             >
               AmiGO
             </a>
-            {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
             <ExportQueryJSON query={query} />
             <ExportLogJSON log={log} />
           </div>
