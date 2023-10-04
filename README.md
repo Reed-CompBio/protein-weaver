@@ -69,3 +69,9 @@ npm run dev
 ```
 The website should be running on [http://localhost:5173/](http://localhost:5173/)
 
+# Licensing & Attribution
+
+The content of this project itself is licensed under the [Creative Commons CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) license, and the underlying source code used to format and display that content is licensed under the [GNU General Public License (GPLv3)](https://www.gnu.org/licenses/quick-guide-gplv3.html).
+
+This code was built with the Neo4J community edition (altaf) and imports data from FlyBase (link to download page) and the Gene Ontology (link to download page). 
+
