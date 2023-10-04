@@ -1,5 +1,7 @@
-# bio-net-viz
-Project currently underconstruction
+# ProteinWeaver
+ProteinWeaver is a web interface for ontology-based protein network visualization.
+
+(add a couple screenshots here)
 
 # Setup
 The setup guide will include the backend database, server, and the frontend
