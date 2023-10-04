@@ -28,7 +28,9 @@ export default function Sidebar({
               {goTerm[1][1]}
             </a>
           </p>
-          <p>{goTerm[3][1]}</p>
+          <div className="go-description">
+                <p>{goTerm[3][1]}</p>
+          </div>
           <div className="center-buttons">
             <a
               className="sidebar-link"
@@ -65,6 +67,7 @@ export default function Sidebar({
             </a>
           </p>
           <p>Protein of interest: {sourceNode.label}</p>
+          <p>GO qualifier: {currentNode.go_protein}</p>
           <p>
             Queried GO term:<br/><br/>
             <a
@@ -76,7 +79,6 @@ export default function Sidebar({
               {goTerm[1][1]}
             </a>
           </p>
-          <p>GO qualifier: {currentNode.go_protein}</p>
           <div className="center-buttons">
             <a
               className="sidebar-link"
