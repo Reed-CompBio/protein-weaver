@@ -10,7 +10,6 @@ export default function Sidebar({
   handleSubmit,
 }) {
   if (!currentNode) {
-    console.log(goTerm[2][1]);
     // if currentNode is null, display query info and a message to select a node
     return (
       <div>
