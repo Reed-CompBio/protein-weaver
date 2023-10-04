@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import ExportQueryJSON from "./ExportQueryJSON";
 import ExportLogJSON from "./ExportLogJSON";
 
 export default function Sidebar({
@@ -65,6 +64,7 @@ export default function Sidebar({
           <div className="go-description">
                 <p>{goTerm[3][1]}</p>
           </div>
+          <br/>
           <div className="center-buttons">
             <a
               className="sidebar-link"
@@ -74,7 +74,6 @@ export default function Sidebar({
             >
               AmiGO
             </a>
-            <ExportQueryJSON query={query} />
             <ExportLogJSON log={log} />
           </div>
         </div>
@@ -131,7 +130,6 @@ export default function Sidebar({
                 Set as New Source Node
               </button>
             </form>
-            <ExportQueryJSON query={query} />
             <ExportLogJSON log={log} />
           </div>
         </div>
@@ -187,7 +185,6 @@ export default function Sidebar({
               </button>
             </form>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
-            <ExportQueryJSON query={query} />
             <ExportLogJSON log={log} />
           </div>
         </div>
@@ -233,7 +230,6 @@ export default function Sidebar({
             >
               AmiGO
             </a>
-            <ExportQueryJSON query={query} />
             <ExportLogJSON log={log} />
           </div>
         </div>

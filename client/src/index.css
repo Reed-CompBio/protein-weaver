@@ -249,7 +249,7 @@ input {
 .go-description {
   overflow: auto;
   text-overflow: ellipsis;
-  height: 120px;
+  height: 150px;
   text-wrap: break-word;
 }
 
