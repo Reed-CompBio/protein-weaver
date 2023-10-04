@@ -246,6 +246,13 @@ input {
   align-items: center;
 }
 
+.go-description {
+  overflow: auto;
+  text-overflow: ellipsis;
+  height: 150px;
+  text-wrap: break-word;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
