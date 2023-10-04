@@ -57,7 +57,7 @@ export default function FlyQuery() {
       // need to change this logic from using the query.goTerm to accessing properties of go_term nodes
       nodeList.nodeList.push(Object.entries(network.goTerm)[2][1]);
       setSourceNode(network.nodes[0].data);
-      setGoTerm(Object.entries(network.goTerm));
+      setGoTerm(network.goTerm);
 
       let edgeData = null;
       try {

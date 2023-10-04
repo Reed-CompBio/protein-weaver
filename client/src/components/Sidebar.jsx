@@ -9,40 +9,36 @@ export default function Sidebar({
   newSourceNode,
   handleSubmit,
 }) {
-    const [log, setLog] = useState({});
-    const [queryCount, setQueryCount] = useState(0);
-    const [proteinCount, setProteinCount] = useState(0);
+  const [log, setLog] = useState({});
+  const [queryCount, setQueryCount] = useState(0);
+  const [proteinCount, setProteinCount] = useState(0);
+  console.log(goTerm)
 
-    console.log(goTerm)
+  useEffect(() => {
+    if (currentNode) {
+      const logKey = `protein${proteinCount + 1}`;
+      setLog((prevLog) => ({
+        ...prevLog,
+        [logKey]: currentNode,
+        timestamp: new Date().toISOString(),
+      }));
+      setProteinCount(proteinCount + 1);
+    }
+  }, [currentNode]);
 
-    useEffect(() => {
-        if (currentNode) {
-          const logKey = `protein${proteinCount + 1}`;
-          setLog((prevLog) => ({
-            ...prevLog,
-            [logKey]: currentNode,
-            timestamp: new Date().toISOString(),
-          }));
-          setProteinCount(proteinCount + 1);
-        }
-      }, [currentNode]);
+  useEffect(() => {
+    if (query) {
+      const logKey = `query${queryCount + 1}`;
+      setLog((prevLog) => ({
+        ...prevLog,
+        [logKey]: query,
+        timestamp: new Date().toISOString(),
+      }));
+      setQueryCount(queryCount + 1);
+    }
+  }, [query]);
 
-
-    useEffect(() => {
-        if (query) {
-            const logKey = `query${queryCount + 1}`;
-            setLog((prevLog) => ({
-              ...prevLog,
-              [logKey]: query,
-              timestamp: new Date().toISOString(),
-            }));
-            setQueryCount(queryCount + 1);
-          }
-        }, [query]);
-
-
-
-    console.log(log);
+  console.log(log);
 
   if (!currentNode) {
     // if currentNode is null, display query info and a message to select a node
@@ -53,20 +49,22 @@ export default function Sidebar({
           <h3>Select a node to learn more</h3>
           <p>Queried protein: {sourceNode.label}</p>
           <p>
-            Queried GO term:<br/><br/>
+            Queried GO term:
+            <br />
+            <br />
             <a
               className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm[2][1]}`}
+              href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
               target="_blank"
               rel="noopener"
             >
-              {goTerm[1][1]}
+              {goTerm.name}
             </a>
           </p>
           <div className="go-description">
-                <p>{goTerm[3][1]}</p>
+            <p>{goTerm.def}</p>
           </div>
-          <br/>
+          <br />
           <div className="center-buttons">
             <a
               className="sidebar-link"
@@ -103,14 +101,16 @@ export default function Sidebar({
           <p>Protein of interest: {sourceNode.label}</p>
           <p>GO qualifier: {currentNode.go_protein}</p>
           <p>
-            Queried GO term:<br/><br/>
+            Queried GO term:
+            <br />
+            <br />
             <a
               className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm[2][1]}`}
+              href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
               target="_blank"
               rel="noopener"
             >
-              {goTerm[1][1]}
+              {goTerm.name}
             </a>
           </p>
           <div className="center-buttons">
@@ -157,14 +157,16 @@ export default function Sidebar({
           </p>
           <p>Protein of interest: {sourceNode.label}</p>
           <p>
-            Queried GO term:<br/><br/>
+            Queried GO term:
+            <br />
+            <br />
             <a
               className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm[2][1]}`}
+              href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
               target="_blank"
               rel="noopener"
             >
-              {goTerm[1][1]}
+              {goTerm.name}
             </a>
           </p>
           <div className="center-buttons">
@@ -213,14 +215,16 @@ export default function Sidebar({
           <p>Protein of interest: {sourceNode.label}</p>
           <p>Source node GO terms: </p>
           <p>
-            Queried GO term:<br/><br/>
+            Queried GO term:
+            <br />
+            <br />
             <a
               className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm[2][1]}`}
+              href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
               target="_blank"
               rel="noopener"
             >
-              {goTerm[1][1]}
+              {goTerm.name}
             </a>
           </p>
           <div className="center-buttons">
@@ -237,5 +241,5 @@ export default function Sidebar({
         </div>
       </div>
     );
-  };
-};
+  }
+}
