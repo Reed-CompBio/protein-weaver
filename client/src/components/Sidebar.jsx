@@ -1,14 +1,46 @@
-import { React, useState } from "react";
-import ExportJSON from "./ExportJSON";
+import { React, useState, useEffect } from "react";
+import ExportQueryJSON from "./ExportQueryJSON";
+import ExportLogJSON from "./ExportLogJSON";
 
 export default function Sidebar({
   currentNode,
   sourceNode,
-  log,
+  query,
   goTerm,
   newSourceNode,
   handleSubmit,
 }) {
+    const [log, setLog] = useState({});
+    const [queryCount, setQueryCount] = useState(0);
+    const [proteinCount, setProteinCount] = useState(0);
+
+    useEffect(() => {
+        if (currentNode) {
+          const logKey = `protein${proteinCount + 1}`;
+          setLog((prevLog) => ({
+            ...prevLog,
+            [logKey]: currentNode,
+          }));
+          setProteinCount(proteinCount + 1);
+        }
+      }, [currentNode]);
+
+
+    useEffect(() => {
+        if (query) {
+            const logKey = `query${queryCount + 1}`;
+            setLog((prevLog) => ({
+              ...prevLog,
+              [logKey]: query,
+            }));
+            setQueryCount(queryCount + 1);
+          }
+        }, [query]);
+
+
+
+    console.log(log);
+
   if (!currentNode) {
     // if currentNode is null, display query info and a message to select a node
     return (
@@ -39,13 +71,13 @@ export default function Sidebar({
               AmiGO
             </a>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
-            <ExportJSON log={log} />
+            <ExportQueryJSON query={query} />
+            <ExportLogJSON log={log} />
           </div>
         </div>
       </div>
     );
   } else if (currentNode.type === "go_protein") {
-    console.log(currentNode);
     // if currentNode.type === "go_protein" then display specific relation information about the go term and level of evidence
     // still need to add level of evidence to the sidebar
     return (
@@ -97,7 +129,8 @@ export default function Sidebar({
               </button>
             </form>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
-            <ExportJSON log={log} />
+            <ExportQueryJSON query={query} />
+            <ExportLogJSON log={log} />
           </div>
         </div>
       </div>
@@ -152,7 +185,8 @@ export default function Sidebar({
               </button>
             </form>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
-            <ExportJSON log={log} />
+            <ExportQueryJSON query={query} />
+            <ExportLogJSON log={log} />
           </div>
         </div>
       </div>
@@ -199,10 +233,11 @@ export default function Sidebar({
               AmiGO
             </a>
             {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
-            <ExportJSON log={log} />
+            <ExportQueryJSON query={query} />
+            <ExportLogJSON log={log} />
           </div>
         </div>
       </div>
     );
-  }
-}
+  };
+};

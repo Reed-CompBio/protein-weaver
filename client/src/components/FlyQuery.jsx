@@ -199,7 +199,7 @@ export default function FlyQuery() {
             <Sidebar
               currentNode={sidebarNode}
               sourceNode={sourceNode}
-              log={query}
+              query={query}
               goTerm={goTerm}
               newSourceNode={handleSourceNode}
               handleSubmit={handleSubmit}
