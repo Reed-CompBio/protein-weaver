@@ -49,33 +49,36 @@ export default function Sidebar({
           <h2>Network Results</h2>
           <h3>Select a node to learn more</h3>
           <p>Queried protein: {sourceNode.label}</p>
+          <div className="center-buttons">
+            <a
+                  className="sidebar-link"
+                  href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  AmiGO
+            </a>
+          </div>
           <p>
             Queried GO term:
             <br />
             <br />
-            <a
-              className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              {goTerm.name}
-            </a>
+            <div className="center-buttons">
+                <a
+                className="sidebar-link"
+                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                target="_blank"
+                rel="noopener"
+                >
+                {goTerm.name}
+                </a>
+            </div>
           </p>
           <div className="go-description">
             <p>{goTerm.def}</p>
           </div>
           <br />
           <div className="center-buttons">
-            <a
-              className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              AmiGO
-            </a>
-            <br/>
             <ExportLogJSON log={log} />
             <br/>
             <a className="export" onClick={exportPNG}>
@@ -105,29 +108,33 @@ export default function Sidebar({
             </a>
           </p>
           <p>Protein of interest: {sourceNode.label}</p>
+          <div className="center-buttons">
+            <a
+                  className="sidebar-link"
+                  href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  AmiGO
+            </a>
+          </div>
           <p>GO qualifier: {currentNode.go_protein}</p>
           <p>
             Queried GO term:
             <br />
             <br />
-            <a
-              className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              {goTerm.name}
-            </a>
+            <div className="center-buttons">
+                <a
+                className="sidebar-link"
+                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                target="_blank"
+                rel="noopener"
+                >
+                {goTerm.name}
+                </a>
+            </div>
           </p>
           <div className="center-buttons">
-            <a
-              className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              AmiGO
-            </a>
             <br />
             <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
               <button
@@ -167,28 +174,32 @@ export default function Sidebar({
             </a>
           </p>
           <p>Protein of interest: {sourceNode.label}</p>
+          <div className="center-buttons">
+            <a
+                  className="sidebar-link"
+                  href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  AmiGO
+            </a>
+          </div>
           <p>
             Queried GO term:
             <br />
             <br />
-            <a
-              className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              {goTerm.name}
-            </a>
+            <div className="center-buttons">
+                <a
+                className="sidebar-link"
+                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                target="_blank"
+                rel="noopener"
+                >
+                {goTerm.name}
+                </a>
+            </div>
           </p>
           <div className="center-buttons">
-            <a
-              className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              AmiGO
-            </a>
             <br />
             <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
               <button
@@ -228,28 +239,32 @@ export default function Sidebar({
             </a>
           </p>
           <p>Protein of interest: {sourceNode.label}</p>
+          <div className="center-buttons">
+            <a
+                  className="sidebar-link"
+                  href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  AmiGO
+            </a>
+          </div>
           <p>
             Queried GO term:
             <br />
             <br />
-            <a
-              className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              {goTerm.name}
-            </a>
+            <div className="center-buttons">
+                <a
+                className="sidebar-link"
+                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                target="_blank"
+                rel="noopener"
+                >
+                {goTerm.name}
+                </a>
+            </div>
           </p>
           <div className="center-buttons">
-            <a
-              className="sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              AmiGO
-            </a>
             <br />
             <ExportLogJSON log={log} />
             <br />
