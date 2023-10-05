@@ -53,7 +53,7 @@ h2 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 2px solid white;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -163,8 +163,11 @@ input {
   word-wrap: nowrap;
   background: #000;
   color: #fff;
-  border: 1px solid #fff;
+  border: 2px solid white;
   border-radius: 5px;
+  order: 4;
+  flex: 0 1 auto;
+  align-self: auto;
 }
 
 input {
@@ -184,11 +187,13 @@ input {
   flex: 1 1 auto;
 }
 
-.button {
+/* .button {
+    border: 2px solid white;
+    border-radius: 2px;
     order: 4;
     flex: 0 1 auto;
     align-self: auto;
-}
+} */
 
 .cytoscape-graph{
   border: 2px solid white;
@@ -224,9 +229,14 @@ input {
   word-wrap: break-word;
 }
 
-.export-json {
-  border: 2px solid white;
-  margin-top: 1rem;
+.export {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+.export:hover {
+  color: #0493f2c7;
 }
 
 .query-error {
@@ -249,7 +259,7 @@ input {
 .go-description {
   overflow: auto;
   text-overflow: ellipsis;
-  height: 150px;
+  height: 120px;
   text-wrap: break-word;
 }
 

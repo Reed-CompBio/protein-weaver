@@ -8,6 +8,7 @@ export default function Sidebar({
   goTerm,
   newSourceNode,
   handleSubmit,
+  exportPNG,
 }) {
   const [log, setLog] = useState({});
   const [queryCount, setQueryCount] = useState(0);
@@ -74,7 +75,12 @@ export default function Sidebar({
             >
               AmiGO
             </a>
+            <br/>
             <ExportLogJSON log={log} />
+            <br/>
+            <a className="export" onClick={exportPNG}>
+                Export Graph to PNG
+            </a>
           </div>
         </div>
       </div>
@@ -132,7 +138,12 @@ export default function Sidebar({
                 Set as New Source Node
               </button>
             </form>
+            <br />
             <ExportLogJSON log={log} />
+            <br />
+            <a className="export" onClick={exportPNG}>
+                Export Graph to PNG
+            </a>
           </div>
         </div>
       </div>
@@ -188,8 +199,12 @@ export default function Sidebar({
                 Set as New Source Node
               </button>
             </form>
-            {/* Need a separate query in Cypher to get all GO terms for the sourceNode and then display them */}
+            <br />
             <ExportLogJSON log={log} />
+            <br />
+            <a className="export" onClick={exportPNG}>
+                Export Graph to PNG
+            </a>
           </div>
         </div>
       </div>
@@ -213,7 +228,6 @@ export default function Sidebar({
             </a>
           </p>
           <p>Protein of interest: {sourceNode.label}</p>
-          <p>Source node GO terms: </p>
           <p>
             Queried GO term:
             <br />
@@ -236,7 +250,12 @@ export default function Sidebar({
             >
               AmiGO
             </a>
+            <br />
             <ExportLogJSON log={log} />
+            <br />
+            <a className="export" onClick={exportPNG}>
+                Export Graph to PNG
+            </a>
           </div>
         </div>
       </div>
