@@ -29,12 +29,12 @@ export default function ExportLogJSON({ log }) {
 
     return(
         <div>
-            <button
-            className="export-json"
+            <a
+            className="export"
             onClick={exportToJson}
             >
             Export Log to JSON
-            </button>
+            </a>
         </div>
     );
       

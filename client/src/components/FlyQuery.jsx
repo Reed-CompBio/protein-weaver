@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { saveAs } from 'file-saver';
 import { NetworkParser, EdgeDataParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
@@ -47,7 +48,7 @@ export default function FlyQuery() {
       console.error(
         "Error getting the network:",
         error,
-        ". Protein or GO term may not exists"
+        ". Protein or GO term may not exist"
       );
       setHasError(true);
     }
@@ -88,6 +89,7 @@ export default function FlyQuery() {
         setHasError(true);
       }
     }
+    console.log(cyRef.current);
   }
 
   const handleInputChange = (e) => {
@@ -127,6 +129,14 @@ export default function FlyQuery() {
         break;
     }
   };
+
+  const exportPNG = () => {
+    const cy = cyRef.current;
+  if (cy) {
+    const pngBlob = cy.png({ output: "base64uri", full: true, bg: "white" });
+    saveAs(pngBlob, 'graph.png');
+  };
+};
 
   return (
     <div>
@@ -203,6 +213,7 @@ export default function FlyQuery() {
               goTerm={goTerm}
               newSourceNode={handleSourceNode}
               handleSubmit={handleSubmit}
+              exportPNG={exportPNG}
             />
           </div>
         )}
