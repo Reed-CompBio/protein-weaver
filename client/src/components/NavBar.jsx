@@ -5,7 +5,7 @@ export default function NavBar() {
   return (
     <div>
       <div className="navbar">
-        <h1>Bio-Net-Viz</h1>
+        <h1>ProteinWeaver</h1>
         <ul className="navbar-menu">
           <li>
             <Link to={`/`}>Home</Link>

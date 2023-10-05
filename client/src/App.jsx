@@ -11,7 +11,7 @@ function App() {
       <NavBar />
       <div className="main-layout-body">
         <h2>Home Page</h2>
-        <p>Welcome to the Bio-Net-Viz Website</p>
+        <p>Welcome to ProteinWeaver</p>
       </div>
     </div>
   );
