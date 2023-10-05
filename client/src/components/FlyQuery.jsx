@@ -55,7 +55,7 @@ export default function FlyQuery() {
     if (network != null) {
       let nodeList = { nodeList: network.nodeList };
       // need to change this logic from using the query.goTerm to accessing properties of go_term nodes
-      nodeList.nodeList.push(Object.entries(network.goTerm)[2][1]);
+      nodeList.nodeList.push(network.goTerm.id);
       setSourceNode(network.nodes[0].data);
       setGoTerm(network.goTerm);
 
