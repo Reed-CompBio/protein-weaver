@@ -119,13 +119,13 @@ export default function FlyQuery() {
   const getExample = (i) => {
     switch (i) {
       case 1:
-        setQuery({ protein: "slmb", goTerm: "GO:0005840", k: "4" });
+        setQuery({ protein: "egfr", goTerm: "GO:0016055", k: "4" });
         break;
       case 2:
-        setQuery({ protein: "BicC", goTerm: "GO:0016020", k: "10" });
+        setQuery({ protein: "flw", goTerm: "GO:0003383", k: "3" });
         break;
       case 3:
-        setQuery({ protein: "FBgn0031985", goTerm: "GO:0003674", k: "5" });
+        setQuery({ protein: "flw", goTerm: "GO:0045159", k: "7" });
         break;
     }
   };
@@ -220,4 +220,4 @@ export default function FlyQuery() {
       </div>
     </div>
   );
-}
+};
