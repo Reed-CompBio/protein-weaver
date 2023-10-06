@@ -13,7 +13,7 @@ export default function Sidebar({
   const [log, setLog] = useState({});
   const [queryCount, setQueryCount] = useState(0);
   const [proteinCount, setProteinCount] = useState(0);
-  console.log(goTerm)
+  console.log(goTerm);
 
   useEffect(() => {
     if (currentNode) {
@@ -51,38 +51,36 @@ export default function Sidebar({
           <p>Queried protein: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
-                  className="sidebar-link"
-                  href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  AmiGO
+              className="sidebar-link"
+              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+              target="_blank"
+              rel="noopener"
+            >
+              AmiGO
             </a>
           </div>
-          <p>
-            Queried GO term:
-            <br />
-            <br />
+          <div>
+            <p>Queried GO term:</p>
             <div className="center-buttons">
-                <a
+              <a
                 className="sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
-                >
+              >
                 {goTerm.name}
-                </a>
+              </a>
             </div>
-          </p>
+          </div>
           <div className="go-description">
             <p>{goTerm.def}</p>
           </div>
           <br />
           <div className="center-buttons">
             <ExportLogJSON log={log} />
-            <br/>
+            <br />
             <a className="export" onClick={exportPNG}>
-                Export Graph to PNG
+              Export Graph to PNG
             </a>
           </div>
         </div>
@@ -110,30 +108,28 @@ export default function Sidebar({
           <p>Protein of interest: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
-                  className="sidebar-link"
-                  href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  AmiGO
+              className="sidebar-link"
+              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+              target="_blank"
+              rel="noopener"
+            >
+              AmiGO
             </a>
           </div>
           <p>GO qualifier: {currentNode.go_protein}</p>
-          <p>
-            Queried GO term:
-            <br />
-            <br />
+          <div>
+            <p>Queried GO term:</p>
             <div className="center-buttons">
-                <a
+              <a
                 className="sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
-                >
+              >
                 {goTerm.name}
-                </a>
+              </a>
             </div>
-          </p>
+          </div>
           <div className="center-buttons">
             <br />
             <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
@@ -149,7 +145,7 @@ export default function Sidebar({
             <ExportLogJSON log={log} />
             <br />
             <a className="export" onClick={exportPNG}>
-                Export Graph to PNG
+              Export Graph to PNG
             </a>
           </div>
         </div>
@@ -176,29 +172,27 @@ export default function Sidebar({
           <p>Protein of interest: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
-                  className="sidebar-link"
-                  href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  AmiGO
+              className="sidebar-link"
+              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+              target="_blank"
+              rel="noopener"
+            >
+              AmiGO
             </a>
           </div>
-          <p>
-            Queried GO term:
-            <br />
-            <br />
+          <div>
+            <p>Queried GO term:</p>
             <div className="center-buttons">
-                <a
+              <a
                 className="sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
-                >
+              >
                 {goTerm.name}
-                </a>
+              </a>
             </div>
-          </p>
+          </div>
           <div className="center-buttons">
             <br />
             <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
@@ -214,7 +208,7 @@ export default function Sidebar({
             <ExportLogJSON log={log} />
             <br />
             <a className="export" onClick={exportPNG}>
-                Export Graph to PNG
+              Export Graph to PNG
             </a>
           </div>
         </div>
@@ -241,39 +235,37 @@ export default function Sidebar({
           <p>Protein of interest: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
-                  className="sidebar-link"
-                  href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  AmiGO
+              className="sidebar-link"
+              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+              target="_blank"
+              rel="noopener"
+            >
+              AmiGO
             </a>
           </div>
-          <p>
-            Queried GO term:
-            <br />
-            <br />
+          <div>
+            <p>Queried GO term:</p>
             <div className="center-buttons">
-                <a
+              <a
                 className="sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
-                >
+              >
                 {goTerm.name}
-                </a>
+              </a>
             </div>
-          </p>
+          </div>
           <div className="center-buttons">
             <br />
             <ExportLogJSON log={log} />
             <br />
             <a className="export" onClick={exportPNG}>
-                Export Graph to PNG
+              Export Graph to PNG
             </a>
           </div>
         </div>
       </div>
     );
-  };
-};
+  }
+}
