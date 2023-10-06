@@ -72,6 +72,7 @@ export default function Sidebar({
               </a>
             </div>
           </div>
+          <br/>
           <div className="go-description">
             <p>{goTerm.def}</p>
           </div>
