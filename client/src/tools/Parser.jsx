@@ -102,4 +102,4 @@ export function EdgeDataParser(networkData, edgeData) {
     }
   }
   return networkData;
-}
+};
