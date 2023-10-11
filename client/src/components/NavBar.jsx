@@ -17,7 +17,7 @@ export default function NavBar() {
             <Link to={`/about`}>About</Link>
           </li>
           <li>
-            <Link to={`/flybase`}>Query FlyBase</Link>
+            <Link to={`/flybase`}>Query Fly Interactome</Link>
           </li>
         </ul>
       </div>
