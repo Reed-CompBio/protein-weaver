@@ -9,6 +9,7 @@ export default function Sidebar({
   newSourceNode,
   handleSubmit,
   exportPNG,
+  networkResult,
 }) {
   const [log, setLog] = useState({});
   const [queryCount, setQueryCount] = useState(0);
@@ -47,10 +48,9 @@ export default function Sidebar({
         };
       });
       setQueryCount(queryCount + 1);
-    };
-  }, [query]);
-
-  console.log(log);
+      console.log("added query log", log);
+    }
+  }, [networkResult]);
 
   if (!currentNode) {
     // if currentNode is null, display query info and a message to select a node
@@ -83,7 +83,7 @@ export default function Sidebar({
               </a>
             </div>
           </div>
-          <br/>
+          <br />
           <div className="go-description">
             <p>{goTerm.def}</p>
           </div>

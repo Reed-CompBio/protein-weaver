@@ -213,6 +213,7 @@ export default function FlyQuery() {
               newSourceNode={handleSourceNode}
               handleSubmit={handleSubmit}
               exportPNG={exportPNG}
+              networkResult={networkResult}
             />
           </div>
         )}
