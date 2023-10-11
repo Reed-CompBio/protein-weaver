@@ -48,9 +48,10 @@ export default function Sidebar({
         };
       });
       setQueryCount(queryCount + 1);
-      console.log("added query log", log);
     }
   }, [networkResult]);
+
+  console.log(log);
 
   if (!currentNode) {
     // if currentNode is null, display query info and a message to select a node

@@ -7,7 +7,7 @@ export default function FlyBasePage() {
         <div>
           <MainLayout>
             <div className="main-layout-body">
-              <h2>Query FlyBase (<i>D. melanogaster</i>)</h2>
+              <h2>Query Fly Interactome (<i>D. melanogaster</i>)</h2>
               <FlyQuery />
             </div>
           </MainLayout>
