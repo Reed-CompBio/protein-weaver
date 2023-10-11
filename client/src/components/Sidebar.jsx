@@ -9,11 +9,12 @@ export default function Sidebar({
   newSourceNode,
   handleSubmit,
   exportPNG,
+  networkResult,
 }) {
   const [log, setLog] = useState({});
   const [queryCount, setQueryCount] = useState(0);
   const [proteinCount, setProteinCount] = useState(0);
-  console.log(goTerm);
+  // console.log(goTerm);
 
   useEffect(() => {
     if (currentNode) {
@@ -25,6 +26,7 @@ export default function Sidebar({
       }));
       setProteinCount(proteinCount + 1);
     }
+    console.log("added node log", log);
   }, [currentNode]);
 
   useEffect(() => {
@@ -36,10 +38,9 @@ export default function Sidebar({
         timestamp: new Date().toISOString(),
       }));
       setQueryCount(queryCount + 1);
+      console.log("added query log", log);
     }
-  }, [query]);
-
-  console.log(log);
+  }, [networkResult]);
 
   if (!currentNode) {
     // if currentNode is null, display query info and a message to select a node
@@ -72,7 +73,7 @@ export default function Sidebar({
               </a>
             </div>
           </div>
-          <br/>
+          <br />
           <div className="go-description">
             <p>{goTerm.def}</p>
           </div>
