@@ -13,30 +13,41 @@ export default function Sidebar({
   const [log, setLog] = useState({});
   const [queryCount, setQueryCount] = useState(0);
   const [proteinCount, setProteinCount] = useState(0);
-  console.log(goTerm);
 
   useEffect(() => {
     if (currentNode) {
       const logKey = `protein${proteinCount + 1}`;
-      setLog((prevLog) => ({
-        ...prevLog,
-        [logKey]: currentNode,
-        timestamp: new Date().toISOString(),
-      }));
+      setLog((prevLog) => {
+        const newProtein = {
+          ...prevLog[logKey],
+          protein: currentNode,
+          timestamp: new Date().toISOString(),
+        };
+        return {
+          ...prevLog,
+          [logKey]: newProtein,
+        };
+      });
       setProteinCount(proteinCount + 1);
-    }
+    };
   }, [currentNode]);
 
   useEffect(() => {
     if (query) {
       const logKey = `query${queryCount + 1}`;
-      setLog((prevLog) => ({
-        ...prevLog,
-        [logKey]: query,
-        timestamp: new Date().toISOString(),
-      }));
+      setLog((prevLog) => {
+        const newQuery = {
+          ...prevLog[logKey],
+          query: query,
+          timestamp: new Date().toISOString(),
+        };
+        return {
+          ...prevLog,
+          [logKey]: newQuery,
+        };
+      });
       setQueryCount(queryCount + 1);
-    }
+    };
   }, [query]);
 
   console.log(log);

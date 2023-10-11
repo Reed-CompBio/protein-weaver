@@ -1,6 +1,9 @@
 import React from 'react';
 
 export default function ExportLogJSON({ log }) {
+
+  console.log(log);
+  
     const downloadFile = ({ data, fileName, fileType }) => {
         // Create a blob with the data we want to download as a file
         const blob = new Blob([data], { type: fileType })
