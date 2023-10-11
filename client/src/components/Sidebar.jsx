@@ -9,7 +9,7 @@ export default function Sidebar({
   newSourceNode,
   handleSubmit,
   exportPNG,
-  networkResult,
+  submissionCount,
 }) {
   const [log, setLog] = useState({});
   const [queryCount, setQueryCount] = useState(0);
@@ -49,8 +49,7 @@ export default function Sidebar({
       });
       setQueryCount(queryCount + 1);
     }
-  }, [networkResult]);
-
+  }, [submissionCount]);
   console.log(log);
 
   if (!currentNode) {

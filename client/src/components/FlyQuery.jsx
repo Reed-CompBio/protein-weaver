@@ -16,11 +16,13 @@ export default function FlyQuery() {
   const [sourceNode, setSourceNode] = useState("");
   const [goTerm, setGoTerm] = useState("");
   const [hasError, setHasError] = useState(false);
+  const [submissionCount, setSubmissionCount] = useState(0);
 
   async function handleSubmit(e) {
     setSidebarNode(null);
     setNetworkResult({});
     setHasError(false);
+    setSubmissionCount(submissionCount + 1);
     e.preventDefault();
     let network = null;
     try {
@@ -88,8 +90,8 @@ export default function FlyQuery() {
         console.error("Error getting the network:", error);
         setHasError(true);
       }
-    }
-  }
+    } 
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -213,7 +215,7 @@ export default function FlyQuery() {
               newSourceNode={handleSourceNode}
               handleSubmit={handleSubmit}
               exportPNG={exportPNG}
-              networkResult={networkResult}
+              submissionCount={submissionCount}
             />
           </div>
         )}
