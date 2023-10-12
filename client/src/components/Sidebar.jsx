@@ -9,6 +9,7 @@ export default function Sidebar({
   newSourceNode,
   handleSubmit,
   exportPNG,
+  searchExecuted,
   submissionCount,
   queryCount
 }) {
@@ -38,16 +39,19 @@ export default function Sidebar({
   useEffect(() => {
     if (query) {
       const logKey = `query${queryCount}`;
-      prevLog.current = {
-        ...prevLog.current,
-        [logKey]: {
+      setLog((prevLog) => {
+        const newQuery = {
+          ...prevLog[logKey],
           query: query,
           timestamp: new Date().toISOString(),
-        },
-      };
-      setLog({ ...log, ...prevLog.current });
-    }
-  }, [submissionCount]);
+        };
+        return {
+         ...prevLog,
+          [logKey]: newQuery,
+        };
+      });
+     };
+     }, [searchExecuted]);
 
 
   console.log(log);

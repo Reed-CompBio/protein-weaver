@@ -17,7 +17,6 @@ export default function FlyQuery() {
   const [sourceNode, setSourceNode] = useState("");
   const [goTerm, setGoTerm] = useState("");
   const [hasError, setHasError] = useState(false);
-  const [submissionCount, setSubmissionCount] = useState(0);
   const [queryCount, setQueryCount] = useState(0);
   const submitRef = useRef()
   const [searchParams, setSearchParams] = useSearchParams({
@@ -45,7 +44,6 @@ export default function FlyQuery() {
     setSidebarNode(null);
     setNetworkResult({});
     setHasError(false);
-    setSubmissionCount(submissionCount + 1);
     setQueryCount(queryCount + 1);
 
     setSearchParams({
@@ -54,6 +52,7 @@ export default function FlyQuery() {
       goTerm: query.goTerm,
       k: query.k,
     });
+    
     e.preventDefault();
     let network = null;
     try {
@@ -246,7 +245,7 @@ export default function FlyQuery() {
               newSourceNode={handleSourceNode}
               handleSubmit={handleSubmit}
               exportPNG={exportPNG}
-              submissionCount={submissionCount}
+              searchExecuted={searchParams}
               queryCount={queryCount}
             />
           </div>
