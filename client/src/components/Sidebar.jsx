@@ -10,51 +10,38 @@ export default function Sidebar({
   handleSubmit,
   exportPNG,
   searchExecuted,
-  submissionCount,
-  queryCount
+  queryCount,
+  logs,
+  handleLog,
 }) {
-  const prevLog = useRef({})
+  const prevLog = useRef({});
 
-  const [log, setLog] = useState({});
   const [proteinCount, setProteinCount] = useState(0);
+
+  console.log(logs);
 
   useEffect(() => {
     if (currentNode) {
       const logKey = `protein${proteinCount + 1}`;
-      setLog((prevLog) => {
-        const newProtein = {
-          ...prevLog[logKey],
-          protein: currentNode,
-          timestamp: new Date().toISOString(),
-        };
-        return {
-          ...prevLog,
-          [logKey]: newProtein,
-        };
-      });
+      const newProtein = {
+        protein: currentNode,
+        timestamp: new Date().toISOString(),
+      };
       setProteinCount(proteinCount + 1);
-    };
+      handleLog(newProtein)
+    }
   }, [currentNode]);
 
   useEffect(() => {
     if (query) {
       const logKey = `query${queryCount}`;
-      setLog((prevLog) => {
-        const newQuery = {
-          ...prevLog[logKey],
-          query: query,
-          timestamp: new Date().toISOString(),
-        };
-        return {
-         ...prevLog,
-          [logKey]: newQuery,
-        };
-      });
-     };
-     }, [searchExecuted]);
-
-
-  console.log(log);
+      const newQuery = {
+        query: query,
+        timestamp: new Date().toISOString(),
+      };
+      handleLog(newQuery);
+    }
+  }, [searchExecuted]);
 
   if (!currentNode) {
     // if currentNode is null, display query info and a message to select a node
@@ -93,7 +80,7 @@ export default function Sidebar({
           </div>
           <br />
           <div className="center-buttons">
-            <ExportLogJSON log={log} />
+            <ExportLogJSON log={logs} />
             <br />
             <a className="export" onClick={exportPNG}>
               Export Graph to PNG
@@ -158,7 +145,7 @@ export default function Sidebar({
               </button>
             </form>
             <br />
-            <ExportLogJSON log={log} />
+            <ExportLogJSON log={logs} />
             <br />
             <a className="export" onClick={exportPNG}>
               Export Graph to PNG
@@ -221,7 +208,7 @@ export default function Sidebar({
               </button>
             </form>
             <br />
-            <ExportLogJSON log={log} />
+            <ExportLogJSON log={logs} />
             <br />
             <a className="export" onClick={exportPNG}>
               Export Graph to PNG
@@ -274,7 +261,7 @@ export default function Sidebar({
           </div>
           <div className="center-buttons">
             <br />
-            <ExportLogJSON log={log} />
+            <ExportLogJSON log={logs} />
             <br />
             <a className="export" onClick={exportPNG}>
               Export Graph to PNG

@@ -19,6 +19,7 @@ export default function FlyQuery() {
   const [hasError, setHasError] = useState(false);
   const [queryCount, setQueryCount] = useState(0);
   const submitRef = useRef()
+  const [logs, setLogs] = useState([])
   const [searchParams, setSearchParams] = useSearchParams({
     species: "txid7227",
     protein: "",
@@ -52,7 +53,7 @@ export default function FlyQuery() {
       goTerm: query.goTerm,
       k: query.k,
     });
-    
+
     e.preventDefault();
     let network = null;
     try {
@@ -169,6 +170,10 @@ export default function FlyQuery() {
     }
   };
 
+  const handleLog = (entry) => {
+    setLogs(logs => [...logs, entry]);
+  }
+
   return (
     <div>
       <div className="search-box-align">
@@ -247,6 +252,8 @@ export default function FlyQuery() {
               exportPNG={exportPNG}
               searchExecuted={searchParams}
               queryCount={queryCount}
+              logs={logs}
+              handleLog={handleLog}
             />
           </div>
         )}
