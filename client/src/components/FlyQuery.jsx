@@ -18,6 +18,7 @@ export default function FlyQuery() {
   const [goTerm, setGoTerm] = useState("");
   const [hasError, setHasError] = useState(false);
   const [submissionCount, setSubmissionCount] = useState(0);
+  const [queryCount, setQueryCount] = useState(0);
   const submitRef = useRef()
   const [searchParams, setSearchParams] = useSearchParams({
     species: "txid7227",
@@ -45,6 +46,8 @@ export default function FlyQuery() {
     setNetworkResult({});
     setHasError(false);
     setSubmissionCount(submissionCount + 1);
+    setQueryCount(queryCount + 1);
+
     setSearchParams({
       species: "txid7227",
       protein: query.protein,
@@ -171,7 +174,7 @@ export default function FlyQuery() {
     <div>
       <div className="search-box-align">
         <div className="container">
-          <form method="post" onSubmit={handleSubmit} action="api/getFlyBase" ref={submitRef}>
+          <form method="post" onSubmit={handleSubmit} ref={submitRef}>
             <div className="wrapper">
               <h2>
                 Enter protein, GO term and number of paths to visualize...
@@ -244,6 +247,7 @@ export default function FlyQuery() {
               handleSubmit={handleSubmit}
               exportPNG={exportPNG}
               submissionCount={submissionCount}
+              queryCount={queryCount}
             />
           </div>
         )}

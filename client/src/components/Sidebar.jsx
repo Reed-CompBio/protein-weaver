@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import ExportLogJSON from "./ExportLogJSON";
 
 export default function Sidebar({
@@ -10,9 +10,11 @@ export default function Sidebar({
   handleSubmit,
   exportPNG,
   submissionCount,
+  queryCount
 }) {
+  const prevLog = useRef({})
+
   const [log, setLog] = useState({});
-  const [queryCount, setQueryCount] = useState(0);
   const [proteinCount, setProteinCount] = useState(0);
 
   useEffect(() => {
@@ -35,21 +37,20 @@ export default function Sidebar({
 
   useEffect(() => {
     if (query) {
-      const logKey = `query${queryCount + 1}`;
-      setLog((prevLog) => {
-        const newQuery = {
-          ...prevLog[logKey],
+      const logKey = `query${queryCount}`;
+      prevLog.current = {
+        ...prevLog.current,
+        [logKey]: {
           query: query,
           timestamp: new Date().toISOString(),
-        };
-        return {
-          ...prevLog,
-          [logKey]: newQuery,
-        };
-      });
-      setQueryCount(queryCount + 1);
+        },
+      };
+      setLog({ ...log, ...prevLog.current });
     }
   }, [submissionCount]);
+
+
+  console.log(log);
 
   if (!currentNode) {
     // if currentNode is null, display query info and a message to select a node
@@ -206,7 +207,7 @@ export default function Sidebar({
           </div>
           <div className="center-buttons">
             <br />
-            <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
+            <form method="post" onSubmit={handleSubmit}>
               <button
                 className="button"
                 onClick={newSourceNode}
