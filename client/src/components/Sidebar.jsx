@@ -50,7 +50,6 @@ export default function Sidebar({
       setQueryCount(queryCount + 1);
     }
   }, [submissionCount]);
-  console.log(log);
 
   if (!currentNode) {
     // if currentNode is null, display query info and a message to select a node

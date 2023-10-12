@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { saveAs } from "file-saver";
 import { NetworkParser, EdgeDataParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
@@ -17,12 +18,39 @@ export default function FlyQuery() {
   const [goTerm, setGoTerm] = useState("");
   const [hasError, setHasError] = useState(false);
   const [submissionCount, setSubmissionCount] = useState(0);
+  const submitRef = useRef()
+  const [searchParams, setSearchParams] = useSearchParams({
+    species: "txid7227",
+    protein: "",
+    goTerm: "",
+    k: "",
+  });
+
+  useEffect(() => {
+    if (
+      searchParams.get("protein") != "" &&
+      searchParams.get("goTerm") != "" &&
+      searchParams.get("k") != ""
+    ) {
+      setQuery({
+        protein: searchParams.get("protein"),
+        goTerm: searchParams.get("goTerm"),
+        k: searchParams.get("k"),
+      });
+    }
+  }, []);
 
   async function handleSubmit(e) {
     setSidebarNode(null);
     setNetworkResult({});
     setHasError(false);
     setSubmissionCount(submissionCount + 1);
+    setSearchParams({
+      species: "txid7227",
+      protein: query.protein,
+      goTerm: query.goTerm,
+      k: query.k,
+    });
     e.preventDefault();
     let network = null;
     try {
@@ -90,8 +118,8 @@ export default function FlyQuery() {
         console.error("Error getting the network:", error);
         setHasError(true);
       }
-    } 
-  };
+    }
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -143,7 +171,7 @@ export default function FlyQuery() {
     <div>
       <div className="search-box-align">
         <div className="container">
-          <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
+          <form method="post" onSubmit={handleSubmit} action="api/getFlyBase" ref={submitRef}>
             <div className="wrapper">
               <h2>
                 Enter protein, GO term and number of paths to visualize...
