@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Autocomplete (props) {
+export default function Autocomplete(props) {
   const { suggestions, inputName, inputValue, onInputChange, placeholder } = props;
   const [active, setActive] = useState(0);
   const [filtered, setFiltered] = useState([]);
@@ -73,7 +73,7 @@ export default function Autocomplete (props) {
   };
 
   return (
-    <>
+    <div className="autocomplete-input-container">
       <input
         type="text"
         name={inputName}
@@ -83,6 +83,6 @@ export default function Autocomplete (props) {
         onKeyDown={onKeyDown}
       />
       {renderAutocomplete()}
-    </>
+    </div>
   );
 };
