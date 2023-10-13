@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Autocomplete = (props) => {
+export default function Autocomplete (props) {
   const { suggestions, inputName, inputValue, onInputChange, placeholder } = props;
   const [active, setActive] = useState(0);
   const [filtered, setFiltered] = useState([]);
@@ -86,5 +86,3 @@ const Autocomplete = (props) => {
     </>
   );
 };
-
-export default Autocomplete;
