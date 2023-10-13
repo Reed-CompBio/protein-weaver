@@ -168,6 +168,8 @@ input {
   order: 4;
   flex: 0 1 auto;
   align-self: auto;
+  height: 30px;
+  text-align: center;
 }
 
 input {
@@ -186,14 +188,6 @@ input {
 .date-to {
   flex: 1 1 auto;
 }
-
-/* .button {
-    border: 2px solid white;
-    border-radius: 2px;
-    order: 4;
-    flex: 0 1 auto;
-    align-self: auto;
-} */
 
 .cytoscape-graph{
   border: 2px solid white;
@@ -261,6 +255,38 @@ input {
   text-overflow: ellipsis;
   height: 120px;
   text-wrap: break-word;
+}
+
+input {
+  border: 1px solid #999;
+  padding: 8px;
+  width: 300px;
+}
+.no-autocomplete {
+  color: #999;
+  padding: 8px;
+}
+.autocomplete {
+  border: 1px solid #999;
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  max-height: 143px;
+  overflow-y: auto;
+  padding-left: 0;
+  width: calc(300px + 1rem);
+}
+.autocomplete li {
+  padding: 8px;
+}
+.autocomplete > .active,
+.autocomplete li:hover {
+  background-color: darkgray;
+  cursor: pointer;
+  font-weight: 700;
+}
+.autocomplete li:not(:last-of-type) {
+  border-bottom: 1px solid #999;
 }
 
 @media (prefers-color-scheme: light) {

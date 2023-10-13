@@ -7,7 +7,8 @@ import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
-import ProteinSuggestor from "./SearchSuggestion";
+import Autocomplete from "./SearchSuggestion";
+import SearchBar from "./SearchBar";
 
 export default function FlyQuery() {
   const [query, setQuery] = useState({ protein: "", goTerm: "", k: [] });
@@ -126,13 +127,33 @@ export default function FlyQuery() {
     }
   }
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setQuery((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setQuery((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
+
+  const handleInputChange = (e, value, reason) => {
+    const { name } = e.target;
+  
+    if (reason === 'select-option' || reason === 'remove-option') {
+      // If the user selected or removed an option in Autocomplete
+      setQuery((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    } else {
+      // For regular text input in TextField
+      setQuery((prevData) => ({
+        ...prevData,
+        [name]: e.target.value,
+      }));
+    }
   };
+  
+
 
   const handleSourceNode = (e) => {
     const newSource = e.target.getAttribute("new-source-node");
@@ -179,46 +200,16 @@ export default function FlyQuery() {
   return (
     <div>
       <div className="search-box-align">
-        <div className="container">
-          <form method="post" onSubmit={handleSubmit} ref={submitRef}>
-            <div className="wrapper">
-              <h2>
-                Enter protein, GO term and number of paths to visualize...
-              </h2>
-              <div className="search-container">
-                <ProteinSuggestor 
-                  query={query}
-                  handleInputChange={handleInputChange}  
-                />
-                <input
-                  type="text"
-                  name="goTerm"
-                  placeholder="GO:0003674"
-                  value={query.goTerm}
-                  onChange={handleInputChange}
-                  required
-                />
-                <input
-                  type="number"
-                  min="0"
-                  name="k"
-                  placeholder="3"
-                  value={query.k}
-                  onChange={handleInputChange}
-                  required
-                />
-                <button type="submit" className="button">
-                  Search for Networks
-                </button>
-              </div>
-            </div>
-          </form>
-          <p className="example">
-            Examples: <a onClick={() => getExample(1)}>#1</a>{" "}
-            <a onClick={() => getExample(2)}>#2</a>{" "}
-            <a onClick={() => getExample(3)}>#3</a>
-          </p>
-        </div>
+        <SearchBar
+          handleSubmit={handleSubmit}
+          submitRef={submitRef}
+          query={query}
+          handleInputChange={handleInputChange}
+          getExample={getExample}
+        />
+        <Autocomplete
+          suggestions={['flw','egfr']}
+        />
 
         {hasError && <QueryError />}
 
