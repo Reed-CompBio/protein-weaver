@@ -26,6 +26,7 @@ export default function FlyQuery() {
     goTerm: "",
     k: "",
   });
+  console.log("testing")
 
   useEffect(() => {
     if (
