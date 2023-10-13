@@ -64,7 +64,7 @@ export default function Autocomplete(props) {
       } else {
         return (
           <div className="no-autocomplete">
-            <em>Not found</em>
+            <em className="not-found">Not found</em>
           </div>
         );
       }

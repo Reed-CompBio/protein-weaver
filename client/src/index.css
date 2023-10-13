@@ -126,19 +126,20 @@ body {
 }
 
 .wrapper h2 {
-  text-align: center;
+  text-align: left;
 }
 
 .search-container {
-  display: flex;
+  display: inline-block;
   position: flex-start;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-content: stretch;
-  align-items: flex-start;
+  align-items: center;
   margin-right: 10px;
   overflow: hidden;
+  width: 100%;
 }
 
 .example {
@@ -156,10 +157,11 @@ body {
 input {
   min-width: 20px;
   padding: 8px;
-  margin: 0 4px 0 0;
+  margin: 0;
   border: 1px solid #666;
   border-radius: 5px;
   height: 30px;
+  width: 300px;
 }
 
 .button {
@@ -266,51 +268,53 @@ h3 {
   text-wrap: break-word;
 }
 
-input {
-  border: 1px solid #999;
-  padding: 8px;
-  width: 300px;
+.not-found {
+  color: white;
+  font-weight: bold;
 }
 
 .no-autocomplete {
   color: #999;
-  padding: 8px;
+  padding: 0px;
 }
 
 .autocomplete {
-  border: 1px solid #999;
   border-top-width: 0;
   list-style: none;
   margin-top: 0;
   max-height: 143px;
   overflow-y: auto;
   padding-left: 0;
-  width: calc(300px + 1rem);
+  width: 100%;
 }
 
 .k-input {
-  position: flex-end;
-  width: 50px;
+  width: 48px;
 }
 
 .autocomplete-input-container {
-  position: relative;
-  width: 100%;
+  /* position: relative; */
+  width: 330px;
+  display: inline-block;
+  flex-wrap: nowrap;
 }
 
 .autocomplete li {
   padding: 8px;
+  background-color: rgba(0, 0, 0, 0.24);
+  border: none;
+  border-radius: 2px;
 }
 
 .autocomplete>.active,
 .autocomplete li:hover {
-  background-color: darkgray;
+  background-color: rgba(0, 0, 0, 0.24);
   cursor: pointer;
   font-weight: 700;
 }
 
 .autocomplete li:not(:last-of-type) {
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid black;
 }
 
 @media (prefers-color-scheme: light) {

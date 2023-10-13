@@ -37,6 +37,7 @@ export default function SearchBar({ handleSubmit, submitRef, query, handleInputC
               onChange={handleInputChange}
               required
             />
+            &nbsp;&nbsp;&nbsp;
             <button type="submit" className="button">
               Search
             </button>
