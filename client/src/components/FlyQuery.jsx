@@ -7,6 +7,7 @@ import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
+import ProteinSuggestor from "./SearchSuggestion";
 
 export default function FlyQuery() {
   const [query, setQuery] = useState({ protein: "", goTerm: "", k: [] });
@@ -185,13 +186,9 @@ export default function FlyQuery() {
                 Enter protein, GO term and number of paths to visualize...
               </h2>
               <div className="search-container">
-                <input
-                  type="text"
-                  name="protein"
-                  placeholder="FBgn0031985"
-                  value={query.protein}
-                  onChange={handleInputChange}
-                  required
+                <ProteinSuggestor 
+                  query={query}
+                  handleInputChange={handleInputChange}  
                 />
                 <input
                   type="text"
