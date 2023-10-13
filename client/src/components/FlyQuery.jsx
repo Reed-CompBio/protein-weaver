@@ -127,33 +127,13 @@ export default function FlyQuery() {
     }
   }
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setQuery((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
-
-  const handleInputChange = (e, value, reason) => {
-    const { name } = e.target;
-  
-    if (reason === 'select-option' || reason === 'remove-option') {
-      // If the user selected or removed an option in Autocomplete
-      setQuery((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    } else {
-      // For regular text input in TextField
-      setQuery((prevData) => ({
-        ...prevData,
-        [name]: e.target.value,
-      }));
-    }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setQuery((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-  
-
 
   const handleSourceNode = (e) => {
     const newSource = e.target.getAttribute("new-source-node");
