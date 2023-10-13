@@ -118,6 +118,17 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
+.legend {
+  width: 1050px;
+  height: 300px;
+  margin: 0 auto;
+  background-color: #0493f2c7;
+  border: 2px #0493f2c7;
+  border-radius: 10px;
+  padding: 16px;
+  justify-content: center;
+}
+
 .wrapper {
   margin: 8px 0;
 }
@@ -187,17 +198,9 @@ input {
   flex: 1 1 auto;
 }
 
-/* .button {
-    border: 2px solid white;
-    border-radius: 2px;
-    order: 4;
-    flex: 0 1 auto;
-    align-self: auto;
-} */
-
 .cytoscape-graph{
   border: 2px solid white;
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
   background-color: #ffffff;
   height: 480px;
   width: 800px;
@@ -220,13 +223,21 @@ input {
   height: 480px;
   background-color: lightgrey;
   border: 2px solid lightgrey;
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
   padding: 10px;
 }
 
 .sidebar h2, p, h3 {
   color: black;
   word-wrap: break-word;
+}
+
+.legend-align {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .export {
@@ -261,6 +272,54 @@ input {
   text-overflow: ellipsis;
   height: 120px;
   text-wrap: break-word;
+}
+
+.legend h3 {
+  color: white;
+  text-align: center;
+}
+
+.white-text {
+  color: white;
+  display: inline-block
+}
+
+.legend-container {
+  width: 525px;
+  display: inline-block;
+  align-items: center;
+}
+
+.black-line {
+  background-color: black;
+  border: none;
+  height: 3px;
+  width: 60px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.grey-line {
+  background-color: lightgrey;
+  border: none;
+  height: 3px;
+  width: 60px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.line-align {
+  width: 525px;
+  display: inline-block;
+}
+
+.dot-align {
+  width: 525px;
+  display: inline-block;
+}
+
+.key-align {
+  display: flex;
 }
 
 @media (prefers-color-scheme: light) {
