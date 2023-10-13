@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Autocomplete from './SearchSuggestion';
 
 export default function SearchBar({ handleSubmit, submitRef, query, handleInputChange, getExample }) {
 
@@ -12,14 +13,12 @@ export default function SearchBar({ handleSubmit, submitRef, query, handleInputC
                 Enter protein, GO term and number of paths to visualize...
               </h2>
               <div className="search-container">
-              <input
-                  id="protein-input"
-                  type="text"
-                  name="protein"
-                  placeholder="FBgn0031985"
-                  value={query.protein}
-                  onChange={handleInputChange}
-                  required
+                <Autocomplete
+                    suggestions={["flw", "egfr"]} // Pass the protein suggestions to the Autocomplete component
+                    inputName="protein"
+                    inputValue={query.protein}
+                    onInputChange={handleInputChange}
+                    placeholder="FBgn0031985"
                 />
                 <input
                   type="text"

@@ -7,7 +7,6 @@ import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
-import Autocomplete from "./SearchSuggestion";
 import SearchBar from "./SearchBar";
 
 export default function FlyQuery() {
@@ -186,9 +185,6 @@ export default function FlyQuery() {
           query={query}
           handleInputChange={handleInputChange}
           getExample={getExample}
-        />
-        <Autocomplete
-          suggestions={['flw','egfr']}
         />
 
         {hasError && <QueryError />}

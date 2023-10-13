@@ -1,51 +1,58 @@
 import React, { useState } from "react";
+
 const Autocomplete = (props) => {
+  const { suggestions, inputName, inputValue, onInputChange, placeholder } = props;
   const [active, setActive] = useState(0);
   const [filtered, setFiltered] = useState([]);
   const [isShow, setIsShow] = useState(false);
   const [input, setInput] = useState("");
-  
-  const onChange = e => {
-    const { suggestions } = props;
-    const input = e.currentTarget.value;
+
+  const onChange = (e) => {
+    const inputText = e.currentTarget.value;
     const newFilteredSuggestions = suggestions.filter(
-      suggestion =>
-        suggestion.toLowerCase().indexOf(input.toLowerCase()) > -1
+      (suggestion) =>
+        suggestion.toLowerCase().indexOf(inputText.toLowerCase()) > -1
     );
     setActive(0);
     setFiltered(newFilteredSuggestions);
     setIsShow(true);
-    setInput(e.currentTarget.value)
+    setInput(inputText);
+    onInputChange({ target: { name: inputName, value: inputText } });
   };
-const onClick = e => {
+
+  const onClick = (e) => {
     setActive(0);
     setFiltered([]);
     setIsShow(false);
-    setInput(e.currentTarget.innerText)
+    const selectedValue = e.currentTarget.innerText;
+    setInput(selectedValue);
+    onInputChange({ target: { name: inputName, value: selectedValue } });
   };
-const onKeyDown = e => {
-    if (e.keyCode === 13) { // enter key
+
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      // Enter key
       setActive(0);
       setIsShow(false);
-      setInput(filtered[active])
-    }
-    else if (e.keyCode === 38) { // up arrow
-      return (active === 0) ? null : setActive(active - 1);
-    }
-    else if (e.keyCode === 40) { // down arrow
-      return (active - 1 === filtered.length) ? null : setActive(active + 1);
+      const selectedValue = filtered[active] || input;
+      setInput(selectedValue);
+      onInputChange({ target: { name: inputName, value: selectedValue } });
+    } else if (e.keyCode === 38) {
+      // Up arrow
+      setActive(active > 0 ? active - 1 : 0);
+    } else if (e.keyCode === 40) {
+      // Down arrow
+      setActive(active < filtered.length - 1 ? active + 1 : filtered.length - 1);
     }
   };
-const renderAutocomplete = () => {
+
+  const renderAutocomplete = () => {
     if (isShow && input) {
       if (filtered.length) {
         return (
           <ul className="autocomplete">
             {filtered.map((suggestion, index) => {
-              let className;
-              if (index === active) {
-                className = "active";
-              }
+              let className = index === active ? "active" : "";
               return (
                 <li className={className} key={suggestion} onClick={onClick}>
                   {suggestion}
@@ -63,17 +70,21 @@ const renderAutocomplete = () => {
       }
     }
     return <></>;
-  }
-return (
+  };
+
+  return (
     <>
       <input
         type="text"
+        name={inputName}
+        value={inputValue}
+        placeholder={placeholder}
         onChange={onChange}
         onKeyDown={onKeyDown}
-        value={input}
       />
       {renderAutocomplete()}
     </>
   );
-}
+};
+
 export default Autocomplete;
