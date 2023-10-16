@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Autocomplete from './Autocomplete';
 
 export default function SearchBar({ handleSubmit, submitRef, query, handleInputChange, getExample }) {

@@ -92,6 +92,7 @@ export default function Autocomplete(props) {
         onFocus={onFocus}
         onBlur={onBlur}
         onKeyDown={onKeyDown}
+        autoComplete="off"
       />
       <div className="autocomplete-dropdown">
         {renderAutocomplete()}
