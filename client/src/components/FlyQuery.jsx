@@ -7,7 +7,7 @@ import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
-import Joyride from "react-joyride";
+import Joyride, { STATUS } from "react-joyride";
 
 export default function FlyQuery() {
   const [query, setQuery] = useState({ protein: "", goTerm: "", k: [] });
@@ -21,6 +21,7 @@ export default function FlyQuery() {
   const [queryCount, setQueryCount] = useState(0);
   const submitRef = useRef();
   const [logs, setLogs] = useState([]);
+  const [startGuide, setStartGuide] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams({
     species: "txid7227",
     protein: "",
@@ -31,13 +32,23 @@ export default function FlyQuery() {
     run: false,
     steps: [
       {
-        content: <div><h2>Welcome to ProteinWeaver!</h2> <p>This guide will go through the features of our website </p></div>,
+        content: (
+          <div>
+            <h2>Welcome to ProteinWeaver!</h2>{" "}
+            <p>This guide will go through the features of our website </p>
+          </div>
+        ),
         locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
         placement: "center",
         target: "body",
       },
       {
-        content: <p>Enter your protein of interest, GO term, and the number of paths you want. Use the examples if you are unsure!</p>,
+        content: (
+          <p>
+            Enter your protein of interest, GO term, and the number of paths you
+            want. Use the examples if you are unsure!
+          </p>
+        ),
         locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
         floaterProps: {
           disableAnimation: true,
@@ -68,7 +79,15 @@ export default function FlyQuery() {
     }
   }, []);
 
+  useEffect(() => {
+    if (startGuide != 0) {
+      console.log("startGuide useEffect");
+      submitRef.current.click();
+    }
+  }, [startGuide]);
+
   async function handleSubmit(e) {
+    console.log("inside handleSubmit");
     setSidebarNode(null);
     setNetworkResult({});
     setHasError(false);
@@ -204,13 +223,22 @@ export default function FlyQuery() {
   const handleGuide = (e) => {
     e.preventDefault();
     getExample(1);
-    setGuide({ run: true, steps: guide.steps});
+    setStartGuide(startGuide + 1);
+    setGuide({ run: true, steps: guide.steps });
   };
 
+  const handleJoyrideCallback = (data) => {
+    const { status } = data;
+    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
+
+    if (finishedStatuses.includes(status)) {
+      setGuide({ run: false, steps: guide.steps });
+    }
+  };
   return (
     <div>
       <Joyride
-        // callback={handleJoyrideCallback}
+        callback={handleJoyrideCallback}
         continuous
         hideCloseButton
         run={guide.run}
@@ -227,7 +255,7 @@ export default function FlyQuery() {
       <button onClick={handleGuide}>Start guide</button>
       <div className="search-box-align">
         <div className="container">
-          <form method="post" onSubmit={handleSubmit} ref={submitRef}>
+          <form method="post" onSubmit={handleSubmit}>
             <div className="wrapper">
               <h2>
                 Enter protein, GO term and number of paths to visualize...
@@ -258,7 +286,7 @@ export default function FlyQuery() {
                   onChange={handleInputChange}
                   required
                 />
-                <button type="submit" className="button">
+                <button type="submit" className="button" ref={submitRef}>
                   Search for Networks
                 </button>
               </div>
