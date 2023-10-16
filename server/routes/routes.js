@@ -9,28 +9,28 @@ import EdgeDataService from '../services/edge.data.service.js';
 const router = new Router()
 const jsonParser = bodyParser.json();
 
-router.get("/test", (req,res) =>{
-  res.json({"message": "Successfully connected to the backend API"})
+router.get("/test", (req, res) => {
+  res.json({ "message": "Successfully connected to the backend API" })
 })
 
-router.get('/getMovie', async (req, res, next) => {
-    try {
+router.get('/getMovie', async (res, next) => {
+  try {
 
-      const movieService = new MovieService(
-        getDriver()
-      )
+    const movieService = new MovieService(
+      getDriver()
+    )
 
-      const movies = await movieService.getMovie(
-      )
+    const movies = await movieService.getMovie(
+    )
 
-      res.json(movies)
-    }
-    catch (e) {
-      next(e)
-    }
-  })
+    res.json(movies)
+  }
+  catch (e) {
+    next(e)
+  }
+})
 
-router.get('/getNetwork', async (req, res, next) => {
+router.get('/getNetwork', async (res, next) => {
   try {
 
     const networkService = new NetworkService(
@@ -58,7 +58,7 @@ router.post('/getEdgeData', jsonParser, async (req, res, next) => {
     const edgeData = await edgeDataService.getEdgeData(nodeList)
 
     res.json(edgeData)
-  }catch (e) {
+  } catch (e) {
     next(e)
   }
 });
@@ -90,9 +90,13 @@ router.post('/getFlyBase', jsonParser, async (req, res, next) => {
   }
 });
 
-router.post('/postRequest', async(req, res, next) => {
+router.post('/postRequest', async (req, res, next) => {
   const body = req.body
   res.json(body)
+})
+
+router.get('/protein', async (req, res, next) => {
+
 })
 
 export default router

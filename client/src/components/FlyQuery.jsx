@@ -21,6 +21,7 @@ export default function FlyQuery() {
   const [queryCount, setQueryCount] = useState(0);
   const submitRef = useRef()
   const [logs, setLogs] = useState([])
+  const [proteinOptions, setProteinOptions] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams({
     species: "txid7227",
     protein: "",
@@ -41,6 +42,17 @@ export default function FlyQuery() {
         k: searchParams.get("k"),
       });
     }
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/proteins")
+      .then((res) => res.json())
+      .then((data) => {
+        setProteinOptions(data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
   async function handleSubmit(e) {

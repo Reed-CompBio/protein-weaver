@@ -299,7 +299,13 @@ h3 {
   width: 300px;
   display: inline-block;
   flex-wrap: nowrap;
-  height: 600px;
+  height: 200px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.autocomplete-input-container input {
+  pointer-events: auto;
 }
 
 .autocomplete li {
@@ -322,8 +328,6 @@ h3 {
 
 .autocomplete-dropdown {
   position: absolute;
-  /* top: 100%;
-  left: 0; */
 }
 
 @media (prefers-color-scheme: light) {
