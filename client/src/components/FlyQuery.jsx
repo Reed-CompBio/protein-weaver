@@ -7,6 +7,7 @@ import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
+import Joyride from "react-joyride";
 
 export default function FlyQuery() {
   const [query, setQuery] = useState({ protein: "", goTerm: "", k: [] });
@@ -18,15 +19,37 @@ export default function FlyQuery() {
   const [goTerm, setGoTerm] = useState("");
   const [hasError, setHasError] = useState(false);
   const [queryCount, setQueryCount] = useState(0);
-  const submitRef = useRef()
-  const [logs, setLogs] = useState([])
+  const submitRef = useRef();
+  const [logs, setLogs] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams({
     species: "txid7227",
     protein: "",
     goTerm: "",
     k: "",
   });
-  console.log("testing")
+  const [guide, setGuide] = useState({
+    run: false,
+    steps: [
+      {
+        content: <h2>Let's begin our journey!</h2>,
+        locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+        placement: "center",
+        target: "body",
+      },
+      {
+        content: <h2>Let's begin our journey!</h2>,
+        locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+        placement: "center",
+        target: "body",
+      },
+      {
+        content: <h2>Let's begin our journey!</h2>,
+        locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+        placement: "center",
+        target: "body",
+      },
+    ],
+  });
 
   useEffect(() => {
     if (
@@ -172,11 +195,34 @@ export default function FlyQuery() {
   };
 
   const handleLog = (entry) => {
-    setLogs(logs => [...logs, entry]);
-  }
+    setLogs((logs) => [...logs, entry]);
+  };
+
+  const handleGuide = (e) => {
+    e.preventDefault();
+    console.log("clicked Guide");
+    setGuide({ run: true, steps: guide.steps});
+    console.log(guide);
+  };
 
   return (
     <div>
+      <Joyride
+        // callback={handleJoyrideCallback}
+        continuous
+        hideCloseButton
+        run={guide.run}
+        scrollToFirstStep
+        showProgress
+        showSkipButton
+        steps={guide.steps}
+        styles={{
+          options: {
+            zIndex: 10000,
+          },
+        }}
+      />
+      <button onClick={handleGuide}>Start guide</button>
       <div className="search-box-align">
         <div className="container">
           <form method="post" onSubmit={handleSubmit} ref={submitRef}>
