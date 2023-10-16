@@ -31,19 +31,22 @@ export default function FlyQuery() {
     run: false,
     steps: [
       {
-        content: <h2>Let's begin our journey!</h2>,
+        content: <div><h2>Welcome to ProteinWeaver!</h2> <p>This guide will go through the features of our website </p></div>,
         locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
         placement: "center",
         target: "body",
       },
       {
-        content: <h2>Let's begin our journey!</h2>,
+        content: <p>Enter your protein of interest, GO term, and the number of paths you want. Use the examples if you are unsure!</p>,
         locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-        placement: "center",
-        target: "body",
+        floaterProps: {
+          disableAnimation: true,
+        },
+        spotlightPadding: 20,
+        target: ".search-box-align",
       },
       {
-        content: <h2>Let's begin our journey!</h2>,
+        content: <div>{}</div>,
         locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
         placement: "center",
         target: "body",
@@ -200,9 +203,8 @@ export default function FlyQuery() {
 
   const handleGuide = (e) => {
     e.preventDefault();
-    console.log("clicked Guide");
+    getExample(1);
     setGuide({ run: true, steps: guide.steps});
-    console.log(guide);
   };
 
   return (
