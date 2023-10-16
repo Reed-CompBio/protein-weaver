@@ -1,7 +1,7 @@
 import React from 'react';
 import Autocomplete from './Autocomplete';
 
-export default function SearchBar({ handleSubmit, submitRef, query, handleInputChange, getExample }) {
+export default function SearchBar({ handleSubmit, submitRef, query, handleInputChange, getExample, proteinOptions }) {
 
 
   return (
@@ -13,7 +13,7 @@ export default function SearchBar({ handleSubmit, submitRef, query, handleInputC
           </h2>
           <div className="search-container">
             <Autocomplete
-              suggestions={["flw", "egfr"]} // Pass the protein suggestions to the Autocomplete component
+              suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
               inputName="protein"
               inputValue={query.protein}
               onInputChange={handleInputChange}

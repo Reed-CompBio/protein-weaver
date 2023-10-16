@@ -48,8 +48,9 @@ export default function FlyQuery() {
     fetch("/api/getProteinOptions")
       .then((res) => res.json())
       .then((data) => {
-        console.log("protein data", data);
-        // setProteinOptions(data);
+        const proteinNames = data.map((item) => item.name);
+        const proteinIds = data.map((item) => item.id);
+        setProteinOptions([...new Set(proteinNames.concat(proteinIds))]);
       })
       .catch(error => {
         console.error('Error fetching protein options:', error);
@@ -198,6 +199,7 @@ export default function FlyQuery() {
           query={query}
           handleInputChange={handleInputChange}
           getExample={getExample}
+          proteinOptions={proteinOptions}
         />
 
         {hasError && <QueryError />}
