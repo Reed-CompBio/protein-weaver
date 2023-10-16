@@ -6,6 +6,7 @@ import NetworkService from '../services/network.service.js';
 import FlyBaseService from '../services/flybase.service.js';
 import EdgeDataService from '../services/edge.data.service.js';
 import ProteinService from '../services/protein.service.js';
+import GoTermService from '../services/go.term.service.js';
 
 const router = new Router()
 const jsonParser = bodyParser.json();
@@ -56,6 +57,21 @@ router.get('/getProteinOptions', jsonParser, async (req, res, next) => {
     const proteinOptions = await proteinService.getProtein()
 
     res.json(proteinOptions)
+  }
+  catch (e) {
+    next(e)
+  }
+});
+
+router.get('/getGoTermOptions', jsonParser, async (req, res, next) => {
+  try {
+    const goTermService = new GoTermService(
+      getDriver()
+    )
+
+    const goTermOptions = await goTermService.getGoTerm()
+
+    res.json(goTermOptions)
   }
   catch (e) {
     next(e)

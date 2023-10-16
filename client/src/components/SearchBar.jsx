@@ -1,7 +1,7 @@
 import React from 'react';
 import Autocomplete from './Autocomplete';
 
-export default function SearchBar({ handleSubmit, submitRef, query, handleInputChange, getExample, proteinOptions }) {
+export default function SearchBar({ handleSubmit, submitRef, query, handleInputChange, getExample, proteinOptions, goTermOptions }) {
 
 
   return (
@@ -20,7 +20,7 @@ export default function SearchBar({ handleSubmit, submitRef, query, handleInputC
               placeholder="FBgn0031985"
             />
             <Autocomplete
-              suggestions={["wnt signaling pathway", "biological process", "example1", "example2", "example3", "example4", "example5"]} // Pass the go term suggestions to the Autocomplete component
+              suggestions={goTermOptions} // Pass the go term suggestions to the Autocomplete component
               inputName="goTerm"
               inputValue={query.goTerm}
               onInputChange={handleInputChange}

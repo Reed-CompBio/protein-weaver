@@ -22,14 +22,15 @@ export default function FlyQuery() {
   const submitRef = useRef()
   const [logs, setLogs] = useState([])
   const [proteinOptions, setProteinOptions] = useState([]);
+  const [goTermOptions, setGoTermOptions] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams({
     species: "txid7227",
     protein: "",
     goTerm: "",
     k: "",
   });
-  console.log("testing")
 
+  // dynamically alter params based on url
   useEffect(() => {
     if (
       searchParams.get("protein") != "" &&
@@ -44,6 +45,7 @@ export default function FlyQuery() {
     }
   }, []);
 
+  // get the protein options
   useEffect(() => {
     fetch("/api/getProteinOptions")
       .then((res) => res.json())
@@ -57,6 +59,21 @@ export default function FlyQuery() {
       });
   }, []);
 
+  // get the go term options
+  useEffect(() => {
+    fetch("/api/getGoTermOptions")
+      .then((res) => res.json())
+      .then((data) => {
+        const goTermNames = data.map((item) => item.name);
+        const goTermIds = data.map((item) => item.id);
+        setGoTermOptions([...new Set(goTermNames.concat(goTermIds))]);
+      })
+      .catch(error => {
+        console.error('Error fetching GO term options:', error);
+      });
+  }, []);
+
+  // submit the query
   async function handleSubmit(e) {
     setSidebarNode(null);
     setNetworkResult({});
@@ -200,6 +217,7 @@ export default function FlyQuery() {
           handleInputChange={handleInputChange}
           getExample={getExample}
           proteinOptions={proteinOptions}
+          goTermOptions={goTermOptions}
         />
 
         {hasError && <QueryError />}
