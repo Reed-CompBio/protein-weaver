@@ -82,7 +82,9 @@ export default function Autocomplete(props) {
         onChange={onChange}
         onKeyDown={onKeyDown}
       />
-      {renderAutocomplete()}
+      <div className="autocomplete-dropdown">
+        {renderAutocomplete()}
+      </div>
     </div>
   );
 };

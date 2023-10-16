@@ -114,6 +114,7 @@ body {
 
 .container {
   width: 1050px;
+  height: 175px;
   background: #0493f2c7;
   margin: 0 auto;
   padding: 16px;
@@ -123,6 +124,7 @@ body {
 
 .wrapper {
   margin: 8px 0;
+  height: 100px;
 }
 
 .wrapper h2 {
@@ -163,6 +165,8 @@ input {
   border-radius: 5px;
   height: 30px;
   width: 300px;
+  order: 0;
+  align-self: auto;
 }
 
 .button {
@@ -179,11 +183,6 @@ input {
   align-self: auto;
   height: 30px;
   text-align: center;
-}
-
-input {
-  order: 0;
-  align-self: auto;
 }
 
 .search {
@@ -286,7 +285,8 @@ h3 {
   max-height: 143px;
   overflow-y: auto;
   padding-left: 0px;
-  width: 100%;
+  width: 305px;
+  margin-left: 0px;
 }
 
 .k-input {
@@ -295,9 +295,11 @@ h3 {
 
 .autocomplete-input-container {
   position: relative;
-  width: 330px;
+  margin-right: 30px;
+  width: 300px;
   display: inline-block;
   flex-wrap: nowrap;
+  height: 600px;
 }
 
 .autocomplete li {
@@ -316,6 +318,12 @@ h3 {
 
 .autocomplete li:not(:last-of-type) {
   border-bottom: 1px solid black;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  /* top: 100%;
+  left: 0; */
 }
 
 @media (prefers-color-scheme: light) {
