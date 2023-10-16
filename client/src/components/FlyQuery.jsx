@@ -6,6 +6,7 @@ import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
+import Legend from "./Legend";
 import QueryError from "./QueryError";
 
 export default function FlyQuery() {
@@ -226,6 +227,7 @@ export default function FlyQuery() {
         {hasError && <QueryError />}
 
         {showResults && JSON.stringify(networkResult) != "{}" && (
+          <div className="legend-align">
           <div className="sidebar-align">
             <CytoscapeComponent
               className="cytoscape-graph"
@@ -257,7 +259,12 @@ export default function FlyQuery() {
               handleLog={handleLog}
             />
           </div>
+
+          <Legend />
+
+          </div>
         )}
+        
       </div>
     </div>
   );
