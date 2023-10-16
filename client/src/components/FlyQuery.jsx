@@ -44,16 +44,17 @@ export default function FlyQuery() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   fetch("/api/proteinOptions")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setProteinOptions(data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching protein options:', error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch("/api/getProteinOptions")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("protein data", data);
+        // setProteinOptions(data);
+      })
+      .catch(error => {
+        console.error('Error fetching protein options:', error);
+      });
+  }, []);
 
   async function handleSubmit(e) {
     setSidebarNode(null);

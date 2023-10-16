@@ -47,7 +47,7 @@ router.get('/getNetwork', async (res, next) => {
   }
 });
 
-router.get('/proteinOptions', async (res, next) => {
+router.get('/getProteinOptions', jsonParser, async (req, res, next) => {
   try {
     const proteinService = new ProteinService(
       getDriver()
@@ -106,7 +106,7 @@ router.post('/getFlyBase', jsonParser, async (req, res, next) => {
   }
 });
 
-router.post('/postRequest', async (req, res) => {
+router.post('/postRequest', async (req, res, next) => {
   const body = req.body
   res.json(body)
 })

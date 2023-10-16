@@ -19,20 +19,15 @@ export default class ProteinService {
 
         const session = this.driver.session()
 
-        const res = await session.executeRead(
-            tx => tx.run(
-                `
-                MATCH (n:txid7227) RETURN n;
-                `,
-            )
+        const res = await session.run(
+            `
+            MATCH (n:txid7227) RETURN n AS proteinOptions;
+            `,
         )
 
         const proteinOptions = res.records
 
         await session.close()
-
-        console.log(proteinOptions)
-
-        return proteinOptions
-    };
+        console.log("executed cypher query", proteinOptions)
+    }
 };
