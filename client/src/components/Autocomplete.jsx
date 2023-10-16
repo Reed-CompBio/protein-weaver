@@ -4,7 +4,7 @@ export default function Autocomplete(props) {
   const { suggestions, inputName, inputValue, onInputChange, placeholder } = props;
   const [active, setActive] = useState(0);
   const [filtered, setFiltered] = useState([]);
-  const [isShow, setIsShow] = useState(false);
+  const [isFocused, setIsFocused] = useState(false); // Track input focus
   const [input, setInput] = useState("");
 
   const onChange = (e) => {
@@ -15,7 +15,6 @@ export default function Autocomplete(props) {
     );
     setActive(0);
     setFiltered(newFilteredSuggestions);
-    setIsShow(true);
     setInput(inputText);
     onInputChange({ target: { name: inputName, value: inputText } });
   };
@@ -23,20 +22,30 @@ export default function Autocomplete(props) {
   const onClick = (e) => {
     setActive(0);
     setFiltered([]);
-    setIsShow(false);
-    const selectedValue = e.currentTarget.innerText;
-    setInput(selectedValue);
-    onInputChange({ target: { name: inputName, value: selectedValue } });
+    setInput(e.currentTarget.innerText);
+    setIsFocused(false); // Hide autocomplete on suggestion click
+    onInputChange({ target: { name: inputName, value: e.currentTarget.innerText } });
+  };
+
+  const onFocus = () => {
+    setIsFocused(true); // Show autocomplete when input is in focus
+  };
+
+  const onBlur = () => {
+    // Delay hiding autocomplete to allow for click on suggestion
+    setTimeout(() => {
+      setIsFocused(false);
+    }, 200);
   };
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
       // Enter key
       setActive(0);
-      setIsShow(false);
-      const selectedValue = filtered[active] || input;
-      setInput(selectedValue);
-      onInputChange({ target: { name: inputName, value: selectedValue } });
+      setFiltered([]);
+      setInput(filtered[active] || input);
+      setIsFocused(false); // Hide autocomplete on Enter key
+      onInputChange({ target: { name: inputName, value: filtered[active] || input } });
     } else if (e.keyCode === 38) {
       // Up arrow
       setActive(active > 0 ? active - 1 : 0);
@@ -47,7 +56,7 @@ export default function Autocomplete(props) {
   };
 
   const renderAutocomplete = () => {
-    if (isShow && input) {
+    if (isFocused && input) {
       if (filtered.length) {
         return (
           <ul className="autocomplete">
@@ -69,7 +78,7 @@ export default function Autocomplete(props) {
         );
       }
     }
-    return <></>;
+    return null;
   };
 
   return (
@@ -80,6 +89,8 @@ export default function Autocomplete(props) {
         value={inputValue}
         placeholder={placeholder}
         onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
         onKeyDown={onKeyDown}
       />
       <div className="autocomplete-dropdown">
