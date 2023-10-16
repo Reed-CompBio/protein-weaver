@@ -5,6 +5,7 @@ import MovieService from '../services/movie.service.js';
 import NetworkService from '../services/network.service.js';
 import FlyBaseService from '../services/flybase.service.js';
 import EdgeDataService from '../services/edge.data.service.js';
+import ProteinService from '../services/protein.service.js';
 
 const router = new Router()
 const jsonParser = bodyParser.json();
@@ -40,6 +41,21 @@ router.get('/getNetwork', async (res, next) => {
     const network = await networkService.getNetwork()
 
     res.json(network)
+  }
+  catch (e) {
+    next(e)
+  }
+});
+
+router.get('/proteinOptions', async (res, next) => {
+  try {
+    const proteinService = new ProteinService(
+      getDriver()
+    )
+
+    const proteinOptions = await proteinService.getProtein()
+
+    res.json(proteinOptions)
   }
   catch (e) {
     next(e)
@@ -90,13 +106,9 @@ router.post('/getFlyBase', jsonParser, async (req, res, next) => {
   }
 });
 
-router.post('/postRequest', async (req, res, next) => {
+router.post('/postRequest', async (req, res) => {
   const body = req.body
   res.json(body)
-})
-
-router.get('/protein', async (req, res, next) => {
-
 })
 
 export default router
