@@ -69,6 +69,5 @@ export const layout = {
   randomize: true,
   nodeRepulsion: 40000,
   idealEdgeLength: 50,
-  idealEdgeLength: 50,
   nestingFactor: 0.1,
 };
