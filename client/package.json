@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.13",
     "cytoscape": "^3.26.0",
     "cytoscape-cose-bilkent": "^4.1.0",
     "file-saver": "^2.0.5",

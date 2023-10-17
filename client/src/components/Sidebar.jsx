@@ -14,11 +14,8 @@ export default function Sidebar({
   logs,
   handleLog,
 }) {
-  const prevLog = useRef({});
 
   const [proteinCount, setProteinCount] = useState(0);
-
-  console.log(logs);
 
   useEffect(() => {
     if (currentNode) {

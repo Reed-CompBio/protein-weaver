@@ -8,6 +8,7 @@ import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
 import Joyride, { STATUS } from "react-joyride";
+import SearchBar from "./SearchBar"
 
 export default function FlyQuery() {
   const [query, setQuery] = useState({ protein: "", goTerm: "", k: [] });
@@ -22,6 +23,8 @@ export default function FlyQuery() {
   const submitRef = useRef();
   const [logs, setLogs] = useState([]);
   const [startGuide, setStartGuide] = useState(0);
+  const [proteinOptions, setProteinOptions] = useState([]);
+  const [goTermOptions, setGoTermOptions] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams({
     species: "txid7227",
     protein: "",
@@ -65,6 +68,7 @@ export default function FlyQuery() {
     ],
   });
 
+  // dynamically alter params based on url
   useEffect(() => {
     if (
       searchParams.get("protein") != "" &&
@@ -86,6 +90,35 @@ export default function FlyQuery() {
     }
   }, [startGuide]);
 
+  // get the protein options
+  useEffect(() => {
+    fetch("/api/getProteinOptions")
+      .then((res) => res.json())
+      .then((data) => {
+        const proteinNames = data.map((item) => item.name);
+        const proteinIds = data.map((item) => item.id);
+        setProteinOptions([...new Set(proteinNames.concat(proteinIds))]);
+      })
+      .catch(error => {
+        console.error('Error fetching protein options:', error);
+      });
+  }, []);
+
+  // get the go term options
+  useEffect(() => {
+    fetch("/api/getGoTermOptions")
+      .then((res) => res.json())
+      .then((data) => {
+        const goTermNames = data.map((item) => item.name);
+        const goTermIds = data.map((item) => item.id);
+        setGoTermOptions([...new Set(goTermNames.concat(goTermIds))]);
+      })
+      .catch(error => {
+        console.error('Error fetching GO term options:', error);
+      });
+  }, []);
+
+  // submit the query
   async function handleSubmit(e) {
     console.log("inside handleSubmit");
     setSidebarNode(null);
@@ -254,50 +287,15 @@ export default function FlyQuery() {
       />
       <button onClick={handleGuide}>Start guide</button>
       <div className="search-box-align">
-        <div className="container">
-          <form method="post" onSubmit={handleSubmit}>
-            <div className="wrapper">
-              <h2>
-                Enter protein, GO term and number of paths to visualize...
-              </h2>
-              <div className="search-container">
-                <input
-                  type="text"
-                  name="protein"
-                  placeholder="FBgn0031985"
-                  value={query.protein}
-                  onChange={handleInputChange}
-                  required
-                />
-                <input
-                  type="text"
-                  name="goTerm"
-                  placeholder="GO:0003674"
-                  value={query.goTerm}
-                  onChange={handleInputChange}
-                  required
-                />
-                <input
-                  type="number"
-                  min="0"
-                  name="k"
-                  placeholder="3"
-                  value={query.k}
-                  onChange={handleInputChange}
-                  required
-                />
-                <button type="submit" className="button" ref={submitRef}>
-                  Search for Networks
-                </button>
-              </div>
-            </div>
-          </form>
-          <p className="example">
-            Examples: <a onClick={() => getExample(1)}>#1</a>{" "}
-            <a onClick={() => getExample(2)}>#2</a>{" "}
-            <a onClick={() => getExample(3)}>#3</a>
-          </p>
-        </div>
+        <SearchBar
+          handleSubmit={handleSubmit}
+          submitRef={submitRef}
+          query={query}
+          handleInputChange={handleInputChange}
+          getExample={getExample}
+          proteinOptions={proteinOptions}
+          goTermOptions={goTermOptions}
+        />
 
         {hasError && <QueryError />}
 
