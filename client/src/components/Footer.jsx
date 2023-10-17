@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGithubSquare } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 import { BiSolidMessageAltError } from 'react-icons/bi';
 import { IconContext } from 'react-icons';
 
@@ -13,7 +13,7 @@ export default function Footer() {
                 className: 'icon', size: '1.5em'
             }} >
                 <a href={githubLink} target="_blank" rel="noopener noreferrer">
-                    <FaGithubSquare className="footer-icon" />
+                    <FaGithub className="footer-icon" />
                 </a>
                 <a href={githubIssuesLink} target="_blank" rel="noopener noreferrer">
                     <BiSolidMessageAltError className="footer-icon" />
