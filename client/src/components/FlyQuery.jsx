@@ -8,7 +8,8 @@ import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
 import Joyride, { STATUS } from "react-joyride";
-import SearchBar from "./SearchBar"
+import SearchBar from "./SearchBar";
+import { guideConfig } from "../assets/GuideConfig";
 
 export default function FlyQuery() {
   const [query, setQuery] = useState({ protein: "", goTerm: "", k: [] });
@@ -31,44 +32,8 @@ export default function FlyQuery() {
     goTerm: "",
     k: "",
   });
-  const [guide, setGuide] = useState({
-    run: false,
-    steps: [
-      {
-        content: (
-          <div>
-            <h2>Welcome to ProteinWeaver!</h2>{" "}
-            <p>This guide will go through the features of our website </p>
-          </div>
-        ),
-        locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-        placement: "center",
-        target: "body",
-      },
-      {
-        content: (
-          <p>
-            Enter your protein of interest, GO term, and the number of paths you
-            want. Use the examples if you are unsure!
-          </p>
-        ),
-        locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-        floaterProps: {
-          disableAnimation: true,
-        },
-        spotlightPadding: 20,
-        target: ".search-box-align",
-      },
-      {
-        content: <div>{}</div>,
-        locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-        placement: "center",
-        target: "body",
-      },
-    ],
-  });
+  const [guide, setGuide] = useState(guideConfig);
 
-  // dynamically alter params based on url
   useEffect(() => {
     if (
       searchParams.get("protein") != "" &&
@@ -85,12 +50,10 @@ export default function FlyQuery() {
 
   useEffect(() => {
     if (startGuide != 0) {
-      console.log("startGuide useEffect");
       submitRef.current.click();
     }
   }, [startGuide]);
 
-  // get the protein options
   useEffect(() => {
     fetch("/api/getProteinOptions")
       .then((res) => res.json())
@@ -99,12 +62,11 @@ export default function FlyQuery() {
         const proteinIds = data.map((item) => item.id);
         setProteinOptions([...new Set(proteinNames.concat(proteinIds))]);
       })
-      .catch(error => {
-        console.error('Error fetching protein options:', error);
+      .catch((error) => {
+        console.error("Error fetching protein options:", error);
       });
   }, []);
 
-  // get the go term options
   useEffect(() => {
     fetch("/api/getGoTermOptions")
       .then((res) => res.json())
@@ -113,14 +75,12 @@ export default function FlyQuery() {
         const goTermIds = data.map((item) => item.id);
         setGoTermOptions([...new Set(goTermNames.concat(goTermIds))]);
       })
-      .catch(error => {
-        console.error('Error fetching GO term options:', error);
+      .catch((error) => {
+        console.error("Error fetching GO term options:", error);
       });
   }, []);
 
-  // submit the query
   async function handleSubmit(e) {
-    console.log("inside handleSubmit");
     setSidebarNode(null);
     setNetworkResult({});
     setHasError(false);
@@ -254,6 +214,7 @@ export default function FlyQuery() {
   };
 
   const handleGuide = (e) => {
+    console.log("handleGuide")
     e.preventDefault();
     getExample(1);
     setStartGuide(startGuide + 1);
@@ -276,8 +237,9 @@ export default function FlyQuery() {
         hideCloseButton
         run={guide.run}
         scrollToFirstStep
-        showProgress
+        showProgress={true}
         showSkipButton
+        disableOverlayClose
         steps={guide.steps}
         styles={{
           options: {
@@ -285,7 +247,6 @@ export default function FlyQuery() {
           },
         }}
       />
-      <button onClick={handleGuide}>Start guide</button>
       <div className="search-box-align">
         <SearchBar
           handleSubmit={handleSubmit}
@@ -295,6 +256,7 @@ export default function FlyQuery() {
           getExample={getExample}
           proteinOptions={proteinOptions}
           goTermOptions={goTermOptions}
+          handleGuide={handleGuide}
         />
 
         {hasError && <QueryError />}

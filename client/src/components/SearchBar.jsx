@@ -1,16 +1,26 @@
-import React from 'react';
-import Autocomplete from './Autocomplete';
+import React from "react";
+import Autocomplete from "./Autocomplete";
 
-export default function SearchBar({ handleSubmit, submitRef, query, handleInputChange, getExample, proteinOptions, goTermOptions }) {
-
-
+export default function SearchBar({
+  handleSubmit,
+  submitRef,
+  query,
+  handleInputChange,
+  getExample,
+  proteinOptions,
+  goTermOptions,
+  handleGuide,
+}) {
   return (
     <div className="container">
-      <form method="post" onSubmit={handleSubmit} ref={submitRef}>
+      <div className="title-guide-container">
+        <h2>Enter protein, GO term and number of paths to visualize...</h2>
+        <button className="guide-button" onClick={handleGuide}>
+          ?
+        </button>
+      </div>
+      <form method="post" onSubmit={handleSubmit}>
         <div className="wrapper">
-          <h2>
-            Enter protein, GO term and number of paths to visualize...
-          </h2>
           <div className="search-container">
             <Autocomplete
               suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
@@ -37,7 +47,7 @@ export default function SearchBar({ handleSubmit, submitRef, query, handleInputC
               required
             />
             &nbsp;&nbsp;&nbsp;
-            <button type="submit" className="button">
+            <button type="submit" className="button" ref={submitRef}>
               Search
             </button>
           </div>
@@ -49,5 +59,5 @@ export default function SearchBar({ handleSubmit, submitRef, query, handleInputC
         <a onClick={() => getExample(3)}>#3</a>
       </p>
     </div>
-  )
-};
+  );
+}

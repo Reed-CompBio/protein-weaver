@@ -124,7 +124,7 @@ body {
 
 .wrapper {
   margin: 8px 0;
-  height: 100px;
+  height: 50px;
 }
 
 .wrapper h2 {
@@ -215,6 +215,8 @@ input {
 .sidebar-align {
   display: flex;
   justify-content: center;
+  width: 1100px;
+  align-self: center;
 }
 
 .sidebar {
@@ -329,6 +331,22 @@ h3 {
 
 .autocomplete-dropdown {
   position: absolute;
+}
+
+.title-guide-container {
+  display: flex;
+  align-items: center;
+}
+
+.guide-button {
+  padding: 2.5px;
+  margin-left: auto;
+  margin-bottom: auto;
+  font-size: 15px;
+  border: 2px solid white;
+  background-color: white;
+  cursor: pointer;
+  color: #000;
 }
 
 @media (prefers-color-scheme: light) {

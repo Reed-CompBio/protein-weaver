@@ -23,7 +23,7 @@ export const cytoscapeStyle = [
     style: {
       width: 30,
       height: 30,
-      "shape": "rectangle",
+      shape: "rectangle",
       "background-color": "purple",
     },
   },
