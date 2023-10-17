@@ -349,6 +349,21 @@ h3 {
   color: #000;
 }
 
+.footer {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+
+.icon {
+  color: white;
+  margin-right: 0.5em;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
