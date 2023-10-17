@@ -5,7 +5,7 @@ export const guideConfig = {
       content: (
         <div>
           <h2>Welcome to ProteinWeaver!</h2>{" "}
-          <p>This guide will go through the features of our website </p>
+          <p>This guide will provide an overview of the features available on our website.</p>
         </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
@@ -15,8 +15,7 @@ export const guideConfig = {
     {
       content: (
         <p>
-          Enter your protein of interest, GO term, and the number of paths you
-          want. Use the examples if you are unsure!
+          Enter your protein of interest, GO term, and the desired number of paths. If you're unsure, feel free to refer to the examples.
         </p>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
@@ -29,8 +28,7 @@ export const guideConfig = {
     {
       content: (
         <p>
-          The search output includes a graph for visualization, and information
-          about the network
+          The query generates a graphical representation of the subnetwork you've queried, along with additional details about the subnetwork.
         </p>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
@@ -43,8 +41,7 @@ export const guideConfig = {
     {
       content: (
         <p>
-          Cytoscape.js render an interactive graph, where you can explore all
-          the nodes and edges.
+          Cytoscape.js renders an interactive graph that allows you to explore all nodes and edges of the subnetwork.
         </p>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
@@ -57,8 +54,7 @@ export const guideConfig = {
     {
       content: (
         <p>
-          The sidebar contains all the information about the network, including
-          links about the proteins and the GO term summaries
+          The sidebar contains comprehensive information about the subnetwork, including links to details about the selected proteins and GO terms.
         </p>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
