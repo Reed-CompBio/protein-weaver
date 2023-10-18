@@ -90,6 +90,7 @@ export default function Autocomplete(props) {
   return (
     <div className="autocomplete-input-container">
       <input
+        required
         type="text"
         name={inputName}
         value={inputValue}
