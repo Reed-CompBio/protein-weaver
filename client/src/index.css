@@ -277,7 +277,7 @@ h3 {
   overflow: auto;
   text-overflow: ellipsis;
   height: 120px;
-  text-wrap: break-word;
+  flex-wrap: break-word;
 }
 
 .not-found {
