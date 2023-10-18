@@ -7,7 +7,7 @@
         - Load any FlyBase data by copying `interactome-flybase-collapsed-weighted.txt`
         into import directory
         	- Delete 'sy#' preceding the first column name in `interactome-flybase-collapsed-weighted.txt`
-        - Import the properly formatted GO terms file `gene_association.fb` from the GitHub repository.
+        - Import the properly formatted GO terms file from FlyBase and store in the GitHub repository: `gene_association.fb`.
     - `~/neo4j/plugins/` to store any necessary plugins for production environments
 
 2. Create a docker instance with APOC plugin using the following command:
