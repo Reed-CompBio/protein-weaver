@@ -117,6 +117,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
 .content-wrap {
   flex: 1;
 }
@@ -208,7 +209,7 @@ input {
 
 .cytoscape-graph {
   border: 2px solid white;
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
   background-color: #ffffff;
   height: 480px;
   width: 800px;
@@ -233,7 +234,7 @@ input {
   height: 480px;
   background-color: lightgrey;
   border: 2px solid lightgrey;
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
   padding: 10px;
 }
 
