@@ -98,7 +98,7 @@ export default function FlyQuery() {
     e.preventDefault();
     let network = null;
     try {
-      network = await fetch("/api/getFlyBase", {
+      network = await fetch("/api/getTxid7227", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

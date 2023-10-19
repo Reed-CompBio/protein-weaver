@@ -10,6 +10,7 @@ export default function SearchBar({
   proteinOptions,
   goTermOptions,
   handleGuide,
+  handleSpeciesChange,
 }) {
   return (
     <div className="container">
@@ -46,7 +47,14 @@ export default function SearchBar({
               onChange={handleInputChange}
               required
             />
-            &nbsp;&nbsp;&nbsp;
+            <select
+              name="species"
+              value={query.species}
+              onChange={handleSpeciesChange}
+            >
+              <option value="txid7227">D. melanogaster</option>
+              <option value="txid224308">B. subtilis</option>
+            </select>
             <button type="submit" className="button" ref={submitRef}>
               Search
             </button>

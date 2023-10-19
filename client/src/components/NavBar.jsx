@@ -19,8 +19,11 @@ export default function NavBar() {
           <li>
             <Link to={`/flybase`}>Query Fly Interactome</Link>
           </li>
+          <li>
+            <Link to={`/query`}>Query ProteinWeaver</Link>
+          </li>
         </ul>
       </div>
     </div>
   );
-}
+};

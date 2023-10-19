@@ -6,6 +6,7 @@ import ErrorPage from "./pages/errorPage.jsx";
 import TestingPage from "./pages/TestingPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import FlyBasePage from "./pages/FlyBasePage.jsx";
+import QueryPage from "./pages/QueryPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
   {
     path: "/flybase",
     element: <FlyBasePage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/query",
+    element: <QueryPage />,
     errorElement: <ErrorPage />,
   }
 ]);

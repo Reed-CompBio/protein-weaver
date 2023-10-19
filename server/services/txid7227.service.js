@@ -1,4 +1,4 @@
-export default class FlyBaseService {
+export default class Txid7227Service {
   /**
    * @type {neo4j.Driver}
    */
@@ -14,16 +14,16 @@ export default class FlyBaseService {
     this.driver = driver;
   }
 
-  async getFlyBase(proteinInput, goTermInput, kInput) {
+  async getTxid7227(proteinInput, goTermInput, kInput) {
     if (!proteinInput || !goTermInput || !kInput) {
       console.error('Protein, GO Term and Number of Pathways are required inputs.');
       return null;
     }
-  
+
     console.log("Getting k paths for Protein:", proteinInput, "and GO Term:", goTermInput, "with k =", kInput);
-  
+
     const session = this.driver.session();
-  
+
     try {
       const res = await session.executeRead(async (tx) => {
         const network = await tx.run(
@@ -54,16 +54,16 @@ export default class FlyBaseService {
         );
         return network.records;
       });
-  
+
       console.log("Network result:", res);
-  
+
       return res;
     } catch (error) {
-      console.error('Error in getFlyBase:', error);
+      console.error('Error in getTxid7227:', error);
       return null; // You can handle the error in a more appropriate way
     } finally {
       await session.close();
     }
   }
-  
+
 };
