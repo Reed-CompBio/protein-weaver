@@ -120,6 +120,17 @@ CALL {
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
     with bsubgo
+    MATCH (n:txid224308 {id: bsubgo.locus})
+    MERGE (g:go_term {id: bsubgo.go_term})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+14. Set qualifier property for B. subtilis.
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
+CALL {
+    with bsubgo
     MATCH (p:txid224308 {id: bsubgo.locus})-[r:ProGo]-(g:go_term {id: bsubgo.go_term})
     SET r.relationship = bsubgo.qualifier
 } IN TRANSACTIONS OF 1000 ROWS;

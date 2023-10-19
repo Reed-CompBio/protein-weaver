@@ -26,10 +26,7 @@ export default class GoTermService {
             `,
             );
 
-            console.log("DEBUGGING", res.records);
-
             const nodes = res.records.map(record => record.get('goTermOptions'));
-            console.log(nodes);
 
             nodes.forEach(node => {
                 const nodeId = node.properties.id.split(';');
