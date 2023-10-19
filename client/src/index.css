@@ -280,6 +280,13 @@ h3 {
   flex-wrap: break-word;
 }
 
+select {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 48px;
+  border-radius: 5px;
+}
+
 .not-found {
   color: white;
   font-weight: bold;

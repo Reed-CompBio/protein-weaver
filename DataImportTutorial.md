@@ -103,3 +103,24 @@ CALL {
     n.def = go.def
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
+
+12. Import B. subtilis data with the following command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
+CALL {
+    with bsub
+    MERGE (a:txid224308 {id: bsub.protein_1_locus, name: bsub.protein_1_name})
+    MERGE (b:txid224308 {id: bsub.protein_2_locus, name: bsub.protein_2_name})
+    MERGE (a)-[r:ProPro]-(b)
+} IN TRANSACTIONS OF 100 ROWS;
+```
+
+13. Add GoPro relationships to B. subtilis nodes:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
+CALL {
+    with bsubgo
+    MATCH (p:txid224308 {id: bsubgo.locus})-[r:ProGo]-(g:go_term {id: bsubgo.go_term})
+    SET r.relationship = bsubgo.qualifier
+} IN TRANSACTIONS OF 1000 ROWS;
+```
