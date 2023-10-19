@@ -22,11 +22,11 @@ export default class ProteinService {
         try {
             const res = await session.run(
                 `
-            MATCH (n:txid7227) RETURN n AS proteinOptions;
+            MATCH (n:txid7227) RETURN n AS txid7227Options;
             `,
             );
 
-            const nodes = res.records.map(record => record.get('proteinOptions'));
+            const nodes = res.records.map(record => record.get('txid7227Options'));
 
             nodes.forEach(node => {
                 const nodeId = node.properties.id.split(';');
@@ -39,6 +39,27 @@ export default class ProteinService {
 
                 proteinOptions.push(nodeProperties)
             })
+
+            const res2 = await session.run(
+                `
+            MATCH (n:txid224308) RETURN n AS txid224308Options;
+            `,
+            );
+
+            const nodes2 = res2.records.map(record => record.get('txid224308Options'));
+
+            nodes2.forEach(node => {
+                const nodeId = node.properties.id.split(';');
+                const nodeName = node.properties.name;
+
+                const nodeProperties = {
+                    id: nodeId[0],
+                    name: nodeName
+                }
+
+                proteinOptions.push(nodeProperties)
+            })
+
             return (proteinOptions);
         }
         catch (error) {
