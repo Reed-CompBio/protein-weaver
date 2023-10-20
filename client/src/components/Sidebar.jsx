@@ -134,7 +134,7 @@ export default function Sidebar({
             <br />
             <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
               <button
-                className="button"
+                className="new-source"
                 onClick={newSourceNode}
                 new-source-node={currentNode.id}
               >
@@ -197,7 +197,7 @@ export default function Sidebar({
             <br />
             <form method="post" onSubmit={handleSubmit}>
               <button
-                className="button"
+                className="new-source"
                 onClick={newSourceNode}
                 new-source-node={currentNode.id}
               >

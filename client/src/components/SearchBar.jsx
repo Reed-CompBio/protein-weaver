@@ -55,7 +55,7 @@ export default function SearchBar({
               <option value="txid7227">D. melanogaster</option>
               <option value="txid224308">B. subtilis</option>
             </select>
-            <button type="submit" className="button" ref={submitRef}>
+            <button type="submit" className="search-button" ref={submitRef}>
               Search
             </button>
           </div>
