@@ -93,18 +93,6 @@ export default function Sidebar({
       <div>
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
-          <p>Selected protein: {currentNode.label}</p>
-          <p>
-            Database ID:&nbsp;
-            <a
-              className="blue-sidebar-link"
-              href={`https://flybase.org/reports/${currentNode.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              {currentNode.id}
-            </a>
-          </p>
           <p>Protein of interest: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
@@ -116,7 +104,6 @@ export default function Sidebar({
               AmiGO
             </a>
           </div>
-          <p>GO qualifier: {currentNode.go_protein}</p>
           <div>
             <p>Queried GO term:</p>
             <div className="center-buttons">
@@ -130,8 +117,20 @@ export default function Sidebar({
               </a>
             </div>
           </div>
+          <p>Selected protein: {currentNode.label}</p>
+          <p>
+            Database ID:&nbsp;
+            <a
+              className="blue-sidebar-link"
+              href={`https://flybase.org/reports/${currentNode.id}`}
+              target="_blank"
+              rel="noopener"
+            >
+              {currentNode.id}
+            </a>
+          </p>
+          <p>GO qualifier: {currentNode.go_protein}</p>
           <div className="center-buttons">
-            <br />
             <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
               <button
                 className="new-source"
@@ -157,18 +156,6 @@ export default function Sidebar({
       <div>
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
-          <p>Selected protein: {currentNode.label}</p>
-          <p>
-            Database ID:&nbsp;
-            <a
-              className="tan-sidebar-link"
-              href={`https://flybase.org/reports/${currentNode.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              {currentNode.id}
-            </a>
-          </p>
           <p>Protein of interest: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
@@ -193,6 +180,18 @@ export default function Sidebar({
               </a>
             </div>
           </div>
+          <p>Selected protein: {currentNode.label}</p>
+          <p>
+            Database ID:&nbsp;
+            <a
+              className="tan-sidebar-link"
+              href={`https://flybase.org/reports/${currentNode.id}`}
+              target="_blank"
+              rel="noopener"
+            >
+              {currentNode.id}
+            </a>
+          </p>
           <div className="center-buttons">
             <br />
             <form method="post" onSubmit={handleSubmit}>
@@ -220,18 +219,6 @@ export default function Sidebar({
       <div>
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
-          <p>Selected protein: {currentNode.label}</p>
-          <p>
-            Database ID:&nbsp;
-            <a
-              className="red-sidebar-link"
-              href={`https://flybase.org/reports/${currentNode.id}`}
-              target="_blank"
-              rel="noopener"
-            >
-              {currentNode.id}
-            </a>
-          </p>
           <p>Protein of interest: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
@@ -256,6 +243,18 @@ export default function Sidebar({
               </a>
             </div>
           </div>
+          <p>Selected protein: {currentNode.label}</p>
+          <p>
+            Database ID:&nbsp;
+            <a
+              className="red-sidebar-link"
+              href={`https://flybase.org/reports/${currentNode.id}`}
+              target="_blank"
+              rel="noopener"
+            >
+              {currentNode.id}
+            </a>
+          </p>
           <div className="center-buttons">
             <br />
             <ExportLogJSON log={logs} />

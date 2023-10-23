@@ -35,7 +35,7 @@ a:hover {
   color: white;
   padding: 5px;
   border-radius: 10px;
-  border: 1px solid #efe6dd;
+  border: 2px solid black;
 }
 
 .blue-sidebar-link {
@@ -45,7 +45,7 @@ a:hover {
   color: white;
   padding: 5px;
   border-radius: 10px;
-  border: 1px solid #efe6dd;
+  border: 2px solid black;
 }
 
 .tan-sidebar-link {
@@ -55,7 +55,7 @@ a:hover {
   color: black;
   padding: 5px;
   border-radius: 10px;
-  border: 1px solid #efe6dd;
+  border: 2px solid black;
 }
 
 body {
