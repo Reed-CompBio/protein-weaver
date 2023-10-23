@@ -15,6 +15,8 @@ export const cytoscapeStyle = [
     style: {
       width: 30,
       height: 30,
+      "border-width": "1px",
+      "border-color": "black",
       "background-color": "#A70E16",
     },
   },
@@ -24,6 +26,8 @@ export const cytoscapeStyle = [
       width: 30,
       height: 30,
       shape: "rectangle",
+      "border-width": "1px",
+      "border-color": "black",
       "background-color": "#7F95D1",
     },
   },
@@ -32,6 +36,8 @@ export const cytoscapeStyle = [
     style: {
       width: 15,
       height: 15,
+      "border-width": "1px",
+      "border-color": "black",
       "background-color": "#F9C784",
     },
   },
