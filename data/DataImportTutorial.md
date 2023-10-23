@@ -42,7 +42,7 @@ FIELDTERMINATOR '\t'
 CALL {
     with flybase
     MERGE (a:txid7227 {id: flybase.FlyBase1, name: flybase.symbol1})
-    MERGE (b:txid7227 {id: flybase.FlyBase2, name: flybase.symbol1})
+    MERGE (b:txid7227 {id: flybase.FlyBase2, name: flybase.symbol2})
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```

@@ -144,7 +144,7 @@ body {
   width: 1050px;
   height: 175px;
   background: var(--reed-red);
-  margin: 0 auto;
+  margin: auto;
   padding: 16px;
   border-radius: 10px 10px 0 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -275,7 +275,7 @@ select {
 .sidebar-align {
   display: flex;
   justify-content: center;
-  width: 1100px;
+  width: 1080px;
   align-self: center;
 }
 

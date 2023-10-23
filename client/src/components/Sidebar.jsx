@@ -47,7 +47,7 @@ export default function Sidebar({
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
           <h3>Select a node to learn more</h3>
-          <p>Queried protein: {sourceNode.label}</p>
+          <p>Queried protein: <b>{sourceNode.label}</b></p>
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
@@ -93,7 +93,7 @@ export default function Sidebar({
       <div>
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
-          <p>Protein of interest: {sourceNode.label}</p>
+          <p>Protein of interest: <b>{sourceNode.label}</b></p>
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
@@ -156,7 +156,7 @@ export default function Sidebar({
       <div>
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
-          <p>Protein of interest: {sourceNode.label}</p>
+          <p>Protein of interest: <b>{sourceNode.label}</b></p>
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
@@ -219,7 +219,7 @@ export default function Sidebar({
       <div>
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
-          <p>Protein of interest: {sourceNode.label}</p>
+          <p>Protein of interest: <b>{sourceNode.label}</b></p>
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
