@@ -50,7 +50,7 @@ export default function Sidebar({
           <p>Queried protein: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
-              className="sidebar-link"
+              className="red-sidebar-link"
               href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
               target="_blank"
               rel="noopener"
@@ -62,7 +62,7 @@ export default function Sidebar({
             <p>Queried GO term:</p>
             <div className="center-buttons">
               <a
-                className="sidebar-link"
+                className="blue-sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
@@ -97,7 +97,7 @@ export default function Sidebar({
           <p>
             Database ID:&nbsp;
             <a
-              className="sidebar-link"
+              className="blue-sidebar-link"
               href={`https://flybase.org/reports/${currentNode.id}`}
               target="_blank"
               rel="noopener"
@@ -108,7 +108,7 @@ export default function Sidebar({
           <p>Protein of interest: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
-              className="sidebar-link"
+              className="red-sidebar-link"
               href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
               target="_blank"
               rel="noopener"
@@ -121,7 +121,7 @@ export default function Sidebar({
             <p>Queried GO term:</p>
             <div className="center-buttons">
               <a
-                className="sidebar-link"
+                className="blue-sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
@@ -161,7 +161,7 @@ export default function Sidebar({
           <p>
             Database ID:&nbsp;
             <a
-              className="sidebar-link"
+              className="tan-sidebar-link"
               href={`https://flybase.org/reports/${currentNode.id}`}
               target="_blank"
               rel="noopener"
@@ -172,7 +172,7 @@ export default function Sidebar({
           <p>Protein of interest: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
-              className="sidebar-link"
+              className="red-sidebar-link"
               href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
               target="_blank"
               rel="noopener"
@@ -184,7 +184,7 @@ export default function Sidebar({
             <p>Queried GO term:</p>
             <div className="center-buttons">
               <a
-                className="sidebar-link"
+                className="blue-sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
@@ -224,7 +224,7 @@ export default function Sidebar({
           <p>
             Database ID:&nbsp;
             <a
-              className="sidebar-link"
+              className="red-sidebar-link"
               href={`https://flybase.org/reports/${currentNode.id}`}
               target="_blank"
               rel="noopener"
@@ -235,7 +235,7 @@ export default function Sidebar({
           <p>Protein of interest: {sourceNode.label}</p>
           <div className="center-buttons">
             <a
-              className="sidebar-link"
+              className="red-sidebar-link"
               href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
               target="_blank"
               rel="noopener"
@@ -247,7 +247,7 @@ export default function Sidebar({
             <p>Queried GO term:</p>
             <div className="center-buttons">
               <a
-                className="sidebar-link"
+                className="blue-sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
