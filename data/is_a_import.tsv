@@ -68307,11 +68307,3 @@ GO:2001316	GO:0042180	is_a
 GO:2001316	GO:0046483	is_a
 GO:2001316	GO:0120254	is_a
 GO:2001316	GO:1901360	is_a
-term_tracker_item	GO:0018130	is_a
-term_tracker_item	GO:0034309	is_a
-term_tracker_item	GO:0042181	is_a
-term_tracker_item	GO:0120255	is_a
-term_tracker_item	GO:1901362	is_a
-term_tracker_item	GO:2001316	is_a
-term_tracker_item	regulates	is_a
-term_tracker_item	regulates	is_a
