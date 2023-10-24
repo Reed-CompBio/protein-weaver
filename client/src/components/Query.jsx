@@ -99,66 +99,34 @@ export default function Query() {
 
         e.preventDefault();
         let network = null;
-        if (query.species === "txid7227") {
-            try {
-                network = await fetch("/api/getTxid7227", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(query),
+        try {
+            network = await fetch("/api/getQuery", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(query),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else if (response.status === 404) {
+                        return Promise.reject("error 404");
+                    } else {
+                        return Promise.reject("some other error: " + response.status);
+                    }
                 })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        } else if (response.status === 404) {
-                            return Promise.reject("error 404");
-                        } else {
-                            return Promise.reject("some other error: " + response.status);
-                        }
-                    })
-                    .then((data) => {
-                        setNetworkResult(NetworkParser(data, query.protein, query.goTerm));
-                        return NetworkParser(data, query.protein, query.goTerm);
-                    });
-            } catch (error) {
-                console.error(
-                    "Error getting the network:",
-                    error,
-                    ". Protein or GO term may not exist"
-                );
-                setHasError(true);
-            }
-        } else if (query.species === "txid224308") {
-            try {
-                network = await fetch("/api/getTxid224308", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(query),
-                })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        } else if (response.status === 404) {
-                            return Promise.reject("error 404");
-                        } else {
-                            return Promise.reject("some other error: " + response.status);
-                        }
-                    })
-                    .then((data) => {
-                        setNetworkResult(NetworkParser(data, query.protein, query.goTerm));
-                        return NetworkParser(data, query.protein, query.goTerm);
-                    });
-            } catch (error) {
-                console.error(
-                    "Error getting the network:",
-                    error,
-                    ". Protein or GO term may not exist"
-                );
-                setHasError(true);
-            }
+                .then((data) => {
+                    setNetworkResult(NetworkParser(data, query.protein, query.goTerm));
+                    return NetworkParser(data, query.protein, query.goTerm);
+                });
+        } catch (error) {
+            console.error(
+                "Error getting the network:",
+                error,
+                ". Protein or GO term may not exist"
+            );
+            setHasError(true);
         }
 
         if (network != null) {

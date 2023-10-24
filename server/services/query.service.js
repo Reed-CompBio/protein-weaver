@@ -1,4 +1,4 @@
-export default class Txid224308Service {
+export default class QueryService {
     /**
      * @type {neo4j.Driver}
      */
@@ -14,14 +14,13 @@ export default class Txid224308Service {
         this.driver = driver;
     }
 
-    async getTxid224308(proteinInput, goTermInput, kInput) {
-        if (!proteinInput || !goTermInput || !kInput) {
-            console.error('Protein, GO Term and Number of Pathways are required inputs.');
+    async getQuery(speciesInput, proteinInput, goTermInput, kInput) {
+        if (!speciesInput || !proteinInput || !goTermInput || !kInput) {
+            console.error('Organism, Protein, GO Term and Number of Pathways are required inputs.');
             return null;
         }
 
-
-        console.log("Getting k paths for Protein:", proteinInput, "and GO Term:", goTermInput, "with k =", kInput);
+        console.log("Getting k paths for Protein:", proteinInput, "and GO Term:", goTermInput, "with k =", kInput, "for", speciesInput);
 
         const session = this.driver.session();
 
@@ -29,11 +28,11 @@ export default class Txid224308Service {
             const res = await session.executeRead(async (tx) => {
                 const network = await tx.run(
                     `
-            MATCH (source:txid224308)
+            MATCH (source:protein {txid: $species})
             WHERE source.id =~'(?i)' + $protein OR source.name =~'(?i)' + $protein
             MATCH (target:go_term)
             WHERE target.id =~'(?i)' + $goTerm OR target.name =~'(?i)' + $goTerm
-            CALL gds.shortestPath.yens.stream('txid224308Graph', {
+            CALL gds.shortestPath.yens.stream('proGoGraph', {
               sourceNode: source,
               targetNode: target,
               k: toInteger($k)
@@ -48,6 +47,7 @@ export default class Txid224308Service {
             ORDER BY index
             `,
                     {
+                        species: speciesInput,
                         protein: proteinInput,
                         goTerm: goTermInput,
                         k: kInput
@@ -60,10 +60,11 @@ export default class Txid224308Service {
 
             return res;
         } catch (error) {
-            console.error('Error in getTxid224308:', error);
+            console.error('Error in getQuery:', error);
             return null; // You can handle the error in a more appropriate way
         } finally {
             await session.close();
         }
     }
+
 };

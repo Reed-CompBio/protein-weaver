@@ -6,8 +6,8 @@ import NetworkService from '../services/network.service.js';
 import EdgeDataService from '../services/edge.data.service.js';
 import ProteinService from '../services/protein.service.js';
 import GoTermService from '../services/go.term.service.js';
-import Txid224308Service from '../services/txid224308.service.js';
 import Txid7227Service from '../services/txid7227.service.js';
+import QueryService from '../services/query.service.js';
 
 const router = new Router()
 const jsonParser = bodyParser.json();
@@ -131,8 +131,8 @@ router.post('/postRequest', async (req, res, next) => {
   res.json(body)
 });
 
-// get B. subtilis strain 168 data
-router.post('/getTxid224308', jsonParser, async (req, res, next) => {
+// dynamic query
+router.post('/getQuery', jsonParser, async (req, res, next) => {
   const data = req.body;
   const species = data.species;
   const protein = data.protein;
@@ -145,8 +145,8 @@ router.post('/getTxid224308', jsonParser, async (req, res, next) => {
   console.log('k:', k);
 
   try {
-    const queryService = new Txid224308Service(getDriver());
-    const queryResult = await queryService.getTxid224308(protein, goTerm, k);
+    const queryService = new QueryService(getDriver());
+    const queryResult = await queryService.getQuery(species, protein, goTerm, k);
     console.log(queryResult)
 
     if (queryResult.length === 0) {
