@@ -75,7 +75,6 @@ export default function Sidebar({
           <GoDefinition open>
             <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
           </GoDefinition>
-          {/* <br /> */}
           <div className="center-buttons">
             <ExportLogJSON log={logs} />
             <br />
