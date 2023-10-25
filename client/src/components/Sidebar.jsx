@@ -1,5 +1,6 @@
 import { React, useState, useEffect, useRef } from "react";
 import ExportLogJSON from "./ExportLogJSON";
+import GoDefinition from "./GoDefinition";
 
 export default function Sidebar({
   currentNode,
@@ -71,11 +72,10 @@ export default function Sidebar({
               </a>
             </div>
           </div>
-          <br />
-          <div className="go-description">
-            <p>{goTerm.def}</p>
-          </div>
-          <br />
+          <GoDefinition open>
+            <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
+          </GoDefinition>
+          {/* <br /> */}
           <div className="center-buttons">
             <ExportLogJSON log={logs} />
             <br />
@@ -116,6 +116,9 @@ export default function Sidebar({
                 {goTerm.name}
               </a>
             </div>
+            <GoDefinition open>
+              <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
+            </GoDefinition>
           </div>
           <p>Selected protein: {currentNode.label}</p>
           <p>
@@ -179,6 +182,9 @@ export default function Sidebar({
                 {goTerm.name}
               </a>
             </div>
+            <GoDefinition open>
+              <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
+            </GoDefinition>
           </div>
           <p>Selected protein: {currentNode.label}</p>
           <p>
@@ -242,6 +248,9 @@ export default function Sidebar({
                 {goTerm.name}
               </a>
             </div>
+            <GoDefinition open>
+              <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
+            </GoDefinition>
           </div>
           <p>Selected protein: {currentNode.label}</p>
           <p>

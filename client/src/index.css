@@ -287,6 +287,7 @@ select {
   border-radius: 0 0 10px 0;
   padding: 10px;
   margin-left: 2px;
+  overflow-y: scroll;
 }
 
 .sidebar h2,
@@ -430,6 +431,40 @@ select {
 .icon {
   color: white;
   margin-right: 0.5em;
+}
+
+.go-definition {
+  background-color: #efe6dd;
+  color: #000;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  outline: 1px solid black;
+  width: 100%;
+  vertical-align: middle;
+  position: relative;
+}
+
+.go-definition p {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-left: 10px;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.go-def-content {
+  margin-bottom: 0;
+}
+
+.icon-top-right {
+  position: absolute;
+  display: inline-flex;
+  flex-direction: flex-end;
+  right: 0;
+  top: 0;
 }
 
 @media (prefers-color-scheme: light) {
