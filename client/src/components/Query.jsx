@@ -36,6 +36,26 @@ export default function Query() {
 
     useEffect(() => {
         if (
+            searchParams.get("species") === ""
+        ) {
+            setQuery({
+                species: "txid7227",
+                protein: searchParams.get("protein"),
+                goTerm: searchParams.get("goTerm"),
+                k: searchParams.get("k"),
+            });
+        } else {
+            setQuery({
+                species: searchParams.get("species"),
+                protein: searchParams.get("protein"),
+                goTerm: searchParams.get("goTerm"),
+                k: searchParams.get("k"),
+            });
+        }
+    }, [])
+
+    useEffect(() => {
+        if (
             searchParams.get("species") != "" &&
             searchParams.get("protein") != "" &&
             searchParams.get("goTerm") != "" &&
@@ -57,7 +77,14 @@ export default function Query() {
     }, [startGuide]);
 
     useEffect(() => {
-        fetch("/api/getProteinOptions")
+        fetch('/api/getProteinOptions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // You can add any other headers if needed
+            },
+            body: JSON.stringify(query)
+        })
             .then((res) => res.json())
             .then((data) => {
                 const proteinNames = data.map((item) => item.name);
@@ -68,7 +95,7 @@ export default function Query() {
             .catch((error) => {
                 console.error("Error fetching protein options:", error);
             });
-    }, []);
+    }, [query.species]);
 
     useEffect(() => {
         fetch("/api/getGoTermOptions")

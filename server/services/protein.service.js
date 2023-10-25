@@ -14,7 +14,7 @@ export default class ProteinService {
         this.driver = driver
     }
 
-    async getProtein() {
+    async getProtein(speciesInput) {
         console.log("Getting protein list for autocompletion...")
         const proteinOptions = [];
 
@@ -22,47 +22,28 @@ export default class ProteinService {
         try {
             const res = await session.run(
                 `
-            MATCH (n:txid7227) RETURN n AS txid7227Options;
+            MATCH (n:protein {txid: $species}) RETURN n AS proteinOptions;
             `,
+                {
+                    species: speciesInput
+                }
             );
 
-            const nodes = res.records.map(record => record.get('txid7227Options'));
+            const nodes = res.records.map(record => record.get('proteinOptions'));
 
             nodes.forEach(node => {
                 const nodeId = node.properties.id.split(';');
                 const nodeName = node.properties.name;
 
-                const nodeProperties = {
+                const nodeOptions = {
                     id: nodeId[0],
                     name: nodeName
-                }
+                };
 
-                proteinOptions.push(nodeProperties)
-            })
-
-            const res2 = await session.run(
-                `
-            MATCH (n:txid224308) RETURN n AS txid224308Options;
-            `,
-            );
-
-            const nodes2 = res2.records.map(record => record.get('txid224308Options'));
-
-            nodes2.forEach(node => {
-                const nodeId = node.properties.id.split(';');
-                const nodeName = node.properties.name;
-
-                const nodeProperties = {
-                    id: nodeId[0],
-                    name: nodeName
-                }
-
-                proteinOptions.push(nodeProperties)
-            })
-
+                proteinOptions.push(nodeOptions);
+            });
             return (proteinOptions);
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Error in getProtein:', error);
             return null // You can handle the error in a more appropriate way
         } finally {

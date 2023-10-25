@@ -49,13 +49,16 @@ router.get('/getNetwork', async (res, next) => {
   }
 });
 
-router.get('/getProteinOptions', jsonParser, async (req, res, next) => {
+router.post('/getProteinOptions', jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const species = data.species
+
   try {
     const proteinService = new ProteinService(
       getDriver()
     )
 
-    const proteinOptions = await proteinService.getProtein()
+    const proteinOptions = await proteinService.getProtein(species)
 
     res.json(proteinOptions)
   }
