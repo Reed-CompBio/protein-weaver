@@ -52,9 +52,9 @@ export default function SearchBar({
               value={query.species}
               onChange={handleSpeciesChange}
             >
+              <option value="txid224308">B. subtilis</option>
               <option value="txid7227">D. melanogaster</option>
               <option value="txid7955">D. rerio</option>
-              <option value="txid224308">B. subtilis</option>
             </select>
             <button type="submit" className="search-button" ref={submitRef}>
               Search
