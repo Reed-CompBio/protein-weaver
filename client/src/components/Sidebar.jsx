@@ -13,10 +13,35 @@ export default function Sidebar({
   searchExecuted,
   queryCount,
   logs,
-  handleLog,
+  handleLog
 }) {
-
   const [proteinCount, setProteinCount] = useState(0);
+  const [selectedDbLink, setSelectedDbLink] = useState("");
+  const [sourceNodeLink, setSourceNodeLink] = useState("");
+
+  useEffect(() => {
+    if (query.species === "txid7227") {
+      setSourceNodeLink(`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`)
+    } else if (query.species === "txid224308") {
+      var bsubId = query.protein.replace(/_/g, '')
+      setSourceNodeLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}#tab=GO`)
+    } else if (query.species === "txid7955") {
+      setSourceNodeLink(`https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`)
+    }
+  }, [query.species]);
+
+  useEffect(() => {
+    if (currentNode) {
+      if (query.species === "txid7227") {
+        setSelectedDbLink(`https://flybase.org/reports/${currentNode.id}`)
+      } else if (query.species === "txid224308") {
+        var bsubId = query.protein.replace(/_/g, '')
+        setSelectedDbLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}`)
+      } else if (query.species === "txid7955") {
+        setSelectedDbLink(`https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`)
+      }
+    }
+  }, [currentNode, query.species])
 
   useEffect(() => {
     if (currentNode) {
@@ -52,11 +77,11 @@ export default function Sidebar({
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+              href={sourceNodeLink}
               target="_blank"
               rel="noopener"
             >
-              AmiGO
+              Source Ontology
             </a>
           </div>
           <div>
@@ -96,11 +121,11 @@ export default function Sidebar({
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+              href={sourceNodeLink}
               target="_blank"
               rel="noopener"
             >
-              AmiGO
+              Source Ontology
             </a>
           </div>
           <div>
@@ -124,7 +149,7 @@ export default function Sidebar({
             Database ID:&nbsp;
             <a
               className="blue-sidebar-link"
-              href={`https://flybase.org/reports/${currentNode.id}`}
+              href={selectedDbLink}
               target="_blank"
               rel="noopener"
             >
@@ -162,11 +187,11 @@ export default function Sidebar({
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+              href={sourceNodeLink}
               target="_blank"
               rel="noopener"
             >
-              AmiGO
+              Source Ontology
             </a>
           </div>
           <div>
@@ -190,7 +215,7 @@ export default function Sidebar({
             Database ID:&nbsp;
             <a
               className="tan-sidebar-link"
-              href={`https://flybase.org/reports/${currentNode.id}`}
+              href={selectedDbLink}
               target="_blank"
               rel="noopener"
             >
@@ -228,11 +253,11 @@ export default function Sidebar({
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
-              href={`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`}
+              href={sourceNodeLink}
               target="_blank"
               rel="noopener"
             >
-              AmiGO
+              Source Ontology
             </a>
           </div>
           <div>
@@ -256,7 +281,7 @@ export default function Sidebar({
             Database ID:&nbsp;
             <a
               className="red-sidebar-link"
-              href={`https://flybase.org/reports/${currentNode.id}`}
+              href={selectedDbLink}
               target="_blank"
               rel="noopener"
             >
