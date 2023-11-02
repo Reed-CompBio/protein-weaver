@@ -474,6 +474,62 @@ select {
   top: 0;
 }
 
+.legend-align {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.legend h3 {
+  color: white;
+  text-align: center;
+}
+
+.white-text {
+  color: white;
+  display: inline-block
+}
+
+.legend-container {
+  width: 525px;
+  display: inline-block;
+  align-items: center;
+}
+
+.black-line {
+  background-color: black;
+  border: none;
+  height: 3px;
+  width: 60px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.grey-line {
+  background-color: lightgrey;
+  border: none;
+  height: 3px;
+  width: 60px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.line-align {
+  width: 525px;
+  display: inline-block;
+}
+
+.dot-align {
+  width: 525px;
+  display: inline-block;
+}
+
+.key-align {
+  display: flex;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

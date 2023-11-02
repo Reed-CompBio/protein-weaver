@@ -9,6 +9,7 @@ import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
 import Joyride, { STATUS } from "react-joyride";
 import SearchBar from "./SearchBar";
+import Legend from "./Legend";
 import { guideConfig } from "../assets/GuideConfig";
 
 export default function Query() {
@@ -300,36 +301,39 @@ export default function Query() {
                 {hasError && <QueryError />}
 
                 {showResults && JSON.stringify(networkResult) != "{}" && (
-                    <div className="sidebar-align">
-                        <CytoscapeComponent
-                            className="cytoscape-graph"
-                            elements={CytoscapeComponent.normalizeElements(networkResult)}
-                            style={{
-                                width: "800px",
-                                height: "500px",
-                            }}
-                            stylesheet={cytoscapeStyle}
-                            layout={layout}
-                            cy={(cy) => {
-                                cyRef.current = cy;
-                                cy.on("click", "node", (evt) => {
-                                    getSidePanelData(evt);
-                                });
-                            }}
-                        />
-                        <Sidebar
-                            currentNode={sidebarNode}
-                            sourceNode={sourceNode}
-                            query={query}
-                            goTerm={goTerm}
-                            newSourceNode={handleSourceNode}
-                            handleSubmit={handleSubmit}
-                            exportPNG={exportPNG}
-                            searchExecuted={searchParams}
-                            queryCount={queryCount}
-                            logs={logs}
-                            handleLog={handleLog}
-                        />
+                    <div className="legend-align">
+                        <div className="sidebar-align">
+                            <CytoscapeComponent
+                                className="cytoscape-graph"
+                                elements={CytoscapeComponent.normalizeElements(networkResult)}
+                                style={{
+                                    width: "800px",
+                                    height: "500px",
+                                }}
+                                stylesheet={cytoscapeStyle}
+                                layout={layout}
+                                cy={(cy) => {
+                                    cyRef.current = cy;
+                                    cy.on("click", "node", (evt) => {
+                                        getSidePanelData(evt);
+                                    });
+                                }}
+                            />
+                            <Sidebar
+                                currentNode={sidebarNode}
+                                sourceNode={sourceNode}
+                                query={query}
+                                goTerm={goTerm}
+                                newSourceNode={handleSourceNode}
+                                handleSubmit={handleSubmit}
+                                exportPNG={exportPNG}
+                                searchExecuted={searchParams}
+                                queryCount={queryCount}
+                                logs={logs}
+                                handleLog={handleLog}
+                            />
+                        </div>
+                        <Legend />
                     </div>
                 )}
             </div>
