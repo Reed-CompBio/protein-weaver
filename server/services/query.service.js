@@ -29,7 +29,7 @@ export default class QueryService {
                 const network = await tx.run(
                     `
             MATCH (source:protein {txid: $species})
-            WHERE source.id =~'(?i)' + $protein OR source.name =~'(?i)' + $protein
+            WHERE source.id =~'(?i)' + $protein OR source.name =~'(?i)' + $protein OR source.alt_name =~'(?i)' + $protein
             MATCH (target:go_term)
             WHERE target.id =~'(?i)' + $goTerm OR target.name =~'(?i)' + $goTerm
             CALL gds.shortestPath.yens.stream('proGoGraph', {
