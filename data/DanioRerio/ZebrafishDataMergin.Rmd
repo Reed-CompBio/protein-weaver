@@ -72,7 +72,7 @@ write_csv(psicquic_interactome, "./zfish_psicquic_results.csv")
 The next step is to process the data from String-DB.
 ```{r}
 # read the file in
-string_db_interactome <- read_delim("zfish-interactome.txt", delim = " ")
+string_db_interactome <- read_delim("stringdb-zfish-interactome.txt", delim = " ")
 
 # get only the data from String-DB that has experimental evidence
 string_db_interactome <- string_db_interactome %>% filter(experiments > 0)
@@ -121,11 +121,14 @@ zfish_interactome <- inner_join(zfish_interactome, common_names, by = c("uniprot
 
 zfish_interactome <- inner_join(zfish_interactome, common_names, by = c("uniprotID2" = "Entry"))
 
-colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "source","name1", "name2")
+colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "source","alt_name1", "alt_name2")
 
-deleted_interactions <- zfish_interactome %>% filter(name1 == "deleted") %>% filter(name2 == "deleted")
+deleted_interactions <- zfish_interactome %>% filter(alt_name1 == "deleted") %>% filter(alt_name2 == "deleted")
 
-zfish_interactome <- zfish_interactome %>% filter(name1 != "deleted") %>% filter(name2 != "deleted")
+zfish_interactome <- zfish_interactome %>% filter(alt_name1 != "deleted") %>% filter(alt_name2 != "deleted")
+
+zfish_interactome <- zfish_interactome %>% mutate(name1 = str_extract(alt_name1, "^[^(]*"),
+                             name2 = str_extract(alt_name2, "^[^(]*"))
 ```
 
 
