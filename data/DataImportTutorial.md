@@ -32,17 +32,17 @@ docker run \
 
 3. Access the docker image at http://localhost:7474/
 
-4. Create constraints before data import.
-    `CREATE CONSTRAINT fly_constraint FOR (n:txid7227) REQUIRE n.id IS UNIQUE;`
+4. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
+    `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
 
-5. Import data using the following command:
+5. Import data for D. melanogaster using the following command:
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS flybase
+:auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
 FIELDTERMINATOR '\t'
 CALL {
-    with flybase
-    MERGE (a:txid7227 {id: flybase.FlyBase1, name: flybase.symbol1})
-    MERGE (b:txid7227 {id: flybase.FlyBase2, name: flybase.symbol2})
+    with fly
+    MERGE (a:protein {id: fly.FlyBase1, name: fly.symbol1, txid: "txid7227", species: "Drosophila melanogaster"})
+    MERGE (b:protein {id: fly.FlyBase2, name: fly.symbol2, txid: "txid7227", species: "Drosophila melanogaster"})
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
@@ -57,41 +57,58 @@ CALL {
 FIELDTERMINATOR '\t'
 CALL {
     with flygo
-    MATCH (n:txid7227 {id: flygo.db_object_id})
+    MATCH (n:protein {id: flygo.db_object_id, txid:"txid7227"})
     MERGE (g:go_term {id: flygo.go_id})
     MERGE (n)-[r:ProGo]-(g)
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-8. Import the common names of the proteins using the following command:
-```
-:auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS flybase
-FIELDTERMINATOR '\t'
-CALL {
-    with flybase
-    MATCH (n:txid7227 {id: flybase.FlyBase1})
-    SET n.name = flybase.symbol1
-    with flybase
-    MATCH (p:txid7227 {id: flybase.FlyBase2})
-    SET p.name = flybase.symbol2
-} IN TRANSACTIONS OF 1000 ROWS;
-```
-
-
-9. Import the relationships for the GO terms and proteins using the following commands:
+8. Import the relationships qualifiers for the GO terms and fly proteins using the following commands:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association.fb' AS flygo
 FIELDTERMINATOR '\t'
 CALL {
     with flygo
-    MATCH (p:txid7227 {id: flygo.db_object_id})-[r:ProGo]-(g:go_term {id: flygo.go_id})
+    MATCH (p:protein {id: flygo.db_object_id, txid:"txid7227"})-[r:ProGo]-(g:go_term {id: flygo.go_id})
     SET r.relationship = flygo.qualifier
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-10. Prepare the GO term common names for import with the instructions in the `ParseOBOtoTXT.ipynb` file.
+9. Import B. subtilis data with the following command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
+CALL {
+    with bsub
+    MERGE (a:protein {id: bsub.protein_1_locus, name: bsub.protein_1_name, txid: "txid224308", species: "Bacillus subtilis 168"})
+    MERGE (b:protein {id: bsub.protein_2_locus, name: bsub.protein_2_name, txid: "txid224308", species: "Bacillus subtilis 168"})
+    MERGE (a)-[r:ProPro]-(b)
+} IN TRANSACTIONS OF 100 ROWS;
+```
 
-11. Import the GO term common names and descriptions with the following Cypher command:
+10. Add GoPro relationships to B. subtilis nodes:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
+CALL {
+    with bsubgo
+    MATCH (n:protein {id: bsubgo.locus, txid: "txid224308"})
+    MERGE (g:go_term {id: bsubgo.go_term})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+11. Set qualifier property for B. subtilis.
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
+CALL {
+    with bsubgo
+    MATCH (p:protein {id: bsubgo.locus, txid: "txid224308"})-[r:ProGo]-(g:go_term {id: bsubgo.go_term})
+    SET r.relationship = bsubgo.qualifier
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+12. Prepare the GO term common names for import with the instructions in the `ParseOBOtoTXT.ipynb` file.
+
+13. Import the GO term common names and descriptions with the following Cypher command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
@@ -104,34 +121,11 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-12. Import B. subtilis data with the following command:
+14. Don't forget to call the graph before running queries using the following command:
 ```
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
-CALL {
-    with bsub
-    MERGE (a:txid224308 {id: bsub.protein_1_locus, name: bsub.protein_1_name})
-    MERGE (b:txid224308 {id: bsub.protein_2_locus, name: bsub.protein_2_name})
-    MERGE (a)-[r:ProPro]-(b)
-} IN TRANSACTIONS OF 100 ROWS;
-```
-
-13. Add GoPro relationships to B. subtilis nodes:
-```
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
-CALL {
-    with bsubgo
-    MATCH (n:txid224308 {id: bsubgo.locus})
-    MERGE (g:go_term {id: bsubgo.go_term})
-    MERGE (n)-[r:ProGo]-(g)
-} IN TRANSACTIONS OF 1000 ROWS;
-```
-
-14. Set qualifier property for B. subtilis.
-```
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
-CALL {
-    with bsubgo
-    MATCH (p:txid224308 {id: bsubgo.locus})-[r:ProGo]-(g:go_term {id: bsubgo.go_term})
-    SET r.relationship = bsubgo.qualifier
-} IN TRANSACTIONS OF 1000 ROWS;
+CALL gds.graph.project(
+'proGoGraph',
+['go_term', 'protein'],
+['ProGo', 'ProPro']
+)
 ```
