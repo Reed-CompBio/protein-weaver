@@ -300,6 +300,10 @@ export default function Query() {
 
                 {hasError && <QueryError />}
 
+                {showResults  && JSON.stringify(networkResult) == "{}" && (
+                    <div class="loader"></div>
+                )}
+
                 {showResults && JSON.stringify(networkResult) != "{}" && (
                     <div className="legend-align">
                         <div className="sidebar-align">
