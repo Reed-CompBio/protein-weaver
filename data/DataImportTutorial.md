@@ -23,8 +23,7 @@ docker run \
     -e NEO4J_apoc_export_file_enabled=true \
     -e NEO4J_apoc_import_file_enabled=true \
     -e NEO4J_apoc_import_file_use__neo4j__config=true \
-    -e NEO4J_PLUGINS=\[\"apoc-extended\"\] \
-    -e NEO4J_dbms_security_procedures_unrestricted=apoc.\\\* \
+    --env NEO4J_PLUGINS='["graph-data-science"]' \
     neo4j:latest
 ```
 - This docker instance has no security restrictions, to change username and password edit:
@@ -106,9 +105,44 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-12. Prepare the GO term common names for import with the instructions in the `ParseOBOtoTXT.ipynb` file.
+12. Import D. rerio data with the following command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome.txt' AS zfish
+FIELDTERMINATOR '\t'
+CALL {
+    with zfish
+    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, alt_name: zfish.alt_name1, txid: "txid7955", species: "Danio rerio"})
+    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, alt_name: zfish.alt_name2, txid: "txid7955", species: "Danio rerio"})
+    MERGE (a)-[r:ProPro]-(b)
+} IN TRANSACTIONS OF 100 ROWS;
+```
 
-13. Import the GO term common names and descriptions with the following Cypher command:
+13. Add GoPro relationships to D. rerio nodes:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data.tsv' AS zfishgo
+FIELDTERMINATOR '\t'
+CALL {
+    with zfishgo
+    MATCH (n:protein {id: zfishgo.GENE_PRODUCT_ID, txid: "txid7955"})
+    MERGE (g:go_term {id: zfishgo.GO_TERM})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+14. Set qualifier property for D. rerio.
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data.tsv' AS zfishgo
+FIELDTERMINATOR '\t'
+CALL {
+    with zfishgo
+    MATCH (p:protein {id: zfishgo.GENE_PRODUCT_ID, txid: "txid7955"})-[r:ProGo]-(g:go_term {id: zfishgo.GO_TERM})
+    SET r.relationship = zfishgo.QUALIFIER
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+15. Prepare the GO term common names for import with the instructions in the `ParseOBOtoTXT.ipynb` file.
+
+16. Import the GO term common names and descriptions with the following Cypher command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
@@ -121,7 +155,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-14. Don't forget to call the graph before running queries using the following command:
+17. Don't forget to call the graph before running queries using the following command:
 ```
 CALL gds.graph.project(
 'proGoGraph',
