@@ -15,7 +15,9 @@ export const cytoscapeStyle = [
     style: {
       width: 30,
       height: 30,
-      "background-color": "red",
+      "border-width": "1px",
+      "border-color": "black",
+      "background-color": "#A70E16",
     },
   },
   {
@@ -24,7 +26,9 @@ export const cytoscapeStyle = [
       width: 30,
       height: 30,
       shape: "rectangle",
-      "background-color": "purple",
+      "border-width": "1px",
+      "border-color": "black",
+      "background-color": "#7F95D1",
     },
   },
   {
@@ -32,7 +36,9 @@ export const cytoscapeStyle = [
     style: {
       width: 15,
       height: 15,
-      "background-color": "#42c4ef",
+      "border-width": "1px",
+      "border-color": "black",
+      "background-color": "#F9C784",
     },
   },
   {
@@ -47,7 +53,7 @@ export const cytoscapeStyle = [
     selector: "edge[type='shared']",
     style: {
       width: 2,
-      "line-color": "#d8d8d8",
+      "line-color": "#ACA9A4",
       "curve-style": "bezier",
     },
   },

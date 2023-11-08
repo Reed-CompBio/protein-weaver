@@ -3,10 +3,11 @@ import { getDriver } from '../src/neo4j.js';
 import bodyParser from 'body-parser';
 import MovieService from '../services/movie.service.js';
 import NetworkService from '../services/network.service.js';
-import FlyBaseService from '../services/flybase.service.js';
 import EdgeDataService from '../services/edge.data.service.js';
 import ProteinService from '../services/protein.service.js';
 import GoTermService from '../services/go.term.service.js';
+import Txid7227Service from '../services/txid7227.service.js';
+import QueryService from '../services/query.service.js';
 
 const router = new Router()
 const jsonParser = bodyParser.json();
@@ -48,13 +49,16 @@ router.get('/getNetwork', async (res, next) => {
   }
 });
 
-router.get('/getProteinOptions', jsonParser, async (req, res, next) => {
+router.post('/getProteinOptions', jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const species = data.species
+
   try {
     const proteinService = new ProteinService(
       getDriver()
     )
 
-    const proteinOptions = await proteinService.getProtein()
+    const proteinOptions = await proteinService.getProtein(species)
 
     res.json(proteinOptions)
   }
@@ -95,19 +99,22 @@ router.post('/getEdgeData', jsonParser, async (req, res, next) => {
   }
 });
 
-router.post('/getFlyBase', jsonParser, async (req, res, next) => {
+// get D. melanogaster data
+router.post('/getTxid7227', jsonParser, async (req, res, next) => {
   const data = req.body;
+  const species = data.species;
   const protein = data.protein;
   const goTerm = data.goTerm;
   const k = data.k;
 
+  console.log('Species:', species);
   console.log('Protein:', protein);
   console.log('GO Term:', goTerm);
   console.log('k:', k);
 
   try {
-    const flyBaseService = new FlyBaseService(getDriver());
-    const queryResult = await flyBaseService.getFlyBase(protein, goTerm, k);
+    const queryService = new Txid7227Service(getDriver());
+    const queryResult = await queryService.getTxid7227(protein, goTerm, k);
     console.log(queryResult)
 
     if (queryResult.length === 0) {
@@ -125,6 +132,36 @@ router.post('/getFlyBase', jsonParser, async (req, res, next) => {
 router.post('/postRequest', async (req, res, next) => {
   const body = req.body
   res.json(body)
-})
+});
+
+// dynamic query
+router.post('/getQuery', jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const species = data.species;
+  const protein = data.protein;
+  const goTerm = data.goTerm;
+  const k = data.k;
+
+  console.log('Species:', species);
+  console.log('Protein:', protein);
+  console.log('GO Term:', goTerm);
+  console.log('k:', k);
+
+  try {
+    const queryService = new QueryService(getDriver());
+    const queryResult = await queryService.getQuery(species, protein, goTerm, k);
+    console.log(queryResult)
+
+    if (queryResult.length === 0) {
+      console.log("no data found")
+      res.status(404).send({ error: 'No data found' });
+    } else {
+      res.status(200).json(queryResult);
+    }
+  } catch (error) {
+    console.error('Error in /getQuery:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 export default router

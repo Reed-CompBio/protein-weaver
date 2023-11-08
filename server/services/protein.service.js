@@ -14,7 +14,7 @@ export default class ProteinService {
         this.driver = driver
     }
 
-    async getProtein() {
+    async getProtein(speciesInput) {
         console.log("Getting protein list for autocompletion...")
         const proteinOptions = [];
 
@@ -22,8 +22,11 @@ export default class ProteinService {
         try {
             const res = await session.run(
                 `
-            MATCH (n:txid7227) RETURN n AS proteinOptions;
+            MATCH (n:protein {txid: $species}) RETURN n AS proteinOptions;
             `,
+                {
+                    species: speciesInput
+                }
             );
 
             const nodes = res.records.map(record => record.get('proteinOptions'));
@@ -32,16 +35,15 @@ export default class ProteinService {
                 const nodeId = node.properties.id.split(';');
                 const nodeName = node.properties.name;
 
-                const nodeProperties = {
+                const nodeOptions = {
                     id: nodeId[0],
                     name: nodeName
-                }
+                };
 
-                proteinOptions.push(nodeProperties)
-            })
+                proteinOptions.push(nodeOptions);
+            });
             return (proteinOptions);
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Error in getProtein:', error);
             return null // You can handle the error in a more appropriate way
         } finally {

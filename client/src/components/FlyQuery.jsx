@@ -60,7 +60,8 @@ export default function FlyQuery() {
       .then((data) => {
         const proteinNames = data.map((item) => item.name);
         const proteinIds = data.map((item) => item.id);
-        setProteinOptions([...new Set(proteinNames.concat(proteinIds))]);
+        const proteinMerged = [...new Set(proteinNames.concat(proteinIds))].filter(item => item !== undefined);
+        setProteinOptions(proteinMerged);
       })
       .catch((error) => {
         console.error("Error fetching protein options:", error);
@@ -73,7 +74,8 @@ export default function FlyQuery() {
       .then((data) => {
         const goTermNames = data.map((item) => item.name);
         const goTermIds = data.map((item) => item.id);
-        setGoTermOptions([...new Set(goTermNames.concat(goTermIds))]);
+        const goTermMerged = [...new Set(goTermNames.concat(goTermIds))].filter(item => item !== undefined);
+        setGoTermOptions(goTermMerged);
       })
       .catch((error) => {
         console.error("Error fetching GO term options:", error);
@@ -96,7 +98,7 @@ export default function FlyQuery() {
     e.preventDefault();
     let network = null;
     try {
-      network = await fetch("/api/getFlyBase", {
+      network = await fetch("/api/getTxid7227", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
