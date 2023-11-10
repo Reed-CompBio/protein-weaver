@@ -7,7 +7,7 @@ export default function AboutPage() {
       <MainLayout>
         <div className="main-layout-body">
           <div className="about-body">
-            <h2>About Page</h2>
+            <h2 className="about-title">About Page</h2>
             <p>
               ProteinWeaver is a web-based interface designed to enhance the
               visualization and analysis of protein interaction networks through
@@ -82,6 +82,7 @@ export default function AboutPage() {
                 <li>
                   <a href="https://www.nginx.com/">Nginx</a>
                 </li>
+                <li><a href="https://react-icons.github.io/react-icons/">react-icons</a></li>
               </ul>
             </p>
           </div>

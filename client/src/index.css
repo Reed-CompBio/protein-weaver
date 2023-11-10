@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif, ;
   line-height: 1.5;
   font-weight: 400;
 
@@ -154,7 +154,7 @@ body {
   margin: auto;
   padding: 16px;
   border-radius: 10px 10px 0 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px -0px 10px 5px black;
 }
 
 .wrapper {
@@ -271,6 +271,7 @@ select {
   width: 800px;
   margin-right: 2px;
   margin-top: 5px;
+  box-shadow: -5px 0px 15px 0px black;
 }
 
 .search-box-align {
@@ -297,6 +298,8 @@ select {
   margin-left: 2px;
   margin-top: 5px;
   overflow-y: scroll;
+  box-shadow: 0px -0px 10px 5px black;
+
 }
 
 .sidebar > h2, h3, p{
@@ -484,6 +487,8 @@ select {
   border-radius: 0 0 10px 10px;
   padding: 16px;
   justify-content: center;
+  box-shadow: 0px -0px 10px 5px black;
+
 }
 
 .legend-align {
@@ -597,7 +602,11 @@ h3 {
   border-radius: 10px;
   color: white;
   box-shadow: 0px -0px 10px 5px black;
+}
 
+.about-title{
+  padding-bottom: 5px;
+  border-bottom: 3px solid white;
 }
 
 .about-body > p {
@@ -623,6 +632,70 @@ h3 {
 
 .about-body> p > a:hover, .about-body > p > ul > li > a:hover {
   color: #535bf2;
+}
+
+.home-body {
+  background-color: var(--reed-red);
+  width: 1000px;
+  margin:auto;
+  margin-top: 50px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  padding-top: 5px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0px -0px 10px 5px black;
+}
+
+.home-title{
+  padding-bottom: 5px;
+  border-bottom: 3px solid white;
+}
+
+.home-icon {
+  color:var(--graph-tan);
+}
+
+.home-feature-container{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.home-body-container{
+  display: flex;
+  align-items: center;
+}
+
+.home-query-img{
+  width: 50%;
+  margin-left: 75px;
+  box-shadow: 0px -0px 10px 5px black;
+}
+
+.home-feature-text{
+  margin-left: 20px;
+}
+
+.home-button{
+  background-color: var(--graph-tan);
+  border: 1px solid black; /* Light grey */
+  color: black;
+  font-size: larger;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.home-button:hover{
+  background-color: #fdd99f;
+}
+
+.home-link-about{
+  color: white;
+  text-decoration: underline;
+  font-size: larger;
+  font-weight: bold;
 }
 
 @keyframes spin {
