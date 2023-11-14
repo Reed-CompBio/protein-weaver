@@ -31,8 +31,8 @@ export default function AboutPage() {
               informations, and dynamically travese the graph by setting new
               proteins of interest
             </p>
-            <h2>Project Team</h2>
-            <h3>Project Lead</h3>
+            <h2 className="about-body-text-heading">Project Team</h2>
+            <h3 className="about-body-text-heading">Project Lead</h3>
             <p>
               Anna Ritz is an Associate Professor of Biology at Reed College. A
               computer scientist by training, she does research in computational
@@ -40,12 +40,12 @@ export default function AboutPage() {
               algorithms to analyze signaling pathways in large protein-protein
               interaction networks.
             </p>
-            <h3>Contributors</h3>
+            <h3 className="about-body-text-heading">Contributors</h3>
             <ul>
               <li>Altaf Barelvi, Reed College</li>
               <li>Oliver Anderson, Reed College</li>
             </ul>
-            <h2>Funding</h2>
+            <h2 className="about-body-text-heading">Funding</h2>
             <p>
               This project is supported by an NSF CAREER Award{" "}
               <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1750981">
@@ -53,7 +53,7 @@ export default function AboutPage() {
               </a>{" "}
               to Anna Ritz.
             </p>
-            <h2>Libraries</h2>
+            <h2 className="about-body-text-heading">Libraries</h2>
             <p>
               This website was produced with the following libraries and
               frameworks:

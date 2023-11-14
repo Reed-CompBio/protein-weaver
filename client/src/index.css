@@ -14,10 +14,14 @@
   -webkit-text-size-adjust: 100%;
 
   --graph-blue: #7F95D1;
+  --graph-blue-hover: #8faaf5;
   --reed-red: #A70E16;
+  --reed-red-hover: #ca545a;
   --graph-tan: #EDCB96;
   --light-background: #EFE6DD;
   --shadow: rgb(77, 66, 66);
+  --text-hover: rgb(239, 199, 199);
+  --home-button-hover: #fdd99f;
 }
 
 a {
@@ -40,6 +44,11 @@ a:hover {
   border: 2px solid black;
 }
 
+.red-sidebar-link:hover {
+  color:white;
+  background-color: var(--reed-red-hover);
+}
+
 .blue-sidebar-link {
   font-weight: 500;
   text-decoration: none;
@@ -48,6 +57,11 @@ a:hover {
   padding: 5px;
   border-radius: 10px;
   border: 2px solid black;
+}
+
+.blue-sidebar-link:hover {
+  color:white;
+  background-color: var(--graph-blue-hover);
 }
 
 .tan-sidebar-link {
@@ -105,9 +119,7 @@ button:focus-visible {
 
 .navbar > ul > * {
   margin-left: 10px;
-  border: 2px solid white;
-  border-radius: 10px;
-  background: white
+  color: black;
 }
 
 .navbar {
@@ -124,11 +136,13 @@ button:focus-visible {
   margin-left: auto;
 }
 
-.navbar-menu li {
+.navbar-menu-button {
   padding: 6px 3px 3px 3px;
   background-color: #EDCB96;
   border-color: #000;
   border-radius: 4px;
+  color: black;
+  align-items: center;
 }
 
 .main-layout-body {
@@ -621,6 +635,7 @@ h3 {
 .about-title{
   padding-bottom: 5px;
   border-bottom: 3px solid white;
+  text-align: center;
 }
 
 .about-body > p {
@@ -629,7 +644,7 @@ h3 {
 
 }
 
-.about-body > h1, .about-body h2, .about-body h3 {
+.about-body-text-heading{
   text-align: left;
   color: white;
 }
@@ -639,13 +654,13 @@ h3 {
 }
 
 .about-body> p > a, .about-body > p > ul > li > a {
-  color: rgb(238, 122, 40);
+  color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .about-body> p > a:hover, .about-body > p > ul > li > a:hover {
-  color: #535bf2;
+  color: var(--text-hover);
 }
 
 .home-body {
@@ -702,7 +717,7 @@ h3 {
 }
 
 .home-button:hover{
-  background-color: #fdd99f;
+  background-color: var(--home-button-hover);
 }
 
 .home-link-about{
@@ -710,6 +725,10 @@ h3 {
   text-decoration: underline;
   font-size: larger;
   font-weight: bold;
+}
+
+.home-link-about:hover{
+  color: var(--text-hover);
 }
 
 @keyframes spin {
