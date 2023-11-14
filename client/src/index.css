@@ -1,11 +1,11 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif, ;
+  font-family: 'Playfair Display', serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color:  #d5abab;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -17,6 +17,7 @@
   --reed-red: #A70E16;
   --graph-tan: #EDCB96;
   --light-background: #EFE6DD;
+  --shadow: rgb(77, 66, 66);
 }
 
 a {
@@ -115,6 +116,7 @@ button:focus-visible {
   padding-left: 25px;
   padding-right: 25px;
   border-bottom: solid;
+  background:#A70E16;
 }
 
 .navbar-menu {
@@ -149,12 +151,20 @@ body {
 
 .container {
   width: 1048px;
-  height: 175px;
+  height: 225px;
   background: var(--reed-red);
   margin: auto;
-  padding: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 16px;
+  margin-top: 50px;
   border-radius: 10px 10px 0 0;
-  box-shadow: 0px -0px 10px 5px black;
+  box-shadow: 0px -0px 10px 5px var(--shadow);
+}
+
+.query-title{
+  border-bottom: 3px solid white;
+  padding-bottom: 5px;
 }
 
 .wrapper {
@@ -271,7 +281,7 @@ select {
   width: 800px;
   margin-right: 2px;
   margin-top: 5px;
-  box-shadow: -5px 0px 15px 0px black;
+  box-shadow: -5px 0px 15px 0px var(--shadow);
 }
 
 .search-box-align {
@@ -298,7 +308,7 @@ select {
   margin-left: 2px;
   margin-top: 5px;
   overflow-y: scroll;
-  box-shadow: 0px -0px 10px 5px black;
+  box-shadow: 0px -0px 10px 5px var(--shadow);
 
 }
 
@@ -417,6 +427,10 @@ select {
   align-items: center;
 }
 
+.title-guide-container > h3 {
+  color: white;
+}
+
 .guide-button {
   padding: 2.5px;
   margin-left: auto;
@@ -429,7 +443,7 @@ select {
 }
 
 .footer {
-  margin-top: 20px;
+  margin-top: 50px;
   margin-bottom: 10px;
   left: 0;
   bottom: 0;
@@ -487,7 +501,7 @@ select {
   border-radius: 0 0 10px 10px;
   padding: 16px;
   justify-content: center;
-  box-shadow: 0px -0px 10px 5px black;
+  box-shadow: 0px -0px 10px 5px var(--shadow);
 
 }
 
@@ -601,7 +615,7 @@ h3 {
   padding-top: 5px;
   border-radius: 10px;
   color: white;
-  box-shadow: 0px -0px 10px 5px black;
+  box-shadow: 0px -0px 10px 5px var(--shadow);
 }
 
 .about-title{
@@ -645,7 +659,7 @@ h3 {
   padding-top: 5px;
   border-radius: 10px;
   color: white;
-  box-shadow: 0px -0px 10px 5px black;
+  box-shadow: 0px -0px 10px 5px var(--shadow);
 }
 
 .home-title{
@@ -671,7 +685,7 @@ h3 {
 .home-query-img{
   width: 50%;
   margin-left: 75px;
-  box-shadow: 0px -0px 10px 5px black;
+  box-shadow: 0px -0px 10px 5px var(--shadow);
 }
 
 .home-feature-text{

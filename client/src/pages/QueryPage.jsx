@@ -7,9 +7,6 @@ export default function QueryPage() {
         <div>
             <MainLayout>
                 <div className="main-layout-body">
-                    <h2>
-                        Explore Protein Interaction Networks in GO Term Context
-                    </h2>
                     <Query />
                 </div>
             </MainLayout>
