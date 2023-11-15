@@ -7,7 +7,7 @@ export default function NavBar() {
   return (
     <div>
       <div className="navbar">
-        <h1>ProteinWeaver</h1>
+        <h1 className="website-title">ProteinWeaver</h1>
         <ul className="navbar-menu">
           <li>
             <Link to={`/`}>

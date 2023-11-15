@@ -34,6 +34,11 @@ a:hover {
   color: #535bf2;
 }
 
+.website-title{
+  font-family: 'Lora', serif;
+  font-weight: 500;
+}
+
 .red-sidebar-link {
   font-weight: 500;
   text-decoration: none;
@@ -457,13 +462,34 @@ select {
 }
 
 .footer {
-  margin-top: 50px;
+  margin-left: 40%;
+  margin-top: 70px;
   margin-bottom: 10px;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   color: white;
   text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.footer > * {
+  margin-left: 15px;
+  color: white;
+  font-family: 'Lora', serif;
+  font-weight: 600;
+}
+
+.footer > *:hover {
+  color: var(--home-button-hover);
+}
+
+
+.footer-title:hover{
+  color: white;
+}
+
+.footer-right-align{
+  display: flex;
+  align-items: center;
 }
 
 .icon {
@@ -471,6 +497,9 @@ select {
   margin-right: 0.5em;
 }
 
+.icon:hover{
+  color: var(--home-button-hover);
+}
 .go-definition {
   background-color: var(--light-background);
   color: #000;
@@ -638,7 +667,7 @@ h3 {
   text-align: center;
 }
 
-.about-body > p {
+.about-body > p, .about-body > h3, .about-body-text{
   color: white;
   text-align: justify;
 
@@ -653,13 +682,13 @@ h3 {
   list-style-type: disc;
 }
 
-.about-body> p > a, .about-body > p > ul > li > a {
+.about-body> p > a, .about-body > p > ul > li > a, .about-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.about-body> p > a:hover, .about-body > p > ul > li > a:hover {
+.about-body> p > a:hover, .about-body > p > ul > li > a:hover, .about-body-link:hover {
   color: var(--text-hover);
 }
 
@@ -729,6 +758,15 @@ h3 {
 
 .home-link-about:hover{
   color: var(--text-hover);
+}
+
+.faq-image-container{
+  display: flex;
+}
+
+.subnetwork-image{
+  margin-left: 50px;
+  height:200px;
 }
 
 @keyframes spin {
