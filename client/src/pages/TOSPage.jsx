@@ -28,14 +28,12 @@ export default function TOSPage() {
                 GNU General Public License (GPLv3)
               </a>
               . This code was built with the{" "}
-              <a href="https://neo4j.com/licensing/">Neo4J community edition</a>
-              and imports data from FlyBase{" "}
-              <a href="https://wiki.flybase.org/wiki/FlyBase:Downloads_Overview#Gene_Association_File_-_GAF_.28gene_association.fb.gz.29">
-                (download page)
-              </a>{" "}
-              and the Gene Ontology{" "}
-              <a href="https://geneontology.org/docs/download-ontology/">
-                (download page)
+              <a href="https://neo4j.com/licensing/">
+                Neo4J community edition.{" "}
+              </a>
+              All data used in building the database is compiled in the github's{" "}
+              <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DataSource.md">
+                DataSources
               </a>
               .
             </p>
