@@ -14,8 +14,9 @@ export default function SearchBar({
 }) {
   return (
     <div className="container">
+      <h2 className="query-title"> Explore Protein Interaction Networks in GO Term Context</h2>
       <div className="title-guide-container">
-        <h2>Enter protein, GO term and number of paths to visualize...</h2>
+        <h3>Enter protein, GO term and number of paths to visualize...</h3>
         <button className="guide-button" onClick={handleGuide}>
           ?
         </button>

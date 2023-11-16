@@ -64,5 +64,18 @@ export const guideConfig = {
       spotlightPadding: 5,
       target: ".sidebar",
     },
+    {
+      content: (
+        <p>
+          Here is a legend that show you all the key information about the graph information.
+        </p>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      floaterProps: {
+        disableAnimation: true,
+      },
+      spotlightPadding: 5,
+      target: ".legend",
+    },
   ],
 };
