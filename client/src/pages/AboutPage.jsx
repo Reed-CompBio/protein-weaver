@@ -53,38 +53,42 @@ export default function AboutPage() {
               </a>{" "}
               to Anna Ritz.
             </p>
-            <h2 className="about-body-text-heading">Libraries</h2>
+            <h2>Libraries</h2>
             <p>
               This website was produced with the following libraries and
               frameworks:
-              <ul>
-                <li>
-                  <a href="https://react.dev/">React.js</a>
-                </li>
-                <li>
-                  <a href="https://vitejs.dev/">Vite</a>
-                </li>
-                <li>
-                  <a href="https://expressjs.com/">Express.js</a>
-                </li>
-                <li>
-                  <a href="https://nodejs.org/en/">Node.js</a>
-                </li>
-                <li>
-                  <a href="https://react-joyride.com/">react-joyride</a>
-                </li>
-                <li>
-                  <a href="https://neo4j.com/">Neo4j</a>
-                </li>
-                <li>
-                  <a href="https://www.digitalocean.com/">DigitalOcean</a>
-                </li>
-                <li>
-                  <a href="https://www.nginx.com/">Nginx</a>
-                </li>
-                <li><a href="https://react-icons.github.io/react-icons/">react-icons</a></li>
-              </ul>
             </p>
+            <ul className="about-list">
+              <li className=".about-body-link">
+                <a href="https://react.dev/">React.js</a>
+              </li>
+              <li>
+                <a href="https://vitejs.dev/">Vite</a>
+              </li>
+              <li>
+                <a href="https://expressjs.com/">Express.js</a>
+              </li>
+              <li>
+                <a href="https://nodejs.org/en/">Node.js</a>
+              </li>
+              <li>
+                <a href="https://react-joyride.com/">react-joyride</a>
+              </li>
+              <li>
+                <a href="https://neo4j.com/">Neo4j</a>
+              </li>
+              <li>
+                <a href="https://www.digitalocean.com/">DigitalOcean</a>
+              </li>
+              <li>
+                <a href="https://www.nginx.com/">Nginx</a>
+              </li>
+              <li>
+                <a href="https://react-icons.github.io/react-icons/">
+                  react-icons
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </MainLayout>

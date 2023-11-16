@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./pages/errorPage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 import TestingPage from "./pages/TestingPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import FlyBasePage from "./pages/FlyBasePage.jsx";

@@ -6,8 +6,8 @@ export default function TOSPage() {
     <div>
       <MainLayout>
         <div className="main-layout-body">
-          <div className="about-body">
-            <h2 className="about-title">Terms of Service</h2>
+          <div className="tos-body">
+            <h2 className="tos-title">Terms of Service</h2>
             <p>
               By continuing to access ProteinWeaver, you agree to the terms of
               service and privacy notice. Use this service at your own risk. Do

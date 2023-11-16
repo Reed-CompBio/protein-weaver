@@ -682,13 +682,115 @@ h3 {
   list-style-type: disc;
 }
 
-.about-body> p > a, .about-body > p > ul > li > a, .about-body-link {
+.about-body> p > a, .about-list > li > a, .about-body-link{
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .about-body> p > a:hover, .about-body > p > ul > li > a:hover, .about-body-link:hover {
+  color: var(--text-hover);
+}
+
+.about-list > li > a:hover{
+  color: var(--text-hover);
+}
+
+.faq-body {
+  background-color: var(--reed-red);
+  width: 1000px;
+  margin:auto;
+  margin-top: 50px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  padding-top: 5px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0px -0px 10px 5px var(--shadow);
+}
+
+.faq-title{
+  padding-bottom: 5px;
+  border-bottom: 3px solid white;
+  text-align: center;
+}
+
+.faq-body > p, .faq-body > h3, .faq-body-text{
+  color: white;
+  text-align: justify;
+
+}
+
+.faq-body-text-heading{
+  text-align: left;
+  color: white;
+}
+
+.faq-body > ul {
+  list-style-type: disc;
+}
+
+.faq-body> p > a, .faq-list > li > a, .faq-body-link{
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.faq-body> p > a:hover, .faq-body > p > ul > li > a:hover, .faq-body-link:hover {
+  color: var(--text-hover);
+}
+
+.faq-list > li > a:hover{
+  color: var(--text-hover);
+}
+
+.tos-body {
+  background-color: var(--reed-red);
+  width: 1000px;
+  margin:auto;
+  margin-top: 50px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  padding-top: 5px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0px -0px 10px 5px var(--shadow);
+}
+
+.tos-title{
+  padding-bottom: 5px;
+  border-bottom: 3px solid white;
+  text-align: center;
+}
+
+.tos-body > p, .tos-body > h3, .tos-body-text{
+  color: white;
+  text-align: justify;
+
+}
+
+.tos-body-text-heading{
+  text-align: left;
+  color: white;
+}
+
+.tos-body > ul {
+  list-style-type: disc;
+}
+
+.tos-body> p > a, .tos-list > li > a, .tos-body-link{
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tos-body> p > a:hover, .tos-body > p > ul > li > a:hover, .tos-body-link:hover {
+  color: var(--text-hover);
+}
+
+.tos-list > li > a:hover{
   color: var(--text-hover);
 }
 

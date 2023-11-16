@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { saveAs } from "file-saver";
 import { NetworkParser, EdgeDataParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
-import cytoscape from "cytoscape";
+import cytoscape, { use } from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
@@ -24,6 +24,7 @@ export default function Query() {
     const [queryCount, setQueryCount] = useState(0);
     const submitRef = useRef();
     const [logs, setLogs] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
     const [startGuide, setStartGuide] = useState(0);
     const [proteinOptions, setProteinOptions] = useState([]);
     const [goTermOptions, setGoTermOptions] = useState([]);
@@ -117,6 +118,7 @@ export default function Query() {
         setNetworkResult({});
         setHasError(false);
         setQueryCount(queryCount + 1);
+        setIsLoading(true);
 
         setSearchParams({
             species: query.species,
@@ -192,6 +194,7 @@ export default function Query() {
                 setHasError(true);
             }
         }
+        setIsLoading(false)
     };
 
     const handleInputChange = (e) => {
@@ -252,7 +255,6 @@ export default function Query() {
     };
 
     const handleGuide = (e) => {
-        console.log("handleGuide")
         e.preventDefault();
         getExample(1);
         setStartGuide(startGuide + 1);
@@ -300,8 +302,8 @@ export default function Query() {
 
                 {hasError && <QueryError />}
 
-                {showResults  && JSON.stringify(networkResult) == "{}" && (
-                    <div class="loader"></div>
+                {isLoading  && JSON.stringify(networkResult) == "{}" && (
+                    <div className="loader"></div>
                 )}
 
                 {showResults && JSON.stringify(networkResult) != "{}" && (
