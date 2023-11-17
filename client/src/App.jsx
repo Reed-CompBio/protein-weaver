@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import NavBar from "./components/NavBar";
+import React from "react";
 import { TbEyeCode } from "react-icons/tb";
 import { PiHandTap } from "react-icons/pi";
 import { GiFly } from "react-icons/gi";
@@ -11,7 +10,6 @@ import { Link } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <div>
@@ -21,7 +19,7 @@ function App() {
             <h2 className="home-title">Welcome to ProteinWeaver</h2>
             <h4>
               A tool for biological network exploration. <br></br>Learn more about this
-              tool <Link className="home-link-about"to={"/about"}>here.</Link>
+              tool <Link className="home-link-about" to={"/about"}>here.</Link>
             </h4>
             <Link to={`/query`}>
               <button className="home-button">

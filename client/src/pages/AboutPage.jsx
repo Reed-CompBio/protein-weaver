@@ -14,22 +14,21 @@ export default function AboutPage() {
               the integration of ontological information.
             </p>
             <p>
-              The inspiration came from collaborators wanting to ask the
+              The inspiration for ProteinWeaver came from our collaborators asking the
               question “How does a protein connect to other proteins with a
-              specific function?" Many network-based tools exists to predict
-              protein function, however, there was a lack of tools that helps
-              biologists understand how a protein is situated in a biological
-              context.
+              specific function?" While many network-based tools exist for predicting protein function
+              and visualizing protein networks, a gap existed in the tools to help
+              biologists understand a protein's contextual placement in a biological
+              framework. Thus, ProteinWeaver was created to facilitate the exploration of protein
+              interaction networks, emphasizing protein function.
             </p>
             <p>
-              The current version of ProteinWeaver supports the ability to
-              search for a specific protein of interest and how it connects to a
-              specific function of process (through a gene ontology term). This
-              generates a subnetwork that connects the protein to other proteins
-              that are labeled with those GO terms. Exploration is aided by the
-              interactive cytoscape graph by learning about the node
-              informations, and dynamically travese the graph by setting new
-              proteins of interest
+              The current version of ProteinWeaver enables users to query a protein
+              of interest and its associations with specific functions or processes via gene
+              ontology terms. This prompts ProteinWeaver to construct a focused subnetwork,
+              connecting the queried protein with others annotated by the specified GO term.
+              Users can navigate and delve deeper into these networks using the interactive Cytoscape graph,
+              allowing dynamic traversal and the ability to requery by introducing new proteins of interest.
             </p>
             <h2 className="about-body-text-heading">Project Team</h2>
             <h3 className="about-body-text-heading">Project Lead</h3>
