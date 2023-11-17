@@ -1,4 +1,4 @@
-**How to get started with Neo4j and upload the FlyBase data**
+**How to get started with Neo4j and upload the data**
 1. Create a directory in your $HOME named `neo4j`
  - Within `~/neo4j` directory create the following directories:
     - `~/neo4j/data/` to allow storage of data between docker instances
@@ -154,8 +154,21 @@ CALL {
     n.def = go.def
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
+17. Import the GO hierarchy with the following command:
 
-17. Don't forget to call the graph before running queries using the following command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
+FIELDTERMINATOR '\t'
+CALL {
+    with go
+    MERGE (a:go_term {id: go.id})
+    MERGE (b:go_term {id: go.id2})
+    MERGE (a)-[r:GoGo]->(b)
+    SET r.relationship = go.is_a
+} IN TRANSACTIONS OF 100 ROWS;
+```
+
+18. Don't forget to call the graph before running queries using the following command:
 ```
 CALL gds.graph.project(
 'proGoGraph',
