@@ -45,12 +45,15 @@ export default function FAQPage() {
                   How can this be useful for biologists?
                 </h3>
                 <p className="faq-body-text">
-                  Proteins can be labeled with many things, such as a gene
-                  ontology term (GO term). This term represents a biological
-                  process that a protein may partake in. Case studies from
-                  biochemistry, cell biology, and developmental biology, based
-                  on elucidating the connections between proteins and specific
-                  pathways and processes, highlight the potential of
+                  Proteins with a suspected or known biological functions are
+                  often annotated to gene ontology terms (GO terms). These terms
+                  represent a biological processes, structurs and functions that
+                  a protein may be have. ProteinWeaver can be used to generate
+                  hypotheses about the function of a protein of interest based
+                  on its connections to other proteins with known functions.
+                  Case studies from biochemistry, cell biology, and developmental
+                  biology, based on elucidating the connections between proteins
+                  and specific pathways and processes, highlight the potential of
                   ProteinWeaver to quickly generate hypotheses for experimental
                   validation.
                 </p>
