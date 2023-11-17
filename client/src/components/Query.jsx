@@ -28,6 +28,8 @@ export default function Query() {
     const [startGuide, setStartGuide] = useState(0);
     const [proteinOptions, setProteinOptions] = useState([]);
     const [goTermOptions, setGoTermOptions] = useState([]);
+    const [ancestorsOptions, setAncestorsOptions] = useState([]);
+    const [descendantsOptions, setDescendantsOptions] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams({
         species: "",
         protein: "",
@@ -112,6 +114,56 @@ export default function Query() {
                 console.error("Error fetching GO term options:", error);
             });
     }, []);
+
+
+    // Just an example for now of how to get the ancestors of a GO term
+    useEffect(() => {
+        fetch("/api/getAncestors", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // You can add any other headers if needed
+            },
+            body: JSON.stringify(query)
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                const ancestorNames = data.map((item) => item.name);
+                const ancestorIds = data.map((item) => item.id);
+                const ancestorsMerged = [...new Set(ancestorNames.concat(ancestorIds))].filter(item => item !== undefined);
+                setAncestorsOptions(ancestorsMerged);
+            })
+            .catch((error) => {
+                console.error("Error fetching GO term ancestors:", error);
+            });
+    }, [query.goTerm]);
+
+    // test it works
+    console.log(ancestorsOptions);
+
+    useEffect(() => {
+        fetch("/api/getDescendants", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // You can add any other headers if needed
+            },
+            body: JSON.stringify(query)
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                const childNames = data.map((item) => item.name);
+                const childIds = data.map((item) => item.id);
+                const descendantsMerged = [...new Set(childNames.concat(childIds))].filter(item => item !== undefined);
+                setDescendantsOptions(descendantsMerged);
+            })
+            .catch((error) => {
+                console.error("Error fetching GO term descendants:", error);
+            });
+    }, [query.goTerm]);
+
+    // test it works
+    console.log(descendantsOptions);
 
     async function handleSubmit(e) {
         setSidebarNode(null);
@@ -302,7 +354,7 @@ export default function Query() {
 
                 {hasError && <QueryError />}
 
-                {isLoading  && JSON.stringify(networkResult) == "{}" && (
+                {isLoading && JSON.stringify(networkResult) == "{}" && (
                     <div className="loader"></div>
                 )}
 
