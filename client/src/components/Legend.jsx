@@ -1,9 +1,18 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
+import { MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
+import { IconContext } from "react-icons";
 
 export default function Legend({
+    handleSharedEdgesToggle,
+    showSharedEdges
 }) {
+    console.log(showSharedEdges);
 
-    // if currentNode is null, display query info and a message to select a node
+    const toggleCheckbox = (e) => {
+        // You can perform other actions related to checkbox toggling here
+        handleSharedEdgesToggle(e); // Call the function passed as a prop
+    };
+
     return (
         <div>
             <div id="legendContent" className="legend">
@@ -33,8 +42,23 @@ export default function Legend({
                             <p className="legend-text">&nbsp;&nbsp;Exists in shortest path</p>
                         </div>
                         <div className="line-align">
+
                             <div className="grey-line"></div>
                             <p className="legend-text">&nbsp;&nbsp;Induced subgraph</p>
+                            <IconContext.Provider
+                                value={{
+                                    className: "checkbox",
+                                    color: "black",
+                                    size: "1.5em",
+                                }}
+                            >
+                                {showSharedEdges ? (
+                                    <MdOutlineCheckBoxOutlineBlank onClick={(e) => toggleCheckbox(e)} />
+
+                                ) : (
+                                    <MdOutlineCheckBox onClick={(e) => toggleCheckbox(e)} />
+                                )}
+                            </IconContext.Provider>
                         </div>
                     </div>
 

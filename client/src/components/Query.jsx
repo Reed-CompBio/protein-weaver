@@ -30,6 +30,7 @@ export default function Query() {
     const [goTermOptions, setGoTermOptions] = useState([]);
     const [ancestorsOptions, setAncestorsOptions] = useState([]);
     const [descendantsOptions, setDescendantsOptions] = useState([]);
+    const [showSharedEdges, setShowSharedEdges] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams({
         species: "",
         protein: "",
@@ -236,8 +237,8 @@ export default function Query() {
                         }
                     })
                     .then((edgeData) => {
-                        setNetworkResult(EdgeDataParser(network, edgeData));
-                        return EdgeDataParser(network, edgeData);
+                        setNetworkResult(EdgeDataParser(network, edgeData, showSharedEdges));
+                        return EdgeDataParser(network, edgeData, showSharedEdges);
                     });
 
                 setShowResults(true);
@@ -248,6 +249,12 @@ export default function Query() {
         }
         setIsLoading(false)
     };
+
+    const handleSharedEdgesToggle = (e) => {
+        setShowSharedEdges(prevData => !prevData);
+        handleSubmit(e);
+        console.log(showSharedEdges);
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -391,7 +398,10 @@ export default function Query() {
                                 handleLog={handleLog}
                             />
                         </div>
-                        <Legend />
+                        <Legend
+                            handleSharedEdgesToggle={handleSharedEdgesToggle}
+                            showSharedEdges={showSharedEdges}
+                        />
                     </div>
                 )}
             </div>
