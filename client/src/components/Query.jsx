@@ -4,7 +4,7 @@ import { saveAs } from "file-saver";
 import { NetworkParser, EdgeDataParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape, { use } from "cytoscape";
-import { cytoscapeStyle, hideSharedEdgeStyle, layout } from "../assets/CytoscapeConfig";
+import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
 import Joyride, { STATUS } from "react-joyride";
@@ -253,6 +253,26 @@ export default function Query() {
     const handleSharedEdgesToggle = (e) => {
         setShowSharedEdges(!showSharedEdges);
         console.log(showSharedEdges);
+
+        const cy = cyRef.current;
+        if (cy) {
+            if (showSharedEdges) {
+                cy.style()
+                    .selector("edge[type='shared']")
+                    .style({
+                        "visibility": "hidden"
+                    })
+                    .update();
+            }
+            else {
+                cy.style()
+                    .selector("edge[type='shared']")
+                    .style({
+                        "visibility": "visible"
+                    })
+                    .update();
+            }
+        }
     }
 
     const handleInputChange = (e) => {
@@ -364,7 +384,7 @@ export default function Query() {
                     <div className="loader"></div>
                 )}
 
-                {showResults && JSON.stringify(networkResult) != "{}" && showSharedEdges && (
+                {showResults && JSON.stringify(networkResult) != "{}" && (
                     <div className="legend-align">
                         <div className="sidebar-align">
                             <CytoscapeComponent
@@ -375,46 +395,6 @@ export default function Query() {
                                     height: "500px",
                                 }}
                                 stylesheet={cytoscapeStyle}
-                                layout={layout}
-                                cy={(cy) => {
-                                    cyRef.current = cy;
-                                    cy.on("click", "node", (evt) => {
-                                        getSidePanelData(evt);
-                                    });
-                                }}
-                            />
-                            <Sidebar
-                                currentNode={sidebarNode}
-                                sourceNode={sourceNode}
-                                query={query}
-                                goTerm={goTerm}
-                                newSourceNode={handleSourceNode}
-                                handleSubmit={handleSubmit}
-                                exportPNG={exportPNG}
-                                searchExecuted={searchParams}
-                                queryCount={queryCount}
-                                logs={logs}
-                                handleLog={handleLog}
-                            />
-                        </div>
-                        <Legend
-                            handleSharedEdgesToggle={handleSharedEdgesToggle}
-                            showSharedEdges={showSharedEdges}
-                        />
-                    </div>
-                )}
-
-                {showResults && JSON.stringify(networkResult) != "{}" && !showSharedEdges && (
-                    <div className="legend-align">
-                        <div className="sidebar-align">
-                            <CytoscapeComponent
-                                className="cytoscape-graph"
-                                elements={CytoscapeComponent.normalizeElements(networkResult)}
-                                style={{
-                                    width: "800px",
-                                    height: "500px",
-                                }}
-                                stylesheet={hideSharedEdgeStyle}
                                 layout={layout}
                                 cy={(cy) => {
                                     cyRef.current = cy;
