@@ -70,24 +70,22 @@ export function NetworkParser(data, source, go_term) {
  * @returns {JSON}
  */
 // tag::EdgeDataParser
-export function EdgeDataParser(networkData, edgeData, showSharedEdges) {
+export function EdgeDataParser(networkData, edgeData) {
   //Iterate through al the edges in the induced subgraph
   for (let i = 0; i < edgeData.length; i++) {
     let startNode = edgeData[i]._fields[0].start.properties.id;
     let endNode = edgeData[i]._fields[0].end.properties.id;
     //check for shared edges
-    if (showSharedEdges === true) {
-      if (
-        !networkData.edgeList.includes(startNode + endNode) &&
-        !networkData.edgeList.includes(endNode + startNode) &&
-        edgeData[i]._fields[0].segments[0].relationship.type != "ProGo"
-      ) {
-        let edgeEntry = {
-          data: { source: endNode, target: startNode, type: "shared" },
-        };
-        networkData.edgeList.push(startNode + endNode);
-        networkData.edges.push(edgeEntry);
-      }
+    if (
+      !networkData.edgeList.includes(startNode + endNode) &&
+      !networkData.edgeList.includes(endNode + startNode) &&
+      edgeData[i]._fields[0].segments[0].relationship.type != "ProGo"
+    ) {
+      let edgeEntry = {
+        data: { source: endNode, target: startNode, type: "shared" },
+      };
+      networkData.edgeList.push(startNode + endNode);
+      networkData.edges.push(edgeEntry);
     }
     //If the edge is a Protein to GO term relationship,
     //iterate through all the nodes in the nodeList and add the relationship information to the protein

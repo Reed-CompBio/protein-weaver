@@ -8,11 +8,6 @@ export default function Legend({
 }) {
     console.log(showSharedEdges);
 
-    const toggleCheckbox = (e) => {
-        // You can perform other actions related to checkbox toggling here
-        handleSharedEdgesToggle(e); // Call the function passed as a prop
-    };
-
     return (
         <div>
             <div id="legendContent" className="legend">
@@ -53,10 +48,10 @@ export default function Legend({
                                 }}
                             >
                                 {showSharedEdges ? (
-                                    <MdOutlineCheckBoxOutlineBlank onClick={(e) => toggleCheckbox(e)} />
+                                    <MdOutlineCheckBox onClick={(e) => handleSharedEdgesToggle(e)} />
 
                                 ) : (
-                                    <MdOutlineCheckBox onClick={(e) => toggleCheckbox(e)} />
+                                    <MdOutlineCheckBoxOutlineBlank onClick={(e) => handleSharedEdgesToggle(e)} />
                                 )}
                             </IconContext.Provider>
                         </div>
