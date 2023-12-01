@@ -1,6 +1,7 @@
 import { React, useState, useEffect, useRef } from "react";
 import ExportLogJSON from "./ExportLogJSON";
 import GoDefinition from "./GoDefinition";
+import AncestorSelector from "./AncestorSelector";
 
 export default function Sidebar({
   currentNode,
@@ -13,7 +14,10 @@ export default function Sidebar({
   searchExecuted,
   queryCount,
   logs,
-  handleLog
+  handleLog,
+  parentGoTerms,
+  childrenGoTerms,
+  handleGoTermChange
 }) {
   const [proteinCount, setProteinCount] = useState(0);
   const [selectedDbLink, setSelectedDbLink] = useState("");
@@ -87,6 +91,9 @@ export default function Sidebar({
           <div>
             <p>Queried GO term:</p>
             <div className="center-buttons">
+              <AncestorSelector
+                parentGoTerms={parentGoTerms}
+              />
               <a
                 className="blue-sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}

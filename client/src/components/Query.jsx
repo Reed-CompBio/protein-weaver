@@ -129,10 +129,8 @@ export default function Query() {
         })
             .then((res) => res.json())
             .then((data) => {
-                const ancestorNames = data.map((item) => item.name);
-                const ancestorIds = data.map((item) => item.id);
-                const ancestorsMerged = [...new Set(ancestorNames.concat(ancestorIds))].filter(item => item !== undefined);
-                setAncestorsOptions(ancestorsMerged);
+                const ancestorNames = data.map((item) => item.name).filter(item => item !== undefined);
+                setAncestorsOptions(ancestorNames);
             })
             .catch((error) => {
                 console.error("Error fetching GO term ancestors:", error);
@@ -153,10 +151,8 @@ export default function Query() {
         })
             .then((res) => res.json())
             .then((data) => {
-                const childNames = data.map((item) => item.name);
-                const childIds = data.map((item) => item.id);
-                const descendantsMerged = [...new Set(childNames.concat(childIds))].filter(item => item !== undefined);
-                setDescendantsOptions(descendantsMerged);
+                const childNames = data.map((item) => item.name).filter(item => item !== undefined);
+                setDescendantsOptions(childNames);
             })
             .catch((error) => {
                 console.error("Error fetching GO term descendants:", error);
@@ -252,7 +248,6 @@ export default function Query() {
 
     const handleSharedEdgesToggle = (e) => {
         setShowSharedEdges(!showSharedEdges);
-        console.log(showSharedEdges);
 
         const cy = cyRef.current;
         if (cy) {
@@ -287,6 +282,13 @@ export default function Query() {
         setQuery((prevData) => ({
             ...prevData,
             species: e.target.value,
+        }));
+    };
+
+    const handleGoTermChange = (e) => {
+        setQuery((prevData) => ({
+            ...prevData,
+            goTerm: e.target.value,
         }));
     };
 
@@ -393,12 +395,13 @@ export default function Query() {
                                 style={{
                                     width: "800px",
                                     height: "500px",
+                                    cursor: "pointer",
                                 }}
                                 stylesheet={cytoscapeStyle}
                                 layout={layout}
                                 cy={(cy) => {
                                     cyRef.current = cy;
-                                    cy.on("click", "node", (evt) => {
+                                    cy.on("tap", "node", (evt) => {
                                         getSidePanelData(evt);
                                     });
                                 }}
@@ -415,6 +418,9 @@ export default function Query() {
                                 queryCount={queryCount}
                                 logs={logs}
                                 handleLog={handleLog}
+                                parentGoTerms={ancestorsOptions}
+                                childrenGoTerms={descendantsOptions}
+                                handleGoTermChange={handleGoTermChange}
                             />
                         </div>
                         <Legend

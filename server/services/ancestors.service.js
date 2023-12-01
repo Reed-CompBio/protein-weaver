@@ -31,16 +31,15 @@ export default class AncestorsService {
 
             const nodes = res.records.map(record => record.get('pgt'));
             nodes.forEach(node => {
-                const nodeId = node.properties.id.split(';');
+                // const nodeId = node.properties.id.split(';');
                 const nodeName = node.properties.name;
 
                 const nodeOptions = {
-                    id: nodeId[0],
+                    // id: nodeId[0],
                     name: nodeName
                 };
                 ancestors.push(nodeOptions);
             });
-
             return (ancestors);
         } catch (error) {
             console.error('Error in getAncestors:', error);

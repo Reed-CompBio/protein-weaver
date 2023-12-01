@@ -6,7 +6,6 @@ export default function Legend({
     handleSharedEdgesToggle,
     showSharedEdges
 }) {
-    console.log(showSharedEdges);
 
     return (
         <div>

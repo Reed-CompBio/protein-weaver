@@ -31,17 +31,16 @@ export default class DescendantsService {
             const nodes = res.records.map(record => record.get('cgt'));
 
             nodes.forEach(node => {
-                const nodeId = node.properties.id.split(';');
+                // const nodeId = node.properties.id.split(';');
                 const nodeName = node.properties.name;
 
                 const nodeOptions = {
-                    id: nodeId[0],
+                    // id: nodeId[0],
                     name: nodeName
                 };
 
                 descendants.push(nodeOptions);
             });
-            console.log(descendants);
             return (descendants);
         } catch (error) {
             console.error('Error in getDescendants:', error);

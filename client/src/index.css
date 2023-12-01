@@ -900,6 +900,15 @@ h3 {
   margin-top: 5px;
 }
 
+.ancestor-input {
+  align-self: flex-start;
+  width: 120px;
+}
+
+.ancestor-input input {
+  width: 120px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
