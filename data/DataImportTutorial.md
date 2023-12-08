@@ -13,7 +13,7 @@
 2. Create a docker instance with APOC plugin using the following command:
 ```sh
 docker run \
-    --name testneo4j \
+    --name proteinweaver \
     -p7474:7474 -p7687:7687 \
     -v $HOME/neo4j/data:/data \
     -v $HOME/neo4j/logs:/logs \
