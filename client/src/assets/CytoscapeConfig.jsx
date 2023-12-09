@@ -60,7 +60,6 @@ export const cytoscapeStyle = [
   {
     selector: "node:selected",
     style: {
-      "cursor": "pointer",
       "border-width": "3px",
       "border-color": "white",
       "border-opacity": "0.5",

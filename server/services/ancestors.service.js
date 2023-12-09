@@ -22,7 +22,9 @@ export default class AncestorsService {
         try {
             const res = await session.run(
                 `
-                MATCH (qgt:go_term {id: $goTerm})-[r:GoGo]->(pgt) RETURN pgt;
+                MATCH (qgt:go_term)-[r:GoGo]->(pgt)
+                WHERE qgt.id =~'(?i)' + $goTerm OR qgt.name =~'(?i)' + $goTerm
+                RETURN pgt;
                 `,
                 {
                     goTerm: goTermInput

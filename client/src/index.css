@@ -901,12 +901,38 @@ h3 {
 }
 
 .ancestor-input {
-  align-self: flex-start;
-  width: 120px;
+  /* align-self: flex-start; */
+  width: 110px;
 }
 
 .ancestor-input input {
-  width: 120px;
+  width: 110px;
+  margin-bottom: 5px;
+}
+
+.ancestor-input label {
+  font-size: small;
+  color: black !important;
+}
+
+.descendant-input {
+  /* align-self: flex-end; */
+  width: 110px;
+}
+
+.descendant-input input {
+  width: 110px;
+}
+
+.descendant-input label {
+  font-size: small;
+  color: black !important;
+  margin-top: 0px;
+}
+
+.align-selectors {
+  display: flex;
+  /* align-items: center; */
 }
 
 @keyframes spin {

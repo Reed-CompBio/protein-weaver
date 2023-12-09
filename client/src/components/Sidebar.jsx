@@ -2,6 +2,7 @@ import { React, useState, useEffect, useRef } from "react";
 import ExportLogJSON from "./ExportLogJSON";
 import GoDefinition from "./GoDefinition";
 import AncestorSelector from "./AncestorSelector";
+import DescendantSelector from "./DescendantSelector";
 
 export default function Sidebar({
   currentNode,
@@ -93,6 +94,7 @@ export default function Sidebar({
             <div className="center-buttons">
               <AncestorSelector
                 parentGoTerms={parentGoTerms}
+                handleGoTermChange={handleGoTermChange}
               />
               <a
                 className="blue-sidebar-link"
@@ -102,6 +104,10 @@ export default function Sidebar({
               >
                 {goTerm.name}
               </a>
+              <DescendantSelector
+                childrenGoTerms={childrenGoTerms}
+                handleGoTermChange={handleGoTermChange}
+              />
             </div>
           </div>
           <GoDefinition open>
@@ -138,6 +144,10 @@ export default function Sidebar({
           <div>
             <p>Queried GO term:</p>
             <div className="center-buttons">
+              <AncestorSelector
+                parentGoTerms={parentGoTerms}
+                handleGoTermChange={handleGoTermChange}
+              />
               <a
                 className="blue-sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
@@ -146,6 +156,10 @@ export default function Sidebar({
               >
                 {goTerm.name}
               </a>
+              <DescendantSelector
+                childrenGoTerms={childrenGoTerms}
+                handleGoTermChange={handleGoTermChange}
+              />
             </div>
             <GoDefinition open>
               <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
@@ -204,6 +218,10 @@ export default function Sidebar({
           <div>
             <p>Queried GO term:</p>
             <div className="center-buttons">
+              <AncestorSelector
+                parentGoTerms={parentGoTerms}
+                handleGoTermChange={handleGoTermChange}
+              />
               <a
                 className="blue-sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
@@ -212,6 +230,10 @@ export default function Sidebar({
               >
                 {goTerm.name}
               </a>
+              <DescendantSelector
+                childrenGoTerms={childrenGoTerms}
+                handleGoTermChange={handleGoTermChange}
+              />
             </div>
             <GoDefinition open>
               <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
@@ -270,6 +292,10 @@ export default function Sidebar({
           <div>
             <p>Queried GO term:</p>
             <div className="center-buttons">
+              <AncestorSelector
+                parentGoTerms={parentGoTerms}
+                handleGoTermChange={handleGoTermChange}
+              />
               <a
                 className="blue-sidebar-link"
                 href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
@@ -278,6 +304,10 @@ export default function Sidebar({
               >
                 {goTerm.name}
               </a>
+              <DescendantSelector
+                childrenGoTerms={childrenGoTerms}
+                handleGoTermChange={handleGoTermChange}
+              />
             </div>
             <GoDefinition open>
               <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>

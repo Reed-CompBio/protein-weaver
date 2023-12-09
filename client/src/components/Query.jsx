@@ -137,9 +137,6 @@ export default function Query() {
             });
     }, [query.goTerm]);
 
-    // test it works
-    console.log(ancestorsOptions);
-
     useEffect(() => {
         fetch("/api/getDescendants", {
             method: 'POST',
@@ -158,9 +155,6 @@ export default function Query() {
                 console.error("Error fetching GO term descendants:", error);
             });
     }, [query.goTerm]);
-
-    // test it works
-    console.log(descendantsOptions);
 
     async function handleSubmit(e) {
         setSidebarNode(null);

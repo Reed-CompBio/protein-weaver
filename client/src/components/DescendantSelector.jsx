@@ -2,13 +2,13 @@ import { React, useEffect } from 'react';
 // import { TbChevronCompactDown, TbChevronCompactUp } from 'react-icons/tb';
 // import { IconContext } from 'react-icons';
 
-export default function AncestorSelector({
-    parentGoTerms,
+export default function DescendantSelector({
+    childrenGoTerms,
     handleGoTermChange
 }) {
     // Function to populate datalist with options from the dynamic array
     function populateDatalistWithOptions(array) {
-        const datalist = document.getElementById("parent-go-terms");
+        const datalist = document.getElementById("child-go-terms");
 
         // Clear existing options
         datalist.innerHTML = "";
@@ -22,21 +22,21 @@ export default function AncestorSelector({
     }
 
     useEffect(() => {
-        populateDatalistWithOptions(parentGoTerms);
-    }, [parentGoTerms]);
+        populateDatalistWithOptions(childrenGoTerms);
+    }, [childrenGoTerms]);
     // Call the function to populate the datalist
 
 
     return (
-        <div className="ancestor-input">
-            <label htmlFor="ancestor-selector">Parent GO Terms:</label>
+        <div className="descendant-input">
+            <label htmlFor="descendant-selector">Child GO Terms:</label>
             <input
-                list="parent-go-terms"
-                id="ancestor-selector"
-                name="ancestor-selector"
+                list="child-go-terms"
+                id="descendant-selector"
+                name="descendant-selector"
                 onChange={handleGoTermChange}
             />
-            <datalist id="parent-go-terms"></datalist>
+            <datalist id="child-go-terms"></datalist>
         </div>
     )
 }
