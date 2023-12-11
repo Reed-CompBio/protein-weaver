@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { saveAs } from "file-saver";
 import { NetworkParser, EdgeDataParser } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
-import cytoscape, { use } from "cytoscape";
+import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
@@ -31,6 +31,7 @@ export default function Query() {
     const [ancestorsOptions, setAncestorsOptions] = useState([]);
     const [descendantsOptions, setDescendantsOptions] = useState([]);
     const [showSharedEdges, setShowSharedEdges] = useState(true);
+    // const [layoutChange, setLayoutChange] = useState("");
     const [searchParams, setSearchParams] = useSearchParams({
         species: "",
         protein: "",
@@ -39,6 +40,7 @@ export default function Query() {
     });
     const [guide, setGuide] = useState(guideConfig);
 
+    // Set default search params for the URL
     useEffect(() => {
         if (
             searchParams.get("species") === ""
@@ -59,6 +61,7 @@ export default function Query() {
         }
     }, [])
 
+    // Get the search params from the URL
     useEffect(() => {
         if (
             searchParams.get("species") != "" &&
@@ -75,12 +78,14 @@ export default function Query() {
         }
     }, []);
 
+    // Open user guide
     useEffect(() => {
         if (startGuide != 0) {
             submitRef.current.click();
         }
     }, [startGuide]);
 
+    // Get autocomplete options for Proteins
     useEffect(() => {
         fetch('/api/getProteinOptions', {
             method: 'POST',
@@ -102,6 +107,7 @@ export default function Query() {
             });
     }, [query.species]);
 
+    // Get autocomplete options for GO Terms
     useEffect(() => {
         fetch("/api/getGoTermOptions")
             .then((res) => res.json())
@@ -117,7 +123,7 @@ export default function Query() {
     }, []);
 
 
-    // Just an example for now of how to get the ancestors of a GO term
+    // Get ancestors for queried GO term
     useEffect(() => {
         fetch("/api/getAncestors", {
             method: 'POST',
@@ -137,6 +143,7 @@ export default function Query() {
             });
     }, [query.goTerm]);
 
+    // Get descendants for queried GO term
     useEffect(() => {
         fetch("/api/getDescendants", {
             method: 'POST',
@@ -156,6 +163,7 @@ export default function Query() {
             });
     }, [query.goTerm]);
 
+    // Function for submitting the query
     async function handleSubmit(e) {
         setSidebarNode(null);
         setNetworkResult({});
@@ -170,6 +178,7 @@ export default function Query() {
             k: query.k,
         });
 
+        // get the k shortest paths for the query
         e.preventDefault();
         let network = null;
         try {
@@ -202,6 +211,7 @@ export default function Query() {
             setHasError(true);
         }
 
+        // get induced subgraph
         if (network != null) {
             let nodeList = { nodeList: network.nodeList };
             nodeList.nodeList.push(network.goTerm.id);
@@ -240,6 +250,7 @@ export default function Query() {
         setIsLoading(false)
     };
 
+    // Hide/Show induced subgraph edges
     const handleSharedEdgesToggle = (e) => {
         setShowSharedEdges(!showSharedEdges);
 
@@ -263,6 +274,36 @@ export default function Query() {
             }
         }
     }
+
+    // Allow users to change layout
+    const handleLayoutChange = (layoutInput, e) => {
+        console.log(layoutInput);
+
+        const randomLayout = {
+            name: "random",
+            padding: 30,
+            fit: true,
+        };
+
+        const gridLayout = {
+            name: "grid",
+            padding: 30,
+            fit: true,
+            avoidOverlap: true,
+            avoidOverlapPadding: 10,
+        };
+
+        const cy = cyRef.current;
+        if (cy) {
+            if (layoutInput === "cose-bilkent") {
+                cy.layout(layout).run();
+            } if (layoutInput === "random") {
+                cy.layout(randomLayout).run();
+            } if (layoutInput === "grid") {
+                cy.layout(gridLayout).run();
+            }
+        }
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -343,6 +384,8 @@ export default function Query() {
             setGuide({ run: false, steps: guide.steps });
         }
     };
+
+
     return (
         <div>
             <Joyride
@@ -420,6 +463,7 @@ export default function Query() {
                         <Legend
                             handleSharedEdgesToggle={handleSharedEdgesToggle}
                             showSharedEdges={showSharedEdges}
+                            handleLayoutChange={handleLayoutChange}
                         />
                     </div>
                 )}

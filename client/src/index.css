@@ -539,6 +539,7 @@ select {
   flex-direction: flex-end;
   right: 0;
   top: 0;
+  cursor: pointer;
 }
 
 .legend {
@@ -902,10 +903,10 @@ h3 {
 .checkbox {
   margin-left: 10px;
   margin-top: 5px;
+  cursor: pointer;
 }
 
 .ancestor-input {
-  /* align-self: flex-start; */
   width: 110px;
 }
 
@@ -920,7 +921,6 @@ h3 {
 }
 
 .descendant-input {
-  /* align-self: flex-end; */
   width: 110px;
 }
 
@@ -936,7 +936,10 @@ h3 {
 
 .align-selectors {
   display: flex;
-  /* align-items: center; */
+}
+
+.change-layout {
+  cursor: pointer;
 }
 
 @keyframes spin {

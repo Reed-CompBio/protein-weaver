@@ -1,10 +1,15 @@
 import { React, useState } from "react";
 import { MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { IconContext } from "react-icons";
+import { PiGraph } from "react-icons/pi";
+import { TbGridDots } from "react-icons/tb";
+import { TbArrowsRandom } from "react-icons/tb";
+
 
 export default function Legend({
     handleSharedEdgesToggle,
-    showSharedEdges
+    showSharedEdges,
+    handleLayoutChange,
 }) {
 
     return (
@@ -54,10 +59,31 @@ export default function Legend({
                                 )}
                             </IconContext.Provider>
                         </div>
+                        <div>
+                            <p>Change graph layout:</p>
+                            <IconContext.Provider
+                                value={{
+                                    className: "change-layout",
+                                    color: "black",
+                                    size: "2em"
+                                }}>
+                                <PiGraph
+                                    onClick={(e) => handleLayoutChange("cose-bilkent", e)}
+                                    aria-label="default"
+                                />
+                                <TbArrowsRandom
+                                    onClick={(e) => handleLayoutChange("random", e)}
+                                    aria-label="random" />
+                                <TbGridDots
+                                    onClick={(e) => handleLayoutChange("grid", e)}
+                                    aria-label="grid"
+                                />
+                            </IconContext.Provider>
+                        </div>
                     </div>
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
