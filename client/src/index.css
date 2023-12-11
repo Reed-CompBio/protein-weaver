@@ -47,6 +47,7 @@ a:hover {
   padding: 5px;
   border-radius: 10px;
   border: 2px solid black;
+  text-align: center;
 }
 
 .red-sidebar-link:hover {
@@ -62,6 +63,7 @@ a:hover {
   padding: 5px;
   border-radius: 10px;
   border: 2px solid black;
+  text-align: center;
 }
 
 .blue-sidebar-link:hover {
@@ -77,6 +79,7 @@ a:hover {
   padding: 5px;
   border-radius: 10px;
   border: 2px solid black;
+  text-align: center;
 }
 
 body {
@@ -356,6 +359,7 @@ p {
   margin-top: 20px;
   padding: 5px;
   color: black;
+  max-width: 1080px;
 }
 
 .center-buttons {

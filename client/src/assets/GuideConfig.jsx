@@ -15,9 +15,9 @@ export const guideConfig = {
     {
       content: (
         <p>
-          Enter a protein of interest, GO term, and the desired number of paths. ProteinWeaver will generate a subnetwork
-          comprising the <i>k</i>-shortest paths connecting the protein of interest to proteins annotated with the specified GO term.
-          To assist in initiating the search, three example inputs are provided.
+          Enter a protein of interest, GO term, and the desired number of paths, (<i>k</i>). ProteinWeaver generates a subnetwork
+          of the <i>k</i>-shortest paths connecting the protein of interest to proteins annotated with the specified GO term.
+          To help initiate the search, three example inputs are provided.
         </p>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
@@ -30,7 +30,7 @@ export const guideConfig = {
     {
       content: (
         <p>
-          After making a query, the tool generates a visual representation of the subnetwork, accompanied by
+          After making a query, ProteinWeaver generates a visual representation of the subnetwork, accompanied by
           supplementary details that provide insight into the subnetwork.
         </p>
       ),
@@ -44,7 +44,7 @@ export const guideConfig = {
     {
       content: (
         <p>
-          Cytoscape.js renders an interactive graph, enabling users to comprehensively explore every node and edge of the subnetwork.
+          ProteinWeaver uses Cytoscape.js to render an interactive graph, enabling users to comprehensively explore every node and edge of the subnetwork.
         </p>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
@@ -71,7 +71,7 @@ export const guideConfig = {
     {
       content: (
         <p>
-          A legend illustrates the node and edge types within the subnetwork. Black edges represent those
+          A legend illustrates the node and edge types within the subnetwork. Black edges represent interactions
           directly on the shortest paths, while grey edges signify known interactions between proteins in the subnetwork.
         </p>
       ),
