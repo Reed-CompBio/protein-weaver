@@ -277,8 +277,6 @@ export default function Query() {
 
     // Allow users to change layout
     const handleLayoutChange = (layoutInput, e) => {
-        console.log(layoutInput);
-
         const randomLayout = {
             name: "random",
             padding: 30,

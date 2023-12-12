@@ -553,7 +553,7 @@ select {
   padding: 16px;
   justify-content: center;
   box-shadow: 0px -0px 10px 5px var(--shadow);
-
+  position: relative;
 }
 
 .legend-align {
@@ -578,6 +578,12 @@ h3 {
   width: 525px;
   display: inline-block;
   align-items: center;
+}
+
+.bottom-right-legend {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 .black-line {
@@ -605,7 +611,8 @@ h3 {
 
 .dot-align {
   width: 525px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
 }
 
 .key-align {
@@ -940,6 +947,47 @@ h3 {
 
 .change-layout {
   cursor: pointer;
+  margin: 2px;
+}
+
+.align-change-layout {
+  display: inline-flex;
+  align-items: center;
+}
+
+.align-change-layout strong {
+  color: black !important;
+}
+
+/* Tooltip container */
+.layout-tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+/* Tooltip text */
+.layout-tooltip .tooltiptext {
+  visibility: hidden;
+  width: auto;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background-color: var(--graph-tan);
+  color: black !important;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  display: none;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.layout-tooltip:hover .tooltiptext {
+  visibility: visible;
+  display: inline-block;
 }
 
 @keyframes spin {

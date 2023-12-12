@@ -59,29 +59,40 @@ export default function Legend({
                                 )}
                             </IconContext.Provider>
                         </div>
-                        <div>
-                            <p>Change graph layout:</p>
+                    </div>
+                    <div className="bottom-right-legend">
+                        <div className="align-change-layout">
+                            <strong>Change Graph Layout:</strong>
                             <IconContext.Provider
                                 value={{
                                     className: "change-layout",
                                     color: "black",
                                     size: "2em"
                                 }}>
-                                <PiGraph
-                                    onClick={(e) => handleLayoutChange("cose-bilkent", e)}
-                                    aria-label="default"
-                                />
-                                <TbArrowsRandom
-                                    onClick={(e) => handleLayoutChange("random", e)}
-                                    aria-label="random" />
-                                <TbGridDots
-                                    onClick={(e) => handleLayoutChange("grid", e)}
-                                    aria-label="grid"
-                                />
+                                <div className="layout-tooltip">
+                                    <PiGraph
+                                        onClick={(e) => handleLayoutChange("cose-bilkent", e)}
+                                        aria-label="default"
+                                    />
+                                    <span className="tooltiptext">Cose-Bilkent</span>
+                                </div>
+                                <div className="layout-tooltip">
+                                    <TbArrowsRandom
+                                        onClick={(e) => handleLayoutChange("random", e)}
+                                        aria-label="random" />
+
+                                    <span className="tooltiptext">Random</span>
+                                </div>
+                                <div className="layout-tooltip">
+                                    <TbGridDots
+                                        onClick={(e) => handleLayoutChange("grid", e)}
+                                        aria-label="grid"
+                                    />
+                                    <span className="tooltiptext">Grid</span>
+                                </div>
                             </IconContext.Provider>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div >
