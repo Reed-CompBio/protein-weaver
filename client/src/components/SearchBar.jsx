@@ -1,5 +1,5 @@
 import React from "react";
-import Autocomplete from "./Autocomplete";
+import MyAutocomplete from "./MyAutocomplete";
 
 export default function SearchBar({
   handleSubmit,
@@ -24,14 +24,14 @@ export default function SearchBar({
       <form method="post" onSubmit={handleSubmit}>
         <div className="wrapper">
           <div className="search-container">
-            <Autocomplete
+            <MyAutocomplete
               suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
               inputName="protein"
               inputValue={query.protein}
               onInputChange={handleInputChange}
               placeholder="FBgn0031985"
             />
-            <Autocomplete
+            <MyAutocomplete
               suggestions={goTermOptions} // Pass the go term suggestions to the Autocomplete component
               inputName="goTerm"
               inputValue={query.goTerm}

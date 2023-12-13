@@ -907,6 +907,11 @@ h3 {
   height: 200px;
 }
 
+.induced-subgraph-image {
+  margin-left: 50px;
+  height: 180px;
+}
+
 .checkbox {
   margin-left: 10px;
   margin-top: 5px;

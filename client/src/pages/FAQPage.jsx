@@ -2,6 +2,7 @@ import React from "react";
 import MainLayout from "../layout/MainLayout";
 import SubNetworkImage from "../assets/subnetwork-example.png";
 import Neo4jImage from "../assets/neo4j-image.png";
+import InducedSubgraph from "../assets/induced-subgraph.png";
 
 
 export default function FAQPage() {
@@ -80,6 +81,23 @@ export default function FAQPage() {
                 </p>
               </div>
               <img className="subnetwork-image" src={Neo4jImage}></img>
+            </div>
+            <h3>What is an "induced subgraph?"</h3>
+            <div className="faq-image-container">
+              <div>
+                <p className="faq-body-text">
+                  ProteinWeaver uses a <em>k</em>-shortest path algorithm to generate
+                  the queried subnetwork. Interactions may exist between the proteins
+                  in the subnetwork that are not directly on the shortest path from
+                  the queried protein to proteins annotated to GO terms. In order to provide
+                  the full context of the protein of interest and the subnetwork generated,
+                  ProteinWeaver also returns any existing interaction between any protein
+                  on the subnetwork AKA the "induced subgraph." ProteinWeaver represents
+                  these interactions in grey on the graph and gives users the ability
+                  to hide or show these edges.
+                </p>
+              </div>
+              <img className="induced-subgraph-image" src={InducedSubgraph}></img>
             </div>
           </div>
         </div>
