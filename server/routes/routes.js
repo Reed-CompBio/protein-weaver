@@ -71,7 +71,8 @@ router.post('/getProteinOptions', jsonParser, async (req, res, next) => {
 
 router.post('/getAncestors', jsonParser, async (req, res, next) => {
   const data = req.body;
-  const goTerm = data.goTerm
+  let goTerm = data.goTerm.id || data.goTerm.name;
+
 
   try {
     const ancestorService = new AncestorsService(
@@ -89,21 +90,21 @@ router.post('/getAncestors', jsonParser, async (req, res, next) => {
 
 router.post('/getDescendants', jsonParser, async (req, res, next) => {
   const data = req.body;
-  const goTerm = data.goTerm
+  let goTerm = data.goTerm.id || data.goTerm.name;
 
   try {
     const descendantsService = new DescendantsService(
       getDriver()
-    )
+    );
 
-    const descendants = await descendantsService.getDescendants(goTerm)
+    const descendants = await descendantsService.getDescendants(goTerm);
 
-    res.json(descendants)
-  }
-  catch (e) {
-    next(e)
+    res.json(descendants);
+  } catch (e) {
+    next(e);
   }
 });
+
 
 router.get('/getGoTermOptions', jsonParser, async (req, res, next) => {
   try {
@@ -153,7 +154,7 @@ router.post('/getTxid7227', jsonParser, async (req, res, next) => {
   try {
     const queryService = new Txid7227Service(getDriver());
     const queryResult = await queryService.getTxid7227(protein, goTerm, k);
-    console.log(queryResult)
+    // console.log(queryResult)
 
     if (queryResult.length === 0) {
       console.log("no data found")
@@ -188,7 +189,7 @@ router.post('/getQuery', jsonParser, async (req, res, next) => {
   try {
     const queryService = new QueryService(getDriver());
     const queryResult = await queryService.getQuery(species, protein, goTerm, k);
-    console.log(queryResult)
+    // console.log(queryResult)
 
     if (queryResult.length === 0) {
       console.log("no data found")

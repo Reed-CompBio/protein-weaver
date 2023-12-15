@@ -121,46 +121,25 @@ export default function Query() {
             });
     }, []);
 
-
-    // Get ancestors for queried GO term
-    useEffect(() => {
-        fetch("/api/getAncestors", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // You can add any other headers if needed
-            },
-            body: JSON.stringify(query)
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                const ancestorNames = data.map((item) => item.name).filter(item => item !== undefined);
-                setAncestorsOptions(ancestorNames);
-            })
-            .catch((error) => {
-                console.error("Error fetching GO term ancestors:", error);
-            });
-    }, [query.goTerm]);
-
     // Get descendants for queried GO term
-    useEffect(() => {
-        fetch("/api/getDescendants", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // You can add any other headers if needed
-            },
-            body: JSON.stringify(query)
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                const childNames = data.map((item) => item.name).filter(item => item !== undefined);
-                setDescendantsOptions(childNames);
-            })
-            .catch((error) => {
-                console.error("Error fetching GO term descendants:", error);
-            });
-    }, [query.goTerm]);
+    // useEffect(() => {
+    //     fetch("/api/getDescendants", {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             // You can add any other headers if needed
+    //         },
+    //         body: JSON.stringify(query)
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             const childNames = data.map((item) => item.name).filter(item => item !== undefined);
+    //             setDescendantsOptions(childNames);
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error fetching GO term descendants:", error);
+    //         });
+    // }, [query.goTerm]);
 
     // Function for submitting the query
     async function handleSubmit(e) {
@@ -217,6 +196,27 @@ export default function Query() {
             setSourceNode(network.nodes[0].data);
             setGoTerm(network.goTerm);
 
+            // try {
+            //     // Get descendants for queried GO term
+
+            //     fetch("/api/getDescendants", {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             // You can add any other headers if needed
+            //         },
+            //         body: JSON.stringify(network.goTerm),
+            //     })
+            //         .then((res) => res.json())
+            //         .then((data) => {
+            //             const childNames = data.map((item) => item.name).filter(item => item !== undefined);
+            //             setDescendantsOptions(childNames);
+            //         })
+            //         .catch((error) => {
+            //             console.error("Error fetching GO term descendants:", error);
+            //         });
+            // } catch (error) { console.error("Error fetching GO term descendants:", error) };
+
             let edgeData = null;
             try {
                 edgeData = await fetch("/api/getEdgeData", {
@@ -248,6 +248,50 @@ export default function Query() {
         }
         setIsLoading(false)
     };
+
+    // Get descendants for queried GO term
+    useEffect(() => {
+        if (networkResult.goTerm != null) {
+            fetch("/api/getDescendants", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can add any other headers if needed
+                },
+                body: JSON.stringify(networkResult)
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    const childNames = data.map((item) => item.name).filter(item => item !== undefined);
+                    setDescendantsOptions(childNames);
+                })
+                .catch((error) => {
+                    console.error("Error fetching GO term descendants:", error);
+                });
+        }
+    }, [networkResult.goTerm]);
+
+    // Get ancestors for queried GO term
+    useEffect(() => {
+        if (networkResult.goTerm != null) {
+            fetch("/api/getAncestors", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can add any other headers if needed
+                },
+                body: JSON.stringify(networkResult)
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    const ancestorNames = data.map((item) => item.name).filter(item => item !== undefined);
+                    setAncestorsOptions(ancestorNames);
+                })
+                .catch((error) => {
+                    console.error("Error fetching GO term ancestors:", error);
+                });
+        }
+    }, [networkResult.goTerm]);
 
     // Hide/Show induced subgraph edges
     const handleSharedEdgesToggle = (e) => {
