@@ -18,12 +18,16 @@ function App() {
           <div className="home-body">
             <h2 className="home-title">Welcome to ProteinWeaver</h2>
             <h4>
-              A tool for biological network exploration. <br></br>Learn more about this
-              tool <Link className="home-link-about" to={"/about"}>here.</Link>
+              A tool for protein network exploration in the context of The Gene Ontology (GO).
+              <br></br>
+              Free and open to all users with no login requirement.
+              <br></br>
+              Learn more about ProteinWeaver <Link className="home-link-about" to={"/about"}>here.</Link>
             </h4>
+            <br></br>
             <Link to={`/query`}>
               <button className="home-button">
-                Start exploring networks with our tool!
+                Start exploring networks!
               </button>
             </Link>
             <div className="home-body-container">
@@ -35,7 +39,7 @@ function App() {
                     <TbEyeCode />
                   </IconContext.Provider>
                   <h4 className="home-feature-text">
-                    Graph visualization through cytoscape.js
+                    Visualize networks with Cytoscape.js
                   </h4>
                 </div>
                 <div className="home-feature-container">
@@ -45,7 +49,7 @@ function App() {
                     <PiHandTap />
                   </IconContext.Provider>
                   <h4 className="home-feature-text">
-                    Interactive graph exploration
+                    Explore interactive graphs
                   </h4>
                 </div>
                 <div className="home-feature-container">
@@ -55,7 +59,7 @@ function App() {
                     <GiFly />
                   </IconContext.Provider>
                   <h4 className="home-feature-text">
-                    Support for multiple species interactome
+                    Hosts multiple non-human model organisms
                   </h4>
                 </div>
               </div>

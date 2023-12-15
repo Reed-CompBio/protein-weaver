@@ -31,7 +31,6 @@ export default function Query() {
     const [ancestorsOptions, setAncestorsOptions] = useState([]);
     const [descendantsOptions, setDescendantsOptions] = useState([]);
     const [showSharedEdges, setShowSharedEdges] = useState(true);
-    // const [layoutChange, setLayoutChange] = useState("");
     const [searchParams, setSearchParams] = useSearchParams({
         species: "",
         protein: "",
