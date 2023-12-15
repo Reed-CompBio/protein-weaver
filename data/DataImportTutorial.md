@@ -47,6 +47,17 @@ CALL {
 ```
 - This will create all of the protein-protein relationships and populate the database.
 
+6. Set a relationship property for the PubmedID
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
+FIELDTERMINATOR '\t'
+CALL {
+    with fly
+    MATCH (s:protein {id: fly.FlyBase1, txid:"txid7227"})-[r:ProPro]-(t:protein {id: fly.FlyBase2, txid: "txid7227"})
+    SET r.pubmed_id = fly.PubMedIDs
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
 6. Create a constraint for the GO terms in the database using the following command:
     `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
 
