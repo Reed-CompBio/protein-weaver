@@ -10,12 +10,16 @@ import Txid7227Service from '../services/txid7227.service.js';
 import QueryService from '../services/query.service.js';
 import AncestorsService from '../services/ancestors.service.js';
 import DescendantsService from '../services/descendants.service.js';
+import NeighborService from '../services/neighbor.service.js';
+import { neighborParser } from '../tools/data.parsing.js';
+import DijkstraService from '../services/dijkstra.service.js';
 
 const router = new Router()
 const jsonParser = bodyParser.json();
 
 router.get("/test", (req, res) => {
   res.json({ "message": "Successfully connected to the backend API" })
+  console.log("successfully connected to the backend API")
 })
 
 router.get('/getMovie', async (res, next) => {
@@ -200,6 +204,37 @@ router.post('/getQuery', jsonParser, async (req, res, next) => {
   } catch (error) {
     console.error('Error in /getQuery:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
+  const data = req.body;
+  console.log("getQueryByKUnique")
+
+  try {
+    const neighborService = new NeighborService(
+      getDriver()
+    )
+
+    var neighborData = await neighborService.getNeighbor("GO:0016055", "txid7227");
+    neighborData = neighborParser(neighborData);
+    console.log("LENGTH", neighborData.length);
+
+
+    const dijkstraService = new DijkstraService(
+      getDriver()
+    )
+
+    var paths = []
+    for(let i = 0; i < neighborData.length; i++){
+      var path = await dijkstraService.getDijkstra("FBgn0003731", neighborData[i])
+      paths.push(path)
+    }
+    console.log(paths)
+
+    res.json(paths)
+  } catch (e) {
+    next(e)
   }
 });
 
