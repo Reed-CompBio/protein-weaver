@@ -13,6 +13,7 @@ import DescendantsService from '../services/descendants.service.js';
 import NeighborService from '../services/neighbor.service.js';
 import { neighborParser } from '../tools/data.parsing.js';
 import DijkstraService from '../services/dijkstra.service.js';
+import GoNodeService from '../services/go.node.service.js';
 
 const router = new Router()
 const jsonParser = bodyParser.json();
@@ -218,8 +219,6 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
 
     var neighborData = await neighborService.getNeighbor("GO:0016055", "txid7227");
     neighborData = neighborParser(neighborData);
-    console.log("LENGTH", neighborData.length);
-
 
     const dijkstraService = new DijkstraService(
       getDriver()
@@ -231,6 +230,12 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
       paths.push(path)
     }
     console.log(paths)
+
+    const goNodeService = new GoNodeService(
+      getDriver()
+    )
+    var goTerm = await goNodeService.getGoNode("GO:0016055")
+    paths.push(goTerm)
 
     res.json(paths)
   } catch (e) {

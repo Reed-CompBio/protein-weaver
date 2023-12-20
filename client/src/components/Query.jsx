@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { saveAs } from "file-saver";
-import { NetworkParser, EdgeDataParser } from "../tools/Parser";
+import { NetworkParser, EdgeDataParser, NetworkParserTest } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
@@ -249,6 +249,131 @@ export default function Query() {
         setIsLoading(false)
     };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    async function handleSubmitTest(e) {
+        setSidebarNode(null);
+        setNetworkResult({});
+        setHasError(false);
+        setQueryCount(queryCount + 1);
+        setIsLoading(true);
+
+        setSearchParams({
+            species: "txid7227",
+            protein: "FBgn0003731",
+            goTerm: "GO:0016055",
+        });
+
+        // get the k shortest paths for the query
+        e.preventDefault();
+        let network = null;
+        try {
+            network = await fetch("/api/getQueryByKUnique", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(query),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else if (response.status === 404) {
+                        return Promise.reject("error 404");
+                    } else {
+                        return Promise.reject("some other error: " + response.status);
+                    }
+                })
+                .then((data) => {
+                    setNetworkResult(NetworkParserTest(data, query.protein, query.goTerm));
+                    return NetworkParserTest(data, query.protein, query.goTerm);
+                });
+        } catch (error) {
+            console.error(
+                "Error getting the network:",
+                error,
+                ". Protein or GO term may not exist"
+            );
+            setHasError(true);
+        }
+
+        // get induced subgraph
+        if (network != null) {
+            let nodeList = { nodeList: network.nodeList };
+            nodeList.nodeList.push(network.goTerm.id);
+            setSourceNode(network.nodes[0].data);
+            setGoTerm(network.goTerm);
+
+            // try {
+            //     // Get descendants for queried GO term
+
+            //     fetch("/api/getDescendants", {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             // You can add any other headers if needed
+            //         },
+            //         body: JSON.stringify(network.goTerm),
+            //     })
+            //         .then((res) => res.json())
+            //         .then((data) => {
+            //             const childNames = data.map((item) => item.name).filter(item => item !== undefined);
+            //             setDescendantsOptions(childNames);
+            //         })
+            //         .catch((error) => {
+            //             console.error("Error fetching GO term descendants:", error);
+            //         });
+            // } catch (error) { console.error("Error fetching GO term descendants:", error) };
+
+            let edgeData = null;
+            try {
+                edgeData = await fetch("/api/getEdgeData", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(nodeList),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else if (response.status === 404) {
+                            return Promise.reject("error 404");
+                        } else {
+                            return Promise.reject("some other error: " + response.status);
+                        }
+                    })
+                    .then((edgeData) => {
+                        setNetworkResult(EdgeDataParser(network, edgeData));
+                        return EdgeDataParser(network, edgeData);
+                    });
+
+                setShowResults(true);
+            } catch (error) {
+                console.error("Error getting the network:", error);
+                setHasError(true);
+            }
+        }
+        // setShowResults(true);
+        setIsLoading(false)
+    };
+
+
     // Get descendants for queried GO term
     useEffect(() => {
         if (networkResult.goTerm != null) {
@@ -445,6 +570,7 @@ export default function Query() {
                     },
                 }}
             />
+            <button onClick={handleSubmitTest}></button>
             <div className="search-box-align">
                 <SearchBar
                     handleSubmit={handleSubmit}
