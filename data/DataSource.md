@@ -34,6 +34,11 @@ Interaction data:
 http://subtiwiki.uni-goettingen.de/v4/exports
 	Exported the “Interaction” set and renamed to `bsub_interactome.csv`. Imported the file into Neo4j according to the steps in `DataImportTutorial.md`.
 
+Regulatory data:
+`regulations-2023-12-18.csv` renamed to `bsub_regnet.csv`
+http://subtiwiki.uni-goettingen.de/v4/exports
+	Exported the "Regulations" set and replaced spaces with underscores in header names. Imported the data into Neo4j according to the steps in `DataImportTutorial.md`.
+
 GO association data:
 `subtiwiki.gene.export.2023-10-18.tsv` processed and merged into `bsub_GO_data.csv`.
 http://subtiwiki.uni-goettingen.de/v4/exports

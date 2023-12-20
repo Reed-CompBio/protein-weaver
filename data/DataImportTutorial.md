@@ -165,8 +165,8 @@ CALL {
     n.def = go.def
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
-17. Import the GO hierarchy with the following command:
 
+17. Import the GO hierarchy with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
@@ -186,4 +186,25 @@ CALL gds.graph.project(
 ['go_term', 'protein'],
 ['ProGo', 'ProPro']
 )
+```
+
+19. Now import the regulatory edges for B. subtilis with the following command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_regnet.csv' AS bsub_reg
+CALL{
+    with bsub_reg
+    MATCH (a:protein {id: bsub_reg.regulator_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
+    MATCH (b:protein {id: bsub_reg.gene_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
+    MERGE (a)-[r:Reg]->(b)
+}
+```
+
+20. Next we need to set the type of regulatory relationship with the following command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_regnet.csv' AS bsub_reg
+CALL {
+    with bsub_reg
+    MATCH (a:protein {id: bsub_reg.regulator_locus, txid: "txid224308", species: "Bacillus subtilis 168"})-[r:Reg]->(b:protein {id: bsub_reg.gene_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
+    SET r.mode = bsub_reg.mode, a.gene_name = bsub_reg.regulator_name, b.gene_name = bsub_reg.gene_name
+} IN TRANSACTIONS OF 100 ROWS;
 ```
