@@ -11,10 +11,15 @@ export default function SearchBar({
   goTermOptions,
   handleGuide,
   handleSpeciesChange,
+  handleQueryMode,
+  queryMode,
 }) {
   return (
     <div className="container">
-      <h2 className="query-title"> Explore Protein Interaction Networks in GO Term Context</h2>
+      <h2 className="query-title">
+        {" "}
+        Explore Protein Interaction Networks in GO Term Context
+      </h2>
       <div className="title-guide-container">
         <h3>Enter protein, GO term and number of paths to visualize...</h3>
         <button className="guide-button" onClick={handleGuide}>
@@ -24,6 +29,21 @@ export default function SearchBar({
       <form method="post" onSubmit={handleSubmit}>
         <div className="wrapper">
           <div className="search-container">
+            <div>
+              <h3>Select Mode:</h3>
+              <input
+                type="button"
+                className="button-mode-path"
+                onClick={handleQueryMode}
+                value="K Unique Path"
+              />
+              <input
+                type="button"
+                className="button-mode-node"
+                onClick={handleQueryMode}
+                value="K Unique Nodes"
+              />
+            </div>
             <MyAutocomplete
               suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
               inputName="protein"

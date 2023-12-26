@@ -104,12 +104,12 @@ export function EdgeDataParser(networkData, edgeData) {
   return networkData;
 }
 
-export function NetworkParserTest(data, source, go_term) {
+export function NetworkParserTest(data, source, k) {
   console.log(data)
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
-  for (let i = 0; i < data.length - 1; i++) {
+  for (let i = 0; i < Math.min(k, data.length - 1); i++) {
     let currentPath = data[i][0]._fields[0];
-    for (let j = 0; j < currentPath.length - 1; j++) {
+    for (let j = 0; j < currentPath.length; j++) {
       //Add each node in a path, and label them accordingly (source, go_protein, or intermediate)
       //Keep track of all the nodes in nodeList
       let nodeEntry = {
@@ -123,7 +123,7 @@ export function NetworkParserTest(data, source, go_term) {
         currentPath[j].properties.id.toUpperCase() === source.toUpperCase()
       ) {
         nodeEntry.data.type = "source";
-      } else if (j == currentPath.length - 2) {
+      } else if (j == currentPath.length - 1) {
         nodeEntry.data.type = "go_protein";
       } else {
         nodeEntry.data.type = "intermediate";
@@ -135,7 +135,7 @@ export function NetworkParserTest(data, source, go_term) {
     }
     let startNode = null;
     let endNode = null;
-    for (let j = 1; j < currentPath.length - 1; j++) {
+    for (let j = 1; j < currentPath.length; j++) {
       //Add the edges in a path and keep track in the edgeList
       startNode = currentPath[j - 1].properties.id;
       endNode = currentPath[j].properties.id;
@@ -151,7 +151,7 @@ export function NetworkParserTest(data, source, go_term) {
       }
     }
   }
-  console.log(data[data.length - 1][0]._fields[0].properties)
   parsedData.goTerm = data[data.length - 1][0]._fields[0].properties
+  // console.log(parsedData)
   return parsedData;
 }

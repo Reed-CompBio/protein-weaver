@@ -225,11 +225,13 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
     )
 
     var paths = []
+    var pathOrder = []
     for(let i = 0; i < neighborData.length; i++){
       var path = await dijkstraService.getDijkstra("egfr", neighborData[i])
       paths.push(path)
+      pathOrder.push({index: i, length: path[0]._fields[0].length})
     }
-    console.log(paths)
+    paths.sort(function(a, b){return a[0]._fields[0].length - b[0]._fields[0].length})
 
     const goNodeService = new GoNodeService(
       getDriver()

@@ -32,12 +32,14 @@ export default function Query() {
     const [descendantsOptions, setDescendantsOptions] = useState([]);
     const [showSharedEdges, setShowSharedEdges] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams({
+        mode: "",
         species: "",
         protein: "",
         goTerm: "",
         k: "",
     });
     const [guide, setGuide] = useState(guideConfig);
+    const [queryMode, setQueryMode] = useState("path")
 
     // Set default search params for the URL
     useEffect(() => {
@@ -159,6 +161,7 @@ export default function Query() {
         // get the k shortest paths for the query
         e.preventDefault();
         let network = null;
+        console.log(queryMode)
         try {
             network = await fetch("/api/getQuery", {
                 method: "POST",
@@ -300,8 +303,8 @@ export default function Query() {
                     }
                 })
                 .then((data) => {
-                    setNetworkResult(NetworkParserTest(data, query.protein, query.goTerm));
-                    return NetworkParserTest(data, query.protein, query.goTerm);
+                    setNetworkResult(NetworkParserTest(data, query.protein, 10));
+                    return NetworkParserTest(data, query.protein, 10);
                 });
         } catch (error) {
             console.error(
@@ -551,6 +554,12 @@ export default function Query() {
         }
     };
 
+    const handleQueryMode = (e) => {
+        if(e.target.value == "K Unique Path"){
+            setQueryMode("path")
+        }else setQueryMode("node")
+    };
+
 
     return (
         <div>
@@ -582,6 +591,8 @@ export default function Query() {
                     goTermOptions={goTermOptions}
                     handleGuide={handleGuide}
                     handleSpeciesChange={handleSpeciesChange}
+                    handleQueryMode={handleQueryMode}
+                    queryMode={queryMode}
                 />
 
                 {hasError && <QueryError />}

@@ -209,6 +209,7 @@ body {
   margin-right: 10px;
   overflow: hidden;
   width: 100%;
+  border: 1px solid black;
 }
 
 .example {
