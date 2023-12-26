@@ -105,6 +105,7 @@ export function EdgeDataParser(networkData, edgeData) {
 }
 
 export function NetworkParserTest(data, source, go_term) {
+  console.log(data)
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
   for (let i = 0; i < data.length - 1; i++) {
     let currentPath = data[i][0]._fields[0];

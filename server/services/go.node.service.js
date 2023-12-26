@@ -20,8 +20,9 @@ export default class GoNodeService {
       const res = await session.executeRead(
         tx => tx.run(
           `
-          MATCH (go:go_term {id: $goTermInput})
-          RETURN go
+          MATCH (goTerm:go_term)
+          WHERE goTerm.id =~'(?i)' + $goTermInput OR goTerm.name =~'(?i)' + $goTermInput
+          RETURN goTerm
           `,{
             goTermInput: goTermInput
           }

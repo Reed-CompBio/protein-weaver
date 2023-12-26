@@ -19,7 +19,8 @@ export default class NeighborService {
         const res = await session.executeRead(
           tx => tx.run(
             `
-            MATCH (goTerm:go_term{id: $goTermInput})
+            MATCH (goTerm:go_term)
+            WHERE goTerm.id =~'(?i)' + $goTermInput OR goTerm.name =~'(?i)' + $goTermInput
             CALL apoc.neighbors.athop(goTerm, "ProGo", 1)
             YIELD node
             MATCH (node where node.txid = $speciesInput)

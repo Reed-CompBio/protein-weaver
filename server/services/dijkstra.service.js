@@ -20,7 +20,9 @@ export default class DijkstraService {
       const res = await session.executeRead(
         tx => tx.run(
           `
-          MATCH (source:protein{id: $source}), (target:protein{id: $target})
+          MATCH (source:protein)
+          WHERE source.id =~'(?i)' + $source OR source.name =~'(?i)' + $source OR source.alt_name =~'(?i)' + $source
+          MATCH (target:protein{id: $target})
           CALL gds.shortestPath.dijkstra.stream('proGoGraph', {
               sourceNode: source,
               targetNode: target

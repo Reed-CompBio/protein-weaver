@@ -226,7 +226,7 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
 
     var paths = []
     for(let i = 0; i < neighborData.length; i++){
-      var path = await dijkstraService.getDijkstra("FBgn0003731", neighborData[i])
+      var path = await dijkstraService.getDijkstra("egfr", neighborData[i])
       paths.push(path)
     }
     console.log(paths)
@@ -234,7 +234,7 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
     const goNodeService = new GoNodeService(
       getDriver()
     )
-    var goTerm = await goNodeService.getGoNode("GO:0016055")
+    var goTerm = await goNodeService.getGoNode("Wnt signaling pathway")
     paths.push(goTerm)
 
     res.json(paths)
