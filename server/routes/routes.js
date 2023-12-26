@@ -210,6 +210,15 @@ router.post('/getQuery', jsonParser, async (req, res, next) => {
 
 router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
   const data = req.body;
+  const species = data.species;
+  const protein = data.protein;
+  const goTerm = data.goTerm;
+  const k = data.k;
+
+  console.log('Species:', species);
+  console.log('Protein:', protein);
+  console.log('GO Term:', goTerm);
+  console.log('k:', k);
   console.log("getQueryByKUnique")
 
   try {
@@ -217,7 +226,7 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
       getDriver()
     )
 
-    var neighborData = await neighborService.getNeighbor("GO:0016055", "txid7227");
+    var neighborData = await neighborService.getNeighbor(goTerm, species);
     neighborData = neighborParser(neighborData);
 
     const dijkstraService = new DijkstraService(
@@ -227,7 +236,7 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
     var paths = []
     var pathOrder = []
     for(let i = 0; i < neighborData.length; i++){
-      var path = await dijkstraService.getDijkstra("egfr", neighborData[i])
+      var path = await dijkstraService.getDijkstra(protein, neighborData[i])
       paths.push(path)
       pathOrder.push({index: i, length: path[0]._fields[0].length})
     }
@@ -236,8 +245,8 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
     const goNodeService = new GoNodeService(
       getDriver()
     )
-    var goTerm = await goNodeService.getGoNode("Wnt signaling pathway")
-    paths.push(goTerm)
+    var goTermNode = await goNodeService.getGoNode(goTerm)
+    paths.push(goTermNode)
 
     res.json(paths)
   } catch (e) {

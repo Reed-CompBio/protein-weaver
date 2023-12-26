@@ -13,7 +13,7 @@ import Legend from "./Legend";
 import { guideConfig } from "../assets/GuideConfig";
 
 export default function Query() {
-    const [query, setQuery] = useState({ species: "", protein: "", goTerm: "", k: [] });
+    const [query, setQuery] = useState({mode:"", species: "", protein: "", goTerm: "", k: [] });
     const [showResults, setShowResults] = useState(false);
     const [networkResult, setNetworkResult] = useState({});
     const cyRef = useRef(cytoscape.Core | undefined);
@@ -47,6 +47,7 @@ export default function Query() {
             searchParams.get("species") === ""
         ) {
             setQuery({
+                mode: "path",
                 species: "txid7227",
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
@@ -54,6 +55,7 @@ export default function Query() {
             });
         } else {
             setQuery({
+                mode: searchParams.get("mode"),
                 species: searchParams.get("species"),
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
@@ -65,12 +67,14 @@ export default function Query() {
     // Get the search params from the URL
     useEffect(() => {
         if (
+            searchParams.get("mode") != "" &&
             searchParams.get("species") != "" &&
             searchParams.get("protein") != "" &&
             searchParams.get("goTerm") != "" &&
             searchParams.get("k") != ""
         ) {
             setQuery({
+                mode: searchParams.get("mode"),
                 species: searchParams.get("species"),
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
@@ -152,6 +156,7 @@ export default function Query() {
         setIsLoading(true);
 
         setSearchParams({
+            mode: query.mode,
             species: query.species,
             protein: query.protein,
             goTerm: query.goTerm,
@@ -161,7 +166,7 @@ export default function Query() {
         // get the k shortest paths for the query
         e.preventDefault();
         let network = null;
-        console.log(queryMode)
+        if(query.mode == "path"){
         try {
             network = await fetch("/api/getQuery", {
                 method: "POST",
@@ -190,6 +195,37 @@ export default function Query() {
                 ". Protein or GO term may not exist"
             );
             setHasError(true);
+        }} else {
+            try {
+                network = await fetch("/api/getQueryByKUnique", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(query),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else if (response.status === 404) {
+                            return Promise.reject("error 404");
+                        } else {
+                            return Promise.reject("some other error: " + response.status);
+                        }
+                    })
+                    .then((data) => {
+                        setNetworkResult(NetworkParserTest(data, query.protein, query.k));
+                        return NetworkParserTest(data, query.protein, query.k);
+                    });
+            } catch (error) {
+                console.error(
+                    "Error getting the network:",
+                    error,
+                    ". Protein or GO term may not exist"
+                );
+                setHasError(true);
+            }
+
         }
 
         // get induced subgraph
@@ -515,13 +551,13 @@ export default function Query() {
     const getExample = (i) => {
         switch (i) {
             case 1:
-                setQuery({ species: "txid7227", protein: "egfr", goTerm: "GO:0016055", k: "4" });
+                setQuery({ mode: "path", species: "txid7227", protein: "egfr", goTerm: "GO:0016055", k: "4" });
                 break;
             case 2:
-                setQuery({ species: "txid7227", protein: "flw", goTerm: "GO:0003383", k: "3" });
+                setQuery({ mode: "node", species: "txid7227", protein: "flw", goTerm: "GO:0003383", k: "3" });
                 break;
             case 3:
-                setQuery({ species: "txid7227", protein: "flw", goTerm: "GO:0045159", k: "7" });
+                setQuery({ mode: "path", species: "txid7227", protein: "flw", goTerm: "GO:0045159", k: "7" });
                 break;
         }
     };
@@ -556,8 +592,14 @@ export default function Query() {
 
     const handleQueryMode = (e) => {
         if(e.target.value == "K Unique Path"){
-            setQueryMode("path")
-        }else setQueryMode("node")
+            setQuery(prevState => ({
+                ...prevState,
+                mode: "path"
+              }));
+        }else setQuery(prevState => ({
+            ...prevState,
+            mode: "node"
+          }));
     };
 
 
