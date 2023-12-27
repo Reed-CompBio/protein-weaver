@@ -39,7 +39,7 @@ export default function Query() {
         k: "",
     });
     const [guide, setGuide] = useState(guideConfig);
-    const [queryMode, setQueryMode] = useState("path")
+    const [activeModeButton, setActiveModeButton] = useState("")
 
     // Set default search params for the URL
     useEffect(() => {
@@ -61,6 +61,7 @@ export default function Query() {
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
             });
+            setActiveModeButton(searchParams.get("mode"));
         }
     }, [])
 
@@ -80,6 +81,7 @@ export default function Query() {
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
             });
+            setActiveModeButton(searchParams.get("mode"));
         }
     }, []);
 
@@ -288,131 +290,6 @@ export default function Query() {
         setIsLoading(false)
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    async function handleSubmitTest(e) {
-        setSidebarNode(null);
-        setNetworkResult({});
-        setHasError(false);
-        setQueryCount(queryCount + 1);
-        setIsLoading(true);
-
-        setSearchParams({
-            species: "txid7227",
-            protein: "FBgn0003731",
-            goTerm: "GO:0016055",
-        });
-
-        // get the k shortest paths for the query
-        e.preventDefault();
-        let network = null;
-        try {
-            network = await fetch("/api/getQueryByKUnique", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(query),
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    } else if (response.status === 404) {
-                        return Promise.reject("error 404");
-                    } else {
-                        return Promise.reject("some other error: " + response.status);
-                    }
-                })
-                .then((data) => {
-                    setNetworkResult(NetworkParserTest(data, query.protein, 10));
-                    return NetworkParserTest(data, query.protein, 10);
-                });
-        } catch (error) {
-            console.error(
-                "Error getting the network:",
-                error,
-                ". Protein or GO term may not exist"
-            );
-            setHasError(true);
-        }
-
-        // get induced subgraph
-        if (network != null) {
-            let nodeList = { nodeList: network.nodeList };
-            nodeList.nodeList.push(network.goTerm.id);
-            setSourceNode(network.nodes[0].data);
-            setGoTerm(network.goTerm);
-
-            // try {
-            //     // Get descendants for queried GO term
-
-            //     fetch("/api/getDescendants", {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             // You can add any other headers if needed
-            //         },
-            //         body: JSON.stringify(network.goTerm),
-            //     })
-            //         .then((res) => res.json())
-            //         .then((data) => {
-            //             const childNames = data.map((item) => item.name).filter(item => item !== undefined);
-            //             setDescendantsOptions(childNames);
-            //         })
-            //         .catch((error) => {
-            //             console.error("Error fetching GO term descendants:", error);
-            //         });
-            // } catch (error) { console.error("Error fetching GO term descendants:", error) };
-
-            let edgeData = null;
-            try {
-                edgeData = await fetch("/api/getEdgeData", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(nodeList),
-                })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        } else if (response.status === 404) {
-                            return Promise.reject("error 404");
-                        } else {
-                            return Promise.reject("some other error: " + response.status);
-                        }
-                    })
-                    .then((edgeData) => {
-                        setNetworkResult(EdgeDataParser(network, edgeData));
-                        return EdgeDataParser(network, edgeData);
-                    });
-
-                setShowResults(true);
-            } catch (error) {
-                console.error("Error getting the network:", error);
-                setHasError(true);
-            }
-        }
-        // setShowResults(true);
-        setIsLoading(false)
-    };
-
-
     // Get descendants for queried GO term
     useEffect(() => {
         if (networkResult.goTerm != null) {
@@ -552,12 +429,15 @@ export default function Query() {
         switch (i) {
             case 1:
                 setQuery({ mode: "path", species: "txid7227", protein: "egfr", goTerm: "GO:0016055", k: "4" });
+                setActiveModeButton("path");
                 break;
             case 2:
-                setQuery({ mode: "node", species: "txid7227", protein: "flw", goTerm: "GO:0003383", k: "3" });
+                setQuery({ mode: "node", species: "txid7227", protein: "flw", goTerm: "GO:0003383", k: "7" });
+                setActiveModeButton("node");
                 break;
             case 3:
-                setQuery({ mode: "path", species: "txid7227", protein: "flw", goTerm: "GO:0045159", k: "7" });
+                setQuery({ mode: "path", species: "txid7227", protein: "flw", goTerm: "GO:0045159", k: "3" });
+                setActiveModeButton("path");
                 break;
         }
     };
@@ -591,15 +471,18 @@ export default function Query() {
     };
 
     const handleQueryMode = (e) => {
-        if(e.target.value == "K Unique Path"){
+        if(e.target.value == "K Unique Paths"){
             setQuery(prevState => ({
                 ...prevState,
                 mode: "path"
               }));
-        }else setQuery(prevState => ({
+            setActiveModeButton("path")
+        }else {setQuery(prevState => ({
             ...prevState,
             mode: "node"
           }));
+          setActiveModeButton("node")
+        }
     };
 
 
@@ -621,7 +504,6 @@ export default function Query() {
                     },
                 }}
             />
-            <button onClick={handleSubmitTest}></button>
             <div className="search-box-align">
                 <SearchBar
                     handleSubmit={handleSubmit}
@@ -634,7 +516,7 @@ export default function Query() {
                     handleGuide={handleGuide}
                     handleSpeciesChange={handleSpeciesChange}
                     handleQueryMode={handleQueryMode}
-                    queryMode={queryMode}
+                    activeModeButton={activeModeButton}
                 />
 
                 {hasError && <QueryError />}

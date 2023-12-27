@@ -173,7 +173,7 @@ body {
 
 .container {
   width: 1048px;
-  height: 225px;
+  height: 275px;
   background: var(--reed-red);
   margin: auto;
   padding-left: 16px;
@@ -191,7 +191,7 @@ body {
 
 .wrapper {
   margin: 8px 0;
-  height: 50px;
+  height: 105px;
 }
 
 .wrapper h2 {
@@ -209,7 +209,6 @@ body {
   margin-right: 10px;
   overflow: hidden;
   width: 100%;
-  border: 1px solid black;
 }
 
 .example {
@@ -999,6 +998,40 @@ h3 {
 .layout-tooltip:hover .tooltiptext {
   visibility: visible;
   display: inline-block;
+}
+
+.container-mode {
+  display: flex;
+  align-items: center;
+}
+
+.active-button {
+  word-wrap: nowrap;
+  background: #000;
+  color: #fff;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 15px;
+  width: 120px;
+  align-self: center;
+  margin-left: 10px ;
+}
+
+.inactive-button {
+  word-wrap: nowrap;
+  background: grey;
+  color: #fff;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 15px;
+  width: 120px;
+  align-self: center;
+  margin-left: 10px ;
+}
+
+.active-button:hover, .inactive-button:hover{
+  border: 1px solid white;
+  cursor: pointer;
 }
 
 @keyframes spin {

@@ -12,7 +12,7 @@ export default function SearchBar({
   handleGuide,
   handleSpeciesChange,
   handleQueryMode,
-  queryMode,
+  activeModeButton,
 }) {
   return (
     <div className="container">
@@ -29,20 +29,22 @@ export default function SearchBar({
       <form method="post" onSubmit={handleSubmit}>
         <div className="wrapper">
           <div className="search-container">
-            <div>
-              <h3>Select Mode:</h3>
-              <input
-                type="button"
-                className="button-mode-path"
-                onClick={handleQueryMode}
-                value="K Unique Path"
-              />
-              <input
-                type="button"
-                className="button-mode-node"
-                onClick={handleQueryMode}
-                value="K Unique Nodes"
-              />
+            <div className="container-mode">
+              <h4>Select Mode:</h4>
+              <div className="container-mode-button">
+                <input
+                  type="button"
+                  className={activeModeButton === 'path' ? 'active-button' : 'inactive-button'}
+                  onClick={handleQueryMode}
+                  value="K Unique Paths"
+                />
+                <input
+                  type="button"
+                  className={activeModeButton === 'node' ? 'active-button' : 'inactive-button'}
+                  onClick={handleQueryMode}
+                  value="K Unique Nodes"
+                />
+              </div>
             </div>
             <MyAutocomplete
               suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
