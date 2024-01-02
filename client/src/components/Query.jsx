@@ -53,15 +53,16 @@ export default function Query() {
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
             });
+            setActiveModeButton("path");
         } else {
             setQuery({
-                mode: searchParams.get("mode"),
+                mode: "path",
                 species: searchParams.get("species"),
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
             });
-            setActiveModeButton(searchParams.get("mode"));
+            setActiveModeButton("path");
         }
     }, [])
 

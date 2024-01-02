@@ -1009,7 +1009,7 @@ h3 {
   word-wrap: nowrap;
   background: #000;
   color: #fff;
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 5px;
   height: 15px;
   width: 120px;
@@ -1027,6 +1027,7 @@ h3 {
   width: 120px;
   align-self: center;
   margin-left: 10px ;
+  filter:blur(1px)
 }
 
 .active-button:hover, .inactive-button:hover{
