@@ -7,7 +7,7 @@
  * @returns {JSON}
  */
 // tag::NetworkParser
-export function NetworkParser(data, source, go_term) {
+export function NetworkParserPath(data, source, go_term) {
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
   //Iterate through data where each element is a path
   for (let i = 0; i < data.length; i++) {
@@ -104,11 +104,11 @@ export function EdgeDataParser(networkData, edgeData) {
   return networkData;
 }
 
-export function NetworkParserTest(data, source, k) {
-  console.log(data)
+
+export function NetworkParserNode(data, source, k) {
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
   for (let i = 0; i < Math.min(k, data.length - 1); i++) {
-    let currentPath = data[i][0]._fields[0];
+    let currentPath = data[i]
     for (let j = 0; j < currentPath.length; j++) {
       //Add each node in a path, and label them accordingly (source, go_protein, or intermediate)
       //Keep track of all the nodes in nodeList
@@ -152,6 +152,5 @@ export function NetworkParserTest(data, source, k) {
     }
   }
   parsedData.goTerm = data[data.length - 1][0]._fields[0].properties
-  // console.log(parsedData)
   return parsedData;
 }

@@ -12,9 +12,9 @@ import AncestorsService from '../services/ancestors.service.js';
 import DescendantsService from '../services/descendants.service.js';
 import NeighborService from '../services/neighbor.service.js';
 import { neighborParser } from '../tools/data.parsing.js';
-import DijkstraService from '../services/dijkstra.service.js';
 import GoNodeService from '../services/go.node.service.js';
-
+import AllDijkstraService from '../services/dijkstra.all.service.js';
+import AllShortestPathsService from '../services/dijkstra.all.service.js';
 const router = new Router()
 const jsonParser = bodyParser.json();
 
@@ -208,7 +208,8 @@ router.post('/getQuery', jsonParser, async (req, res, next) => {
   }
 });
 
-router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
+
+router.post('/getQueryByNode', jsonParser, async (req, res, next) => {
   const data = req.body;
   const species = data.species;
   const protein = data.protein;
@@ -219,7 +220,7 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
   console.log('Protein:', protein);
   console.log('GO Term:', goTerm);
   console.log('k:', k);
-  console.log("getQueryByKUnique")
+  console.log("getQueryByNode")
 
   try {
     const neighborService = new NeighborService(
@@ -229,18 +230,22 @@ router.post('/getQueryByKUnique', jsonParser, async (req, res, next) => {
     var neighborData = await neighborService.getNeighbor(goTerm, species);
     neighborData = neighborParser(neighborData);
 
-    const dijkstraService = new DijkstraService(
+    const allShortestPathsService = new AllShortestPathsService(
       getDriver()
     )
-
+    var allPaths = await allShortestPathsService.getAllShortestPaths(protein)
+    let neighborFound = 0;
     var paths = []
-    var pathOrder = []
-    for(let i = 0; i < neighborData.length; i++){
-      var path = await dijkstraService.getDijkstra(protein, neighborData[i])
-      paths.push(path)
-      pathOrder.push({index: i, length: path[0]._fields[0].length})
+    for(let i = 0; i < allPaths.length; i++){
+      if(neighborData.includes(allPaths[i]._fields[2])){
+        neighborFound++;
+        console.log("FOUND", allPaths[i]._fields[2])
+        paths.push(allPaths[i]._fields[3])
+      }
     }
-    paths.sort(function(a, b){return a[0]._fields[0].length - b[0]._fields[0].length})
+
+    console.log("Neighbors found: ", neighborFound)
+    console.log("Neighbors total: ", neighborData.length)
 
     const goNodeService = new GoNodeService(
       getDriver()

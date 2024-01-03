@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { saveAs } from "file-saver";
-import { NetworkParser, EdgeDataParser, NetworkParserTest } from "../tools/Parser";
+import { NetworkParserPath, EdgeDataParser, NetworkParserNode } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
@@ -188,8 +188,8 @@ export default function Query() {
                     }
                 })
                 .then((data) => {
-                    setNetworkResult(NetworkParser(data, query.protein, query.goTerm));
-                    return NetworkParser(data, query.protein, query.goTerm);
+                    setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
+                    return NetworkParserPath(data, query.protein, query.goTerm);
                 });
         } catch (error) {
             console.error(
@@ -200,7 +200,7 @@ export default function Query() {
             setHasError(true);
         }} else {
             try {
-                network = await fetch("/api/getQueryByKUnique", {
+                network = await fetch("/api/getQueryByNode", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -217,8 +217,8 @@ export default function Query() {
                         }
                     })
                     .then((data) => {
-                        setNetworkResult(NetworkParserTest(data, query.protein, query.k));
-                        return NetworkParserTest(data, query.protein, query.k);
+                        setNetworkResult(NetworkParserNode(data, query.protein, query.k));
+                        return NetworkParserNode(data, query.protein, query.k);
                     });
             } catch (error) {
                 console.error(
@@ -228,7 +228,6 @@ export default function Query() {
                 );
                 setHasError(true);
             }
-
         }
 
         // get induced subgraph
@@ -237,27 +236,6 @@ export default function Query() {
             nodeList.nodeList.push(network.goTerm.id);
             setSourceNode(network.nodes[0].data);
             setGoTerm(network.goTerm);
-
-            // try {
-            //     // Get descendants for queried GO term
-
-            //     fetch("/api/getDescendants", {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             // You can add any other headers if needed
-            //         },
-            //         body: JSON.stringify(network.goTerm),
-            //     })
-            //         .then((res) => res.json())
-            //         .then((data) => {
-            //             const childNames = data.map((item) => item.name).filter(item => item !== undefined);
-            //             setDescendantsOptions(childNames);
-            //         })
-            //         .catch((error) => {
-            //             console.error("Error fetching GO term descendants:", error);
-            //         });
-            // } catch (error) { console.error("Error fetching GO term descendants:", error) };
 
             let edgeData = null;
             try {
