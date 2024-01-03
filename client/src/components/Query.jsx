@@ -456,11 +456,25 @@ export default function Query() {
                 mode: "path"
               }));
             setActiveModeButton("path")
+            setSearchParams({
+                mode: "path",
+                species: query.species,
+                protein: query.protein,
+                goTerm: query.goTerm,
+                k: query.k,
+            });
         }else {setQuery(prevState => ({
             ...prevState,
             mode: "node"
           }));
           setActiveModeButton("node")
+          setSearchParams({
+            mode: "node",
+            species: query.species,
+            protein: query.protein,
+            goTerm: query.goTerm,
+            k: query.k,
+        });
         }
     };
 
