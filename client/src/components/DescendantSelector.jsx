@@ -29,12 +29,13 @@ export default function DescendantSelector({
 
     return (
         <div className="descendant-input">
-            <label htmlFor="descendant-selector">Child GO Terms:</label>
+            {/* <label htmlFor="descendant-selector">Child GO Terms:</label> */}
             <input
                 list="child-go-terms"
                 id="descendant-selector"
                 name="descendant-selector"
                 onChange={handleGoTermChange}
+                placeholder='Child GO Terms'
             />
             <datalist id="child-go-terms"></datalist>
         </div>

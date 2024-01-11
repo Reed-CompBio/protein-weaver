@@ -30,12 +30,13 @@ export default function AncestorSelector({
 
     return (
         <div className="ancestor-input">
-            <label htmlFor="ancestor-selector">Parent GO Terms:</label>
+            {/* <label htmlFor="ancestor-selector">Parent GO Terms:</label> */}
             <input
                 list="parent-go-terms"
                 id="ancestor-selector"
                 name="ancestor-selector"
                 onChange={handleGoTermChange}
+                placeholder='Parent GO Terms'
             />
             <datalist id="parent-go-terms"></datalist>
         </div>

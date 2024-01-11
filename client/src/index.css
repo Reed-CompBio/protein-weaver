@@ -943,6 +943,7 @@ h3 {
 
 .descendant-input input {
   width: 110px;
+  margin-top: 5px;
 }
 
 .descendant-input label {
