@@ -13,7 +13,7 @@ import Legend from "./Legend";
 import { guideConfig } from "../assets/GuideConfig";
 
 export default function Query() {
-    const [query, setQuery] = useState({mode:"", species: "", protein: "", goTerm: "", k: [] });
+    const [query, setQuery] = useState({ mode: "", species: "", protein: "", goTerm: "", k: [] });
     const [showResults, setShowResults] = useState(false);
     const [networkResult, setNetworkResult] = useState({});
     const cyRef = useRef(cytoscape.Core | undefined);
@@ -31,6 +31,7 @@ export default function Query() {
     const [ancestorsOptions, setAncestorsOptions] = useState([]);
     const [descendantsOptions, setDescendantsOptions] = useState([]);
     const [showSharedEdges, setShowSharedEdges] = useState(true);
+    const [tempGoTermValue, setTempGoTermValue] = useState("");
     const [searchParams, setSearchParams] = useSearchParams({
         mode: "",
         species: "",
@@ -169,36 +170,37 @@ export default function Query() {
         // get the k shortest paths for the query
         e.preventDefault();
         let network = null;
-        if(query.mode == "path"){
-        try {
-            network = await fetch("/api/getQuery", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(query),
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    } else if (response.status === 404) {
-                        return Promise.reject("error 404");
-                    } else {
-                        return Promise.reject("some other error: " + response.status);
-                    }
+        if (query.mode == "path") {
+            try {
+                network = await fetch("/api/getQuery", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(query),
                 })
-                .then((data) => {
-                    setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
-                    return NetworkParserPath(data, query.protein, query.goTerm);
-                });
-        } catch (error) {
-            console.error(
-                "Error getting the network:",
-                error,
-                ". Protein or GO term may not exist"
-            );
-            setHasError(true);
-        }} else {
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else if (response.status === 404) {
+                            return Promise.reject("error 404");
+                        } else {
+                            return Promise.reject("some other error: " + response.status);
+                        }
+                    })
+                    .then((data) => {
+                        setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
+                        return NetworkParserPath(data, query.protein, query.goTerm);
+                    });
+            } catch (error) {
+                console.error(
+                    "Error getting the network:",
+                    error,
+                    ". Protein or GO term may not exist"
+                );
+                setHasError(true);
+            }
+        } else {
             try {
                 network = await fetch("/api/getQueryByNode", {
                     method: "POST",
@@ -381,10 +383,14 @@ export default function Query() {
         }));
     };
 
+    const storeGoTermValue = (e) => {
+        setTempGoTermValue(e.target.value);
+    };
+
     const handleGoTermChange = (e) => {
         setQuery((prevData) => ({
             ...prevData,
-            goTerm: e.target.value,
+            goTerm: tempGoTermValue,
         }));
     };
 
@@ -450,11 +456,11 @@ export default function Query() {
     };
 
     const handleQueryMode = (e) => {
-        if(e.target.value == "K Unique Paths"){
+        if (e.target.value == "K Unique Paths") {
             setQuery(prevState => ({
                 ...prevState,
                 mode: "path"
-              }));
+            }));
             setActiveModeButton("path")
             setSearchParams({
                 mode: "path",
@@ -463,18 +469,19 @@ export default function Query() {
                 goTerm: query.goTerm,
                 k: query.k,
             });
-        }else {setQuery(prevState => ({
-            ...prevState,
-            mode: "node"
-          }));
-          setActiveModeButton("node")
-          setSearchParams({
-            mode: "node",
-            species: query.species,
-            protein: query.protein,
-            goTerm: query.goTerm,
-            k: query.k,
-        });
+        } else {
+            setQuery(prevState => ({
+                ...prevState,
+                mode: "node"
+            }));
+            setActiveModeButton("node")
+            setSearchParams({
+                mode: "node",
+                species: query.species,
+                protein: query.protein,
+                goTerm: query.goTerm,
+                k: query.k,
+            });
         }
     };
 
@@ -552,6 +559,7 @@ export default function Query() {
                                 handleLog={handleLog}
                                 parentGoTerms={ancestorsOptions}
                                 childrenGoTerms={descendantsOptions}
+                                storeGoTermValue={storeGoTermValue}
                                 handleGoTermChange={handleGoTermChange}
                             />
                         </div>

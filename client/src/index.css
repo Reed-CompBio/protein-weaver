@@ -283,6 +283,23 @@ select {
   text-align: center;
 }
 
+.new-go-term-button {
+  padding: 8px 16px;
+  min-height: 50px;
+  min-width: 96px;
+  margin-top: 5px;
+  word-wrap: nowrap;
+  background: #000;
+  color: #fff;
+  border: 2px solid var(--light-background);
+  border-radius: 5px;
+  order: 4;
+  flex: 0 1 auto;
+  align-self: auto;
+  height: 30px;
+  text-align: center;
+}
+
 .search {
   flex: 2 1 auto;
 }
@@ -1015,7 +1032,7 @@ h3 {
   height: 15px;
   width: 120px;
   align-self: center;
-  margin-left: 10px ;
+  margin-left: 10px;
 }
 
 .inactive-button {
@@ -1027,11 +1044,12 @@ h3 {
   height: 15px;
   width: 120px;
   align-self: center;
-  margin-left: 10px ;
-  filter:blur(1px)
+  margin-left: 10px;
+  filter: blur(1px)
 }
 
-.active-button:hover, .inactive-button:hover{
+.active-button:hover,
+.inactive-button:hover {
   border: 1px solid white;
   cursor: pointer;
 }

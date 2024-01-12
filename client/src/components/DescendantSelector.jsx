@@ -4,7 +4,7 @@ import { React, useEffect } from 'react';
 
 export default function DescendantSelector({
     childrenGoTerms,
-    handleGoTermChange
+    storeGoTermValue
 }) {
     // Function to populate datalist with options from the dynamic array
     function populateDatalistWithOptions(array) {
@@ -34,7 +34,7 @@ export default function DescendantSelector({
                 list="child-go-terms"
                 id="descendant-selector"
                 name="descendant-selector"
-                onChange={handleGoTermChange}
+                onChange={storeGoTermValue}
                 placeholder='Child GO Terms'
             />
             <datalist id="child-go-terms"></datalist>

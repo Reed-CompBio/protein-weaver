@@ -5,7 +5,7 @@ import MyAutocomplete from './MyAutocomplete';
 
 export default function AncestorSelector({
     parentGoTerms,
-    handleGoTermChange
+    storeGoTermValue
 }) {
     // Function to populate datalist with options from the dynamic array
     function populateDatalistWithOptions(array) {
@@ -35,7 +35,7 @@ export default function AncestorSelector({
                 list="parent-go-terms"
                 id="ancestor-selector"
                 name="ancestor-selector"
-                onChange={handleGoTermChange}
+                onChange={storeGoTermValue}
                 placeholder='Parent GO Terms'
             />
             <datalist id="parent-go-terms"></datalist>

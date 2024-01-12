@@ -9,7 +9,7 @@ export default function Sidebar({
   sourceNode,
   query,
   goTerm,
-  newSourceNode,
+  handleSourceNode,
   handleSubmit,
   exportPNG,
   searchExecuted,
@@ -18,6 +18,7 @@ export default function Sidebar({
   handleLog,
   parentGoTerms,
   childrenGoTerms,
+  storeGoTermValue,
   handleGoTermChange
 }) {
   const [proteinCount, setProteinCount] = useState(0);
@@ -94,7 +95,7 @@ export default function Sidebar({
             <div className="center-buttons">
               <AncestorSelector
                 parentGoTerms={parentGoTerms}
-                handleGoTermChange={handleGoTermChange}
+                storeGoTermValue={storeGoTermValue}
               />
               <a
                 className="blue-sidebar-link"
@@ -106,8 +107,16 @@ export default function Sidebar({
               </a>
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
-                handleGoTermChange={handleGoTermChange}
+                storeGoTermValue={storeGoTermValue}
               />
+              <form method="post" onSubmit={handleSubmit}>
+                <button
+                  className="new-go-term-button"
+                  onClick={handleGoTermChange}
+                >
+                  Set as New GO Term
+                </button>
+              </form>
             </div>
           </div>
           <GoDefinition open>
@@ -146,7 +155,7 @@ export default function Sidebar({
             <div className="center-buttons">
               <AncestorSelector
                 parentGoTerms={parentGoTerms}
-                handleGoTermChange={handleGoTermChange}
+                storeGoTermValue={storeGoTermValue}
               />
               <a
                 className="blue-sidebar-link"
@@ -158,8 +167,16 @@ export default function Sidebar({
               </a>
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
-                handleGoTermChange={handleGoTermChange}
+                storeGoTermValue={storeGoTermValue}
               />
+              <form method="post" onSubmit={handleSubmit}>
+                <button
+                  className="new-go-term-button"
+                  onClick={handleGoTermChange}
+                >
+                  Set as New GO Term
+                </button>
+              </form>
             </div>
             <GoDefinition open>
               <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
@@ -182,7 +199,7 @@ export default function Sidebar({
             <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
               <button
                 className="new-source"
-                onClick={newSourceNode}
+                onClick={handleSourceNode}
                 new-source-node={currentNode.id}
               >
                 Set as New Source Node
@@ -220,7 +237,7 @@ export default function Sidebar({
             <div className="center-buttons">
               <AncestorSelector
                 parentGoTerms={parentGoTerms}
-                handleGoTermChange={handleGoTermChange}
+                storeGoTermValue={storeGoTermValue}
               />
               <a
                 className="blue-sidebar-link"
@@ -232,8 +249,16 @@ export default function Sidebar({
               </a>
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
-                handleGoTermChange={handleGoTermChange}
+                storeGoTermValue={storeGoTermValue}
               />
+              <form method="post" onSubmit={handleSubmit}>
+                <button
+                  className="new-go-term-button"
+                  onClick={handleGoTermChange}
+                >
+                  Set as New GO Term
+                </button>
+              </form>
             </div>
             <GoDefinition open>
               <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
@@ -256,7 +281,7 @@ export default function Sidebar({
             <form method="post" onSubmit={handleSubmit}>
               <button
                 className="new-source"
-                onClick={newSourceNode}
+                onClick={handleSourceNode}
                 new-source-node={currentNode.id}
               >
                 Set as New Source Node
@@ -294,7 +319,7 @@ export default function Sidebar({
             <div className="center-buttons">
               <AncestorSelector
                 parentGoTerms={parentGoTerms}
-                handleGoTermChange={handleGoTermChange}
+                storeGoTermValue={storeGoTermValue}
               />
               <a
                 className="blue-sidebar-link"
@@ -306,8 +331,16 @@ export default function Sidebar({
               </a>
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
-                handleGoTermChange={handleGoTermChange}
+                storeGoTermValue={storeGoTermValue}
               />
+              <form method="post" onSubmit={handleSubmit}>
+                <button
+                  className="new-go-term-button"
+                  onClick={handleGoTermChange}
+                >
+                  Set as New GO Term
+                </button>
+              </form>
             </div>
             <GoDefinition open>
               <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
