@@ -1,5 +1,6 @@
 import React from "react";
 import MyAutocomplete from "./MyAutocomplete";
+import Modetooltip from "./ModeTooltip";
 
 export default function SearchBar({
   handleSubmit,
@@ -11,10 +12,15 @@ export default function SearchBar({
   goTermOptions,
   handleGuide,
   handleSpeciesChange,
+  handleQueryMode,
+  activeModeButton,
 }) {
   return (
     <div className="container">
-      <h2 className="query-title"> Explore Protein Interaction Networks in GO Term Context</h2>
+      <h2 className="query-title">
+        {" "}
+        Explore Protein Interaction Networks in GO Term Context
+      </h2>
       <div className="title-guide-container">
         <h3>Enter protein, GO term and number of paths to visualize...</h3>
         <button className="guide-button" onClick={handleGuide}>
@@ -24,6 +30,34 @@ export default function SearchBar({
       <form method="post" onSubmit={handleSubmit}>
         <div className="wrapper">
           <div className="search-container">
+            <div className="container-mode">
+              <h4>Select Mode:</h4>
+              <div className="container-mode-button">
+                <input
+                  data-tooltip-id="path-tooltip"
+                  type="button"
+                  className={
+                    activeModeButton === "path"
+                      ? "active-button"
+                      : "inactive-button"
+                  }
+                  onClick={handleQueryMode}
+                  value="K Unique Paths"
+                />
+                <input
+                  data-tooltip-id="node-tooltip"
+                  type="button"
+                  className={
+                    activeModeButton === "node"
+                      ? "active-button"
+                      : "inactive-button"
+                  }
+                  onClick={handleQueryMode}
+                  value="K Unique Nodes"
+                />
+                <Modetooltip></Modetooltip>
+              </div>
+            </div>
             <MyAutocomplete
               suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
               inputName="protein"

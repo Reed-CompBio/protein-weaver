@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { saveAs } from "file-saver";
-import { NetworkParser, EdgeDataParser } from "../tools/Parser";
+import { NetworkParserPath, EdgeDataParser, NetworkParserNode } from "../tools/Parser";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
@@ -13,7 +13,7 @@ import Legend from "./Legend";
 import { guideConfig } from "../assets/GuideConfig";
 
 export default function Query() {
-    const [query, setQuery] = useState({ species: "", protein: "", goTerm: "", k: [] });
+    const [query, setQuery] = useState({mode:"", species: "", protein: "", goTerm: "", k: [] });
     const [showResults, setShowResults] = useState(false);
     const [networkResult, setNetworkResult] = useState({});
     const cyRef = useRef(cytoscape.Core | undefined);
@@ -32,12 +32,14 @@ export default function Query() {
     const [descendantsOptions, setDescendantsOptions] = useState([]);
     const [showSharedEdges, setShowSharedEdges] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams({
+        mode: "",
         species: "",
         protein: "",
         goTerm: "",
         k: "",
     });
     const [guide, setGuide] = useState(guideConfig);
+    const [activeModeButton, setActiveModeButton] = useState("")
 
     // Set default search params for the URL
     useEffect(() => {
@@ -45,35 +47,42 @@ export default function Query() {
             searchParams.get("species") === ""
         ) {
             setQuery({
+                mode: "path",
                 species: "txid7227",
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
             });
+            setActiveModeButton("path");
         } else {
             setQuery({
+                mode: "path",
                 species: searchParams.get("species"),
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
             });
+            setActiveModeButton("path");
         }
     }, [])
 
     // Get the search params from the URL
     useEffect(() => {
         if (
+            searchParams.get("mode") != "" &&
             searchParams.get("species") != "" &&
             searchParams.get("protein") != "" &&
             searchParams.get("goTerm") != "" &&
             searchParams.get("k") != ""
         ) {
             setQuery({
+                mode: searchParams.get("mode"),
                 species: searchParams.get("species"),
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
             });
+            setActiveModeButton(searchParams.get("mode"));
         }
     }, []);
 
@@ -150,6 +159,7 @@ export default function Query() {
         setIsLoading(true);
 
         setSearchParams({
+            mode: query.mode,
             species: query.species,
             protein: query.protein,
             goTerm: query.goTerm,
@@ -159,6 +169,7 @@ export default function Query() {
         // get the k shortest paths for the query
         e.preventDefault();
         let network = null;
+        if(query.mode == "path"){
         try {
             network = await fetch("/api/getQuery", {
                 method: "POST",
@@ -177,8 +188,8 @@ export default function Query() {
                     }
                 })
                 .then((data) => {
-                    setNetworkResult(NetworkParser(data, query.protein, query.goTerm));
-                    return NetworkParser(data, query.protein, query.goTerm);
+                    setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
+                    return NetworkParserPath(data, query.protein, query.goTerm);
                 });
         } catch (error) {
             console.error(
@@ -187,6 +198,36 @@ export default function Query() {
                 ". Protein or GO term may not exist"
             );
             setHasError(true);
+        }} else {
+            try {
+                network = await fetch("/api/getQueryByNode", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(query),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else if (response.status === 404) {
+                            return Promise.reject("error 404");
+                        } else {
+                            return Promise.reject("some other error: " + response.status);
+                        }
+                    })
+                    .then((data) => {
+                        setNetworkResult(NetworkParserNode(data, query.protein, query.k));
+                        return NetworkParserNode(data, query.protein, query.k);
+                    });
+            } catch (error) {
+                console.error(
+                    "Error getting the network:",
+                    error,
+                    ". Protein or GO term may not exist"
+                );
+                setHasError(true);
+            }
         }
 
         // get induced subgraph
@@ -195,27 +236,6 @@ export default function Query() {
             nodeList.nodeList.push(network.goTerm.id);
             setSourceNode(network.nodes[0].data);
             setGoTerm(network.goTerm);
-
-            // try {
-            //     // Get descendants for queried GO term
-
-            //     fetch("/api/getDescendants", {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             // You can add any other headers if needed
-            //         },
-            //         body: JSON.stringify(network.goTerm),
-            //     })
-            //         .then((res) => res.json())
-            //         .then((data) => {
-            //             const childNames = data.map((item) => item.name).filter(item => item !== undefined);
-            //             setDescendantsOptions(childNames);
-            //         })
-            //         .catch((error) => {
-            //             console.error("Error fetching GO term descendants:", error);
-            //         });
-            // } catch (error) { console.error("Error fetching GO term descendants:", error) };
 
             let edgeData = null;
             try {
@@ -387,13 +407,16 @@ export default function Query() {
     const getExample = (i) => {
         switch (i) {
             case 1:
-                setQuery({ species: "txid7227", protein: "egfr", goTerm: "GO:0016055", k: "4" });
+                setQuery({ mode: "path", species: "txid7227", protein: "egfr", goTerm: "GO:0016055", k: "4" });
+                setActiveModeButton("path");
                 break;
             case 2:
-                setQuery({ species: "txid7227", protein: "flw", goTerm: "GO:0003383", k: "3" });
+                setQuery({ mode: "node", species: "txid7227", protein: "flw", goTerm: "GO:0003383", k: "7" });
+                setActiveModeButton("node");
                 break;
             case 3:
-                setQuery({ species: "txid7227", protein: "flw", goTerm: "GO:0045159", k: "7" });
+                setQuery({ mode: "path", species: "txid7227", protein: "flw", goTerm: "GO:0045159", k: "3" });
+                setActiveModeButton("path");
                 break;
         }
     };
@@ -423,6 +446,35 @@ export default function Query() {
 
         if (finishedStatuses.includes(status)) {
             setGuide({ run: false, steps: guide.steps });
+        }
+    };
+
+    const handleQueryMode = (e) => {
+        if(e.target.value == "K Unique Paths"){
+            setQuery(prevState => ({
+                ...prevState,
+                mode: "path"
+              }));
+            setActiveModeButton("path")
+            setSearchParams({
+                mode: "path",
+                species: query.species,
+                protein: query.protein,
+                goTerm: query.goTerm,
+                k: query.k,
+            });
+        }else {setQuery(prevState => ({
+            ...prevState,
+            mode: "node"
+          }));
+          setActiveModeButton("node")
+          setSearchParams({
+            mode: "node",
+            species: query.species,
+            protein: query.protein,
+            goTerm: query.goTerm,
+            k: query.k,
+        });
         }
     };
 
@@ -456,6 +508,8 @@ export default function Query() {
                     goTermOptions={goTermOptions}
                     handleGuide={handleGuide}
                     handleSpeciesChange={handleSpeciesChange}
+                    handleQueryMode={handleQueryMode}
+                    activeModeButton={activeModeButton}
                 />
 
                 {hasError && <QueryError />}

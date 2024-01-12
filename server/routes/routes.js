@@ -10,12 +10,17 @@ import Txid7227Service from '../services/txid7227.service.js';
 import QueryService from '../services/query.service.js';
 import AncestorsService from '../services/ancestors.service.js';
 import DescendantsService from '../services/descendants.service.js';
-
+import NeighborService from '../services/neighbor.service.js';
+import { neighborParser } from '../tools/data.parsing.js';
+import GoNodeService from '../services/go.node.service.js';
+import AllDijkstraService from '../services/dijkstra.all.service.js';
+import AllShortestPathsService from '../services/dijkstra.all.service.js';
 const router = new Router()
 const jsonParser = bodyParser.json();
 
 router.get("/test", (req, res) => {
   res.json({ "message": "Successfully connected to the backend API" })
+  console.log("successfully connected to the backend API")
 })
 
 router.get('/getMovie', async (res, next) => {
@@ -200,6 +205,57 @@ router.post('/getQuery', jsonParser, async (req, res, next) => {
   } catch (error) {
     console.error('Error in /getQuery:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+router.post('/getQueryByNode', jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const species = data.species;
+  const protein = data.protein;
+  const goTerm = data.goTerm;
+  const k = data.k;
+
+  console.log('Species:', species);
+  console.log('Protein:', protein);
+  console.log('GO Term:', goTerm);
+  console.log('k:', k);
+  console.log("getQueryByNode")
+
+  try {
+    const neighborService = new NeighborService(
+      getDriver()
+    )
+
+    var neighborData = await neighborService.getNeighbor(goTerm, species);
+    neighborData = neighborParser(neighborData);
+
+    const allShortestPathsService = new AllShortestPathsService(
+      getDriver()
+    )
+    var allPaths = await allShortestPathsService.getAllShortestPaths(protein)
+    let neighborFound = 0;
+    var paths = []
+    for(let i = 0; i < allPaths.length; i++){
+      if(neighborData.includes(allPaths[i]._fields[2])){
+        neighborFound++;
+        console.log("FOUND", allPaths[i]._fields[2])
+        paths.push(allPaths[i]._fields[3])
+      }
+    }
+
+    console.log("Neighbors found: ", neighborFound)
+    console.log("Neighbors total: ", neighborData.length)
+
+    const goNodeService = new GoNodeService(
+      getDriver()
+    )
+    var goTermNode = await goNodeService.getGoNode(goTerm)
+    paths.push(goTermNode)
+
+    res.json(paths)
+  } catch (e) {
+    next(e)
   }
 });
 
