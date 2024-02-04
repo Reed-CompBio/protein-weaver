@@ -79,6 +79,7 @@ export default function SearchBar({
               name="k"
               placeholder="3"
               value={query.k}
+              id="k-input-test"
               onChange={handleInputChange}
               required
             />
@@ -91,7 +92,7 @@ export default function SearchBar({
               <option value="txid7227">D. melanogaster</option>
               <option value="txid7955">D. rerio</option>
             </select>
-            <button type="submit" className="search-button" ref={submitRef}>
+            <button type="submit" className="search-button" id="search-button-test" ref={submitRef}>
               Search
             </button>
           </div>

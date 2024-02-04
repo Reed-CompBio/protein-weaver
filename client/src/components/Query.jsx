@@ -258,8 +258,8 @@ export default function Query() {
                         }
                     })
                     .then((edgeData) => {
-                        setNetworkResult(EdgeDataParser(network, edgeData));
-                        return EdgeDataParser(network, edgeData);
+                        setNetworkResult(EdgeDataParser(network, edgeData, query.k));
+                        return EdgeDataParser(network, edgeData, query.k);
                     });
 
                 setShowResults(true);

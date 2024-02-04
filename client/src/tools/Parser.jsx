@@ -70,7 +70,7 @@ export function NetworkParserPath(data, source, go_term) {
  * @returns {JSON}
  */
 // tag::EdgeDataParser
-export function EdgeDataParser(networkData, edgeData) {
+export function EdgeDataParser(networkData, edgeData, k) {
   //Iterate through al the edges in the induced subgraph
   for (let i = 0; i < edgeData.length; i++) {
     let startNode = edgeData[i]._fields[0].start.properties.id;
@@ -101,6 +101,7 @@ export function EdgeDataParser(networkData, edgeData) {
       }
     }
   }
+  console.log(k, Object.keys( networkData.nodeList ).length - 1 , Object.keys( networkData.edgeList ).length, ) ;
   return networkData;
 }
 

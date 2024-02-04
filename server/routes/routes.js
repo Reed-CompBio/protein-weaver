@@ -229,6 +229,7 @@ router.post('/getQueryByNode', jsonParser, async (req, res, next) => {
 
     var neighborData = await neighborService.getNeighbor(goTerm, species);
     neighborData = neighborParser(neighborData);
+    console.log("NEIGHBOR: ", neighborData.length)
 
     const allShortestPathsService = new AllShortestPathsService(
       getDriver()
