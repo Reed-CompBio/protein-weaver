@@ -46,13 +46,28 @@ export default function AboutPage() {
             </ul>
             <h2 className="about-body-text-heading">Funding</h2>
             <p>
-              This project is supported by an NSF CAREER Award{" "}
-              <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1750981">
-                (DBI-1750981)
-              </a>{" "}
-              to Anna Ritz.
+              This project is supported by an NSF CAREER Award&nbsp;
+              (<a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1750981">
+                DBI-1750981
+              </a>)
+              &nbsp;to Anna Ritz.
             </p>
-            <h2>Libraries</h2>
+            <h2 className="about-body-text-heading">Data</h2>
+            <p>
+              <a href="https://geneontology.org/">
+                Gene Ontology
+              </a>
+              &nbsp;data from the&nbsp;
+              <a href="https://release.geneontology.org/2023-07-27/index.html">
+                2023-07-27 release
+              </a>
+              &nbsp;(<a href="https://zenodo.org/records/8200914">
+                DOI:10.5281/zenodo.8200914
+              </a>)
+              is made available under the terms of the&nbsp;
+              <a href="https://creativecommons.org/licenses/by/4.0/legalcode">CC BY 4.0 license</a>.
+            </p>
+            <h2 className="about-body-text-heading">Libraries</h2>
             <p>
               This website was produced with the following libraries and
               frameworks:
