@@ -200,7 +200,7 @@ export default function Query() {
                 );
                 setHasError(true);
             }
-        } else {
+        } else if (query.mode == "node") {
             try {
                 network = await fetch("/api/getQueryByNode", {
                     method: "POST",
