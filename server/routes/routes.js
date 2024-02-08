@@ -230,6 +230,12 @@ router.post('/getQueryByNode', jsonParser, async (req, res, next) => {
     var neighborData = await neighborService.getNeighbor(goTerm, species);
     neighborData = neighborParser(neighborData);
 
+    console.log(neighborData.length)
+    if(neighborData.length == 0){
+      console.log("No direct neighbors from GO term")
+      res.status(404).send({ error: 'No direct neighbors from GO term' });
+    }else {
+
     const allShortestPathsService = new AllShortestPathsService(
       getDriver()
     )
@@ -243,8 +249,11 @@ router.post('/getQueryByNode', jsonParser, async (req, res, next) => {
         paths.push(allPaths[i]._fields[3])
       }
     }
-
-    console.log("Neighbors found: ", neighborFound)
+    if(paths.length == 0){
+      console.log("No paths connecting protein of interest to GO term of interest proteins")
+      res.status(404).send({ error: 'No paths connecting protein of interest to GO term of interest proteins', statusText: 'Not Found' });
+    }else{
+      console.log("Neighbors found: ", neighborFound)
     console.log("Neighbors total: ", neighborData.length)
 
     const goNodeService = new GoNodeService(
@@ -254,8 +263,11 @@ router.post('/getQueryByNode', jsonParser, async (req, res, next) => {
     paths.push(goTermNode)
 
     res.json(paths)
-  } catch (e) {
-    next(e)
+    }
+  }
+  } catch (error) {
+    console.error('Error in /getQuery:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

@@ -209,27 +209,30 @@ export default function Query() {
                     },
                     body: JSON.stringify(query),
                 })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        } else if (response.status === 404) {
-                            return Promise.reject("error 404");
-                        } else {
-                            return Promise.reject("some other error: " + response.status);
-                        }
-                    })
-                    .then((data) => {
-                        setNetworkResult(NetworkParserNode(data, query.protein, query.k));
-                        return NetworkParserNode(data, query.protein, query.k);
-                    });
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else if (response.status === 404) {
+                        return response.json().then(data => {
+                            throw new Error(data.error); // Throw an error with the statusText from the response body
+                        });
+                    } else {
+                        return Promise.reject(new Error(`${response.status} ${response.statusText}`));
+                    }
+                })
+                .then((data) => {
+                    setNetworkResult(NetworkParserNode(data, query.protein, query.k));
+                    return NetworkParserNode(data, query.protein, query.k);
+                });
             } catch (error) {
                 console.error(
                     "Error getting the network:",
-                    error,
-                    ". Protein or GO term may not exist"
+                    error.message
                 );
                 setHasError(true);
             }
+
+
         }
 
         // get induced subgraph
