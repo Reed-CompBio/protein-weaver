@@ -41,6 +41,7 @@ export default function Query() {
     });
     const [guide, setGuide] = useState(guideConfig);
     const [activeModeButton, setActiveModeButton] = useState("")
+    const [dataParsingStatus, setDataParsingStatus] = useState(false)
 
     // Set default search params for the URL
     useEffect(() => {
@@ -131,6 +132,13 @@ export default function Query() {
             });
     }, []);
 
+    useEffect(() => {
+        if(dataParsingStatus){
+            setShowResults(true)
+            setIsLoading(false)
+        }
+      }, [dataParsingStatus]);
+
     // Get descendants for queried GO term
     // useEffect(() => {
     //     fetch("/api/getDescendants", {
@@ -158,6 +166,8 @@ export default function Query() {
         setHasError(false);
         setQueryCount(queryCount + 1);
         setIsLoading(true);
+        setShowResults(false)
+        setDataParsingStatus(false)
 
         setSearchParams({
             mode: query.mode,
@@ -190,6 +200,7 @@ export default function Query() {
                     })
                     .then((data) => {
                         setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
+                        console.log("API call done")
                         return NetworkParserPath(data, query.protein, query.goTerm);
                     });
             } catch (error) {
@@ -222,6 +233,8 @@ export default function Query() {
                 })
                 .then((data) => {
                     setNetworkResult(NetworkParserNode(data, query.protein, query.k));
+                    console.log("API call done")
+                    setDataParsingStatus(true)
                     return NetworkParserNode(data, query.protein, query.k);
                 });
             } catch (error) {
@@ -262,10 +275,9 @@ export default function Query() {
                     })
                     .then((edgeData) => {
                         setNetworkResult(EdgeDataParser(network, edgeData));
+                        console.log("induced subgraph done")
                         return EdgeDataParser(network, edgeData);
                     });
-
-                setShowResults(true);
             } catch (error) {
                 console.error("Error getting the network:", error);
                 setHasError(true);
@@ -524,7 +536,7 @@ export default function Query() {
 
                 {hasError && <QueryError />}
 
-                {isLoading && JSON.stringify(networkResult) == "{}" && (
+                {isLoading && !showResults && JSON.stringify(networkResult) == "{}" && (
                     <div className="loader"></div>
                 )}
 
