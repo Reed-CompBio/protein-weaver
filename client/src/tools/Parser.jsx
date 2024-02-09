@@ -101,7 +101,6 @@ export function EdgeDataParser(networkData, edgeData) {
       }
     }
   }
-  console.log("completed edgeparser")
   return networkData;
 }
 

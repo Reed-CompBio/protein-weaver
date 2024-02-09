@@ -200,7 +200,6 @@ export default function Query() {
                     })
                     .then((data) => {
                         setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
-                        console.log("API call done")
                         return NetworkParserPath(data, query.protein, query.goTerm);
                     });
             } catch (error) {
@@ -233,7 +232,6 @@ export default function Query() {
                 })
                 .then((data) => {
                     setNetworkResult(NetworkParserNode(data, query.protein, query.k));
-                    console.log("API call done")
                     setDataParsingStatus(true)
                     return NetworkParserNode(data, query.protein, query.k);
                 });
