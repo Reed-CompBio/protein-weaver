@@ -11,7 +11,7 @@ export default function MyAutocomplete(props) {
     const onChange = (e) => {
         const inputText = e.currentTarget.value;
         const newFilteredSuggestions = suggestions.filter((suggestion) =>
-            suggestion.toLowerCase().startsWith(inputText.toLowerCase())
+            suggestion.toLowerCase().includes(inputText.toLowerCase())
         );
         setActive(0);
         setFiltered(newFilteredSuggestions);
