@@ -139,26 +139,6 @@ export default function Query() {
         }
       }, [dataParsingStatus]);
 
-    // Get descendants for queried GO term
-    // useEffect(() => {
-    //     fetch("/api/getDescendants", {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             // You can add any other headers if needed
-    //         },
-    //         body: JSON.stringify(query)
-    //     })
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             const childNames = data.map((item) => item.name).filter(item => item !== undefined);
-    //             setDescendantsOptions(childNames);
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error fetching GO term descendants:", error);
-    //         });
-    // }, [query.goTerm]);
-
     // Function for submitting the query
     async function handleSubmit(e) {
         setSidebarNode(null);
@@ -232,7 +212,6 @@ export default function Query() {
                 })
                 .then((data) => {
                     setNetworkResult(NetworkParserNode(data, query.protein, query.k));
-                    setDataParsingStatus(true)
                     return NetworkParserNode(data, query.protein, query.k);
                 });
             } catch (error) {
@@ -273,7 +252,7 @@ export default function Query() {
                     })
                     .then((edgeData) => {
                         setNetworkResult(EdgeDataParser(network, edgeData));
-                        console.log("induced subgraph done")
+                        setDataParsingStatus(true)
                         return EdgeDataParser(network, edgeData);
                     });
             } catch (error) {
@@ -534,11 +513,11 @@ export default function Query() {
 
                 {hasError && <QueryError />}
 
-                {isLoading && !showResults && JSON.stringify(networkResult) == "{}" && (
+                {isLoading  && (
                     <div className="loader"></div>
                 )}
 
-                {showResults && JSON.stringify(networkResult) != "{}" && (
+                {showResults && (
                     <div className="legend-align">
                         <div className="sidebar-align">
                             <CytoscapeComponent

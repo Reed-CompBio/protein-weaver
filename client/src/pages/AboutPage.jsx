@@ -52,7 +52,7 @@ export default function AboutPage() {
               </a>{" "}
               to Anna Ritz.
             </p>
-            <h2>Libraries</h2>
+            <h2 className="about-body-text-heading">Libraries</h2>
             <p>
               This website was produced with the following libraries and
               frameworks:
