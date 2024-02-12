@@ -137,6 +137,7 @@ button:focus-visible {
   padding-right: 25px;
   border-bottom: solid;
   background: #A70E16;
+  min-width: 1080px;
 }
 
 .navbar-menu {
