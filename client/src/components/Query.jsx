@@ -42,6 +42,7 @@ export default function Query() {
     const [guide, setGuide] = useState(guideConfig);
     const [activeModeButton, setActiveModeButton] = useState("")
     const [dataParsingStatus, setDataParsingStatus] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
 
     // Set default search params for the URL
     useEffect(() => {
@@ -148,6 +149,7 @@ export default function Query() {
         setIsLoading(true);
         setShowResults(false)
         setDataParsingStatus(false)
+        setErrorMessage("")
 
         setSearchParams({
             mode: query.mode,
@@ -173,10 +175,11 @@ export default function Query() {
                         if (response.ok) {
                             return response.json();
                         } else if (response.status === 404) {
-                            return Promise.reject("error 404");
-                        } else {
-                            return Promise.reject("some other error: " + response.status);
-                        }
+                            return response.json().then(data => {
+                                throw new Error(data.error); // Throw an error with the statusText from the response body
+                            });                        } else {
+                                return Promise.reject(new Error(`${response.status} ${response.statusText}`));
+                            }
                     })
                     .then((data) => {
                         setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
@@ -185,9 +188,9 @@ export default function Query() {
             } catch (error) {
                 console.error(
                     "Error getting the network:",
-                    error,
-                    ". Protein or GO term may not exist"
+                    error.message
                 );
+                setErrorMessage(error.message)
                 setHasError(true);
             }
         } else if (query.mode == "node") {
@@ -219,6 +222,7 @@ export default function Query() {
                     "Error getting the network:",
                     error.message
                 );
+                setErrorMessage(error.message)
                 setHasError(true);
             }
 
@@ -511,7 +515,7 @@ export default function Query() {
                     activeModeButton={activeModeButton}
                 />
 
-                {hasError && <QueryError />}
+                {hasError && <QueryError errorMessage={errorMessage}/>}
 
                 {isLoading  && (
                     <div className="loader"></div>
