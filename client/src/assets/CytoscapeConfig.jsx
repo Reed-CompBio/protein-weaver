@@ -21,6 +21,17 @@ export const cytoscapeStyle = [
     },
   },
   {
+    selector: "node[type='go_source']",
+    style: {
+      width: 30,
+      height: 30,
+      shape: "rectangle",
+      "border-width": "1px",
+      "border-color": "black",
+      "background-color": "#A70E16",
+    },
+  },
+  {
     selector: "node[type='go_protein']",
     style: {
       width: 30,
