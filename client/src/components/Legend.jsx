@@ -29,6 +29,10 @@ export default function Legend({
                             <p className="legend-text">&nbsp;&nbsp;GO protein</p>
                         </div>
                         <div className="dot-align">
+                            <div className="go-source-symbol"></div>
+                            <p className="legend-text">&nbsp;&nbsp;Source node annotated to GO term</p>
+                        </div>
+                        <div className="dot-align">
                             <div className="intermediate-symbol"></div>
                             <p className="legend-text">&nbsp;&nbsp;On path from GO protein to source node</p>
                         </div>

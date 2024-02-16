@@ -24,6 +24,12 @@ export function NetworkParserPath(data, source, go_term) {
         },
       };
       if (
+        (currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
+          currentPath[j].properties.id.toUpperCase() === source.toUpperCase()) &&
+        (j == currentPath.length - 2)
+      ) {
+        nodeEntry.data.type = "go_source";
+      } else if (
         currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
         currentPath[j].properties.id.toUpperCase() === source.toUpperCase()
       ) {
