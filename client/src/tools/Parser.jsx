@@ -124,7 +124,11 @@ export function NetworkParserNode(data, source, k) {
           label: currentPath[j].properties.name,
         },
       };
-      if (
+      if ((currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
+        currentPath[j].properties.id.toUpperCase() === source.toUpperCase()) &&
+        (j == currentPath.length - 1)) {
+        nodeEntry.data.type = "go_source";
+      } else if (
         currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
         currentPath[j].properties.id.toUpperCase() === source.toUpperCase()
       ) {
