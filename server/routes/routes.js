@@ -139,14 +139,14 @@ router.post("/getTxid7227", jsonParser, async (req, res, next) => {
     // console.log(queryResult)
 
     if (queryResult.length === 0) {
-      console.log("no data found");
-      res.status(404).send({ error: "No data found" });
+      console.log("No data found.");
+      res.status(404).send({ error: "No data found." });
     } else {
       res.status(200).json(queryResult);
     }
   } catch (error) {
     console.error("Error in /getFlyBase:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 
@@ -176,14 +176,14 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
     );
 
     if (sourceProtein == "") {
-      console.log("Source protein not found");
-      res.status(404).send({ error: "Source protein not found" });
+      console.log("Source protein not found.");
+      res.status(404).send({ error: "Source protein not found." });
     } else {
       const goFinderService = new GoFinderService(getDriver());
       var goResult = await goFinderService.getGoFinder(goTerm);
       if (goResult == "") {
         console.log("GO term not found");
-        res.status(404).send({ error: "GO term not found" });
+        res.status(404).send({ error: "GO term not found." });
       } else {
         const neighborService = new NeighborService(getDriver());
 
@@ -192,10 +192,10 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
 
         console.log(neighborData.length);
         if (neighborData.length == 0) {
-          console.log("No direct proteins connected to GO term");
+          console.log("No direct proteins connected to GO term.");
           res
             .status(404)
-            .send({ error: "No direct proteins connected to GO term" });
+            .send({ error: "No direct proteins connected to GO term." });
         } else {
           const queryService = new QueryService(getDriver());
           const queryResult = await queryService.getQuery(
@@ -207,11 +207,11 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
 
           if (queryResult.length === 0) {
             console.log(
-              "No paths connecting protein of interest to nearby proteins labeled with the GO term"
+              "No paths connecting protein of interest to nearby proteins labeled with the GO term."
             );
             res.status(404).send({
               error:
-                "No paths connecting protein of interest to nearby proteins labeled with the GO term",
+                "No paths connecting protein of interest to nearby proteins labeled with the GO term.",
             });
           } else {
             res.status(200).json(queryResult);
@@ -221,7 +221,7 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
     }
   } catch (error) {
     console.error("Error in /getQuery:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 
@@ -246,14 +246,14 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
     );
 
     if (sourceProtein == "") {
-      console.log("Source protein not found");
-      res.status(404).send({ error: "Source protein not found" });
+      console.log("Source protein not found.");
+      res.status(404).send({ error: "Source protein not found." });
     } else {
       const goFinderService = new GoFinderService(getDriver());
       var goResult = await goFinderService.getGoFinder(goTerm);
       if (goResult == "") {
-        console.log("GO term not found");
-        res.status(404).send({ error: "GO term not found" });
+        console.log("GO term not found.");
+        res.status(404).send({ error: "GO term not found." });
       } else {
         const neighborService = new NeighborService(getDriver());
 
@@ -262,10 +262,10 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
 
         console.log(neighborData.length);
         if (neighborData.length == 0) {
-          console.log("No direct proteins connected to GO term");
+          console.log("No direct proteins connected to GO term.");
           res
             .status(404)
-            .send({ error: "No direct proteins connected to GO term" });
+            .send({ error: "No direct proteins connected to GO term." });
         } else {
           const allShortestPathsService = new AllShortestPathsService(
             getDriver()
@@ -284,11 +284,11 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
           }
           if (paths.length == 0) {
             console.log(
-              "No paths connecting protein of interest to nearby proteins labeled with the GO term"
+              "No paths connecting protein of interest to nearby proteins labeled with the GO term."
             );
             res.status(404).send({
               error:
-                "No paths connecting protein of interest to nearby proteins labeled with the GO term",
+                "No paths connecting protein of interest to nearby proteins labeled with the GO term.",
             });
           } else {
             console.log("Neighbors found: ", neighborFound);
@@ -305,7 +305,7 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
     }
   } catch (error) {
     console.error("Error in /getQuery:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 
