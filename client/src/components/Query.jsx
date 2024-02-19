@@ -409,15 +409,15 @@ export default function Query() {
     const getExample = (i) => {
         switch (i) {
             case 1:
-                setQuery({ mode: "path", species: "txid7227", protein: "egfr", goTerm: "GO:0016055", k: "4" });
+                setQuery({ mode: "path", species: "txid7227", protein: "egfr", goTerm: "Wnt signaling pathway", k: "4" });
                 setActiveModeButton("path");
                 break;
             case 2:
-                setQuery({ mode: "node", species: "txid7227", protein: "flw", goTerm: "GO:0003383", k: "7" });
+                setQuery({ mode: "node", species: "txid7227", protein: "flw", goTerm: "apical constriction", k: "7" });
                 setActiveModeButton("node");
                 break;
             case 3:
-                setQuery({ mode: "path", species: "txid7227", protein: "flw", goTerm: "GO:0045159", k: "3" });
+                setQuery({ mode: "path", species: "txid7227", protein: "flw", goTerm: "myosin II binding", k: "3" });
                 setActiveModeButton("path");
                 break;
         }
