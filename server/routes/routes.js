@@ -185,6 +185,8 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
         console.log("GO term not found");
         res.status(404).send({ error: "GO term not found." });
       } else {
+        //finds all specief GO terms
+
         const neighborService = new NeighborService(getDriver());
 
         var neighborData = await neighborService.getNeighbor(goTerm, species);
@@ -192,11 +194,12 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
 
         console.log(neighborData.length);
         if (neighborData.length == 0) {
-          console.log("No direct proteins connected to GO term.");
+          console.log("No direct proteins connected to GO term for this species");
           res
             .status(404)
-            .send({ error: "No direct proteins connected to GO term." });
+            .send({ error: "No direct proteins connected to GO term for this species" });
         } else {
+          //DO this to all GOterm
           const queryService = new QueryService(getDriver());
           const queryResult = await queryService.getQuery(
             species,
@@ -255,6 +258,7 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
         console.log("GO term not found.");
         res.status(404).send({ error: "GO term not found." });
       } else {
+        //find the neighbor of all the associated GO terms
         const neighborService = new NeighborService(getDriver());
 
         var neighborData = await neighborService.getNeighbor(goTerm, species);
@@ -262,10 +266,10 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
 
         console.log(neighborData.length);
         if (neighborData.length == 0) {
-          console.log("No direct proteins connected to GO term.");
+          console.log("No direct proteins connected to GO term for this species");
           res
             .status(404)
-            .send({ error: "No direct proteins connected to GO term." });
+            .send({ error: "No direct proteins connected to GO term for this species" });
         } else {
           const allShortestPathsService = new AllShortestPathsService(
             getDriver()
