@@ -194,17 +194,10 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
 
         console.log(neighborData.length);
         if (neighborData.length == 0) {
-<<<<<<< HEAD
           console.log("No direct proteins connected to GO term for this species");
           res
             .status(404)
             .send({ error: "No direct proteins connected to GO term for this species" });
-=======
-          console.log("No direct proteins connected to GO term.");
-          res
-            .status(404)
-            .send({ error: "No direct proteins connected to GO term." });
->>>>>>> f114adba81d06ab3f4a8218853d129c9dbe13b82
         } else {
           //DO this to all GOterm
           const queryService = new QueryService(getDriver());
