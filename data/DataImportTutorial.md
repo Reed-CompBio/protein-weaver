@@ -34,7 +34,7 @@ docker run \
 4. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
     `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
 
-5. Import data for D. melanogaster using the following command:
+5. Import data for *D. melanogaster* using the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
 FIELDTERMINATOR '\t'
@@ -84,7 +84,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-9. Import B. subtilis data with the following command:
+9. Import *B. subtilis* data with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
 CALL {
@@ -95,7 +95,7 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-10. Add GoPro relationships to B. subtilis nodes:
+10. Add GoPro relationships to *B. subtilis* nodes:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
@@ -106,7 +106,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-11. Set qualifier property for B. subtilis.
+11. Set qualifier property for *B. subtilis*.
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
@@ -116,21 +116,21 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-12. Import D. rerio data with the following command:
+12. Import *D. rerio* data with the following command:
 ```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome.txt' AS zfish
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_24.txt' AS zfish
 FIELDTERMINATOR '\t'
 CALL {
     with zfish
-    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, alt_name: zfish.alt_name1, txid: "txid7955", species: "Danio rerio"})
-    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, alt_name: zfish.alt_name2, txid: "txid7955", species: "Danio rerio"})
+    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.alt_name1, evidence: zfish.evidence, txid: "txid7955", species: "Danio rerio"})
+    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.alt_name2, evidence: zfish.evidence, txid: "txid7955", species: "Danio rerio"})
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-13. Add GoPro relationships to D. rerio nodes:
+13. Add GoPro relationships to *D. rerio* nodes:
 ```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data.tsv' AS zfishgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.txt.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
 CALL {
     with zfishgo
@@ -140,9 +140,9 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-14. Set qualifier property for D. rerio.
+14. Set qualifier property for *D. rerio*.
 ```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data.tsv' AS zfishgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.txt.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
 CALL {
     with zfishgo
@@ -180,15 +180,15 @@ CALL {
 ```
 
 18. Don't forget to call the graph before running queries using the following command:
-```
+`
 CALL gds.graph.project(
 'proGoGraph',
 ['go_term', 'protein'],
 ['ProGo', 'ProPro']
 )
-```
+`
 
-19. Now import the regulatory edges for B. subtilis with the following command:
+19. Now import the regulatory edges for *B. subtilis* with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_regnet.csv' AS bsub_reg
 CALL{

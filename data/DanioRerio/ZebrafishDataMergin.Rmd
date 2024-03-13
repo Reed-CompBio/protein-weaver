@@ -8,7 +8,6 @@ output: html_document
 **Zebrafish Data Merging and Wrangling Documentation**
 Initialize the work environment.
 ```{r}
-setwd('~/Desktop/neo4j-test/zfish_data/')
 library(tidyverse)
 ```
 
@@ -61,6 +60,9 @@ psicquic_interactome <-
   psicquic_interactome %>% 
   select(uniprotID1, uniprotID2) %>%
   mutate(source = "psicquic")
+
+psicquic_interactome <- psicquic_interactome %>% 
+  mutate(evidence = "experimental")
 ```
 
 Save the PsicQuic data to a separate file
@@ -68,79 +70,155 @@ Save the PsicQuic data to a separate file
 write_csv(psicquic_interactome, "./zfish_psicquic_results.csv")
 ```
 
-
-The next step is to process the data from String-DB.
+This is the less stringent version for data mining, filtered by experimental, database, and textmined data. Resulting interactome had 11766 unique proteins.
 ```{r}
 # read the file in
-string_db_interactome <- read_delim("stringdb-zfish-interactome.txt", delim = " ")
+string_db_interactome2 <- read_delim("7955.protein.physical.links.full.v12.0_attempt2.txt", delim = " ")
 
 # get only the data from String-DB that has experimental evidence
-string_db_interactome <- string_db_interactome %>% filter(experiments > 0)
+string_db_interactome2 <- string_db_interactome2 %>% filter(experiments > 0 |
+                                                            database > 0 |
+                                                            textmining > 0)
+string_db_interactome2 <- string_db_interactome2 %>% 
+  mutate(
+      evidence = case_when(
+        experiments > 0 ~ "experimental",
+        (database > 0 & experiments <= 0) ~ "database",
+        (textmining > 0 & experiments <= 0 & database <= 0) ~ "textmined")
+      )
+
 
 # select only the relevant information
-string_db_interactome <- string_db_interactome %>% select(protein1, protein2)
+string_db_interactome2 <- string_db_interactome2 %>% select(protein1, protein2, evidence)
 
 # get the mapping data to get uniprot aliases
-string_db_names <- read_tsv("7955.protein.aliases.v12.0.txt")
+string_db_names2 <- read_tsv("7955.protein.aliases.v12.0.txt")
 
-string_db_names <- string_db_names %>%
+string_db_names2 <- string_db_names2 %>%
   filter(source == "UniProt_AC") %>% 
   select(string_protein_id, alias)
 
 # join the uniprot IDs for protein1
-string_db_interactome <- left_join(string_db_interactome, string_db_names, by = c("protein1" = "string_protein_id"), relationship = "many-to-many")
+string_db_interactome2 <- left_join(string_db_interactome2, string_db_names2, by = c("protein1" = "string_protein_id"), relationship = "many-to-many")
 
 # join the uniprot IDs for protein2
-string_db_interactome <- left_join(string_db_interactome, string_db_names, by = c("protein2" = "string_protein_id"), relationship = "many-to-many")
+string_db_interactome2 <- left_join(string_db_interactome2, string_db_names2, by = c("protein2" = "string_protein_id"), relationship = "many-to-many")
 
 # rename the columns to prepare to merge datasets
-colnames(string_db_interactome) <- c("protein1", "protein2", "uniprotID1", "uniprotID2")
+colnames(string_db_interactome2) <- c("protein1", "protein2", "evidence", "uniprotID1", "uniprotID2")
 
 # extract only the relevant information
-string_db_interactome <- 
-  string_db_interactome %>%
-  select(uniprotID1, uniprotID2) %>%
+string_db_interactome2 <- 
+  string_db_interactome2 %>%
+  select(uniprotID1, uniprotID2, evidence) %>%
   mutate(source = "string-db")
+
+View(string_db_interactome2)
 ```
+
 
 Now, merge the PsicQuic and String-DB interactomes together.
 ```{r}
-zfish_interactome <- rbind(string_db_interactome, psicquic_interactome)
+zfish_interactome <- rbind(string_db_interactome2, psicquic_interactome)
 ```
 
 ```{r}
-write_tsv(zfish_interactome, "./temp_zfish_interactome.txt")
+write_tsv(zfish_interactome, "./temp_updated_Mar12_24_zfish_interactome.txt")
 ```
 
-```{r}
-common_names <- read_tsv("zebrafish_uniprot_mapper.tsv")
-
-common_names <- common_names %>% select(Entry, `Protein names`)
-
-zfish_interactome <- inner_join(zfish_interactome, common_names, by = c("uniprotID1" = "Entry"))
-
-zfish_interactome <- inner_join(zfish_interactome, common_names, by = c("uniprotID2" = "Entry"))
-
-colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "source","alt_name1", "alt_name2")
-
-deleted_interactions <- zfish_interactome %>% filter(alt_name1 == "deleted") %>% filter(alt_name2 == "deleted")
-
-zfish_interactome <- zfish_interactome %>% filter(alt_name1 != "deleted") %>% filter(alt_name2 != "deleted")
-
-zfish_interactome <- zfish_interactome %>% mutate(name1 = str_extract(alt_name1, "^[^(]*"),
-                             name2 = str_extract(alt_name2, "^[^(]*"))
-```
-
-
-```{r}
-write_tsv(zfish_interactome, "./zfish_interactome.txt")
-```
-
+Get list of unique proteins.
 ```{r}
 uniprotIDs <- unique(c(zfish_interactome$uniprotID1, zfish_interactome$uniprotID2))
 
 
-write_csv(as_tibble(uniprotIDs), "./zfish_uniprotIDs.txt")
+write_csv(as_tibble(uniprotIDs), "./updated_Mar12_24_zfish_legacy_uniprotIDs.txt")
+```
+
+Check lengths to see number of unique nodes.
+```{r}
+length(uniprotIDs)
+```
+
+`From` column is the initial Unique ID while `Entry` column is what UniProt currently stores the protein as, thus we need to convert to the current entries in our interactome. This will reduce the number of unique entries by combining them into the official UniProt accession IDs.
+```{r}
+common_names2 <- read_tsv("zfish_id_mapper2.tsv")
+
+# From column is the initial Unique ID while Entry column is what UniProt currently stores the entry as, thus we need to convert to the current entries in our interactome
+
+# Merge the two datasets based on the matching columns
+temp_df <- inner_join(zfish_interactome, common_names2, by=c("uniprotID1" = "From"))
+
+temp_df <- temp_df %>% select(c(Entry, uniprotID2, source, evidence))
+colnames(temp_df) <- c("uniprotID1", "uniprotID2", "source", "evidence")
+
+temp_df <- inner_join(temp_df, common_names2, by=c("uniprotID2" = "From"))
+zfish_interactome <- temp_df %>% select(c(uniprotID1, Entry, source, evidence))
+colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "source", "evidence")
+
+View(zfish_interactome)
+```
+
+Once we have converted to the proper UniprotID, we need to now import the common names.
+```{r}
+common_names2 <- common_names2 %>% select(Entry, `Protein names`)
+
+zfish_interactome <- inner_join(zfish_interactome, common_names2, by = c("uniprotID1" = "Entry"))
+
+zfish_interactome <- inner_join(zfish_interactome, common_names2, by = c("uniprotID2" = "Entry"))
+
+colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "source", "evidence", "alt_name1", "alt_name2")
+
+View(zfish_interactome)
+```
+
+Many entries have "deleted" as their common name value, if we want to remove these the following code will do so:
+```{r}
+deleted_interactions <- zfish_interactome %>% filter(alt_name1 == "deleted") %>% filter(alt_name2 == "deleted")
+
+zfish_interactome_deleted <- zfish_interactome %>% filter(alt_name1 != "deleted") %>% filter(alt_name2 != "deleted")
+
+zfish_interactome_deleted <- zfish_interactome_deleted %>% mutate(name1 = str_extract(alt_name1, "^[^(]*"),
+                             name2 = str_extract(alt_name2, "^[^(]*"))
+
+View(zfish_interactome_deleted)
+# number of deleted proteins
+print("Number of deleted proteins:")
+length(unique(c(deleted_interactions$uniprotID1, deleted_interactions$uniprotID2)))
+
+# number of unique proteins left over
+print("Number of kept proteins:")
+uniqueProteins <- unique(c(zfish_interactome_deleted$uniprotID1, zfish_interactome_deleted$uniprotID2))
+length(uniqueProteins)
+```
+354,846 edges and 6,438 nodes is more data than the previous method!
+
+```{r}
+write_tsv(zfish_interactome_deleted, "./updated_Mar12_24_zfish_interactome.txt")
+write_tsv(as_tibble(uniqueProteins), "./updated_Mar12_24_zfish_unique_protein_ids.txt")
+View(zfish_interactome_deleted)
+```
+
+```{r}
+# these are the "Reviewed" annotations downloaded from https://www.ebi.ac.uk/QuickGO/annotations?taxonId=7955&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein
+go_terms <- read_tsv("zfish_GO_annotations_Mar12_24.tsv")
+colnames(go_terms) <- gsub(" ", "_", colnames(go_terms))
+write_tsv(go_terms, "zfish_GO_data_Mar12_24.tsv")
+```
+
+
+
+```{r}
+library(httr)
+library(jsonlite)
+library(xml2)
+
+requestURL <- "https://www.ebi.ac.uk/QuickGO/services/annotation/search?geneProductType=protein&taxonId=7955&taxonUsage=descendants"
+r <- GET(requestURL, accept("application/json"))
+
+stop_for_status(r)
+
+json <- toJSON(content(r))
+head(fromJSON(json))
 ```
 
 
