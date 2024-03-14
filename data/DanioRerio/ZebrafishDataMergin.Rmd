@@ -190,7 +190,7 @@ print("Number of kept proteins:")
 uniqueProteins <- unique(c(zfish_interactome_deleted$uniprotID1, zfish_interactome_deleted$uniprotID2))
 length(uniqueProteins)
 ```
-354,846 edges and 6,438 nodes is more data than the previous method!
+6,438 nodes is more data than the previous method!
 
 ```{r}
 write_tsv(zfish_interactome_deleted, "./updated_Mar12_24_zfish_interactome.txt")
@@ -208,17 +208,20 @@ write_tsv(go_terms, "zfish_GO_data_Mar12_24.tsv")
 
 
 ```{r}
-library(httr)
-library(jsonlite)
-library(xml2)
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/DanioRerio/")
+df <- read_tsv("~/Desktop/GitHub_Repos/bio-net-viz/data/DanioRerio/updated_Mar12_24_zfish_interactome.txt")
+View(df)
 
-requestURL <- "https://www.ebi.ac.uk/QuickGO/services/annotation/search?geneProductType=protein&taxonId=7955&taxonUsage=descendants"
-r <- GET(requestURL, accept("application/json"))
+df %>% 
+  group_by(alt_name1) %>% 
+  View()
 
-stop_for_status(r)
+df$alt_name1 <- df$alt_name1 %>% str_trim()
+df$alt_name2 <- df$alt_name2 %>% str_trim()
+df$name1 <- df$name1 %>% str_trim()
+df$name2 <- df$name2 %>% str_trim()
 
-json <- toJSON(content(r))
-head(fromJSON(json))
+write_tsv(df, "zfish_interactome_Mar12_2024.txt")
 ```
 
 

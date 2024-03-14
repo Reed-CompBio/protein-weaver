@@ -12,8 +12,8 @@ GO association data:
 (Source)[https://wiki.flybase.org/wiki/FlyBase:Downloads_Overview#Gene_Association_File_-_GAF_.28gene_association.fb.gz.29]
 Downloaded from FlyBase and imported the file into Neo4j using `DataImportTutorial.md`.
 
-Proteins:
-Interactions:
+Proteins: 11,501
+Interactions: 233,054
 
 ### Gene ontology data source:
 
@@ -31,6 +31,7 @@ Processed the file using `ParseOntologyRelationship.ipynb` and imported the resu
 (Source)[http://current.geneontology.org/ontology/go.obo]
 Processed the file using `ParseOntologyRelationship.ipynb` and imported the resulting file into the Neo4j database according to the steps in `DataImportTutorial.md`.
 
+*D. melanogaster* annotations: 115,903
 
 ## *B. subtilis*:
 
@@ -39,8 +40,8 @@ Interaction data:
 (Source)[http://subtiwiki.uni-goettingen.de/v4/exports]
 Exported the “Interaction” set and renamed to `bsub_interactome.csv`. Imported the file into Neo4j according to the steps in `DataImportTutorial.md`.
 
-Proteins:
-Interactions:
+Proteins: 1,394
+Interactions: 2,854
 
 Regulatory data:
 `regulations-2023-12-18.csv` renamed to `bsub_regnet.csv`
@@ -59,6 +60,8 @@ Selected all annotations for B. subtilis. Then used:
 
 in terminal to download the data on Oct. 18, 2023. File was renamed to `bsub_go_uniprot.tsv`, processed and merged into `bsub_GO_data.csv` according to the `JoinBSUtoUniProt.R` file. The resulting B. subtilis GO data was imported into Neo4j according to `DataImportTutorial.md`.
 
+*B. subtilis* annotations: 2,581
+
 ## *D. rerio*:
 
 Interaction data:
@@ -76,9 +79,12 @@ Used a Python script `GetXML.ipynb` to scrape all entries for “Danio rerio” 
 
 `zfish_id_mapper2.tsv` merged into `zfish_interactome_Mar12_2024.txt`
 (Source)[https://www.uniprot.org/id-mapping/uniprotkb]
-Retrieved common names for Zebrafish proteins from UniProt's name mapping service.
-
-2781 protein entries were found to be obsolete, thus did not have a name available on UniProt. These were removed and separated into their own dataset.
+Retrieved updated UniProt entries and common names for 11,765 entries. 2781 protein entries were found to be obsolete, thus did not have a name available on UniProt. These were removed and separated into their own dataset.
+The resulting dataset had 6,438 unique proteins.
+ 
+`zfish_gene_names.tsv` merged into `zfish_interactome_Mar12_2024.txt`
+(Source)[https://www.uniprot.org/id-mapping/uniprotkb]
+We retrieved gene names for 6,438 Zebrafish proteins (`updated_Mar12_24_zfish_unique_protein_ids.txt`) from UniProt's name mapping service.
 
 Merged all Zebrafish data together into one master file using the instructions in `ZebrafishDataMerging.Rmd`.
 Proteins: 6,438
@@ -88,6 +94,8 @@ GO Association Data:
 `zfish_GO_data.tsv`
 (Source)[https://www.ebi.ac.uk/QuickGO/annotations]
 Used QuickGO to get all 65876 "Reviewed" GO annotations for Zebrafish. Replaced the " " in headers with "_" to ease data import.
+
+*D. rerio* annotations: 39,270
 
 Taxon ID source:
 (NCBI taxonomy browser)[https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/]

@@ -23,7 +23,8 @@ docker run \
     -e NEO4J_apoc_export_file_enabled=true \
     -e NEO4J_apoc_import_file_enabled=true \
     -e NEO4J_apoc_import_file_use__neo4j__config=true \
-    --env NEO4J_PLUGINS='["graph-data-science"]' \
+    -e NEO4J_PLUGINS='["graph-data-science"]' \
+    -e NEO4J_PLUGINS=\[\"apoc\"\] \
     neo4j:latest
 ```
 - This docker instance has no security restrictions, to change username and password edit:
@@ -33,6 +34,8 @@ docker run \
 
 4. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
     `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
+    Create a constraint for the GO terms in the database using the following command:
+    `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
 
 5. Import data for *D. melanogaster* using the following command:
 ```js
@@ -57,9 +60,6 @@ CALL {
     SET r.pubmed_id = fly.PubMedIDs
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
-
-6. Create a constraint for the GO terms in the database using the following command:
-    `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
 
 7. Import the Gene Ontology data into the database using the following command:
 ```js
@@ -118,19 +118,30 @@ CALL {
 
 12. Import *D. rerio* data with the following command:
 ```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_24.txt' AS zfish
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
 FIELDTERMINATOR '\t'
 CALL {
     with zfish
-    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.alt_name1, evidence: zfish.evidence, txid: "txid7955", species: "Danio rerio"})
-    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.alt_name2, evidence: zfish.evidence, txid: "txid7955", species: "Danio rerio"})
+    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.alt_name1, txid: "txid7955", species: "Danio rerio"})
+    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.alt_name2, txid: "txid7955", species: "Danio rerio"})
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-13. Add GoPro relationships to *D. rerio* nodes:
+13. Set a relationship property for the evidence
 ```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.txt.tsv' AS zfishgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
+FIELDTERMINATOR '\t'
+CALL {
+    with zfish
+    MATCH (s:protein {id: zfish.uniprotID1, txid: "txid7955"})-[r:ProPro]-(t:protein {id: zfish.uniprotID2, txid: "txid7955"})
+    SET r.evidence = zfish.evidence
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+14. Add GoPro relationships to *D. rerio* nodes:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
 CALL {
     with zfishgo
@@ -140,9 +151,9 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-14. Set qualifier property for *D. rerio*.
+15. Set qualifier property for *D. rerio*.
 ```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.txt.tsv' AS zfishgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
 CALL {
     with zfishgo
@@ -151,9 +162,9 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-15. Prepare the GO term common names for import with the instructions in the `ParseOBOtoTXT.ipynb` file.
+16. Prepare the GO term common names for import with the instructions in the `ParseOBOtoTXT.ipynb` file.
 
-16. Import the GO term common names and descriptions with the following Cypher command:
+17. Import the GO term common names and descriptions with the following Cypher command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
@@ -166,7 +177,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-17. Import the GO hierarchy with the following command:
+18. Import the GO hierarchy with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
@@ -179,7 +190,7 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-18. Don't forget to call the graph before running queries using the following command:
+19. Don't forget to call the graph before running queries using the following command:
 `
 CALL gds.graph.project(
 'proGoGraph',
@@ -188,7 +199,7 @@ CALL gds.graph.project(
 )
 `
 
-19. Now import the regulatory edges for *B. subtilis* with the following command:
+20. Now import the regulatory edges for *B. subtilis* with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_regnet.csv' AS bsub_reg
 CALL{
@@ -199,7 +210,7 @@ CALL{
 }
 ```
 
-20. Next we need to set the type of regulatory relationship with the following command:
+21. Next we need to set the type of regulatory relationship with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_regnet.csv' AS bsub_reg
 CALL {
@@ -208,3 +219,10 @@ CALL {
     SET r.mode = bsub_reg.mode, a.gene_name = bsub_reg.regulator_name, b.gene_name = bsub_reg.gene_name
 } IN TRANSACTIONS OF 100 ROWS;
 ```
+
+**Delete nodes with this command**
+`MATCH (n:protein {txid: "example", species: "example"})
+DETACH DELETE n`
+
+**Drop constraints**
+`DROP CONSTRAINT constraint`
