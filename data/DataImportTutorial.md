@@ -24,7 +24,7 @@ docker run \
     -e NEO4J_apoc_import_file_enabled=true \
     -e NEO4J_apoc_import_file_use__neo4j__config=true \
     -e NEO4J_PLUGINS='["graph-data-science"]' \
-    -e NEO4J_PLUGINS=\[\"apoc\"\] \
+    -e NEO4JLABS_PLUGINS=\[\"apoc\"\] \
     neo4j:latest
 ```
 - This docker instance has no security restrictions, to change username and password edit:
@@ -122,8 +122,8 @@ CALL {
 FIELDTERMINATOR '\t'
 CALL {
     with zfish
-    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.alt_name1, txid: "txid7955", species: "Danio rerio"})
-    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.alt_name2, txid: "txid7955", species: "Danio rerio"})
+    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, txid: "txid7955", species: "Danio rerio"})
+    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, txid: "txid7955", species: "Danio rerio"})
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
@@ -164,20 +164,7 @@ CALL {
 
 16. Prepare the GO term common names for import with the instructions in the `ParseOBOtoTXT.ipynb` file.
 
-17. Import the GO term common names and descriptions with the following Cypher command:
-```
-:auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
-FIELDTERMINATOR '\t'
-CALL {
-    with go
-    MATCH (n:go_term {id: go.id})
-    SET n.name = go.name,
-    n.namespace = go.namespace,
-    n.def = go.def
-} IN TRANSACTIONS OF 1000 ROWS;
-```
-
-18. Import the GO hierarchy with the following command:
+17. Import the GO hierarchy with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
@@ -188,6 +175,19 @@ CALL {
     MERGE (a)-[r:GoGo]->(b)
     SET r.relationship = go.is_a
 } IN TRANSACTIONS OF 100 ROWS;
+```
+
+18. Import the GO term common names and descriptions with the following Cypher command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
+FIELDTERMINATOR '\t'
+CALL {
+    with go
+    MATCH (n:go_term {id: go.id})
+    SET n.name = go.name,
+    n.namespace = go.namespace,
+    n.def = go.def
+} IN TRANSACTIONS OF 1000 ROWS;
 ```
 
 19. Don't forget to call the graph before running queries using the following command:

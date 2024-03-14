@@ -192,6 +192,42 @@ length(uniqueProteins)
 ```
 6,438 nodes is more data than the previous method!
 
+Now there appears to be a problem with the naming convention, thus we will add gene_name as a column to use for the unique name. 
+```{r}
+gene_names <- read_tsv("zfish_gene_names.tsv") %>% select(From, `Protein names`, Gene_Names_primary)
+
+length(unique(gene_names$From))
+length(unique(gene_names$Gene_Names_primary))
+sum(is.na(gene_names$Gene_Names_primary))
+sum(is.na(gene_names$`Protein names`))
+sum(is.na(gene_names$From))
+
+zfish_interactome_deleted <- zfish_interactome_deleted %>% select(uniprotID1, uniprotID2, source, evidence)
+
+
+zfish_interactome_deleted <- inner_join(zfish_interactome_deleted, gene_names, by = c("uniprotID1" = "From"))
+
+zfish_interactome_deleted <- inner_join(zfish_interactome_deleted, gene_names, by = c("uniprotID2" = "From"))
+
+colnames(zfish_interactome_deleted) <- c("uniprotID1", "uniprotID2", "source", "evidence", "alt_name1", "gene_name1", "alt_name2", "gene_name2")
+
+zfish_interactome_deleted <- zfish_interactome_deleted %>% mutate(
+  name1 = case_when(
+    !is.na(gene_name1) ~ gene_name1,
+    is.na(gene_name1) ~ alt_name1
+  ),
+  name2 = case_when(
+    !is.na(gene_name2) ~ gene_name2,
+    is.na(gene_name2) ~ alt_name2
+  )
+)
+
+zfish_interactome_deleted$name1 <- gsub("\\(.*", "", zfish_interactome_deleted$name1)
+
+zfish_interactome_deleted$name2 <-  gsub("\\(.*", "", zfish_interactome_deleted$name2)
+```
+
+
 ```{r}
 write_tsv(zfish_interactome_deleted, "./updated_Mar12_24_zfish_interactome.txt")
 write_tsv(as_tibble(uniqueProteins), "./updated_Mar12_24_zfish_unique_protein_ids.txt")
