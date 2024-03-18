@@ -199,26 +199,90 @@ CALL gds.graph.project(
 )
 `
 
-20. Now import the regulatory edges for *B. subtilis* with the following command:
+## March 18, 2024 Major Data Update:
+
+Don't forget to drop the existing projection before adding more data.
+`call gds.graph.drop("proGoGraph") YIELD graphName`
+
+1. Import more GO data for *D. melanogaster*
 ```
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_regnet.csv' AS bsub_reg
-CALL{
-    with bsub_reg
-    MATCH (a:protein {id: bsub_reg.regulator_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
-    MATCH (b:protein {id: bsub_reg.gene_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
-    MERGE (a)-[r:Reg]->(b)
-}
+:auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_Mar15_24.tsv' AS dmelgo
+FIELDTERMINATOR '\t'
+CALL {
+    with dmelgo
+    MATCH (n:protein {id: dmelgo.FB_ID, txid: "txid7227"})
+    MERGE (g:go_term {id: dmelgo.GO_TERM})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-21. Next we need to set the type of regulatory relationship with the following command:
+2. Set qualifier property for *D. melanogaster*.
 ```
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_regnet.csv' AS bsub_reg
+:auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_Mar15_24.tsv' AS dmelgo
+FIELDTERMINATOR '\t'
 CALL {
-    with bsub_reg
-    MATCH (a:protein {id: bsub_reg.regulator_locus, txid: "txid224308", species: "Bacillus subtilis 168"})-[r:Reg]->(b:protein {id: bsub_reg.gene_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
-    SET r.mode = bsub_reg.mode, a.gene_name = bsub_reg.regulator_name, b.gene_name = bsub_reg.gene_name
+    with dmelgo
+    MATCH (p:protein {id: dmelgo.FB_ID, txid: "txid7227"})-[r:ProGo]-(g:go_term {id: dmelgo.GO_TERM})
+    SET r.relationship = dmelgo.QUALIFIER
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+3. Import more GO data for *B. subtilis*
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_Mar18_24.tsv' AS bsubgo
+FIELDTERMINATOR '\t'
+CALL {
+    with bsubgo
+    MATCH (n:protein {id: bsubgo.BSU_ID, txid: "txid224308"})
+    MERGE (g:go_term {id: bsubgo.GO_TERM})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+4. Set qualifier property for *B. subtilis*.
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_Mar18_24.tsv' AS bsubgo
+FIELDTERMINATOR '\t'
+CALL {
+    with bsubgo
+    MATCH (p:protein {id: bsubgo.BSU_ID, txid: "txid224308"})-[r:ProGo]-(g:go_term {id: bsubgo.GO_TERM})
+    SET r.relationship = bsubgo.QUALIFIER
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+5. Import the GO hierarchy with the following command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
+FIELDTERMINATOR '\t'
+CALL {
+    with go
+    MERGE (a:go_term {id: go.id})
+    MERGE (b:go_term {id: go.id2})
+    MERGE (a)-[r:GoGo]->(b)
+    SET r.relationship = go.is_a
 } IN TRANSACTIONS OF 100 ROWS;
 ```
+
+6. Import the GO term common names and descriptions with the following Cypher command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
+FIELDTERMINATOR '\t'
+CALL {
+    with go
+    MATCH (n:go_term {id: go.id})
+    SET n.name = go.name,
+    n.namespace = go.namespace,
+    n.def = go.def
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+7. Call the graph projection again:
+`
+CALL gds.graph.project(
+'proGoGraph',
+['go_term', 'protein'],
+['ProGo', 'ProPro']
+)
+`
 
 **Delete nodes with this command**
 `MATCH (n:protein {txid: "example", species: "example"})

@@ -241,8 +241,6 @@ colnames(go_terms) <- gsub(" ", "_", colnames(go_terms))
 write_tsv(go_terms, "zfish_GO_data_Mar12_24.tsv")
 ```
 
-
-
 ```{r}
 setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/DanioRerio/")
 df <- read_tsv("~/Desktop/GitHub_Repos/bio-net-viz/data/DanioRerio/updated_Mar12_24_zfish_interactome.txt")
@@ -259,5 +257,3 @@ df$name2 <- df$name2 %>% str_trim()
 
 write_tsv(df, "zfish_interactome_Mar12_2024.txt")
 ```
-
-

@@ -12,6 +12,16 @@ GO association data:
 (Source)[https://wiki.flybase.org/wiki/FlyBase:Downloads_Overview#Gene_Association_File_-_GAF_.28gene_association.fb.gz.29]
 Downloaded from FlyBase and imported the file into Neo4j using `DataImportTutorial.md`.
 
+**March 18 Major Update**:
+`dmel_GO_data_Mar15_24.tsv`
+(Source)[https://www.ebi.ac.uk/QuickGO/annotations?taxonId=7227&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein]
+Downloaded and merged in `scripts/SubColNames.R` and imported with `DataImportTutorial.md`.
+
+FlyBase IDs from UniProt IDs:
+`idmapping_2024_03_18.tsv`
+(Source)[https://www.uniprot.org/id-mapping]
+Downloaded from UniProt and merged with GO data from QuickGO to match the FB naming convention. Renamed columns to "GENE_PRODUCT_ID" and "FB_ID". Merged in `scripts/SubColNames.R`.
+
 *D. melanogaster*:
 Proteins: 11,501
 Interactions: 233,054
@@ -24,11 +34,6 @@ Interaction data:
 (Source)[http://subtiwiki.uni-goettingen.de/v4/exports]
 Exported the “Interaction” set and renamed to `bsub_interactome.csv`. Imported the file into Neo4j according to the steps in `DataImportTutorial.md`.
 
-Regulatory data:
-`regulations-2023-12-18.csv` renamed to `bsub_regnet.csv`
-(Source)[http://subtiwiki.uni-goettingen.de/v4/exports]
-Exported the "Regulations" set and replaced spaces with underscores in header names. Imported the data into Neo4j according to the steps in `DataImportTutorial.md`.
-
 GO association data:
 `subtiwiki.gene.export.2023-10-18.tsv` processed and merged into `bsub_GO_data.csv`.
 (Source)[http://subtiwiki.uni-goettingen.de/v4/exports]
@@ -40,6 +45,17 @@ Selected all annotations for B. subtilis. Then used:
 `wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&indent=on&wt=csv&rows=100000&start=0&fl=source,bioentity_internal_id,bioentity_label,qualifier,annotation_class,reference,evidence_type,evidence_with,aspect,bioentity_name,synonym,type,taxon,date,assigned_by,annotation_extension_class,bioentity_isoform&facet=true&facet.mincount=1&facet.sort=count&json.nl=arrarr&facet.limit=25&hl=true&hl.simple.pre=%3Cem%20class=%22hilite%22%3E&hl.snippets=1000&csv.encapsulator=&csv.separator=%09&csv.header=false&csv.mv.separator=%7C&fq=document_category:%22annotation%22&fq=taxon_subset_closure_label:%22Bacillus%20subtilis%20subsp.%20subtilis%20str.%20168%22&facet.field=aspect&facet.field=taxon_subset_closure_label&facet.field=type&facet.field=evidence_subset_closure_label&facet.field=regulates_closure_label&facet.field=isa_partof_closure_label&facet.field=annotation_class_label&facet.field=qualifier&facet.field=annotation_extension_class_closure_label&facet.field=assigned_by&facet.field=panther_family_label&q=*:*'`
 
 in terminal to download the data on Oct. 18, 2023. File was renamed to `bsub_go_uniprot.tsv`, processed and merged into `bsub_GO_data.csv` according to the `JoinBSUtoUniProt.R` file. The resulting B. subtilis GO data was imported into Neo4j according to `DataImportTutorial.md`.
+
+**March 18 Major Update**:
+`bsub_GO_data_Mar18_24.tsv`
+(Source)[https://www.ebi.ac.uk/QuickGO/annotations?taxonId=224308&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein]
+Downloaded and merged in `scripts/SubColNames.R` and imported with `DataImportTutorial.md`.
+
+BSU IDs from UniProt IDs:
+`subtiwiki.gene.export.2024-03-18.tsv`
+(Source)[http://subtiwiki.uni-goettingen.de/v4/gene/exporter]
+Selected BSU and UniProt outlinks from menu and exported. Renamed columns to "GENE_PRODUCT_ID" and "BSU_ID" to remove special characters. Merged in `scripts/SubColNames.R`.
+
 
 *B. subtilis*:
 Proteins: 1,394
@@ -68,7 +84,7 @@ The resulting dataset had 6,438 unique proteins.
  
 `zfish_gene_names.tsv` merged into `zfish_interactome_Mar12_2024.txt`
 (Source)[https://www.uniprot.org/id-mapping/uniprotkb]
-We retrieved gene names for 6,438 Zebrafish proteins (`updated_Mar12_24_zfish_unique_protein_ids.txt`) from UniProt's name mapping service.
+We retrieved gene names for 6,438 Zebrafish proteins (`updated_Mar12_24_zfish_unique_protein_ids.txt`) from UniProt's name mapping service. For entries with a "gene name", the gene name was used as the name, for those without a gene name, the first portion of the "Protein name" was used. This was decided to ensure uniqueness for the node names in the user interface.
 
 Merged all Zebrafish data together into one master file using the instructions in `ZebrafishDataMerging.Rmd`.
 
