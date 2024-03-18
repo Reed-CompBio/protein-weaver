@@ -12,26 +12,10 @@ GO association data:
 (Source)[https://wiki.flybase.org/wiki/FlyBase:Downloads_Overview#Gene_Association_File_-_GAF_.28gene_association.fb.gz.29]
 Downloaded from FlyBase and imported the file into Neo4j using `DataImportTutorial.md`.
 
+*D. melanogaster*:
 Proteins: 11,501
 Interactions: 233,054
-
-### Gene ontology data source:
-
-Common name:
-`go.obo` processed into `go.txt`
-(Source)[http://current.geneontology.org/ontology/go.obo]
-Used `wget` to download the file. Processed the file using `ParseOBOtoTXT.ipynb` and imported the resulting `go.txt` file into the Neo4j database according to the steps in `DataImportTutorial.md`.
-
-Relationships:
-`go.obo` processed into `is_a_import.tsv`
-(Source)[http://current.geneontology.org/ontology/go.obo]
-Processed the file using `ParseOntologyRelationship.ipynb` and imported the resulting file into the Neo4j database according to the steps in `DataImportTutorial.md`.
-
-`go.obo` processed into `relationship_import.tsv`
-(Source)[http://current.geneontology.org/ontology/go.obo]
-Processed the file using `ParseOntologyRelationship.ipynb` and imported the resulting file into the Neo4j database according to the steps in `DataImportTutorial.md`.
-
-*D. melanogaster* annotations: 115,903
+Annotations: 83,555
 
 ## *B. subtilis*:
 
@@ -39,9 +23,6 @@ Interaction data:
 `interaction-2023-10-18.csv` renamed to `bsub_interactome.csv`
 (Source)[http://subtiwiki.uni-goettingen.de/v4/exports]
 Exported the “Interaction” set and renamed to `bsub_interactome.csv`. Imported the file into Neo4j according to the steps in `DataImportTutorial.md`.
-
-Proteins: 1,394
-Interactions: 2,854
 
 Regulatory data:
 `regulations-2023-12-18.csv` renamed to `bsub_regnet.csv`
@@ -60,7 +41,10 @@ Selected all annotations for B. subtilis. Then used:
 
 in terminal to download the data on Oct. 18, 2023. File was renamed to `bsub_go_uniprot.tsv`, processed and merged into `bsub_GO_data.csv` according to the `JoinBSUtoUniProt.R` file. The resulting B. subtilis GO data was imported into Neo4j according to `DataImportTutorial.md`.
 
-*B. subtilis* annotations: 2,581
+*B. subtilis*:
+Proteins: 1,394
+Interactions: 2,854
+Annotations: 2,203
 
 ## *D. rerio*:
 
@@ -87,16 +71,36 @@ The resulting dataset had 6,438 unique proteins.
 We retrieved gene names for 6,438 Zebrafish proteins (`updated_Mar12_24_zfish_unique_protein_ids.txt`) from UniProt's name mapping service.
 
 Merged all Zebrafish data together into one master file using the instructions in `ZebrafishDataMerging.Rmd`.
-Proteins: 6,438
-Interactions: 354,846
 
 GO Association Data:
 `zfish_GO_data.tsv`
 (Source)[https://www.ebi.ac.uk/QuickGO/annotations]
 Used QuickGO to get all 65876 "Reviewed" GO annotations for Zebrafish. Replaced the " " in headers with "_" to ease data import.
 
-*D. rerio* annotations: 39,270
+*D. rerio*:
+Proteins: 6,438
+Interactions: 45,034
+Annotations: 22,583
 
-Taxon ID source:
+## Gene ontology data source:
+
+Common name:
+`go.obo` processed into `go.txt`
+(Source)[http://current.geneontology.org/ontology/go.obo]
+Used `wget` to download the file. Processed the file using `ParseOBOtoTXT.ipynb` and imported the resulting `go.txt` file into the Neo4j database according to the steps in `DataImportTutorial.md`.
+
+Relationships:
+`go.obo` processed into `is_a_import.tsv`
+(Source)[http://current.geneontology.org/ontology/go.obo]
+Processed the file using `ParseOntologyRelationship.ipynb` and imported the resulting file into the Neo4j database according to the steps in `DataImportTutorial.md`.
+
+`go.obo` processed into `relationship_import.tsv`
+(Source)[http://current.geneontology.org/ontology/go.obo]
+Processed the file using `ParseOntologyRelationship.ipynb` and imported the resulting file into the Neo4j database according to the steps in `DataImportTutorial.md`.
+
+Go Terms: 42,854
+"is_a": 68,308
+
+## Taxon ID source:
 (NCBI taxonomy browser)[https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/]
 Looked up species name and got taxon ID.
