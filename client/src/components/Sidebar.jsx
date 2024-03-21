@@ -196,11 +196,11 @@ export default function Sidebar({
           </p>
           <p>GO qualifier: {currentNode.go_protein}</p>
           <div className="center-buttons">
-            <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
+            <form method="post" onSubmit={handleSubmit}>
               <button
                 className="new-source"
                 onClick={handleSourceNode}
-                new-source-node={currentNode.id}
+                new-source-node={currentNode.label}
               >
                 Set as New Source Node
               </button>
@@ -282,7 +282,7 @@ export default function Sidebar({
               <button
                 className="new-source"
                 onClick={handleSourceNode}
-                new-source-node={currentNode.id}
+                new-source-node={currentNode.label}
               >
                 Set as New Source Node
               </button>

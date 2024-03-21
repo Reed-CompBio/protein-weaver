@@ -546,7 +546,7 @@ export default function Query() {
                                 sourceNode={sourceNode}
                                 query={query}
                                 goTerm={goTerm}
-                                newSourceNode={handleSourceNode}
+                                handleSourceNode={handleSourceNode}
                                 handleSubmit={handleSubmit}
                                 exportPNG={exportPNG}
                                 searchExecuted={searchParams}
