@@ -1,13 +1,15 @@
-**How to get started with Neo4j and upload the data**
+# Data Import Instructions
+
+## How to get started with Neo4j and upload the data
 1. Create a directory in your $HOME named `neo4j`
  - Within `~/neo4j` directory create the following directories:
     - `~/neo4j/data/` to allow storage of data between docker instances
     - `~/neo4j/logs/` to allow storage of logs between docker instances
     - `~/neo4j/import/` to import data
-        - Load any FlyBase data by copying `interactome-flybase-collapsed-weighted.txt`
+        - Load any FlyBase data by copying [`interactome-flybase-collapsed-weighted.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/interactome-flybase-collapsed-weighted.txt)
         into import directory
         	- Delete 'sy#' preceding the first column name in `interactome-flybase-collapsed-weighted.txt`
-        - Import the properly formatted GO terms file from FlyBase and store in the GitHub repository: `gene_association.fb`.
+        - Import the properly formatted GO terms file from FlyBase and store in the GitHub repository: [`gene_association.fb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/gene_association.fb).
     - `~/neo4j/plugins/` to store any necessary plugins for production environments
 
 2. Create a docker instance with APOC plugin using the following command:
@@ -30,14 +32,14 @@ docker run \
 - This docker instance has no security restrictions, to change username and password edit:
     `--env NEO4J_AUTH=username/password`
 
-3. Access the docker image at http://localhost:7474/
+3. Access the docker image at [http://localhost:7474](http://localhost:7474)
 
 4. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
     `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
     Create a constraint for the GO terms in the database using the following command:
     `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
 
-5. Import data for *D. melanogaster* using the following command:
+5. Import *D. melanogaster* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/interactome-flybase-collapsed-weighted.txt) using the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
 FIELDTERMINATOR '\t'
@@ -84,7 +86,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-9. Import *B. subtilis* data with the following command:
+9. Import *B. subtilis* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_interactome.csv) with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
 CALL {
@@ -95,7 +97,7 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-10. Add GoPro relationships to *B. subtilis* nodes:
+10. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_GO_data.csv) to *B. subtilis* nodes:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
@@ -116,55 +118,9 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-12. Import *D. rerio* data with the following command:
-```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
-FIELDTERMINATOR '\t'
-CALL {
-    with zfish
-    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, txid: "txid7955", species: "Danio rerio"})
-    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, txid: "txid7955", species: "Danio rerio"})
-    MERGE (a)-[r:ProPro]-(b)
-} IN TRANSACTIONS OF 100 ROWS;
-```
+12. Prepare the relationships for import with the instructions in the [`ParseOntologyRelationship.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb) file.
 
-13. Set a relationship property for the evidence
-```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
-FIELDTERMINATOR '\t'
-CALL {
-    with zfish
-    MATCH (s:protein {id: zfish.uniprotID1, txid: "txid7955"})-[r:ProPro]-(t:protein {id: zfish.uniprotID2, txid: "txid7955"})
-    SET r.evidence = zfish.evidence
-} IN TRANSACTIONS OF 1000 ROWS;
-```
-
-14. Add GoPro relationships to *D. rerio* nodes:
-```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
-FIELDTERMINATOR '\t'
-CALL {
-    with zfishgo
-    MATCH (n:protein {id: zfishgo.GENE_PRODUCT_ID, txid: "txid7955"})
-    MERGE (g:go_term {id: zfishgo.GO_TERM})
-    MERGE (n)-[r:ProGo]-(g)
-} IN TRANSACTIONS OF 1000 ROWS;
-```
-
-15. Set qualifier property for *D. rerio*.
-```
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
-FIELDTERMINATOR '\t'
-CALL {
-    with zfishgo
-    MATCH (p:protein {id: zfishgo.GENE_PRODUCT_ID, txid: "txid7955"})-[r:ProGo]-(g:go_term {id: zfishgo.GO_TERM})
-    SET r.relationship = zfishgo.QUALIFIER
-} IN TRANSACTIONS OF 1000 ROWS;
-```
-
-16. Prepare the GO term common names for import with the instructions in the `ParseOBOtoTXT.ipynb` file.
-
-17. Import the GO hierarchy with the following command:
+13. Import the [GO hierarchy](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/is_a_import.tsv) with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
@@ -177,7 +133,9 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-18. Import the GO term common names and descriptions with the following Cypher command:
+14. Prepare the GO term common names for import with the instructions in the [`ParseOBOtoTXT.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb) file. 
+
+15. Import the [GO term common names](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go.txt) and descriptions with the following Cypher command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
@@ -190,7 +148,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-19. Don't forget to call the graph before running queries using the following command:
+16. Now call the graph projection using the following command:
 `
 CALL gds.graph.project(
 'proGoGraph',
@@ -204,7 +162,7 @@ CALL gds.graph.project(
 Don't forget to drop the existing projection before adding more data.
 `call gds.graph.drop("proGoGraph") YIELD graphName`
 
-1. Import more GO data for *D. melanogaster*
+1. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/dmel_GO_data_Mar15_24.tsv) for *D. melanogaster*
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_Mar15_24.tsv' AS dmelgo
 FIELDTERMINATOR '\t'
@@ -227,7 +185,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-3. Import more GO data for *B. subtilis*
+3. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_GO_data_Mar18_24.tsv) for *B. subtilis*
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_Mar18_24.tsv' AS bsubgo
 FIELDTERMINATOR '\t'
@@ -250,7 +208,53 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-5. Import the GO hierarchy with the following command:
+5. Import *D. rerio* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_interactome_Mar12_2024.txt) with the following command:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
+FIELDTERMINATOR '\t'
+CALL {
+    with zfish
+    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, txid: "txid7955", species: "Danio rerio"})
+    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, txid: "txid7955", species: "Danio rerio"})
+    MERGE (a)-[r:ProPro]-(b)
+} IN TRANSACTIONS OF 100 ROWS;
+```
+
+6. Set a relationship property for the evidence
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
+FIELDTERMINATOR '\t'
+CALL {
+    with zfish
+    MATCH (s:protein {id: zfish.uniprotID1, txid: "txid7955"})-[r:ProPro]-(t:protein {id: zfish.uniprotID2, txid: "txid7955"})
+    SET r.evidence = zfish.evidence
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+7. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_GO_data_Mar12_24.tsv) to *D. rerio* nodes:
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
+FIELDTERMINATOR '\t'
+CALL {
+    with zfishgo
+    MATCH (n:protein {id: zfishgo.GENE_PRODUCT_ID, txid: "txid7955"})
+    MERGE (g:go_term {id: zfishgo.GO_TERM})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+8. Set qualifier property for *D. rerio*.
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
+FIELDTERMINATOR '\t'
+CALL {
+    with zfishgo
+    MATCH (p:protein {id: zfishgo.GENE_PRODUCT_ID, txid: "txid7955"})-[r:ProGo]-(g:go_term {id: zfishgo.GO_TERM})
+    SET r.relationship = zfishgo.QUALIFIER
+} IN TRANSACTIONS OF 1000 ROWS;
+```
+
+9. Import the GO hierarchy with the following command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
@@ -263,7 +267,7 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-6. Import the GO term common names and descriptions with the following Cypher command:
+10. Import the GO term common names and descriptions with the following Cypher command:
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
@@ -275,7 +279,7 @@ CALL {
     n.def = go.def
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
-7. Call the graph projection again:
+11. Call the graph projection again:
 `
 CALL gds.graph.project(
 'proGoGraph',
@@ -284,9 +288,13 @@ CALL gds.graph.project(
 )
 `
 
-**Delete nodes with this command**
+### Useful Commands
+Delete nodes:
 `MATCH (n:protein {txid: "example", species: "example"})
 DETACH DELETE n`
 
-**Drop constraints**
+Drop constraints:
 `DROP CONSTRAINT constraint`
+
+Drop graph projection:
+`CALL gds.graph.drop('proGoGraph') YIELD graphName`
