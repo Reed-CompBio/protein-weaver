@@ -23,7 +23,8 @@ export default class AncestorsService {
             const res = await session.run(
                 `
                 MATCH (qgt:go_term)-[r:GoGo]->(pgt)
-                WHERE qgt.id =~'(?i)' + $goTerm OR qgt.name =~'(?i)' + $goTerm
+                WHERE (pgt)-[:ProGo]-(:protein)
+                AND (qgt.id =~ '(?i)' + $goTerm OR qgt.name =~ '(?i)' + $goTerm)
                 RETURN pgt;
                 `,
                 {
