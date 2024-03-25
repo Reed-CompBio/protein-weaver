@@ -22,13 +22,13 @@
  
 * [`zfish_gene_names.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_gene_names.tsv) merged into `zfish_interactome_Mar12_2024.txt`
 * [Source](https://www.uniprot.org/id-mapping/uniprotkb)
-* Retrieved gene names for 6,438 *D. rerio* proteins [`updated_Mar12_24_zfish_unique_protein_ids.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/updated_Mar12_24_zfish_unique_protein_ids.txt) from UniProt's name mapping service. For entries with a "gene name", the gene name was used as the name, for those without a gene name, the first portion of the "protein name" was used. This was decided to ensure uniqueness for the node names in the user interface.
+* Retrieved gene names for 6,438 *D. rerio* proteins [`zfish_unique_protein_ids_Mar12_24.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/updated_Mar12_24_zfish_unique_protein_ids.txt) from UniProt's name mapping service. For entries with a "gene name", the gene name was used as the name, for those without a gene name, the first portion of the "protein name" was used. This was decided to ensure uniqueness for the node names in the user interface.
 
 * Merged all *D. rerio* data together into one master file using the instructions in `scripts/ZebrafishDataMerging.Rmd`.
 * Data was imported according to the steps in [`data/README.md`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/README.md).
 
 ### GO Association Data:
-* [`zfish_GO_data.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_GO_data.tsv)
+* [`zfish_GO_data_Mar12_24.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_GO_data_Mar12_24.tsv)
 * [Source](https://www.ebi.ac.uk/QuickGO/annotations)
 * Used QuickGO to get all 65,876 "Reviewed" GO annotations for *D. rerio*. Replaced the " " in headers with "_" to ease data import.
 * Data was imported according to the steps in [`data/README.md`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/README.md).
