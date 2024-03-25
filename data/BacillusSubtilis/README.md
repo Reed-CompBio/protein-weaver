@@ -1,4 +1,4 @@
-# *Bacillus subitilis* Data Sources
+# *Bacillus subtilis* Data Sources
 
 ## Initial Import (October 18, 2024):
 
