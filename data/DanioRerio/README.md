@@ -3,7 +3,7 @@
 ## Initial Import (March 18, 2024 Major Update):
 
 ### Interaction data:
-* [`7955.protein.physical.links.full.v12.0_attempt2.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/7955.protein.physical.links.full.v12.0_attempt2.txt) merged into [`zfish_interactome_Mar12_2024.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_interactome_Mar12_2024.txt).
+* [`zfish_string_db_results.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_string_db_results.csv) merged into [`zfish_interactome_Mar12_2024.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_interactome_Mar12_2024.txt).
 * [Source](https://string-db.org/cgi/download?sessionId=bjC4UlI45w0z&species_text=Danio+rerio)
 * Downloaded file `7955.protein.physical.links.full.v12.0.txt.gz` from String-DB and filtered to experimentally validated, database-curated, and textmined interactions according to [`scripts/ZebrafishDataMerging.Rmd`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ZebrafishDataMerging.Rmd). Mar. 12, 2024.
 	
@@ -15,7 +15,7 @@
 * [Source](http://www.ebi.ac.uk/Tools/webservices/psicquic/view/home.xhtml)
 * Used a Python script [`scripts/GetXML.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GetXML.ipynb) to scrape all entries for “*Danio rerio*” from the REST API. Removed all `<entrySet>` tags that were in between the first and last instance. All `<xml>` tags but the first were removed from the file. Got data for interactions and interactors and converted XML format to JSON using [`scripts/get-interactions.js`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/get-interactions.js) and [`scripts/get-interactors.js`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/get-interactors.js). Converted the resulting JSON files to CSV using a [free online convertor](https://www.convertcsv.com/json-to-csv.htm). Merged `interactions.csv` and `interactors.csv` into `zfish_psicquic_results.csv` using `scripts/ZebrafishDataMerging.Rmd`. Some UniProt IDs were found from the IntAct entry using the IntAct ID as documented in the Rmd.
 
-* [`zfish_id_mapper2.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_id_mapper2.tsv) merged into `zfish_interactome_Mar12_2024.txt`
+* [`zfish_id_mapper.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_id_mapper.tsv) merged into `zfish_interactome_Mar12_2024.txt`
 * [Source](https://www.uniprot.org/id-mapping/uniprotkb)
 * Retrieved updated UniProt entries and common names for 11,765 entries. 2781 protein entries were found to be obsolete, thus did not have a name available on UniProt. These were removed and separated into their own dataset.
 * The resulting dataset had 6,438 unique proteins.
