@@ -63,7 +63,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-7. Import the Gene Ontology data into the database using the following command:
+7. Import the Gene Ontology data, [gene_association.fb](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/gene_association.fb), into the database using the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association.fb' AS flygo
 FIELDTERMINATOR '\t'
@@ -118,9 +118,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-12. Prepare the relationships for import with the instructions in the [`ParseOntologyRelationship.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb) file.
-
-13. Import the [GO hierarchy](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/is_a_import.tsv) with the following command:
+12. Download and import the [GO hierarchy](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/is_a_import.tsv) using the commands below. This is made from the script [ParseOntologyRelationship.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb) if you are interested.
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
@@ -132,10 +130,7 @@ CALL {
     SET r.relationship = go.is_a
 } IN TRANSACTIONS OF 100 ROWS;
 ```
-
-14. Prepare the GO term common names for import with the instructions in the [`ParseOBOtoTXT.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb) file. 
-
-15. Import the [GO term common names](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go.txt) and descriptions with the following Cypher command:
+15. Download and import the [GO term common names](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go.txt) and descriptions with the Cypher commands below. This file is made from the script [ParseOBOtoTXT.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb) if you are interested.
 ```
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
@@ -298,3 +293,6 @@ Drop constraints:
 
 Drop graph projection:
 `CALL gds.graph.drop('proGoGraph') YIELD graphName`
+
+Show database information:
+`:schema`
