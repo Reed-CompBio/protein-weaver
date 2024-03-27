@@ -99,7 +99,7 @@ export default function Sidebar({
               />
               <a
                 className="blue-sidebar-link"
-                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
               >
@@ -159,7 +159,7 @@ export default function Sidebar({
               />
               <a
                 className="blue-sidebar-link"
-                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
               >
@@ -241,7 +241,7 @@ export default function Sidebar({
               />
               <a
                 className="blue-sidebar-link"
-                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
               >
@@ -323,7 +323,7 @@ export default function Sidebar({
               />
               <a
                 className="blue-sidebar-link"
-                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
               >
