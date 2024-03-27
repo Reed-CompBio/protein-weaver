@@ -22,7 +22,9 @@ export default class GoTermService {
         try {
             const res = await session.run(
                 `
-            MATCH (n:go_term) RETURN n AS goTermOptions;
+            MATCH (n:go_term)
+            WHERE NOT (n.name = 'cellular_component' OR n.name = 'biological_process' OR n.name = 'molecular_function')
+            RETURN n AS goTermOptions;
             `,
             );
 

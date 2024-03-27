@@ -12,7 +12,8 @@ Provide a brief overview of the purpose and goals of this project.
   - `get-interactors.js`: JavaScript for getting interactor data from XML and converting to JSON format.
   - `get-interactions.js`: JavaScript for getting interaction data from XML and converting to JSON format.
   - `GetXML.ipynb`: Jupyter Notebook for scraping zebrafish data from PSICQUIC database into XML format.
-  - `ParseOntologyRelationship.ipynb`: Jupyter Notebook for parsing Gene Ontology from OBO format into tab-delimited format.
+  - `ParseOBOtoTXT.ipynb`: Jupyter Notebook for parsing Gene Ontology common names from OBO format into tab-delimited format.
+  - `ParseOntologyRelationship.ipynb`: Jupyter Notebook for parsing Gene Ontology relationships from OBO format into tab-delimited format.
   - `ZebrafishDataMerging.Rmd`: R Markdown for merging, filtering, and cleaning zebrafish data from STRING-DB & PSICQUIC.
 
 - **`/data`**: Placeholder for any intermediate or processed data files.

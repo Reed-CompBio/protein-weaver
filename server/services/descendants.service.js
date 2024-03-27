@@ -23,7 +23,8 @@ export default class DescendantsService {
             const res = await session.run(
                 `
                 MATCH (cgt)-[r:GoGo]->(qgt:go_term)
-                WHERE qgt.id =~'(?i)' + $goTerm OR qgt.name =~'(?i)' + $goTerm
+                WHERE (cgt)-[:ProGo]-(:protein)
+                AND qgt.id =~'(?i)' + $goTerm OR qgt.name =~'(?i)' + $goTerm
                 RETURN cgt;
                 `,
                 {

@@ -99,7 +99,7 @@ export default function Sidebar({
               />
               <a
                 className="blue-sidebar-link"
-                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
               >
@@ -132,7 +132,7 @@ export default function Sidebar({
         </div>
       </div>
     );
-  } else if (currentNode.type === "go_protein") {
+  } else if (currentNode.type === "go_protein" || currentNode.type === "go_source") {
     // if currentNode.type === "go_protein" then display specific relation information about the go term and level of evidence
     // still need to add level of evidence to the sidebar
     return (
@@ -159,7 +159,7 @@ export default function Sidebar({
               />
               <a
                 className="blue-sidebar-link"
-                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
               >
@@ -241,7 +241,7 @@ export default function Sidebar({
               />
               <a
                 className="blue-sidebar-link"
-                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
               >
@@ -323,7 +323,7 @@ export default function Sidebar({
               />
               <a
                 className="blue-sidebar-link"
-                href={`https://amigo.geneontology.org/amigo/term/${goTerm.id}`}
+                href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
                 target="_blank"
                 rel="noopener"
               >
