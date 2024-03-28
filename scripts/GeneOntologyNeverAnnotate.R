@@ -23,3 +23,12 @@ do_not_annotate <- do_not_annotate %>% mutate(annotated = FALSE)
 
 # Write out the file
 write_delim(do_not_annotate, "go_neverAnnotate.txt")
+
+# Join the dataset as a new column
+do_not_annotate <- read_delim("go_neverAnnotate.txt")
+go_terms <- read_delim("go.txt")
+
+go_terms <- left_join(go_terms, do_not_annotate)
+go_terms["annotated"][is.na(go_terms["annotated"])] <- TRUE
+
+write_delim(go_terms, "go_2024-03-28.txt")
