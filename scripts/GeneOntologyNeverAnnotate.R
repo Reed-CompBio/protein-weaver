@@ -18,7 +18,6 @@ do_not_annotate <- html_text(element)  # Extract text from the HTML element
 do_not_annotate <- substr(do_not_annotate, start = 1, stop = 10)
 do_not_annotate <- as_tibble(do_not_annotate)
 colnames(do_not_annotate) <- "id"
-
 do_not_annotate <- do_not_annotate %>% mutate(annotated = FALSE)
 
 # Write out the file
@@ -31,4 +30,9 @@ go_terms <- read_delim("go.txt")
 go_terms <- left_join(go_terms, do_not_annotate)
 go_terms["annotated"][is.na(go_terms["annotated"])] <- TRUE
 
-write_delim(go_terms, "go_2024-03-28.txt")
+go_terms <- go_terms %>% mutate(never_annotate = case_when(
+  annotated == FALSE ~ "true",
+  annotated == TRUE ~ "false"
+))
+
+write_tsv(go_terms, "go_2024-03-28.txt")
