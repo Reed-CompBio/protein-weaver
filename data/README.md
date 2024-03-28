@@ -274,14 +274,30 @@ CALL {
     n.def = go.def
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
+
 11. Call the graph projection again:
-`
+```
 CALL gds.graph.project(
 'proGoGraph',
 ['go_term', 'protein'],
 ['ProGo', 'ProPro']
 )
-`
+```
+
+## Mar. 28, 2024
+1. Add blacklist indicator to GO term nodes from [new dataset](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_2024-03-28.txt):
+```
+:auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
+FIELDTERMINATOR '\t'
+CALL {
+    with go
+    MATCH (n:go_term {id: go.id})
+    SET n.name = go.name,
+    n.namespace = go.namespace,
+    n.def = go.def,
+    n.annotated = go.annotated
+} IN TRANSACTIONS OF 1000 ROWS;
+```
 
 ### Useful Commands
 Delete nodes:

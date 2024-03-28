@@ -2,27 +2,25 @@
 
 This folder contains supplementary scripts to generate and clean the data used in ProteinWeaver.
 
-## Overview
-
-Provide a brief overview of the purpose and goals of this project.
-
 ## Folder Structure
 
 - **`/scripts`**: Contains the data scraping and cleaning scripts.
-  - `get-interactors.js`: JavaScript for getting interactor data from XML and converting to JSON format.
-  - `get-interactions.js`: JavaScript for getting interaction data from XML and converting to JSON format.
-  - `GetXML.ipynb`: Jupyter Notebook for scraping zebrafish data from PSICQUIC database into XML format.
-  - `ParseOBOtoTXT.ipynb`: Jupyter Notebook for parsing Gene Ontology common names from OBO format into tab-delimited format.
-  - `ParseOntologyRelationship.ipynb`: Jupyter Notebook for parsing Gene Ontology relationships from OBO format into tab-delimited format.
-  - `ZebrafishDataMerging.Rmd`: R Markdown for merging, filtering, and cleaning zebrafish data from STRING-DB & PSICQUIC.
+  - [`GeneOntologyNeverAnnotate.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GeneOntologyNeverAnnotate.R): R script to identify GO terms that should never be annotated to proteins.
+  - [`get-interactors.js`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/get-interactors.js): JavaScript for getting interactor data from XML and converting to JSON format.
+  - [`get-interactions.js`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/get-interactions.js): JavaScript for getting interaction data from XML and converting to JSON format.
+  - [`GetXML.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GetXML.ipynb): Jupyter Notebook for scraping zebrafish data from PSICQUIC database into XML format.
+  - [`JoinBSUtoUniProt.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/JoinBSUtoUniProt.R): R script to join the BSubCyc identifiers with UniProt identifiers.
+  - [`ParseOBOtoTXT.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb): Jupyter Notebook for parsing Gene Ontology common names from OBO format into tab-delimited format.
+  - [`ParseOntologyRelationship.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb): Jupyter Notebook for parsing Gene Ontology relationships from OBO format into tab-delimited format.
+  - [`SubColNames.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R): R script to replace column names from QuickGO data for easy Neo4j import.
+  - [`ZebrafishDataMerging.Rmd`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ZebrafishDataMerging.Rmd): R Markdown for merging, filtering, and cleaning zebrafish data from STRING-DB & PSICQUIC.
 
 - **`/data`**: Placeholder for any intermediate or processed data files.
-  - `DanioRerio/zfish_psicquic_results.xml`: Results from PSICQUIC database in XML format.
-  - `DanioRerio/interactors.csv`: Resulting dataset from `/scripts/get-interactors.js`.
-  - `DanioRerio/interactions.csv`: Resulting dataset from `/scripts/get-interactions.js`.
-  - `DanioRerio/zfish_interactome.txt`: Resulting dataset from `/scripts/ZebrafishDataMerging.Rmd`.
-
-  
+  - [`DanioRerio/zfish_psicquic_results.xml`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/): Results from PSICQUIC database in XML format.
+  - [`DanioRerio/interactors.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/interactors.csv): Resulting dataset from `/scripts/get-interactors.js`.
+  - [`DanioRerio/interactions.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/interactions.csv): Resulting dataset from `/scripts/get-interactions.js`.
+  - [`DanioRerio/zfish_interactome.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_interactome.txt): Resulting dataset from `/scripts/ZebrafishDataMerging.Rmd`.
+  - [`GeneOntology/go_neverAnnotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_neverAnnotate.txt): Resulting dataset from `/scripts/GeneOntologyNeverAnnotate.R`.
 
 ## Data Sources
 

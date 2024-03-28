@@ -14,6 +14,10 @@
 * `go.obo` processed into [`relationship_import.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/relationship_import.tsv)
 * Processed the file using `scripts/ParseOntologyRelationship.ipynb` and imported the resulting file into the Neo4j database according to the steps in `data/README.md`.
 
+### Do Not Annotate List:
+* [`goNeverAnnotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/goNeverAnnotate.txt) joined with `go.txt` into [`go_2024-03-28.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_2024-03-28.txt)
+* Joined the data together with [`scripts/GeneOntologyNeverAnnotate.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GeneOntologyNeverAnnotate.R).
+
 ## Data Structure
 * GO terms (nodes): **42,854**
 * "is_a"/ancestral relationships (GoGo edges): **68,308**
