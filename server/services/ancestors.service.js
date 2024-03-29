@@ -25,6 +25,7 @@ export default class AncestorsService {
                 MATCH (qgt:go_term)-[r:GoGo]->(pgt)
                 WHERE (pgt)-[:ProGo]-(:protein)
                 AND (qgt.id =~ '(?i)' + $goTerm OR qgt.name =~ '(?i)' + $goTerm)
+                AND (pgt.never_annotate = 'false')
                 RETURN pgt;
                 `,
                 {

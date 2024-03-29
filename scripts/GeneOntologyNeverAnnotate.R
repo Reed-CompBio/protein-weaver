@@ -35,4 +35,11 @@ go_terms <- go_terms %>% mutate(never_annotate = case_when(
   annotated == TRUE ~ "false"
 ))
 
+# get the second set of do not annotate
+gocheck_do_not_annotate <- read_delim("gocheck_do_not_annotate.txt")
+gocheck_do_not_annotate <- gocheck_do_not_annotate %>% mutate(annotated = FALSE, never_annotate = "true")
+gocheck_do_not_annotate <- subset(gocheck_do_not_annotate, select = -c(subset, relationship, property_value))
+
+go_terms <- rbind(go_terms, gocheck_do_not_annotate)
+
 write_tsv(go_terms, "go_2024-03-28.txt")
