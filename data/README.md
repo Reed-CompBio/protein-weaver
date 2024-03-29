@@ -292,10 +292,7 @@ FIELDTERMINATOR '\t'
 CALL {
     with go
     MATCH (n:go_term {id: go.id})
-    SET n.name = go.name,
-    n.namespace = go.namespace,
-    n.def = go.def,
-    n.annotated = go.annotated
+    SET n.never_annotate = go.never_annotate
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
