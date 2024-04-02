@@ -296,6 +296,52 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
+## April. 1, 2024
+1. We added inferred ProGo edges from descendant ProGo edges. This means that proteins annotated to a specific GO term, such as Mbs to enzyme inhibitor activity, will also be annotated to that GO term's ancestors, such as molecular function inhibitor activity and molecular_function. We need to create more ProGo edges across all the species using the following commands:
+```
+MATCH (p:protein {txid: 'txid7955'})-[:ProGo]-(g:go_term)
+WITH p, collect(g) AS go_terms
+
+UNWIND go_terms as go_input
+MATCH (p)-[:ProGo]-(g:go_term {id: go_input.id})-[:GoGo*]->(g2)
+WITH p, collect(distinct g2) AS parent_terms
+UNWIND parent_terms AS parent_term
+
+MERGE (p)-[r:ProGo]-(parent_term)
+SET r.relationship = "is_inferred_from_descendant"
+```
+```
+MATCH (p:protein {txid: 'txid224308'})-[:ProGo]-(g:go_term)
+WITH p, collect(g) AS go_terms
+
+UNWIND go_terms as go_input
+MATCH (p)-[:ProGo]-(g:go_term {id: go_input.id})-[:GoGo*]->(g2)
+WITH p, collect(distinct g2) AS parent_terms
+UNWIND parent_terms AS parent_term
+
+MERGE (p)-[r:ProGo]-(parent_term)
+SET r.relationship = "is_inferred_from_descendant"
+```
+```
+MATCH (p:protein {txid: 'txid7227'})-[:ProGo]-(g:go_term)
+WITH p, collect(g) AS go_terms
+
+UNWIND go_terms as go_input
+MATCH (p)-[:ProGo]-(g:go_term {id: go_input.id})-[:GoGo*]->(g2)
+WITH p, collect(distinct g2) AS parent_terms
+UNWIND parent_terms AS parent_term
+
+MERGE (p)-[r:ProGo]-(parent_term)
+SET r.relationship = "is_inferred_from_descendant"
+```
+Species        |Relationships Added |
+---------------|:-------------------|
+D. Melanogaster|415,493             |
+B. Subtilis    |39,215              |
+D.Rerio        |86,304              | 
+Total          |541,012             |
+
+
 ### Useful Commands
 Delete nodes:
 `MATCH (n:protein {txid: "example", species: "example"})
