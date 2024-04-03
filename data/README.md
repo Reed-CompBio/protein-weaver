@@ -53,7 +53,7 @@ CALL {
 - This will create all of the protein-protein relationships and populate the database.
 
 6. Set a relationship property for the PubmedID
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
 FIELDTERMINATOR '\t'
 CALL {
@@ -76,7 +76,7 @@ CALL {
 ```
 
 8. Import the relationships qualifiers for the GO terms and fly proteins using the following commands:
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association.fb' AS flygo
 FIELDTERMINATOR '\t'
 CALL {
@@ -87,7 +87,7 @@ CALL {
 ```
 
 9. Import *B. subtilis* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_interactome.csv) with the following command:
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
 CALL {
     with bsub
@@ -98,7 +98,7 @@ CALL {
 ```
 
 10. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_GO_data.csv) to *B. subtilis* nodes:
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
     with bsubgo
@@ -109,7 +109,7 @@ CALL {
 ```
 
 11. Set qualifier property for *B. subtilis*.
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
     with bsubgo
@@ -119,7 +119,7 @@ CALL {
 ```
 
 12. Download and import the [GO hierarchy](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/is_a_import.tsv) using the commands below. This is made from the script [ParseOntologyRelationship.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb) if you are interested.
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
 CALL {
@@ -130,8 +130,9 @@ CALL {
     SET r.relationship = go.is_a
 } IN TRANSACTIONS OF 100 ROWS;
 ```
-15. Download and import the [GO term common names](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go.txt) and descriptions with the Cypher commands below. This file is made from the script [ParseOBOtoTXT.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb) if you are interested.
-```
+
+13. Download and import the [GO term common names](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go.txt) and descriptions with the Cypher commands below. This file is made from the script [ParseOBOtoTXT.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb) if you are interested.
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
 CALL {
@@ -143,22 +144,13 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-16. Now call the graph projection using the following command:
-`
-CALL gds.graph.project(
-'proGoGraph',
-['go_term', 'protein'],
-['ProGo', 'ProPro']
-)
-`
-
 ## March 18, 2024 Major Data Update:
 
 Don't forget to drop the existing projection before adding more data.
 `call gds.graph.drop("proGoGraph") YIELD graphName`
 
 1. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/dmel_GO_data_Mar15_24.tsv) for *D. melanogaster*
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_Mar15_24.tsv' AS dmelgo
 FIELDTERMINATOR '\t'
 CALL {
@@ -170,7 +162,7 @@ CALL {
 ```
 
 2. Set qualifier property for *D. melanogaster*.
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_Mar15_24.tsv' AS dmelgo
 FIELDTERMINATOR '\t'
 CALL {
@@ -181,7 +173,7 @@ CALL {
 ```
 
 3. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_GO_data_Mar18_24.tsv) for *B. subtilis*
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_Mar18_24.tsv' AS bsubgo
 FIELDTERMINATOR '\t'
 CALL {
@@ -193,7 +185,7 @@ CALL {
 ```
 
 4. Set qualifier property for *B. subtilis*.
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_Mar18_24.tsv' AS bsubgo
 FIELDTERMINATOR '\t'
 CALL {
@@ -204,7 +196,7 @@ CALL {
 ```
 
 5. Import *D. rerio* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_interactome_Mar12_2024.txt) with the following command:
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
 FIELDTERMINATOR '\t'
 CALL {
@@ -216,7 +208,7 @@ CALL {
 ```
 
 6. Set a relationship property for the evidence
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
 FIELDTERMINATOR '\t'
 CALL {
@@ -227,7 +219,7 @@ CALL {
 ```
 
 7. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_GO_data_Mar12_24.tsv) to *D. rerio* nodes:
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
 CALL {
@@ -239,7 +231,7 @@ CALL {
 ```
 
 8. Set qualifier property for *D. rerio*.
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
 CALL {
@@ -250,7 +242,7 @@ CALL {
 ```
 
 9. Import the GO hierarchy with the following command:
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
 CALL {
@@ -263,7 +255,7 @@ CALL {
 ```
 
 10. Import the GO term common names and descriptions with the following Cypher command:
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
 CALL {
@@ -275,18 +267,9 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-11. Call the graph projection again:
-```
-CALL gds.graph.project(
-'proGoGraph',
-['go_term', 'protein'],
-['ProGo', 'ProPro']
-)
-```
-
 ## Mar. 28, 2024
 1. Add blacklist indicator to GO term nodes from [new dataset](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_2024-03-28.txt):
-```
+```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
 FIELDTERMINATOR '\t'
 CALL {
@@ -297,8 +280,10 @@ CALL {
 ```
 
 ## April. 1, 2024
-1. We added inferred ProGo edges from descendant ProGo edges. This means that proteins annotated to a specific GO term, such as Mbs to enzyme inhibitor activity, will also be annotated to that GO term's ancestors, such as molecular function inhibitor activity and molecular_function. We need to create more ProGo edges across all the species using the following commands:
-```
+* We added inferred ProGo edges from descendant ProGo edges. This means that proteins annotated to a specific GO term, such as Mbs to enzyme inhibitor activity, will also be annotated to that GO term's ancestors, such as molecular function inhibitor activity and molecular_function. We need to create more ProGo edges across all the species using the following commands:
+
+1. Add ancestral edges for *D. rerio*.
+```js
 MATCH (p:protein {txid: 'txid7955'})-[:ProGo]-(g:go_term)
 WITH p, collect(g) AS go_terms
 
@@ -308,9 +293,12 @@ WITH p, collect(distinct g2) AS parent_terms
 UNWIND parent_terms AS parent_term
 
 MERGE (p)-[r:ProGo]-(parent_term)
-SET r.relationship = "is_inferred_from_descendant"
+ON CREATE
+    SET r.relationship = "is_inferred_from_descendant"
 ```
-```
+
+2. Add ancestral edges for *B. subtilis*.
+```js
 MATCH (p:protein {txid: 'txid224308'})-[:ProGo]-(g:go_term)
 WITH p, collect(g) AS go_terms
 
@@ -320,9 +308,12 @@ WITH p, collect(distinct g2) AS parent_terms
 UNWIND parent_terms AS parent_term
 
 MERGE (p)-[r:ProGo]-(parent_term)
-SET r.relationship = "is_inferred_from_descendant"
+ON CREATE
+    SET r.relationship = "is_inferred_from_descendant"
 ```
-```
+
+3. Add ancestral edges for *D. melanogaster*.
+```js
 MATCH (p:protein {txid: 'txid7227'})-[:ProGo]-(g:go_term)
 WITH p, collect(g) AS go_terms
 
@@ -332,8 +323,10 @@ WITH p, collect(distinct g2) AS parent_terms
 UNWIND parent_terms AS parent_term
 
 MERGE (p)-[r:ProGo]-(parent_term)
-SET r.relationship = "is_inferred_from_descendant"
+ON CREATE
+    SET r.relationship = "is_inferred_from_descendant"
 ```
+
 Species        |Relationships Added |
 ---------------|:-------------------|
 D. Melanogaster|415,493             |
@@ -341,11 +334,36 @@ B. Subtilis    |39,215              |
 D.Rerio        |86,304              | 
 Total          |541,012             |
 
+### Call the graph projection
+```js
+CALL gds.graph.project(
+  'proGoGraph',
+  {
+    go_term: {
+      label: 'go_term'
+    },
+    protein: {
+      label: 'protein'
+    }
+  },
+  {
+    ProGo: {
+      type: 'ProGo',
+      orientation: 'NATURAL',
+      properties: {}
+    },
+    ProPro: {
+      type: 'ProPro',
+      orientation: 'UNDIRECTED',
+      properties: {}
+    }
+  }
+);
+```
 
 ### Useful Commands
 Delete nodes:
-`MATCH (n:protein {txid: "example", species: "example"})
-DETACH DELETE n`
+`MATCH (n:protein {txid: "example", species: "example"}) DETACH DELETE n`
 
 Drop constraints:
 `DROP CONSTRAINT constraint`

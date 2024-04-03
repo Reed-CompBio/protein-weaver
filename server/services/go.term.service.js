@@ -24,7 +24,6 @@ export default class GoTermService {
                 `
             MATCH (n:go_term)
             WHERE NOT (n.name = 'cellular_component' OR n.name = 'biological_process' OR n.name = 'molecular_function')
-            AND (n.never_annotate = 'false')
             RETURN n AS goTermOptions;
             `,
             );
