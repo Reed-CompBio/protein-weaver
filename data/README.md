@@ -293,8 +293,6 @@ WITH p, collect(distinct g2) AS parent_terms
 UNWIND parent_terms AS parent_term
 
 MERGE (p)-[r:ProGo]-(parent_term)
-ON CREATE
-    SET r.relationship = "is_inferred_from_descendant"
 ```
 
 2. Add ancestral edges for *B. subtilis*.
@@ -308,8 +306,6 @@ WITH p, collect(distinct g2) AS parent_terms
 UNWIND parent_terms AS parent_term
 
 MERGE (p)-[r:ProGo]-(parent_term)
-ON CREATE
-    SET r.relationship = "is_inferred_from_descendant"
 ```
 
 3. Add ancestral edges for *D. melanogaster*.
@@ -323,8 +319,13 @@ WITH p, collect(distinct g2) AS parent_terms
 UNWIND parent_terms AS parent_term
 
 MERGE (p)-[r:ProGo]-(parent_term)
-ON CREATE
-    SET r.relationship = "is_inferred_from_descendant"
+```
+
+4. Add qualifiers for new ProGo edges.
+```js
+MATCH (p:protein)-[r:ProGo]-(g:go_term)
+WHERE r.relationship IS NULL
+SET r.relationship = "inferred_from_descendant"
 ```
 
 Species        |Relationships Added |

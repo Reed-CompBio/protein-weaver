@@ -18,6 +18,8 @@
 * [`goNeverAnnotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/goNeverAnnotate.txt) joined with `go.txt` into [`go_2024-03-28.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_2024-03-28.txt)
 * Joined the data together with [`scripts/GeneOntologyNeverAnnotate.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GeneOntologyNeverAnnotate.R).
 
+* [`gocheck_do_not_annotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/gocheck_do_not_annotate.txt) parsed from `gocheck_do_not_annotate.obo` using `scripts/ParseOBOtoTXT.ipynb` and merged into `go_2024-03-28.txt`. This data was added as part of the March 28, 2024 major update.
+
 ## Data Structure
 * GO terms (nodes): **42,854**
 * "is_a"/ancestral relationships (GoGo edges): **68,308**

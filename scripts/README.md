@@ -12,6 +12,7 @@ This folder contains supplementary scripts to generate and clean the data used i
   - [`JoinBSUtoUniProt.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/JoinBSUtoUniProt.R): R script to join the BSubCyc identifiers with UniProt identifiers.
   - [`ParseOBOtoTXT.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb): Jupyter Notebook for parsing Gene Ontology common names from OBO format into tab-delimited format.
   - [`ParseOntologyRelationship.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb): Jupyter Notebook for parsing Gene Ontology relationships from OBO format into tab-delimited format.
+  - [`RemoveNotQualifier.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R): R script to remove NOT| qualifiers from GO Association data files.
   - [`SubColNames.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R): R script to replace column names from QuickGO data for easy Neo4j import.
   - [`ZebrafishDataMerging.Rmd`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ZebrafishDataMerging.Rmd): R Markdown for merging, filtering, and cleaning zebrafish data from STRING-DB & PSICQUIC.
 
