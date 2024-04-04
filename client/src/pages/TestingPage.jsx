@@ -1,16 +1,13 @@
 import React from "react";
 import MainLayout from "../layout/MainLayout";
-import TestParser from "../components/TestParser";
+import Testing from "../components/Testing";
 
 export default function TestingPage() {
   return (
     <div>
       <MainLayout>
         <div className="main-layout-body">
-          <h2>Testing Page</h2>
-          {/* <Movie></Movie> */}
-          {/* <Cytoscape /> */}
-          <TestParser />
+            <Testing></Testing>
         </div>
       </MainLayout>
     </div>
