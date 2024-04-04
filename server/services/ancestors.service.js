@@ -14,7 +14,7 @@ export default class AncestorsService {
         this.driver = driver
     }
 
-    async getAncestors(goTermInput) {
+    async getAncestors(goTermInput, species) {
         console.log("Getting list of ancestors for GO term...")
         const ancestors = [];
 
@@ -23,12 +23,13 @@ export default class AncestorsService {
             const res = await session.run(
                 `
                 MATCH (qgt:go_term)-[r:GoGo]->(pgt)
-                WHERE (pgt)-[:ProGo]-(:protein)
+                WHERE (pgt)-[:ProGo]-(:protein {txid: $species})
                 AND (qgt.id =~ '(?i)' + $goTerm OR qgt.name =~ '(?i)' + $goTerm)
                 RETURN pgt;
                 `,
                 {
-                    goTerm: goTermInput
+                    goTerm: goTermInput,
+                    species: species
                 }
             );
 
