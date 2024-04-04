@@ -1,12 +1,13 @@
-import { React, useEffect } from 'react';
-import MyAutocomplete from './MyAutocomplete';
-// import { TbChevronCompactDown, TbChevronCompactUp } from 'react-icons/tb';
-// import { IconContext } from 'react-icons';
+import React, { useEffect, useState } from 'react';
+import { FaInfoCircle } from "react-icons/fa";
 
 export default function AncestorSelector({
     parentGoTerms,
     storeGoTermValue
 }) {
+    const [isEmpty, setIsEmpty] = useState(false);
+    const [showTooltip, setShowTooltip] = useState(false);
+
     // Function to populate datalist with options from the dynamic array
     function populateDatalistWithOptions(array) {
         const datalist = document.getElementById("parent-go-terms");
@@ -14,12 +15,17 @@ export default function AncestorSelector({
         // Clear existing options
         datalist.innerHTML = "";
 
-        // Iterate through the array and create options
-        array.forEach(optionText => {
-            const option = document.createElement("option");
-            option.value = optionText;
-            datalist.appendChild(option);
-        });
+        if (array.length === 0) {
+            setIsEmpty(true);
+        } else {
+            setIsEmpty(false);
+            // Iterate through the array and create options
+            array.forEach(optionText => {
+                const option = document.createElement("option");
+                option.value = optionText;
+                datalist.appendChild(option);
+            });
+        }
     }
 
     useEffect(() => {
@@ -27,17 +33,31 @@ export default function AncestorSelector({
     }, [parentGoTerms]);
     // Call the function to populate the datalist
 
-
     return (
         <div className="ancestor-input">
-            {/* <label htmlFor="ancestor-selector">Parent GO Terms:</label> */}
-            <input
-                list="parent-go-terms"
-                id="ancestor-selector"
-                name="ancestor-selector"
-                onChange={storeGoTermValue}
-                placeholder='Parent GO Terms'
-            />
+            <div className="hierarchy-input-container">
+
+                {/* display warning message when at root GO term */}
+                {isEmpty && (
+                    <div
+                        className="info-icon-container"
+                        onMouseEnter={() => setShowTooltip(true)}
+                        onMouseLeave={() => setShowTooltip(false)}
+                    >
+                        <FaInfoCircle className="info-icon" />
+                        {showTooltip && <div className="hierarchy-warning">You have reached the most general GO term.</div>}
+                    </div>
+                )}
+
+                <input
+                    list="parent-go-terms"
+                    id="ancestor-selector"
+                    name="ancestor-selector"
+                    onChange={storeGoTermValue}
+                    placeholder='Parent GO Terms'
+                />
+
+            </div>
             <datalist id="parent-go-terms"></datalist>
         </div>
     )

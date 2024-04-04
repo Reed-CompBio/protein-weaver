@@ -276,7 +276,6 @@ export default function Query() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // You can add any other headers if needed
                 },
                 body: JSON.stringify(requestBody),
             })
@@ -299,7 +298,6 @@ export default function Query() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // You can add any other headers if needed
                 },
                 body: JSON.stringify(requestBody),
             })
