@@ -520,6 +520,7 @@ export default function Testing() {
 
   return (
     <div>
+      {/* pageState is responsible for handling if we are in query search only page or query w/ results page */}
       {pageState == 0 && (
         <div>
           <SearchBar
