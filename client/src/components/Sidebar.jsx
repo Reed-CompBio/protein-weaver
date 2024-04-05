@@ -3,6 +3,7 @@ import ExportLogJSON from "./ExportLogJSON";
 import GoDefinition from "./GoDefinition";
 import AncestorSelector from "./AncestorSelector";
 import DescendantSelector from "./DescendantSelector";
+import { PiWarningBold } from "react-icons/pi";
 
 export default function Sidebar({
   currentNode,
@@ -24,6 +25,19 @@ export default function Sidebar({
   const [proteinCount, setProteinCount] = useState(0);
   const [selectedDbLink, setSelectedDbLink] = useState("");
   const [sourceNodeLink, setSourceNodeLink] = useState("");
+  const [neverAnnotateWarning, setNeverAnnotateWarning] = useState(false);
+  const [showNeverAnnotate, setShowNeverAnnotate] = useState(false);
+  const [bold, setBold] = useState(false);
+
+  useEffect(() => {
+    if (goTerm.never_annotate === "true") {
+      setNeverAnnotateWarning(true);
+    } else if (goTerm.never_annotate === "false") {
+      setNeverAnnotateWarning(false);
+    }
+  }, [goTerm.never_annotate]);
+
+  console.log("DEBUGGING", currentNode);
 
   useEffect(() => {
     if (query.species === "txid7227") {
@@ -105,6 +119,17 @@ export default function Sidebar({
               >
                 {goTerm.name}
               </a>
+              {neverAnnotateWarning && (
+                <div
+                  className="never-annotate-container"
+                  onMouseEnter={() => setShowNeverAnnotate(true)}
+                  onMouseLeave={() => setShowNeverAnnotate(false)}
+                >
+                  <PiWarningBold className="never-annotate-icon" />
+                  {showNeverAnnotate && <div className="never-annotate-warning">This term should not be used for direct annotation.</div>}
+                </div>
+              )
+              }
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
                 storeGoTermValue={storeGoTermValue}
@@ -165,6 +190,17 @@ export default function Sidebar({
               >
                 {goTerm.name}
               </a>
+              {neverAnnotateWarning && (
+                <div
+                  className="never-annotate-container"
+                  onMouseEnter={() => setShowNeverAnnotate(true)}
+                  onMouseLeave={() => setShowNeverAnnotate(false)}
+                >
+                  <PiWarningBold className="never-annotate-icon" />
+                  {showNeverAnnotate && <div className="never-annotate-warning">This term should not be used for direct annotation.</div>}
+                </div>
+              )
+              }
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
                 storeGoTermValue={storeGoTermValue}
@@ -194,7 +230,10 @@ export default function Sidebar({
               {currentNode.id}
             </a>
           </p>
-          <p>GO qualifier: {currentNode.go_protein}</p>
+          <p>GO relationship (qualifier):</p>
+          <p style={{ fontWeight: currentNode.go_protein === "inferred_from_descendant" ? "bold" : "normal" }}>
+            {currentNode.go_protein}
+          </p>
           <div className="center-buttons">
             <form method="post" onSubmit={handleSubmit} action="api/getFlyBase">
               <button
@@ -247,6 +286,17 @@ export default function Sidebar({
               >
                 {goTerm.name}
               </a>
+              {neverAnnotateWarning && (
+                <div
+                  className="never-annotate-container"
+                  onMouseEnter={() => setShowNeverAnnotate(true)}
+                  onMouseLeave={() => setShowNeverAnnotate(false)}
+                >
+                  <PiWarningBold className="never-annotate-icon" />
+                  {showNeverAnnotate && <div className="never-annotate-warning">This term should not be used for direct annotation.</div>}
+                </div>
+              )
+              }
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
                 storeGoTermValue={storeGoTermValue}
@@ -329,6 +379,17 @@ export default function Sidebar({
               >
                 {goTerm.name}
               </a>
+              {neverAnnotateWarning && (
+                <div
+                  className="never-annotate-container"
+                  onMouseEnter={() => setShowNeverAnnotate(true)}
+                  onMouseLeave={() => setShowNeverAnnotate(false)}
+                >
+                  <PiWarningBold className="never-annotate-icon" />
+                  {showNeverAnnotate && <div className="never-annotate-warning">This term should not be used for direct annotation.</div>}
+                </div>
+              )
+              }
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
                 storeGoTermValue={storeGoTermValue}
