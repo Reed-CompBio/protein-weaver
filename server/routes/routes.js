@@ -6,7 +6,7 @@ import NetworkService from "../services/network.service.js";
 import EdgeDataService from "../services/edge.data.service.js";
 import ProteinService from "../services/protein.service.js";
 import GoTermService from "../services/go.term.service.js";
-import Txid7227Service from "../services/txid7227.service.js";
+// import Txid7227Service from "../services/txid7227.service.js";
 import QueryService from "../services/query.service.js";
 import AncestorsService from "../services/ancestors.service.js";
 import DescendantsService from "../services/descendants.service.js";
@@ -65,12 +65,13 @@ router.post("/getProteinOptions", jsonParser, async (req, res, next) => {
 
 router.post("/getAncestors", jsonParser, async (req, res, next) => {
   const data = req.body;
+  let species = data.species;
   let goTerm = data.goTerm.id || data.goTerm.name;
 
   try {
     const ancestorService = new AncestorsService(getDriver());
 
-    const ancestors = await ancestorService.getAncestors(goTerm);
+    const ancestors = await ancestorService.getAncestors(goTerm, species);
 
     res.json(ancestors);
   } catch (e) {
@@ -80,12 +81,13 @@ router.post("/getAncestors", jsonParser, async (req, res, next) => {
 
 router.post("/getDescendants", jsonParser, async (req, res, next) => {
   const data = req.body;
+  let species = data.species;
   let goTerm = data.goTerm.id || data.goTerm.name;
 
   try {
     const descendantsService = new DescendantsService(getDriver());
 
-    const descendants = await descendantsService.getDescendants(goTerm);
+    const descendants = await descendantsService.getDescendants(goTerm, species);
 
     res.json(descendants);
   } catch (e) {
@@ -120,40 +122,40 @@ router.post("/getEdgeData", jsonParser, async (req, res, next) => {
   }
 });
 
-// get D. melanogaster data
-router.post("/getTxid7227", jsonParser, async (req, res, next) => {
-  const data = req.body;
-  const species = data.species;
-  const protein = data.protein;
-  const goTerm = data.goTerm;
-  const k = data.k;
+// // get D. melanogaster data
+// router.post("/getTxid7227", jsonParser, async (req, res, next) => {
+//   const data = req.body;
+//   const species = data.species;
+//   const protein = data.protein;
+//   const goTerm = data.goTerm;
+//   const k = data.k;
 
-  console.log("Species:", species);
-  console.log("Protein:", protein);
-  console.log("GO Term:", goTerm);
-  console.log("k:", k);
+//   console.log("Species:", species);
+//   console.log("Protein:", protein);
+//   console.log("GO Term:", goTerm);
+//   console.log("k:", k);
 
-  try {
-    const queryService = new Txid7227Service(getDriver());
-    const queryResult = await queryService.getTxid7227(protein, goTerm, k);
-    // console.log(queryResult)
+//   try {
+//     const queryService = new Txid7227Service(getDriver());
+//     const queryResult = await queryService.getTxid7227(protein, goTerm, k);
+//     // console.log(queryResult)
 
-    if (queryResult.length === 0) {
-      console.log("No data found.");
-      res.status(404).send({ error: "No data found." });
-    } else {
-      res.status(200).json(queryResult);
-    }
-  } catch (error) {
-    console.error("Error in /getFlyBase:", error);
-    res.status(500).json({ error: "Internal server error." });
-  }
-});
+//     if (queryResult.length === 0) {
+//       console.log("No data found.");
+//       res.status(404).send({ error: "No data found." });
+//     } else {
+//       res.status(200).json(queryResult);
+//     }
+//   } catch (error) {
+//     console.error("Error in /getFlyBase:", error);
+//     res.status(500).json({ error: "Internal server error." });
+//   }
+// });
 
-router.post("/postRequest", async (req, res, next) => {
-  const body = req.body;
-  res.json(body);
-});
+// router.post("/postRequest", async (req, res, next) => {
+//   const body = req.body;
+//   res.json(body);
+// });
 
 // dynamic query
 router.post("/getQuery", jsonParser, async (req, res, next) => {

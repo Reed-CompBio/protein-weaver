@@ -134,11 +134,11 @@ export default function Query() {
     }, []);
 
     useEffect(() => {
-        if(dataParsingStatus){
+        if (dataParsingStatus) {
             setShowResults(true)
             setIsLoading(false)
         }
-      }, [dataParsingStatus]);
+    }, [dataParsingStatus]);
 
     // Function for submitting the query
     async function handleSubmit(e) {
@@ -177,9 +177,10 @@ export default function Query() {
                         } else if (response.status === 404) {
                             return response.json().then(data => {
                                 throw new Error(data.error); // Throw an error with the statusText from the response body
-                            });                        } else {
-                                return Promise.reject(new Error(`${response.status} ${response.statusText}`));
-                            }
+                            });
+                        } else {
+                            return Promise.reject(new Error(`${response.status} ${response.statusText}`));
+                        }
                     })
                     .then((data) => {
                         setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
@@ -202,21 +203,21 @@ export default function Query() {
                     },
                     body: JSON.stringify(query),
                 })
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    } else if (response.status === 404) {
-                        return response.json().then(data => {
-                            throw new Error(data.error); // Throw an error with the statusText from the response body
-                        });
-                    } else {
-                        return Promise.reject(new Error(`${response.status} ${response.statusText}`));
-                    }
-                })
-                .then((data) => {
-                    setNetworkResult(NetworkParserNode(data, query.protein, query.k));
-                    return NetworkParserNode(data, query.protein, query.k);
-                });
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else if (response.status === 404) {
+                            return response.json().then(data => {
+                                throw new Error(data.error); // Throw an error with the statusText from the response body
+                            });
+                        } else {
+                            return Promise.reject(new Error(`${response.status} ${response.statusText}`));
+                        }
+                    })
+                    .then((data) => {
+                        setNetworkResult(NetworkParserNode(data, query.protein, query.k));
+                        return NetworkParserNode(data, query.protein, query.k);
+                    });
             } catch (error) {
                 console.error(
                     "Error getting the network:",
@@ -270,13 +271,13 @@ export default function Query() {
     // Get descendants for queried GO term
     useEffect(() => {
         if (networkResult.goTerm != null) {
+            const requestBody = Object.assign(networkResult, { species: query.species });
             fetch("/api/getDescendants", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // You can add any other headers if needed
                 },
-                body: JSON.stringify(networkResult)
+                body: JSON.stringify(requestBody),
             })
                 .then((res) => res.json())
                 .then((data) => {
@@ -292,13 +293,13 @@ export default function Query() {
     // Get ancestors for queried GO term
     useEffect(() => {
         if (networkResult.goTerm != null) {
+            const requestBody = Object.assign(networkResult, { species: query.species });
             fetch("/api/getAncestors", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // You can add any other headers if needed
                 },
-                body: JSON.stringify(networkResult)
+                body: JSON.stringify(requestBody),
             })
                 .then((res) => res.json())
                 .then((data) => {
@@ -515,9 +516,9 @@ export default function Query() {
                     activeModeButton={activeModeButton}
                 />
 
-                {hasError && <QueryError errorMessage={errorMessage}/>}
+                {hasError && <QueryError errorMessage={errorMessage} />}
 
-                {isLoading  && (
+                {isLoading && (
                     <div className="loader"></div>
                 )}
 

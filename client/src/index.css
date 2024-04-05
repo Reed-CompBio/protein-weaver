@@ -633,6 +633,14 @@ h3 {
   align-items: center;
 }
 
+.intermediate-dot-align {
+  width: 525px;
+  display: inline-flex;
+  align-items: center;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
 .key-align {
   display: flex;
 }
@@ -675,6 +683,7 @@ h3 {
   border-radius: 50%;
   width: 15px;
   display: inline-block;
+  margin-top: none;
 }
 
 .loader {
@@ -950,11 +959,11 @@ h3 {
 }
 
 .ancestor-input {
-  width: 110px;
+  width: 120px;
 }
 
 .ancestor-input input {
-  width: 110px;
+  width: 120px;
   margin-bottom: 5px;
 }
 
@@ -964,11 +973,11 @@ h3 {
 }
 
 .descendant-input {
-  width: 110px;
+  width: 120px;
 }
 
 .descendant-input input {
-  width: 110px;
+  width: 120px;
   margin-top: 5px;
 }
 
@@ -980,6 +989,71 @@ h3 {
 
 .align-selectors {
   display: flex;
+}
+
+.hierarchy-input-container {
+  position: relative;
+}
+
+.info-icon {
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(50%);
+  color: grey;
+}
+
+.hierarchy-warning {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  background-color: rgb(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 10px;
+  z-index: 1;
+  display: none;
+  text-align: center;
+}
+
+.info-icon-container {
+  position: relative;
+}
+
+.info-icon-container:hover .hierarchy-warning {
+  display: block;
+}
+
+.never-annotate-container {
+  position: relative;
+}
+
+.never-annotate-icon {
+  position: absolute;
+  top: -50px;
+  left: 80px;
+  color: var(--graph-blue);
+  /* Adjust this value as needed */
+}
+
+.never-annotate-warning {
+  position: absolute;
+  top: -35px;
+  left: 60px;
+  /* Adjust this value as needed */
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 10px;
+  z-index: 1;
+  display: none;
+  text-align: center;
+}
+
+.never-annotate-container:hover .never-annotate-warning {
+  display: block;
 }
 
 .change-layout {
