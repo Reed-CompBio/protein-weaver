@@ -555,8 +555,20 @@ export default function Testing() {
               <PanelResizeHandle className="panel-resize-handle" />
               <Panel className="panel" defaultSize={30} minSize={20}>
                 <PanelGroup direction="vertical">
-                  <Panel defaultSize={20} minSize={10}>
-                    Search
+                  <Panel defaultSize={19} minSize={0} collapsedSize={0} maxSize={19}>
+                    <SearchBar
+                      handleSubmit={handleSubmit}
+                      submitRef={submitRef}
+                      query={query}
+                      handleInputChange={handleInputChange}
+                      getExample={getExample}
+                      proteinOptions={proteinOptions}
+                      goTermOptions={goTermOptions}
+                      handleGuide={handleGuide}
+                      handleSpeciesChange={handleSpeciesChange}
+                      handleQueryMode={handleQueryMode}
+                      activeModeButton={activeModeButton}
+                    />
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={50} minSize={10}>
@@ -570,8 +582,9 @@ export default function Testing() {
               </Panel>
             </PanelGroup>
           </div>
-        </div>
-      )}
+        </div >
+      )
+      }
 
       {/* 
 
@@ -658,6 +671,6 @@ export default function Testing() {
                     </div>
                 )}
             </div> */}
-    </div>
+    </div >
   );
 }

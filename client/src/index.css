@@ -121,11 +121,11 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.navbar > ul {
+.navbar>ul {
   list-style-type: none;
 }
 
-.navbar > ul > * {
+.navbar>ul>* {
   margin-left: 10px;
   color: black;
 }
@@ -173,31 +173,21 @@ body {
   flex: 1;
 }
 
-.container {
-  width: 1048px;
-  height: 275px;
+/* SearchBar */
+.query-container {
+  width: fill;
+  height: fill;
   background: var(--reed-red);
-  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
   padding-left: 16px;
-  padding-right: 16px;
-  padding-bottom: 16px;
-  margin-top: 50px;
-  border-radius: 10px 10px 0 0;
-  box-shadow: 0px -0px 10px 5px var(--shadow);
+  max-height: fit-content;
 }
 
 .query-title {
   border-bottom: 3px solid white;
+  padding-top: 2px;
   padding-bottom: 5px;
-}
-
-.wrapper {
-  margin: 8px 0;
-  height: 105px;
-}
-
-.wrapper h2 {
-  text-align: left;
 }
 
 .search-container {
@@ -214,13 +204,18 @@ body {
 }
 
 .example {
+  margin-left: 10px;
   font-size: 15px;
+  display: inline-flex;
   text-align: center;
   color: white;
+  font-weight: bold;
 }
 
-.example > a {
+.example>a {
   color: white;
+  font-weight: bold;
+  margin-left: 5px;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -228,7 +223,7 @@ body {
 input {
   position: relative;
   min-width: 20px;
-  min-height: 30px;
+  min-height: 35px;
   padding: 8px;
   margin: 0;
   border: none;
@@ -243,11 +238,11 @@ select {
   border: none;
   position: relative;
   min-width: 20px;
-  min-height: 30px;
+  min-height: 25px;
   padding: 8px;
   margin: 0;
   border-radius: 5px;
-  height: 30px;
+  height: 25px;
   width: 140px;
   order: 0;
   align-self: auto;
@@ -255,8 +250,8 @@ select {
 
 .search-button {
   padding: 8px 16px;
-  min-height: 49px;
-  min-width: 96px;
+  min-height: 40px;
+  min-width: 80px;
   word-wrap: nowrap;
   background: #000;
   color: #fff;
@@ -265,7 +260,7 @@ select {
   order: 4;
   flex: 0 1 auto;
   align-self: auto;
-  height: 30px;
+  height: 40px;
   text-align: center;
 }
 
@@ -352,7 +347,7 @@ select {
   box-shadow: 0px -0px 10px 5px var(--shadow);
 }
 
-.sidebar > h2,
+.sidebar>h2,
 h3,
 p {
   color: black;
@@ -398,9 +393,11 @@ p {
 select {
   margin-left: 10px;
   margin-right: 10px;
-  height: 48px;
+  height: 40px;
   border-radius: 5px;
 }
+
+/* Autocomplete */
 
 .not-found {
   color: white;
@@ -422,16 +419,19 @@ select {
   width: 305px;
   margin-left: 0px;
   pointer-events: auto;
+  z-index: 0;
 }
 
 .k-input {
-  width: 48px;
+  width: 30px;
+  height: 24px;
+  min-height: 24px;
 }
 
 .autocomplete-input-container {
   position: relative;
-  margin-right: 30px;
-  width: 300px;
+  /* margin-right: 10px; */
+  width: 175px;
   display: inline-block;
   flex-wrap: nowrap;
   height: 200px;
@@ -440,7 +440,12 @@ select {
 }
 
 .autocomplete-input-container input {
+  margin-right: 10px;
   pointer-events: auto;
+  height: 24px;
+  min-height: 24px;
+  min-width: 150px;
+  width: 150px;
 }
 
 .autocomplete li {
@@ -448,9 +453,11 @@ select {
   background-color: rgba(0, 0, 0, 0.24);
   border: none;
   border-radius: 2px;
+  width: 150px;
+  min-width: 150px;
 }
 
-.autocomplete > .active,
+.autocomplete>.active,
 .autocomplete li:hover {
   background-color: rgba(0, 0, 0, 0.24);
   cursor: pointer;
@@ -468,14 +475,19 @@ select {
 .title-guide-container {
   display: flex;
   align-items: center;
+  margin-bottom: 0;
 }
 
-.title-guide-container > h3 {
+.title-guide-container>h3 {
   color: white;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .guide-button {
   padding: 2.5px;
+  margin-top: 5px;
+  margin-right: 3px;
   margin-left: auto;
   margin-bottom: auto;
   font-size: 15px;
@@ -495,14 +507,14 @@ select {
   align-items: center;
 }
 
-.footer > * {
+.footer>* {
   margin-left: 15px;
   color: black;
   font-family: "Lora", serif;
   font-weight: 600;
 }
 
-.footer > *:hover {
+.footer>*:hover {
   color: var(--home-button-hover);
 }
 
@@ -709,8 +721,8 @@ h3 {
   text-align: center;
 }
 
-.about-body > p,
-.about-body > h3,
+.about-body>p,
+.about-body>h3,
 .about-body-text {
   color: white;
   text-align: justify;
@@ -721,25 +733,25 @@ h3 {
   color: white;
 }
 
-.about-body > ul {
+.about-body>ul {
   list-style-type: disc;
 }
 
-.about-body > p > a,
-.about-list > li > a,
+.about-body>p>a,
+.about-list>li>a,
 .about-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.about-body > p > a:hover,
-.about-body > p > ul > li > a:hover,
+.about-body>p>a:hover,
+.about-body>p>ul>li>a:hover,
 .about-body-link:hover {
   color: var(--text-hover);
 }
 
-.about-list > li > a:hover {
+.about-list>li>a:hover {
   color: var(--text-hover);
 }
 
@@ -763,8 +775,8 @@ h3 {
   text-align: center;
 }
 
-.faq-body > p,
-.faq-body > h3,
+.faq-body>p,
+.faq-body>h3,
 .faq-body-text {
   color: white;
   text-align: justify;
@@ -775,25 +787,25 @@ h3 {
   color: white;
 }
 
-.faq-body > ul {
+.faq-body>ul {
   list-style-type: disc;
 }
 
-.faq-body > p > a,
-.faq-list > li > a,
+.faq-body>p>a,
+.faq-list>li>a,
 .faq-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.faq-body > p > a:hover,
-.faq-body > p > ul > li > a:hover,
+.faq-body>p>a:hover,
+.faq-body>p>ul>li>a:hover,
 .faq-body-link:hover {
   color: var(--text-hover);
 }
 
-.faq-list > li > a:hover {
+.faq-list>li>a:hover {
   color: var(--text-hover);
 }
 
@@ -817,8 +829,8 @@ h3 {
   text-align: center;
 }
 
-.tos-body > p,
-.tos-body > h3,
+.tos-body>p,
+.tos-body>h3,
 .tos-body-text {
   color: white;
   text-align: justify;
@@ -829,25 +841,25 @@ h3 {
   color: white;
 }
 
-.tos-body > ul {
+.tos-body>ul {
   list-style-type: disc;
 }
 
-.tos-body > p > a,
-.tos-list > li > a,
+.tos-body>p>a,
+.tos-list>li>a,
 .tos-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.tos-body > p > a:hover,
-.tos-body > p > ul > li > a:hover,
+.tos-body>p>a:hover,
+.tos-body>p>ul>li>a:hover,
 .tos-body-link:hover {
   color: var(--text-hover);
 }
 
-.tos-list > li > a:hover {
+.tos-list>li>a:hover {
   color: var(--text-hover);
 }
 
@@ -1024,6 +1036,7 @@ h3 {
 }
 
 .container-mode {
+  margin-top: 0;
   display: flex;
   align-items: center;
 }
@@ -1085,10 +1098,11 @@ h3 {
 }
 
 .panel-container {
-  border-bottom: 2px solid  #828588;
+  border-bottom: 2px solid #828588;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Minimum height is 100% of the viewport height */
+  min-height: 100vh;
+  /* Minimum height is 100% of the viewport height */
 }
 
 .panel-resize-handle {
@@ -1098,5 +1112,6 @@ h3 {
 
 .panel {
   display: flex;
-  flex-direction: column; min-height: 100vh;
+  flex-direction: column;
+  min-height: 100vh;
 }
