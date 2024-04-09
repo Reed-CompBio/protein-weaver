@@ -203,8 +203,15 @@ body {
   width: 100%;
 }
 
+.search-input-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
 .example {
   margin-left: 10px;
+  margin-right: 16px;
   font-size: 15px;
   display: inline-flex;
   text-align: center;
@@ -249,9 +256,12 @@ select {
 }
 
 .search-button {
-  padding: 8px 16px;
-  min-height: 40px;
-  min-width: 80px;
+  margin-top: 1px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-right: 16px;
+  height: 40px;
+  width: 80px;
   word-wrap: nowrap;
   background: #000;
   color: #fff;
@@ -260,7 +270,6 @@ select {
   order: 4;
   flex: 0 1 auto;
   align-self: auto;
-  height: 40px;
   text-align: center;
 }
 
@@ -391,6 +400,7 @@ p {
 }
 
 select {
+  margin-top: 1px;
   margin-left: 10px;
   margin-right: 10px;
   height: 40px;
@@ -416,19 +426,21 @@ select {
   max-height: 143px;
   overflow-y: auto;
   padding-left: 0px;
-  width: 305px;
+  width: 175px;
   margin-left: 0px;
   pointer-events: auto;
   z-index: 0;
 }
 
 .k-input {
+  margin-top: 1px;
   width: 30px;
   height: 24px;
   min-height: 24px;
 }
 
 .autocomplete-input-container {
+  margin-top: 1px;
   position: relative;
   /* margin-right: 10px; */
   width: 175px;
@@ -444,7 +456,6 @@ select {
   pointer-events: auto;
   height: 24px;
   min-height: 24px;
-  min-width: 150px;
   width: 150px;
 }
 
@@ -454,7 +465,7 @@ select {
   border: none;
   border-radius: 2px;
   width: 150px;
-  min-width: 150px;
+  overflow: auto;
 }
 
 .autocomplete>.active,
@@ -470,6 +481,7 @@ select {
 
 .autocomplete-dropdown {
   position: absolute;
+  width: 175px;
 }
 
 .title-guide-container {
@@ -479,6 +491,7 @@ select {
 }
 
 .title-guide-container>h3 {
+  font-size: 23px;
   color: white;
   margin-top: 10px;
   margin-bottom: 0;

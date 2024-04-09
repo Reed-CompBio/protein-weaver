@@ -66,44 +66,45 @@ export default function SearchBar({
               <a onClick={() => getExample(3)}>#3</a>
             </p>
           </div>
-          <Autocomplete
-            suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
-            inputName="protein"
-            inputValue={query.protein}
-            onInputChange={handleInputChange}
-            placeholder="FBgn0031985"
-          />
-          <Autocomplete
-            suggestions={goTermOptions} // Pass the go term suggestions to the Autocomplete component
-            inputName="goTerm"
-            inputValue={query.goTerm}
-            onInputChange={handleInputChange}
-            placeholder="GO:0003674"
-          />
-          <input
-            className="k-input"
-            type="number"
-            min="0"
-            name="k"
-            placeholder="3"
-            value={query.k}
-            onChange={handleInputChange}
-            required
-          />
-          <select
-            name="species"
-            value={query.species}
-            onChange={handleSpeciesChange}
-          >
-            <option value="txid224308">B. subtilis</option>
-            <option value="txid7227">D. melanogaster</option>
-            <option value="txid7955">D. rerio</option>
-          </select>
-          <button type="submit" className="search-button" ref={submitRef}>
-            Search
-          </button>
+          <div className="search-input-wrapper">
+            <Autocomplete
+              suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
+              inputName="protein"
+              inputValue={query.protein}
+              onInputChange={handleInputChange}
+              placeholder="FBgn0031985"
+            />
+            <Autocomplete
+              suggestions={goTermOptions} // Pass the go term suggestions to the Autocomplete component
+              inputName="goTerm"
+              inputValue={query.goTerm}
+              onInputChange={handleInputChange}
+              placeholder="GO:0003674"
+            />
+            <input
+              className="k-input"
+              type="number"
+              min="0"
+              name="k"
+              placeholder="3"
+              value={query.k}
+              onChange={handleInputChange}
+              required
+            />
+            <select
+              name="species"
+              value={query.species}
+              onChange={handleSpeciesChange}
+            >
+              <option value="txid224308">B. subtilis</option>
+              <option value="txid7227">D. melanogaster</option>
+              <option value="txid7955">D. rerio</option>
+            </select>
+            <button type="submit" className="search-button" ref={submitRef}>
+              Search
+            </button>
+          </div>
         </div>
-
       </form>
     </div>
   );

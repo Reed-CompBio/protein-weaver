@@ -555,7 +555,7 @@ export default function Testing() {
               <PanelResizeHandle className="panel-resize-handle" />
               <Panel className="panel" defaultSize={30} minSize={20}>
                 <PanelGroup direction="vertical">
-                  <Panel defaultSize={19} minSize={0} collapsedSize={0} maxSize={19}>
+                  <Panel defaultSize={21} minSize={0} collapsedSize={0} maxSize={28}>
                     <SearchBar
                       handleSubmit={handleSubmit}
                       submitRef={submitRef}
