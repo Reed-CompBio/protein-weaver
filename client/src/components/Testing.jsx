@@ -549,29 +549,14 @@ export default function Testing() {
                     Graph
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
-                  <Panel>Legend</Panel>
+                  <Panel defaultSize={30} minSize={10} maxSize={30}>
+                    Graph Exploration Features
+                  </Panel>
                 </PanelGroup>
               </Panel>
               <PanelResizeHandle className="panel-resize-handle" />
               <Panel className="panel" defaultSize={30} minSize={20}>
                 <PanelGroup direction="vertical">
-                  {/* Search Bar Panel */}
-                  <Panel defaultSize={23} minSize={0} collapsedSize={0} maxSize={28}>
-                    <SearchBar
-                      handleSubmit={handleSubmit}
-                      submitRef={submitRef}
-                      query={query}
-                      handleInputChange={handleInputChange}
-                      getExample={getExample}
-                      proteinOptions={proteinOptions}
-                      goTermOptions={goTermOptions}
-                      handleGuide={handleGuide}
-                      handleSpeciesChange={handleSpeciesChange}
-                      handleQueryMode={handleQueryMode}
-                      activeModeButton={activeModeButton}
-                    />
-                  </Panel>
-                  <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={50} minSize={10}>
                     Summary
                   </Panel>

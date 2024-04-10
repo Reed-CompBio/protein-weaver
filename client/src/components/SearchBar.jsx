@@ -16,82 +16,40 @@ export default function SearchBar({
   activeModeButton,
 }) {
   return (
-    // title of search bar
+    // Search Bar Component
     <div className="query-container">
-      {/* guide and title */}
-      <div className="title-guide-container">
-        <h3 className="query-title">
-          Enter protein, GO term and number of paths to visualize...
-        </h3>
-        <button className="guide-button" onClick={handleGuide}>
-          ?
-        </button>
-      </div>
 
       {/* search inputs and button */}
       <form method="post" onSubmit={handleSubmit}>
-
         <div className="search-container">
-          <div className="container-mode">
-            <h4>Select Mode:</h4>
-            <div className="container-mode-button">
-              <input
-                data-tooltip-id="path-tooltip"
-                type="button"
-                className={
-                  activeModeButton === "path"
-                    ? "active-button"
-                    : "inactive-button"
-                }
-                onClick={handleQueryMode}
-                value="K Unique Paths"
-              />
-              <input
-                data-tooltip-id="node-tooltip"
-                type="button"
-                className={
-                  activeModeButton === "node"
-                    ? "active-button"
-                    : "inactive-button"
-                }
-                onClick={handleQueryMode}
-                value="K Unique Nodes"
-              />
-              <Modetooltip></Modetooltip>
-            </div>
-            {/* user examples */}
-            <p className="example">
-              Examples: <a onClick={() => getExample(1)}>#1</a>{" "}
-              <a onClick={() => getExample(2)}>#2</a>{" "}
-              <a onClick={() => getExample(3)}>#3</a>
-            </p>
-          </div>
           <div className="search-input-wrapper">
             <Autocomplete
               suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
               inputName="protein"
               inputValue={query.protein}
               onInputChange={handleInputChange}
-              placeholder="FBgn0031985"
+              placeholder="Protein"
             />
             <Autocomplete
+              className="go-term-input"
               suggestions={goTermOptions} // Pass the go term suggestions to the Autocomplete component
               inputName="goTerm"
               inputValue={query.goTerm}
               onInputChange={handleInputChange}
-              placeholder="GO:0003674"
+              placeholder="GO Term"
             />
             <input
               className="k-input"
               type="number"
               min="0"
               name="k"
-              placeholder="3"
+              placeholder="k"
               value={query.k}
               onChange={handleInputChange}
               required
             />
             <select
+              style={{ width: "90px" }}
               name="species"
               value={query.species}
               onChange={handleSpeciesChange}
@@ -106,6 +64,46 @@ export default function SearchBar({
           </div>
         </div>
       </form>
+
+      {/* change query mode */}
+      <div className="mode-container">
+        <h4>Mode:</h4>
+        <input
+          data-tooltip-id="path-tooltip"
+          type="button"
+          className={
+            activeModeButton === "path"
+              ? "active-button"
+              : "inactive-button"
+          }
+          onClick={handleQueryMode}
+          value="Paths"
+        />
+        <input
+          data-tooltip-id="node-tooltip"
+          type="button"
+          className={
+            activeModeButton === "node"
+              ? "active-button"
+              : "inactive-button"
+          }
+          onClick={handleQueryMode}
+          value="Nodes"
+        />
+        <Modetooltip></Modetooltip>
+
+        {/* user examples */}
+        <h4 className="example">
+          Examples: <a onClick={() => getExample(1)}>#1</a>{" "}
+          <a onClick={() => getExample(2)}>#2</a>{" "}
+          <a onClick={() => getExample(3)}>#3</a>
+        </h4>
+      </div>
+
+      {/* user guide */}
+      <button className="guide-button" onClick={handleGuide}>
+        ?
+      </button>
     </div>
   );
 }
