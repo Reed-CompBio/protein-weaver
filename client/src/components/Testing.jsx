@@ -543,7 +543,7 @@ export default function Testing() {
         <div>
           <div className="panel-container">
             <PanelGroup direction="horizontal">
-              <Panel className="panel" defaultSize={30} minSize={53}>
+              <Panel className="panel" defaultSize={30} minSize={62}>
                 <PanelGroup direction="vertical">
                   <Panel defaultSize={70} minSize={20}>
                     Graph
