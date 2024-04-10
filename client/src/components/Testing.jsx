@@ -543,7 +543,7 @@ export default function Testing() {
         <div>
           <div className="panel-container">
             <PanelGroup direction="horizontal">
-              <Panel className="panel" defaultSize={30} minSize={20}>
+              <Panel className="panel" defaultSize={30} minSize={53}>
                 <PanelGroup direction="vertical">
                   <Panel defaultSize={70} minSize={20}>
                     Graph
@@ -555,7 +555,8 @@ export default function Testing() {
               <PanelResizeHandle className="panel-resize-handle" />
               <Panel className="panel" defaultSize={30} minSize={20}>
                 <PanelGroup direction="vertical">
-                  <Panel defaultSize={21} minSize={0} collapsedSize={0} maxSize={28}>
+                  {/* Search Bar Panel */}
+                  <Panel defaultSize={23} minSize={0} collapsedSize={0} maxSize={28}>
                     <SearchBar
                       handleSubmit={handleSubmit}
                       submitRef={submitRef}
