@@ -24,9 +24,11 @@ export function NetworkParserPath(data, source, go_term) {
         },
       };
       if (
-        (currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
-          currentPath[j].properties.id.toUpperCase() === source.toUpperCase()) &&
-        (j == currentPath.length - 2)
+        (currentPath[j].properties.name.toUpperCase() ===
+          source.toUpperCase() ||
+          currentPath[j].properties.id.toUpperCase() ===
+            source.toUpperCase()) &&
+        j == currentPath.length - 2
       ) {
         nodeEntry.data.type = "go_source";
       } else if (
@@ -107,14 +109,14 @@ export function EdgeDataParser(networkData, edgeData) {
       }
     }
   }
+  console.log(networkData);
   return networkData;
 }
-
 
 export function NetworkParserNode(data, source, k) {
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
   for (let i = 0; i < Math.min(k, data.length - 1); i++) {
-    let currentPath = data[i]
+    let currentPath = data[i];
     for (let j = 0; j < currentPath.length; j++) {
       //Add each node in a path, and label them accordingly (source, go_protein, or intermediate)
       //Keep track of all the nodes in nodeList
@@ -124,9 +126,13 @@ export function NetworkParserNode(data, source, k) {
           label: currentPath[j].properties.name,
         },
       };
-      if ((currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
-        currentPath[j].properties.id.toUpperCase() === source.toUpperCase()) &&
-        (j == currentPath.length - 1)) {
+      if (
+        (currentPath[j].properties.name.toUpperCase() ===
+          source.toUpperCase() ||
+          currentPath[j].properties.id.toUpperCase() ===
+            source.toUpperCase()) &&
+        j == currentPath.length - 1
+      ) {
         nodeEntry.data.type = "go_source";
       } else if (
         currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
@@ -161,6 +167,6 @@ export function NetworkParserNode(data, source, k) {
       }
     }
   }
-  parsedData.goTerm = data[data.length - 1][0]._fields[0].properties
+  parsedData.goTerm = data[data.length - 1][0]._fields[0].properties;
   return parsedData;
 }

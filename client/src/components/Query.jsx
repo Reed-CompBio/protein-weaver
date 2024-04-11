@@ -5,6 +5,7 @@ import { NetworkParserPath, EdgeDataParser, NetworkParserNode } from "../tools/P
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
+import coseBilkent from "cytoscape-cose-bilkent";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
 import Joyride, { STATUS } from "react-joyride";
@@ -43,7 +44,7 @@ export default function Query() {
     const [activeModeButton, setActiveModeButton] = useState("")
     const [dataParsingStatus, setDataParsingStatus] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
-
+    cytoscape.use(coseBilkent)
     // Set default search params for the URL
     useEffect(() => {
         if (

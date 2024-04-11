@@ -9,6 +9,14 @@ import {
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
+import cola from "cytoscape-cola";
+
+cytoscape.use(cola);
+import {
+  cytoscapeTestElements,
+  cytoscapeTest,
+  cytoscapeTest2,
+} from "../assets/CytoscapeTestElements";
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
 import Joyride, { STATUS } from "react-joyride";
@@ -17,6 +25,14 @@ import Legend from "./Legend";
 import { guideConfig } from "../assets/GuideConfig";
 
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import {
+  MdOutlineCheckBox,
+  MdOutlineCheckBoxOutlineBlank,
+} from "react-icons/md";
+import { IconContext } from "react-icons";
+import { PiGraph } from "react-icons/pi";
+import { TbGridDots } from "react-icons/tb";
+import { TbArrowsRandom } from "react-icons/tb";
 
 export default function Testing() {
   const [query, setQuery] = useState({
@@ -57,6 +73,7 @@ export default function Testing() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [pageState, setPageState] = useState(1);
+  cytoscape.use(cola);
 
   useEffect(() => {
     if (searchParams.get("species") === "") {
@@ -371,7 +388,7 @@ export default function Testing() {
 
     const cy = cyRef.current;
     if (cy) {
-      if (layoutInput === "cose-bilkent") {
+      if (layoutInput === "cola") {
         cy.layout(layout).run();
       }
       if (layoutInput === "random") {
@@ -543,10 +560,33 @@ export default function Testing() {
         <div>
           <div className="panel-container">
             <PanelGroup direction="horizontal">
-              <Panel className="panel" defaultSize={30} minSize={62}>
+              <Panel className="panel" defaultSize={60} minSize={60}>
                 <PanelGroup direction="vertical">
                   <Panel defaultSize={70} minSize={20}>
-                    Graph
+                    <div className="graph-panel-container">
+                      <CytoscapeComponent
+                        className="cytoscape-graph"
+                        elements={CytoscapeComponent.normalizeElements(
+                          cytoscapeTest2
+                        )}
+                        style={{
+                          cursor: "pointer",
+                        }}
+                        stylesheet={cytoscapeStyle}
+                        layout={layout}
+                        cy={(cy) => {
+                          cyRef.current = cy;
+                          cy.on("tap", "node", (evt) => {
+                            getSidePanelData(evt);
+                          });
+                        }}
+                      />
+                      <Legend
+                        handleSharedEdgesToggle={handleSharedEdgesToggle}
+                        showSharedEdges={showSharedEdges}
+                        handleLayoutChange={handleLayoutChange}
+                      />
+                    </div>
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={30} minSize={10} maxSize={30}>
@@ -555,9 +595,9 @@ export default function Testing() {
                 </PanelGroup>
               </Panel>
               <PanelResizeHandle className="panel-resize-handle" />
-              <Panel className="panel" defaultSize={30} minSize={20}>
+              <Panel className="panel" defaultSize={40} minSize={20}>
                 <PanelGroup direction="vertical">
-                  <Panel defaultSize={50} minSize={10}>
+                  <Panel defaultSize={60} minSize={10}>
                     Summary
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
@@ -568,9 +608,8 @@ export default function Testing() {
               </Panel>
             </PanelGroup>
           </div>
-        </div >
-      )
-      }
+        </div>
+      )}
 
       {/* 
 
@@ -657,6 +696,6 @@ export default function Testing() {
                     </div>
                 )}
             </div> */}
-    </div >
+    </div>
   );
 }
