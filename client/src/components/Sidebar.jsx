@@ -27,7 +27,6 @@ export default function Sidebar({
   const [sourceNodeLink, setSourceNodeLink] = useState("");
   const [neverAnnotateWarning, setNeverAnnotateWarning] = useState(false);
   const [showNeverAnnotate, setShowNeverAnnotate] = useState(false);
-  const [bold, setBold] = useState(false);
 
   useEffect(() => {
     if (goTerm.never_annotate === "true") {

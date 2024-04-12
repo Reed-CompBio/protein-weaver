@@ -83,7 +83,7 @@ export default function Legend({
                 onClick={(e) => handleLayoutChange("cola", e)}
                 aria-label="default"
               />
-              <span className="tooltiptext">cola</span>
+              <span className="tooltiptext">Cola</span>
             </div>
             <div className="layout-tooltip">
               <TbArrowsRandom

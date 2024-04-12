@@ -20,6 +20,7 @@ import {
 import Sidebar from "./Sidebar";
 import QueryError from "./QueryError";
 import Joyride, { STATUS } from "react-joyride";
+import GraphExploration from "./GraphExploration";
 import SearchBar from "./SearchBar";
 import Legend from "./Legend";
 import { guideConfig } from "../assets/GuideConfig";
@@ -590,7 +591,21 @@ export default function Testing() {
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={30} minSize={10} maxSize={30}>
-                    Graph Exploration Features
+                    <GraphExploration
+                      currentNode={sidebarNode}
+                      query={query}
+                      handleSourceNode={handleSourceNode}
+                      handleSubmit={handleSubmit}
+                      exportPNG={exportPNG}
+                      searchExecuted={searchParams}
+                      queryCount={queryCount}
+                      logs={logs}
+                      handleLog={handleLog}
+                      parentGoTerms={ancestorsOptions}
+                      childrenGoTerms={descendantsOptions}
+                      storeGoTermValue={storeGoTermValue}
+                      handleGoTermChange={handleGoTermChange}
+                    />
                   </Panel>
                 </PanelGroup>
               </Panel>
