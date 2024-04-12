@@ -31,9 +31,9 @@ export default function NavBar() {
   // constants for error messages
   const [dataParsingStatus, setDataParsingStatus] = useState(false);
   const [pageState, setPageState] = useState(1);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
 
   // constants for autocomplete options
   const [proteinOptions, setProteinOptions] = useState([]);
@@ -42,7 +42,6 @@ export default function NavBar() {
   // constants for guide
   const [startGuide, setStartGuide] = useState(0);
   const [guide, setGuide] = useState(guideConfig);
-
 
   // Set the query and set default if blank
   useEffect(() => {
@@ -357,7 +356,7 @@ export default function NavBar() {
   // Function for showing user guide
   const handleGuide = (e) => {
     e.preventDefault();
-    getExample(1);
+    // getExample(1);
     setStartGuide(startGuide + 1);
     setGuide({ run: true, steps: guide.steps });
   };

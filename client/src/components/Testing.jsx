@@ -562,7 +562,10 @@ export default function Testing() {
           <div className="panel-container">
             <PanelGroup direction="horizontal">
               <Panel className="panel" defaultSize={60} minSize={60}>
-                <PanelGroup direction="vertical">
+                <PanelGroup
+                  direction="vertical"
+                  className="left-panel-container"
+                >
                   <Panel defaultSize={70} minSize={20}>
                     <div className="graph-panel-container">
                       <CytoscapeComponent
@@ -591,33 +594,38 @@ export default function Testing() {
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={30} minSize={10} maxSize={30}>
-                    <GraphExploration
-                      currentNode={sidebarNode}
-                      query={query}
-                      handleSourceNode={handleSourceNode}
-                      handleSubmit={handleSubmit}
-                      exportPNG={exportPNG}
-                      searchExecuted={searchParams}
-                      queryCount={queryCount}
-                      logs={logs}
-                      handleLog={handleLog}
-                      parentGoTerms={ancestorsOptions}
-                      childrenGoTerms={descendantsOptions}
-                      storeGoTermValue={storeGoTermValue}
-                      handleGoTermChange={handleGoTermChange}
-                    />
+                    <div className="graph-exploration-panel-container">
+                      <GraphExploration
+                        currentNode={sidebarNode}
+                        query={query}
+                        handleSourceNode={handleSourceNode}
+                        handleSubmit={handleSubmit}
+                        exportPNG={exportPNG}
+                        searchExecuted={searchParams}
+                        queryCount={queryCount}
+                        logs={logs}
+                        handleLog={handleLog}
+                        parentGoTerms={ancestorsOptions}
+                        childrenGoTerms={descendantsOptions}
+                        storeGoTermValue={storeGoTermValue}
+                        handleGoTermChange={handleGoTermChange}
+                      />
+                    </div>
                   </Panel>
                 </PanelGroup>
               </Panel>
               <PanelResizeHandle className="panel-resize-handle" />
               <Panel className="panel" defaultSize={40} minSize={20}>
-                <PanelGroup direction="vertical">
+                <PanelGroup
+                  direction="vertical"
+                  className="right-panel-container"
+                >
                   <Panel defaultSize={60} minSize={10}>
-                    Summary
+                    <div className="summary-panel-container">Summary</div>
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={40} minSize={10}>
-                    Statistics
+                    <div className="statistics-panel-container">Statistics</div>
                   </Panel>
                 </PanelGroup>
               </Panel>
