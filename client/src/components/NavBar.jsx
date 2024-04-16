@@ -371,86 +371,71 @@ export default function NavBar() {
   };
 
   return (
-    <div>
-      <div className="navbar">
-        <h1 className="website-title">ProteinWeaver</h1>
-        <Joyride
-          callback={handleJoyrideCallback}
-          continuous
-          hideCloseButton
-          run={guide.run}
-          scrollToFirstStep
-          showProgress={true}
-          showSkipButton
-          disableOverlayClose
-          steps={guide.steps}
-          styles={{
-            options: {
-              zIndex: 10000,
-            },
-          }}
-        />
-        <SearchBar
-          handleSubmit={handleSubmit}
-          submitRef={submitRef}
-          query={query}
-          handleInputChange={handleInputChange}
-          getExample={getExample}
-          proteinOptions={proteinOptions}
-          goTermOptions={goTermOptions}
-          handleGuide={handleGuide}
-          handleSpeciesChange={handleSpeciesChange}
-          handleQueryMode={handleQueryMode}
-          activeModeButton={activeModeButton}
-        />
-        <ul className="navbar-menu">
-          <li>
-            <Link to={`/`}>
-              <button className="navbar-menu-button">
-                <IconContext.Provider
-                  value={{
-                    size: "1.5em",
-                  }}
-                >
-                  <FaHome />
-                </IconContext.Provider>
-                <div>Home</div>
-              </button>
-            </Link>
-          </li>
-          {/* <li>
+    <div className="navbar">
+      <h1 className="website-title">ProteinWeaver</h1>
+      <Joyride
+        callback={handleJoyrideCallback}
+        continuous
+        hideCloseButton
+        run={guide.run}
+        scrollToFirstStep
+        showProgress={true}
+        showSkipButton
+        disableOverlayClose
+        steps={guide.steps}
+        styles={{
+          options: {
+            zIndex: 10000,
+          },
+        }}
+      />
+      <ul className="navbar-menu">
+        <li>
+          <Link to={`/`}>
+            <button className="navbar-menu-button">
+              <IconContext.Provider
+                value={{
+                  size: "1.5em",
+                }}
+              >
+                <FaHome />
+              </IconContext.Provider>
+              <div>Home</div>
+            </button>
+          </Link>
+        </li>
+        {/* <li>
             <Link to={`/testing`}>Testing</Link>
           </li> */}
-          <li>
-            <Link to={`/query`}>
-              <button className="navbar-menu-button">
-                <IconContext.Provider
-                  value={{
-                    size: "1.5em",
-                  }}
-                >
-                  <FaSearch />
-                </IconContext.Provider>
-                <div>Query</div>
-              </button>
-            </Link>
-          </li>
-          <li>
-            <Link to={`/about`}>
-              <button className="navbar-menu-button">
-                <IconContext.Provider
-                  value={{
-                    size: "1.5em",
-                  }}
-                >
-                  <FaInfo />
-                </IconContext.Provider>
-                <div>About</div>
-              </button>
-            </Link>
-          </li>
-        </ul>
-      </div>
+        <li>
+          <Link to={`/query`}>
+            <button className="navbar-menu-button">
+              <IconContext.Provider
+                value={{
+                  size: "1.5em",
+                }}
+              >
+                <FaSearch />
+              </IconContext.Provider>
+              <div>Query</div>
+            </button>
+          </Link>
+        </li>
+        <li>
+          <Link to={`/about`}>
+            <button className="navbar-menu-button">
+              <IconContext.Provider
+                value={{
+                  size: "1.5em",
+                }}
+              >
+                <FaInfo />
+              </IconContext.Provider>
+              <div>About</div>
+            </button>
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 }

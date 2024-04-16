@@ -34,11 +34,6 @@ a:hover {
   color: #535bf2;
 }
 
-.website-title {
-  font-family: "Lora", serif;
-  font-weight: 500;
-}
-
 .red-sidebar-link {
   font-weight: 500;
   text-decoration: none;
@@ -122,11 +117,17 @@ button:focus-visible {
 }
 
 /* NavBar CSS */
-.navbar > ul {
+.website-title {
+  font-family: "Lora", serif;
+  font-weight: 500;
+  padding-left: 12px;
+}
+
+.navbar>ul {
   list-style-type: none;
 }
 
-.navbar > ul > * {
+.navbar>ul>* {
   margin-left: 10px;
   color: black;
 }
@@ -134,17 +135,14 @@ button:focus-visible {
 .navbar {
   display: flex;
   align-items: center;
-  padding-left: 25px;
-  padding-right: 25px;
   border-bottom: solid;
   background: #a70e16;
-  min-width: 1080px;
-  max-width: 100%;
-  /* max-width: 1080px; */
+  width: 100%;
   max-height: 70px;
 }
 
 .navbar-menu {
+  padding-right: 12px;
   display: flex;
   margin-left: auto;
 }
@@ -155,11 +153,12 @@ button:focus-visible {
   border-color: #000;
   border-radius: 4px;
   color: black;
-  align-items: center;
+  align-items: center
 }
 
 .main-layout-body {
   align-items: center;
+  width: 100%;
 }
 
 body {
@@ -167,6 +166,7 @@ body {
 }
 
 .page-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -174,18 +174,25 @@ body {
 
 .content-wrap {
   flex: 1;
+  width: 100%;
 }
 
 /* SearchBar */
+.search-bar-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 71px;
+  width: 100%;
+}
+
 .query-container {
-  width: fill;
-  max-height: 70px;
+  max-height: 80px;
   background: var(--reed-red);
   margin-top: 0;
   margin-bottom: 0;
-  padding-left: 24px;
   display: inline-flex;
-  max-width: 800px;
+  width: 100%;
 }
 
 .search-container {
@@ -197,10 +204,9 @@ body {
   align-content: stretch;
   align-items: center;
   margin-right: 10px;
-  /* margin-left: 16px; */
-  margin-top: 16px;
+  margin-left: 18px;
+  margin-top: 18px;
   overflow: hidden;
-  width: 100%;
 }
 
 .search-input-wrapper {
@@ -227,21 +233,20 @@ body {
   max-height: 120px;
   overflow-y: auto;
   padding-left: 0px;
-  width: 90px;
+  width: 180px;
   margin-left: 0px;
   pointer-events: auto;
-  z-index: 0;
+  z-index: 900;
 }
 
 .autocomplete-input-container {
   margin-top: 1px;
   position: relative;
-  /* margin-right: 10px; */
-  width: 90px;
+  width: 180px;
   display: inline-block;
   flex-wrap: nowrap;
   height: 180px;
-  z-index: 2;
+  z-index: 999;
   pointer-events: none;
 }
 
@@ -250,7 +255,7 @@ body {
   pointer-events: auto;
   height: 24px;
   min-height: 24px;
-  width: 65px;
+  width: 155px;
 }
 
 .autocomplete li {
@@ -258,11 +263,12 @@ body {
   background-color: rgba(0, 0, 0, 0.24);
   border: none;
   border-radius: 2px;
-  width: 65px;
+  width: 155px;
   overflow: auto;
+  z-index: 999;
 }
 
-.autocomplete > .active,
+.autocomplete>.active,
 .autocomplete li:hover {
   background-color: rgba(0, 0, 0, 0.24);
   cursor: pointer;
@@ -275,7 +281,7 @@ body {
 
 .autocomplete-dropdown {
   position: absolute;
-  width: 90px;
+  width: 180px;
   height: 90px;
   max-height: 90px;
 }
@@ -344,12 +350,26 @@ select {
   font-weight: bold;
 }
 
-.example > a {
+.example>a {
   color: white;
   font-weight: bold;
   margin-left: 5px;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.guide-button {
+  padding: 2.5px;
+  margin-top: 24px;
+  margin-right: 12px;
+  margin-left: auto;
+  margin-bottom: auto;
+  font-size: 15px;
+  border: 2px solid white;
+  background-color: white;
+  cursor: pointer;
+  color: #000;
+  z-index: 999;
 }
 
 /* Graph Exploration */
@@ -524,7 +544,7 @@ select {
   box-shadow: 0px -0px 10px 5px var(--shadow);
 }
 
-.sidebar > h2,
+.sidebar>h2,
 h3,
 p {
   color: black;
@@ -576,20 +596,6 @@ select {
   border-radius: 5px;
 }
 
-.guide-button {
-  padding: 2.5px;
-  margin-top: 20px;
-  margin-right: 3px;
-  margin-left: auto;
-  margin-bottom: auto;
-  font-size: 15px;
-  border: 2px solid white;
-  background-color: white;
-  cursor: pointer;
-  color: #000;
-  z-index: 999;
-}
-
 .footer {
   margin-left: 40%;
   margin-top: 10px;
@@ -600,14 +606,14 @@ select {
   align-items: center;
 }
 
-.footer > * {
+.footer>* {
   margin-left: 15px;
   color: black;
   font-family: "Lora", serif;
   font-weight: 600;
 }
 
-.footer > *:hover {
+.footer>*:hover {
   color: var(--home-button-hover);
 }
 
@@ -811,8 +817,8 @@ select {
   text-align: center;
 }
 
-.about-body > p,
-.about-body > h3,
+.about-body>p,
+.about-body>h3,
 .about-body-text {
   color: white;
   text-align: justify;
@@ -823,25 +829,25 @@ select {
   color: white;
 }
 
-.about-body > ul {
+.about-body>ul {
   list-style-type: disc;
 }
 
-.about-body > p > a,
-.about-list > li > a,
+.about-body>p>a,
+.about-list>li>a,
 .about-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.about-body > p > a:hover,
-.about-body > p > ul > li > a:hover,
+.about-body>p>a:hover,
+.about-body>p>ul>li>a:hover,
 .about-body-link:hover {
   color: var(--text-hover);
 }
 
-.about-list > li > a:hover {
+.about-list>li>a:hover {
   color: var(--text-hover);
 }
 
@@ -865,8 +871,8 @@ select {
   text-align: center;
 }
 
-.faq-body > p,
-.faq-body > h3,
+.faq-body>p,
+.faq-body>h3,
 .faq-body-text {
   color: white;
   text-align: justify;
@@ -877,25 +883,25 @@ select {
   color: white;
 }
 
-.faq-body > ul {
+.faq-body>ul {
   list-style-type: disc;
 }
 
-.faq-body > p > a,
-.faq-list > li > a,
+.faq-body>p>a,
+.faq-list>li>a,
 .faq-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.faq-body > p > a:hover,
-.faq-body > p > ul > li > a:hover,
+.faq-body>p>a:hover,
+.faq-body>p>ul>li>a:hover,
 .faq-body-link:hover {
   color: var(--text-hover);
 }
 
-.faq-list > li > a:hover {
+.faq-list>li>a:hover {
   color: var(--text-hover);
 }
 
@@ -919,8 +925,8 @@ select {
   text-align: center;
 }
 
-.tos-body > p,
-.tos-body > h3,
+.tos-body>p,
+.tos-body>h3,
 .tos-body-text {
   color: white;
   text-align: justify;
@@ -931,25 +937,25 @@ select {
   color: white;
 }
 
-.tos-body > ul {
+.tos-body>ul {
   list-style-type: disc;
 }
 
-.tos-body > p > a,
-.tos-list > li > a,
+.tos-body>p>a,
+.tos-list>li>a,
 .tos-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.tos-body > p > a:hover,
-.tos-body > p > ul > li > a:hover,
+.tos-body>p>a:hover,
+.tos-body>p>ul>li>a:hover,
 .tos-body-link:hover {
   color: var(--text-hover);
 }
 
-.tos-list > li > a:hover {
+.tos-list>li>a:hover {
   color: var(--text-hover);
 }
 
@@ -1207,6 +1213,9 @@ select {
 }
 
 .panel-container {
+  margin-top: 82px;
+  width: 100%;
+  position: relative;
   border-bottom: 2px solid #828588;
   display: flex;
   flex-direction: column;

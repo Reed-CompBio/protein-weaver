@@ -559,6 +559,21 @@ export default function Testing() {
 
       {pageState == 1 && (
         <div>
+          <div className="search-bar-container">
+            <SearchBar
+              handleSubmit={handleSubmit}
+              submitRef={submitRef}
+              query={query}
+              handleInputChange={handleInputChange}
+              getExample={getExample}
+              proteinOptions={proteinOptions}
+              goTermOptions={goTermOptions}
+              handleGuide={handleGuide}
+              handleSpeciesChange={handleSpeciesChange}
+              handleQueryMode={handleQueryMode}
+              activeModeButton={activeModeButton}
+            />
+          </div>
           <div className="panel-container">
             <PanelGroup direction="horizontal">
               <Panel className="panel" defaultSize={60} minSize={60}>
