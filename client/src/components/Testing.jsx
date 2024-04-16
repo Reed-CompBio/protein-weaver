@@ -401,6 +401,7 @@ export default function Testing() {
     }
   };
 
+  // Allow users to change protein/GO term input
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setQuery((prevData) => ({
@@ -409,6 +410,7 @@ export default function Testing() {
     }));
   };
 
+  // Allow users to change species value
   const handleSpeciesChange = (e) => {
     setQuery((prevData) => ({
       ...prevData,
@@ -416,10 +418,12 @@ export default function Testing() {
     }));
   };
 
+  // Store GO term value temporarily for new GO term selection when moving through hierarchy
   const storeGoTermValue = (e) => {
     setTempGoTermValue(e.target.value);
   };
 
+  // Change GO term value when traversing hierarchy
   const handleGoTermChange = (e) => {
     setQuery((prevData) => ({
       ...prevData,
@@ -427,6 +431,8 @@ export default function Testing() {
     }));
   };
 
+  // Change protein value to the user selected protein
+  // MAY NEED TO UPDATE THIS FUNCTION IF IT STILL DOESN'T WORK
   const handleSourceNode = (e) => {
     const newSource = e.target.getAttribute("new-source-node");
 
@@ -438,11 +444,13 @@ export default function Testing() {
     }
   };
 
+  // Get current node data for summary panel
   const getSidePanelData = (node) => {
     let currentNode = node.target.data();
     setSidebarNode(currentNode);
   };
 
+  // Set example queries in SearchBar
   const getExample = (i) => {
     switch (i) {
       case 1:
@@ -478,6 +486,7 @@ export default function Testing() {
     }
   };
 
+  // Allow users to export network as PNG
   const exportPNG = () => {
     const cy = cyRef.current;
     if (cy) {
@@ -486,10 +495,12 @@ export default function Testing() {
     }
   };
 
+  // Track user interaction with the graph/queries
   const handleLog = (entry) => {
     setLogs((logs) => [...logs, entry]);
   };
 
+  // Show/Hide guide
   const handleGuide = (e) => {
     e.preventDefault();
     getExample(1);
@@ -541,7 +552,23 @@ export default function Testing() {
       {/* pageState is responsible for handling if we are in query search only page or query w/ results page */}
       {pageState == 0 && (
         <div>
-          <SearchBar
+          <Joyride
+            callback={handleJoyrideCallback}
+            continuous
+            hideCloseButton
+            run={guide.run}
+            scrollToFirstStep
+            showProgress={true}
+            showSkipButton
+            disableOverlayClose
+            steps={guide.steps}
+            styles={{
+              options: {
+                zIndex: 10000,
+              },
+            }}
+          />
+          <SearchBar // SearchBar component
             handleSubmit={handleSubmit}
             submitRef={submitRef}
             query={query}
@@ -559,8 +586,24 @@ export default function Testing() {
 
       {pageState == 1 && (
         <div>
+          <Joyride
+            callback={handleJoyrideCallback}
+            continuous
+            hideCloseButton
+            run={guide.run}
+            scrollToFirstStep
+            showProgress={true}
+            showSkipButton
+            disableOverlayClose
+            steps={guide.steps}
+            styles={{
+              options: {
+                zIndex: 10000,
+              },
+            }}
+          />
           <div className="search-bar-container">
-            <SearchBar
+            <SearchBar  // SearchBar component
               handleSubmit={handleSubmit}
               submitRef={submitRef}
               query={query}
@@ -574,6 +617,7 @@ export default function Testing() {
               activeModeButton={activeModeButton}
             />
           </div>
+          {/* Render response to user input */}
           <div className="panel-container">
             <PanelGroup direction="horizontal">
               <Panel className="panel" defaultSize={60} minSize={60}>
@@ -583,7 +627,7 @@ export default function Testing() {
                 >
                   <Panel defaultSize={70} minSize={20}>
                     <div className="graph-panel-container">
-                      <CytoscapeComponent
+                      <CytoscapeComponent // Render Cytoscape visualization
                         className="cytoscape-graph"
                         elements={CytoscapeComponent.normalizeElements(
                           cytoscapeTest2
@@ -600,7 +644,7 @@ export default function Testing() {
                           });
                         }}
                       />
-                      <Legend
+                      <Legend // Render legend within Cytoscape visualization
                         handleSharedEdgesToggle={handleSharedEdgesToggle}
                         showSharedEdges={showSharedEdges}
                         handleLayoutChange={handleLayoutChange}
@@ -610,7 +654,7 @@ export default function Testing() {
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={30} minSize={10} maxSize={30}>
                     <div className="graph-exploration-panel-container">
-                      <GraphExploration
+                      <GraphExploration // Render graph exploration panel
                         currentNode={sidebarNode}
                         query={query}
                         handleSourceNode={handleSourceNode}
@@ -636,7 +680,9 @@ export default function Testing() {
                   className="right-panel-container"
                 >
                   <Panel defaultSize={60} minSize={10}>
-                    <div className="summary-panel-container">Summary</div>
+                    <div className="summary-panel-container">
+                      Summary
+                    </div>
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={40} minSize={10}>
@@ -650,37 +696,7 @@ export default function Testing() {
       )}
 
       {/* 
-
-            <Joyride
-                callback={handleJoyrideCallback}
-                continuous
-                hideCloseButton
-                run={guide.run}
-                scrollToFirstStep
-                showProgress={true}
-                showSkipButton
-                disableOverlayClose
-                steps={guide.steps}
-                styles={{
-                    options: {
-                        zIndex: 10000,
-                    },
-                }}
-            />
             <div className="search-box-align">
-                <SearchBar
-                    handleSubmit={handleSubmit}
-                    submitRef={submitRef}
-                    query={query}
-                    handleInputChange={handleInputChange}
-                    getExample={getExample}
-                    proteinOptions={proteinOptions}
-                    goTermOptions={goTermOptions}
-                    handleGuide={handleGuide}
-                    handleSpeciesChange={handleSpeciesChange}
-                    handleQueryMode={handleQueryMode}
-                    activeModeButton={activeModeButton}
-                />
 
                 {hasError && <QueryError errorMessage={errorMessage}/>}
 
