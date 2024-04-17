@@ -6,34 +6,38 @@ import {
   EdgeDataParser,
   NetworkParserNode,
 } from "../tools/Parser";
+
+// cytoscape imports
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import cola from "cytoscape-cola";
-
 cytoscape.use(cola);
 import {
   cytoscapeTestElements,
   cytoscapeTest,
   cytoscapeTest2,
 } from "../assets/CytoscapeTestElements";
-import Sidebar from "./Sidebar";
+
+// component imports
 import QueryError from "./QueryError";
 import Joyride, { STATUS } from "react-joyride";
-import GraphExploration from "./GraphExploration";
+import { guideConfig } from "../assets/GuideConfig";
 import SearchBar from "./SearchBar";
 import Legend from "./Legend";
-import { guideConfig } from "../assets/GuideConfig";
+import GraphExploration from "./GraphExploration";
+import GraphSummary from "./GraphSummary";
 
+// panel/icons imports
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import {
-  MdOutlineCheckBox,
-  MdOutlineCheckBoxOutlineBlank,
-} from "react-icons/md";
-import { IconContext } from "react-icons";
-import { PiGraph } from "react-icons/pi";
-import { TbGridDots } from "react-icons/tb";
-import { TbArrowsRandom } from "react-icons/tb";
+// import {
+//   MdOutlineCheckBox,
+//   MdOutlineCheckBoxOutlineBlank,
+// } from "react-icons/md";
+// import { IconContext } from "react-icons";
+// import { PiGraph } from "react-icons/pi";
+// import { TbGridDots } from "react-icons/tb";
+// import { TbArrowsRandom } from "react-icons/tb";
 
 export default function Testing() {
   const [query, setQuery] = useState({
@@ -500,7 +504,7 @@ export default function Testing() {
     setLogs((logs) => [...logs, entry]);
   };
 
-  // Show/Hide guide
+  // Show/hide guide
   const handleGuide = (e) => {
     e.preventDefault();
     getExample(1);
@@ -508,6 +512,7 @@ export default function Testing() {
     setGuide({ run: true, steps: guide.steps });
   };
 
+  // Hide guide when finished
   const handleJoyrideCallback = (data) => {
     const { status } = data;
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
@@ -517,6 +522,7 @@ export default function Testing() {
     }
   };
 
+  // Allow users to change query mode
   const handleQueryMode = (e) => {
     if (e.target.value == "K Unique Paths") {
       setQuery((prevState) => ({
@@ -681,7 +687,12 @@ export default function Testing() {
                 >
                   <Panel defaultSize={60} minSize={10}>
                     <div className="summary-panel-container">
-                      Summary
+                      <GraphSummary
+                        currentNode={sidebarNode}
+                        sourceNode={sourceNode}
+                        query={query}
+                        goTerm={goTerm}
+                      />
                     </div>
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />

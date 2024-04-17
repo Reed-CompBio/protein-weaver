@@ -18,6 +18,7 @@
   --reed-red: #a70e16;
   --reed-red-hover: #ca545a;
   --graph-tan: #edcb96;
+  --graph-tan-hover: #efe6dd;
   --light-background: #efe6dd;
   --shadow: rgb(77, 66, 66);
   --text-hover: rgb(239, 199, 199);
@@ -34,48 +35,11 @@ a:hover {
   color: #535bf2;
 }
 
-.red-sidebar-link {
-  font-weight: 500;
-  text-decoration: none;
-  background-color: var(--reed-red);
-  color: white;
-  padding: 5px;
-  border-radius: 10px;
-  border: 2px solid black;
-  text-align: center;
-}
 
-.red-sidebar-link:hover {
-  color: white;
-  background-color: var(--reed-red-hover);
-}
 
-.blue-sidebar-link {
-  font-weight: 500;
-  text-decoration: none;
-  background-color: var(--graph-blue);
-  color: white;
-  padding: 5px;
-  border-radius: 10px;
-  border: 2px solid black;
-  text-align: center;
-}
 
-.blue-sidebar-link:hover {
-  color: white;
-  background-color: var(--graph-blue-hover);
-}
 
-.tan-sidebar-link {
-  font-weight: 500;
-  text-decoration: none;
-  background-color: var(--graph-tan);
-  color: black;
-  padding: 5px;
-  border-radius: 10px;
-  border: 2px solid black;
-  text-align: center;
-}
+
 
 body {
   margin: 0px;
@@ -529,6 +493,117 @@ select {
   justify-content: center;
   width: 1080px;
   align-self: center;
+}
+
+/* Graph Summary Component */
+.graph-summary-title {
+  margin-left: 16px;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.query-result-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.query-result-summary h5 {
+  margin-left: 24px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.query-result-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.query-result-link-container {
+  margin: auto;
+}
+
+.red-sidebar-link {
+  font-weight: 500;
+  text-decoration: none;
+  background-color: var(--reed-red);
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid black;
+  text-align: center;
+}
+
+.red-sidebar-link:hover {
+  color: white;
+  background-color: var(--reed-red-hover);
+}
+
+.blue-sidebar-link {
+  font-weight: 500;
+  text-decoration: none;
+  background-color: var(--graph-blue);
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid black;
+  text-align: center;
+}
+
+.blue-sidebar-link:hover {
+  color: white;
+  background-color: var(--graph-blue-hover);
+}
+
+.tan-sidebar-link {
+  font-weight: 500;
+  text-decoration: none;
+  background-color: var(--graph-tan);
+  color: black;
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid black;
+  text-align: center;
+}
+
+.tan-sidebar-link:hover {
+  color: black;
+  background-color: var(--graph-tan-hover);
+}
+
+.protein-selection-suggestion {
+  margin-left: 16px;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.protein-summary {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.database-link {
+  font-size: small;
+}
+
+.go-protein-summary {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .go-qualifier {
+  display: flex;
+  flex-direction: row;
+} */
+
+.go-protein-disclaimer {
+  font-weight: bold;
+  font-size: x-small;
 }
 
 .sidebar {
