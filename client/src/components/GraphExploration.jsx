@@ -45,56 +45,108 @@ export default function GraphExploration({
             handleLog(newQuery);
         }
     }, [searchExecuted]);
-
-    return (
-        <div>
-            <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
-            <div className="graph-exploration">
-                {/* New Source Node Button */}
-                <div className="new-source-container">
-                    <h5>Selected Protein: {currentNode.label}</h5>
-                    <form method="post" onSubmit={handleSubmit}>
-                        <button
-                            className="new-source"
-                            onClick={handleSourceNode}
-                            new-source-node={currentNode.label}
-                        >
-                            Set as New Source Node
-                        </button>
-                    </form>
-                </div>
-                {/* GO Term Selection */}
-                <div className="go-container">
-                    <h5>Change queried GO Term:</h5>
-                    <div className="go-selector-container">
-                        <AncestorSelector
-                            parentGoTerms={parentGoTerms}
-                            storeGoTermValue={storeGoTermValue}
-                        />
-                        <DescendantSelector
-                            childrenGoTerms={childrenGoTerms}
-                            storeGoTermValue={storeGoTermValue}
-                        />
-                        <form method="post" onSubmit={handleSubmit} className="new-go-form">
+    if (currentNode) {
+        return (
+            <div>
+                <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
+                <div className="graph-exploration">
+                    {/* New Source Node Button */}
+                    <div className="new-source-container">
+                        <h5>Selected Protein: {currentNode.label}</h5>
+                        <form method="post" onSubmit={handleSubmit}>
                             <button
-                                className="new-go-term-button"
-                                onClick={handleGoTermChange}
+                                className="new-source"
+                                onClick={handleSourceNode}
+                                new-source-node={currentNode.label}
                             >
-                                Set as New GO Term
+                                Set as New Source Node
                             </button>
                         </form>
                     </div>
+                    {/* GO Term Selection */}
+                    <div className="go-container">
+                        <h5>Change queried GO Term:</h5>
+                        <div className="go-selector-container">
+                            <AncestorSelector
+                                parentGoTerms={parentGoTerms}
+                                storeGoTermValue={storeGoTermValue}
+                            />
+                            <DescendantSelector
+                                childrenGoTerms={childrenGoTerms}
+                                storeGoTermValue={storeGoTermValue}
+                            />
+                            <form method="post" onSubmit={handleSubmit} className="new-go-form">
+                                <button
+                                    className="new-go-term-button"
+                                    onClick={handleGoTermChange}
+                                >
+                                    Set as New GO Term
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {/* Export Logs/PNG */}
+                <div className="exports-container">
+                    <h5>Export logs or PNG of current network:</h5>
+                    <ExportLogJSON log={logs} />
+                    <a className="export" onClick={exportPNG}>
+                        Export Graph to PNG
+                    </a>
                 </div>
             </div>
-            {/* Export Logs/PNG */}
-            <div className="exports-container">
-                <h5>Export logs or PNG of current network:</h5>
-                <ExportLogJSON log={logs} />
-                <a className="export" onClick={exportPNG}>
-                    Export Graph to PNG
-                </a>
-            </div>
-        </div>
 
-    )
+        )
+    } else {
+        return (
+            <div>
+                <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
+                <div className="graph-exploration">
+                    {/* New Source Node Button */}
+                    <div className="new-source-container">
+                        <h5>Select a protein: </h5>
+                        <form method="post" onSubmit={handleSubmit}>
+                            <button
+                                className="new-source-disabled"
+                                onClick={handleSourceNode}
+                                disabled="true"
+                            >
+                                Set as New Source Node
+                            </button>
+                        </form>
+                    </div>
+                    {/* GO Term Selection */}
+                    <div className="go-container">
+                        <h5>Change queried GO Term:</h5>
+                        <div className="go-selector-container">
+                            <AncestorSelector
+                                parentGoTerms={parentGoTerms}
+                                storeGoTermValue={storeGoTermValue}
+                            />
+                            <DescendantSelector
+                                childrenGoTerms={childrenGoTerms}
+                                storeGoTermValue={storeGoTermValue}
+                            />
+                            <form method="post" onSubmit={handleSubmit} className="new-go-form">
+                                <button
+                                    className="new-go-term-button"
+                                    onClick={handleGoTermChange}
+                                >
+                                    Set as New GO Term
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {/* Export Logs/PNG */}
+                <div className="exports-container">
+                    <h5>Export logs or PNG of current network:</h5>
+                    <ExportLogJSON log={logs} />
+                    <a className="export" onClick={exportPNG}>
+                        Export Graph to PNG
+                    </a>
+                </div>
+            </div>
+        )
+    }
 }

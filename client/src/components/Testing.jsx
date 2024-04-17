@@ -641,7 +641,7 @@ export default function Testing() {
                       <CytoscapeComponent // Render Cytoscape visualization
                         className="cytoscape-graph"
                         elements={CytoscapeComponent.normalizeElements(
-                          cytoscapeTest2
+                          networkResult
                         )}
                         style={{
                           cursor: "pointer",
