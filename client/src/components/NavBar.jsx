@@ -22,9 +22,6 @@ export default function NavBar() {
             </button>
           </Link>
         </li>
-        {/* <li>
-            <Link to={`/testing`}>Testing</Link>
-          </li> */}
         <li>
           <Link to={`/query`}>
             <button className="navbar-menu-button">

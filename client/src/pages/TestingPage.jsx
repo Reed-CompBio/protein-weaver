@@ -7,7 +7,7 @@ export default function TestingPage() {
     <div>
       <MainLayout>
         <div className="main-layout-body">
-            <Testing></Testing>
+          <Testing />
         </div>
       </MainLayout>
     </div>

@@ -170,6 +170,7 @@ export default function Testing() {
       });
   }, []);
 
+  // Show results if done loading
   useEffect(() => {
     if (dataParsingStatus) {
       setShowResults(true);
@@ -587,6 +588,12 @@ export default function Testing() {
             handleQueryMode={handleQueryMode}
             activeModeButton={activeModeButton}
           />
+
+          {hasError && <QueryError errorMessage={errorMessage} />}
+
+          {isLoading && (
+            <div className="loader"></div>
+          )}
         </div>
       )}
 
@@ -622,6 +629,12 @@ export default function Testing() {
               handleQueryMode={handleQueryMode}
               activeModeButton={activeModeButton}
             />
+
+            {hasError && <QueryError errorMessage={errorMessage} />}
+
+            {isLoading && (
+              <div className="loader"></div>
+            )}
           </div>
           {/* Render response to user input */}
           <div className="panel-container">
@@ -705,62 +718,6 @@ export default function Testing() {
           </div>
         </div>
       )}
-
-      {/* 
-            <div className="search-box-align">
-
-                {hasError && <QueryError errorMessage={errorMessage}/>}
-
-                {isLoading  && (
-                    <div className="loader"></div>
-                )}
-
-                {showResults && (
-                    <div className="legend-align">
-                        <div className="sidebar-align">
-                            <CytoscapeComponent
-                                className="cytoscape-graph"
-                                elements={CytoscapeComponent.normalizeElements(networkResult)}
-                                style={{
-                                    width: "800px",
-                                    height: "500px",
-                                    cursor: "pointer",
-                                }}
-                                stylesheet={cytoscapeStyle}
-                                layout={layout}
-                                cy={(cy) => {
-                                    cyRef.current = cy;
-                                    cy.on("tap", "node", (evt) => {
-                                        getSidePanelData(evt);
-                                    });
-                                }}
-                            />
-                            <Sidebar
-                                currentNode={sidebarNode}
-                                sourceNode={sourceNode}
-                                query={query}
-                                goTerm={goTerm}
-                                handleSourceNode={handleSourceNode}
-                                handleSubmit={handleSubmit}
-                                exportPNG={exportPNG}
-                                searchExecuted={searchParams}
-                                queryCount={queryCount}
-                                logs={logs}
-                                handleLog={handleLog}
-                                parentGoTerms={ancestorsOptions}
-                                childrenGoTerms={descendantsOptions}
-                                storeGoTermValue={storeGoTermValue}
-                                handleGoTermChange={handleGoTermChange}
-                            />
-                        </div>
-                        <Legend
-                            handleSharedEdgesToggle={handleSharedEdgesToggle}
-                            showSharedEdges={showSharedEdges}
-                            handleLayoutChange={handleLayoutChange}
-                        />
-                    </div>
-                )}
-            </div> */}
     </div>
   );
 }
