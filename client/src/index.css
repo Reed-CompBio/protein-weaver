@@ -359,7 +359,7 @@ select {
   max-height: 180px;
 }
 
-.graph-exploration-title {
+.graph-exploration-title, .stats-title {
   margin-left: 16px;
   margin-top: 16px;
   margin-bottom: 0;
@@ -1268,4 +1268,48 @@ select {
   font-size: 10px;
   pointer-events: none;
   /* This makes the div non-interactive */
+}
+
+.stats-tabs {
+
+}
+
+.stats-tab-list{
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+  display: flex;
+
+}
+
+.stats-tab{
+  width: 100%;
+  border-bottom: 1px solid #828588;
+  padding: 5px;
+  text-align: center;
+}
+
+.stats-tab:hover{
+  cursor: pointer
+}
+
+
+.stats-tab-selected{
+  border-bottom: 0px solid #828588;
+  border-right: 1px solid #828588;
+  border-top: 1px solid #828588;
+  border-left: 1px solid #828588;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  text-decoration: underline;
+}
+
+.stats-tab-selected:hover{
+  cursor: auto
+}
+
+.stats-title {
+  margin-left: 16px;
+  margin-top: 16px;
+  margin-bottom: 10px;
 }

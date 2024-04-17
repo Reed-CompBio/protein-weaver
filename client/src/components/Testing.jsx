@@ -34,6 +34,7 @@ import { IconContext } from "react-icons";
 import { PiGraph } from "react-icons/pi";
 import { TbGridDots } from "react-icons/tb";
 import { TbArrowsRandom } from "react-icons/tb";
+import StatisticsTab from "./StatisticsTab";
 
 export default function Testing() {
   const [query, setQuery] = useState({
@@ -625,7 +626,7 @@ export default function Testing() {
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={40} minSize={10}>
-                    <div className="statistics-panel-container">Statistics</div>
+                    <StatisticsTab></StatisticsTab>
                   </Panel>
                 </PanelGroup>
               </Panel>
