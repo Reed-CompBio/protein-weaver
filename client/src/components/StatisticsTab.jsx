@@ -6,7 +6,7 @@ export default function StatisticsTab() {
 
   return (
     <div className="statistics-panel-container">
-      <h4 className="stats-title">Statistics</h4>
+      {/* <h4 className="stats-title">Statistics</h4> */}
       <Tabs
         selectedIndex={tabIndex}
         onSelect={(index) => setTabIndex(index)}
