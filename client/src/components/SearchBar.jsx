@@ -39,7 +39,7 @@ export default function SearchBar({
               placeholder="GO Term"
             />
             <input
-              className="k-input"
+              className="k-input" // User input for k
               type="number"
               min="0"
               name="k"
@@ -49,8 +49,8 @@ export default function SearchBar({
               required
             />
             <select
-              style={{ width: "90px" }}
-              name="species"
+              style={{ width: "180px" }}
+              name="species" // User input for species
               value={query.species}
               onChange={handleSpeciesChange}
             >

@@ -6,34 +6,31 @@ import {
   EdgeDataParser,
   NetworkParserNode,
 } from "../tools/Parser";
+
+// cytoscape imports
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import cola from "cytoscape-cola";
-
 cytoscape.use(cola);
 import {
   cytoscapeTestElements,
   cytoscapeTest,
   cytoscapeTest2,
 } from "../assets/CytoscapeTestElements";
-import Sidebar from "./Sidebar";
+
+// component imports
 import QueryError from "./QueryError";
 import Joyride, { STATUS } from "react-joyride";
-import GraphExploration from "./GraphExploration";
+import { guideConfig } from "../assets/GuideConfig";
 import SearchBar from "./SearchBar";
 import Legend from "./Legend";
-import { guideConfig } from "../assets/GuideConfig";
+import GraphExploration from "./GraphExploration";
+import GraphSummary from "./GraphSummary";
 
+// panel imports
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import {
-  MdOutlineCheckBox,
-  MdOutlineCheckBoxOutlineBlank,
-} from "react-icons/md";
-import { IconContext } from "react-icons";
-import { PiGraph } from "react-icons/pi";
-import { TbGridDots } from "react-icons/tb";
-import { TbArrowsRandom } from "react-icons/tb";
+
 import StatisticsTab from "./StatisticsTab";
 
 export default function Testing() {
@@ -167,6 +164,7 @@ export default function Testing() {
       });
   }, []);
 
+  // Show results if done loading
   useEffect(() => {
     if (dataParsingStatus) {
       setShowResults(true);
@@ -402,6 +400,7 @@ export default function Testing() {
     }
   };
 
+  // Allow users to change protein/GO term input
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setQuery((prevData) => ({
@@ -410,6 +409,7 @@ export default function Testing() {
     }));
   };
 
+  // Allow users to change species value
   const handleSpeciesChange = (e) => {
     setQuery((prevData) => ({
       ...prevData,
@@ -417,10 +417,12 @@ export default function Testing() {
     }));
   };
 
+  // Store GO term value temporarily for new GO term selection when moving through hierarchy
   const storeGoTermValue = (e) => {
     setTempGoTermValue(e.target.value);
   };
 
+  // Change GO term value when traversing hierarchy
   const handleGoTermChange = (e) => {
     setQuery((prevData) => ({
       ...prevData,
@@ -428,6 +430,8 @@ export default function Testing() {
     }));
   };
 
+  // Change protein value to the user selected protein
+  // MAY NEED TO UPDATE THIS FUNCTION IF IT STILL DOESN'T WORK
   const handleSourceNode = (e) => {
     const newSource = e.target.getAttribute("new-source-node");
 
@@ -439,11 +443,13 @@ export default function Testing() {
     }
   };
 
+  // Get current node data for summary panel
   const getSidePanelData = (node) => {
     let currentNode = node.target.data();
     setSidebarNode(currentNode);
   };
 
+  // Set example queries in SearchBar
   const getExample = (i) => {
     switch (i) {
       case 1:
@@ -479,6 +485,7 @@ export default function Testing() {
     }
   };
 
+  // Allow users to export network as PNG
   const exportPNG = () => {
     const cy = cyRef.current;
     if (cy) {
@@ -487,10 +494,12 @@ export default function Testing() {
     }
   };
 
+  // Track user interaction with the graph/queries
   const handleLog = (entry) => {
     setLogs((logs) => [...logs, entry]);
   };
 
+  // Show/hide guide
   const handleGuide = (e) => {
     e.preventDefault();
     getExample(1);
@@ -498,6 +507,7 @@ export default function Testing() {
     setGuide({ run: true, steps: guide.steps });
   };
 
+  // Hide guide when finished
   const handleJoyrideCallback = (data) => {
     const { status } = data;
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
@@ -507,6 +517,7 @@ export default function Testing() {
     }
   };
 
+  // Allow users to change query mode
   const handleQueryMode = (e) => {
     if (e.target.value == "K Unique Paths") {
       setQuery((prevState) => ({
@@ -542,7 +553,23 @@ export default function Testing() {
       {/* pageState is responsible for handling if we are in query search only page or query w/ results page */}
       {pageState == 0 && (
         <div>
-          <SearchBar
+          <Joyride
+            callback={handleJoyrideCallback}
+            continuous
+            hideCloseButton
+            run={guide.run}
+            scrollToFirstStep
+            showProgress={true}
+            showSkipButton
+            disableOverlayClose
+            steps={guide.steps}
+            styles={{
+              options: {
+                zIndex: 10000,
+              },
+            }}
+          />
+          <SearchBar // SearchBar component
             handleSubmit={handleSubmit}
             submitRef={submitRef}
             query={query}
@@ -555,11 +582,55 @@ export default function Testing() {
             handleQueryMode={handleQueryMode}
             activeModeButton={activeModeButton}
           />
+
+          {hasError && <QueryError errorMessage={errorMessage} />}
+
+          {isLoading && (
+            <div className="loader"></div>
+          )}
         </div>
       )}
 
       {pageState == 1 && (
         <div>
+          <Joyride
+            callback={handleJoyrideCallback}
+            continuous
+            hideCloseButton
+            run={guide.run}
+            scrollToFirstStep
+            showProgress={true}
+            showSkipButton
+            disableOverlayClose
+            steps={guide.steps}
+            styles={{
+              options: {
+                zIndex: 10000,
+              },
+            }}
+          />
+          <div className="search-bar-container">
+            <SearchBar  // SearchBar component
+              handleSubmit={handleSubmit}
+              submitRef={submitRef}
+              query={query}
+              handleInputChange={handleInputChange}
+              getExample={getExample}
+              proteinOptions={proteinOptions}
+              goTermOptions={goTermOptions}
+              handleGuide={handleGuide}
+              handleSpeciesChange={handleSpeciesChange}
+              handleQueryMode={handleQueryMode}
+              activeModeButton={activeModeButton}
+            />
+
+            {hasError && <QueryError errorMessage={errorMessage} />}
+
+            {isLoading && (
+              <div className="loader"></div>
+            )}
+          </div>
+          {/* Render response to user input */}
           <div className="panel-container">
             <PanelGroup direction="horizontal">
               <Panel className="panel" defaultSize={60} minSize={60}>
@@ -569,7 +640,7 @@ export default function Testing() {
                 >
                   <Panel defaultSize={70} minSize={20}>
                     <div className="graph-panel-container">
-                      <CytoscapeComponent
+                      <CytoscapeComponent // Render Cytoscape visualization
                         className="cytoscape-graph"
                         elements={CytoscapeComponent.normalizeElements(
                           cytoscapeTest2
@@ -586,7 +657,7 @@ export default function Testing() {
                           });
                         }}
                       />
-                      <Legend
+                      <Legend // Render legend within Cytoscape visualization
                         handleSharedEdgesToggle={handleSharedEdgesToggle}
                         showSharedEdges={showSharedEdges}
                         handleLayoutChange={handleLayoutChange}
@@ -596,7 +667,7 @@ export default function Testing() {
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={30} minSize={10} maxSize={30}>
                     <div className="graph-exploration-panel-container">
-                      <GraphExploration
+                      <GraphExploration // Render graph exploration panel
                         currentNode={sidebarNode}
                         query={query}
                         handleSourceNode={handleSourceNode}
@@ -622,7 +693,14 @@ export default function Testing() {
                   className="right-panel-container"
                 >
                   <Panel defaultSize={60} minSize={10}>
-                    <div className="summary-panel-container">Summary</div>
+                    <div className="summary-panel-container">
+                      <GraphSummary
+                        currentNode={sidebarNode}
+                        sourceNode={sourceNode}
+                        query={query}
+                        goTerm={goTerm}
+                      />
+                    </div>
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={40} minSize={10}>
@@ -634,92 +712,6 @@ export default function Testing() {
           </div>
         </div>
       )}
-
-      {/* 
-
-            <Joyride
-                callback={handleJoyrideCallback}
-                continuous
-                hideCloseButton
-                run={guide.run}
-                scrollToFirstStep
-                showProgress={true}
-                showSkipButton
-                disableOverlayClose
-                steps={guide.steps}
-                styles={{
-                    options: {
-                        zIndex: 10000,
-                    },
-                }}
-            />
-            <div className="search-box-align">
-                <SearchBar
-                    handleSubmit={handleSubmit}
-                    submitRef={submitRef}
-                    query={query}
-                    handleInputChange={handleInputChange}
-                    getExample={getExample}
-                    proteinOptions={proteinOptions}
-                    goTermOptions={goTermOptions}
-                    handleGuide={handleGuide}
-                    handleSpeciesChange={handleSpeciesChange}
-                    handleQueryMode={handleQueryMode}
-                    activeModeButton={activeModeButton}
-                />
-
-                {hasError && <QueryError errorMessage={errorMessage}/>}
-
-                {isLoading  && (
-                    <div className="loader"></div>
-                )}
-
-                {showResults && (
-                    <div className="legend-align">
-                        <div className="sidebar-align">
-                            <CytoscapeComponent
-                                className="cytoscape-graph"
-                                elements={CytoscapeComponent.normalizeElements(networkResult)}
-                                style={{
-                                    width: "800px",
-                                    height: "500px",
-                                    cursor: "pointer",
-                                }}
-                                stylesheet={cytoscapeStyle}
-                                layout={layout}
-                                cy={(cy) => {
-                                    cyRef.current = cy;
-                                    cy.on("tap", "node", (evt) => {
-                                        getSidePanelData(evt);
-                                    });
-                                }}
-                            />
-                            <Sidebar
-                                currentNode={sidebarNode}
-                                sourceNode={sourceNode}
-                                query={query}
-                                goTerm={goTerm}
-                                handleSourceNode={handleSourceNode}
-                                handleSubmit={handleSubmit}
-                                exportPNG={exportPNG}
-                                searchExecuted={searchParams}
-                                queryCount={queryCount}
-                                logs={logs}
-                                handleLog={handleLog}
-                                parentGoTerms={ancestorsOptions}
-                                childrenGoTerms={descendantsOptions}
-                                storeGoTermValue={storeGoTermValue}
-                                handleGoTermChange={handleGoTermChange}
-                            />
-                        </div>
-                        <Legend
-                            handleSharedEdgesToggle={handleSharedEdgesToggle}
-                            showSharedEdges={showSharedEdges}
-                            handleLayoutChange={handleLayoutChange}
-                        />
-                    </div>
-                )}
-            </div> */}
     </div>
   );
 }
