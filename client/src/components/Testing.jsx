@@ -28,16 +28,8 @@ import Legend from "./Legend";
 import GraphExploration from "./GraphExploration";
 import GraphSummary from "./GraphSummary";
 
-// panel/icons imports
+// panel imports
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-// import {
-//   MdOutlineCheckBox,
-//   MdOutlineCheckBoxOutlineBlank,
-// } from "react-icons/md";
-// import { IconContext } from "react-icons";
-// import { PiGraph } from "react-icons/pi";
-// import { TbGridDots } from "react-icons/tb";
-// import { TbArrowsRandom } from "react-icons/tb";
 
 export default function Testing() {
   const [query, setQuery] = useState({

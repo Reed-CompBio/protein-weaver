@@ -28,7 +28,7 @@ export default function GraphSummary({
     if (!currentNode) {
         return (
             <div>
-                <StaticSummary
+                <StaticSummary // This part of the graph summary never changes
                     sourceNode={sourceNode}
                     query={query}
                     goTerm={goTerm}
