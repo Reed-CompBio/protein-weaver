@@ -171,7 +171,7 @@ export default function Testing() {
     }
   }, [dataParsingStatus]);
 
-  // need to rerun the graph layout whenever we have a new network result. 
+  // need to rerun the graph layout whenever we have a new network result.
   useEffect(() => {
     const cy = cyRef.current;
     cy.layout(layout).run();
@@ -306,13 +306,15 @@ export default function Testing() {
   // Get descendants for queried GO term
   useEffect(() => {
     if (networkResult.goTerm != null) {
+      const requestBody = Object.assign(networkResult, {
+        species: query.species,
+      });
       fetch("/api/getDescendants", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // You can add any other headers if needed
         },
-        body: JSON.stringify(networkResult),
+        body: JSON.stringify(requestBody),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -330,13 +332,15 @@ export default function Testing() {
   // Get ancestors for queried GO term
   useEffect(() => {
     if (networkResult.goTerm != null) {
+      const requestBody = Object.assign(networkResult, {
+        species: query.species,
+      });
       fetch("/api/getAncestors", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // You can add any other headers if needed
         },
-        body: JSON.stringify(networkResult),
+        body: JSON.stringify(requestBody),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -375,7 +379,6 @@ export default function Testing() {
     }
   };
 
-  
   // Allow users to change layout
   const handleLayoutChange = (layoutInput, e) => {
     const randomLayout = {
@@ -591,9 +594,7 @@ export default function Testing() {
 
           {hasError && <QueryError errorMessage={errorMessage} />}
 
-          {isLoading && (
-            <div className="loader"></div>
-          )}
+          {isLoading && <div className="loader"></div>}
         </div>
       )}
 
@@ -616,7 +617,7 @@ export default function Testing() {
             }}
           />
           <div className="search-bar-container">
-            <SearchBar  // SearchBar component
+            <SearchBar // SearchBar component
               handleSubmit={handleSubmit}
               submitRef={submitRef}
               query={query}
