@@ -12,7 +12,6 @@ import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import cola from "cytoscape-cola";
-cytoscape.use(cola);
 import {
   cytoscapeTestElements,
   cytoscapeTest,
@@ -171,6 +170,12 @@ export default function Testing() {
       setIsLoading(false);
     }
   }, [dataParsingStatus]);
+
+  // need to rerun the graph layout whenever we have a new network result. 
+  useEffect(() => {
+    const cy = cyRef.current;
+    cy.layout(layout).run();
+  }, [networkResult]);
 
   // Function for submitting the query
   async function handleSubmit(e) {
@@ -370,6 +375,7 @@ export default function Testing() {
     }
   };
 
+  
   // Allow users to change layout
   const handleLayoutChange = (layoutInput, e) => {
     const randomLayout = {
@@ -626,9 +632,9 @@ export default function Testing() {
 
             {hasError && <QueryError errorMessage={errorMessage} />}
 
-            {isLoading && (
+            {/* {isLoading && (
               <div className="loader"></div>
-            )}
+            )} */}
           </div>
           {/* Render response to user input */}
           <div className="panel-container">

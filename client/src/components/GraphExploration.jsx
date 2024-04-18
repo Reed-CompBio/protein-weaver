@@ -109,7 +109,7 @@ export default function GraphExploration({
                             <button
                                 className="new-source-disabled"
                                 onClick={handleSourceNode}
-                                disabled="true"
+                                disabled={true}
                             >
                                 Set as New Source Node
                             </button>

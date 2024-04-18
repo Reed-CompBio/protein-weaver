@@ -12,6 +12,8 @@ import Joyride, { STATUS } from "react-joyride";
 import SearchBar from "./SearchBar";
 import Legend from "./Legend";
 import { guideConfig } from "../assets/GuideConfig";
+import cola from "cytoscape-cola";
+
 
 export default function Query() {
     const [query, setQuery] = useState({ mode: "", species: "", protein: "", goTerm: "", k: [] });
@@ -44,7 +46,7 @@ export default function Query() {
     const [activeModeButton, setActiveModeButton] = useState("")
     const [dataParsingStatus, setDataParsingStatus] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
-    cytoscape.use(coseBilkent)
+    cytoscape.use(cola)
     // Set default search params for the URL
     useEffect(() => {
         if (
@@ -356,7 +358,7 @@ export default function Query() {
 
         const cy = cyRef.current;
         if (cy) {
-            if (layoutInput === "cose-bilkent") {
+            if (layoutInput === "cola") {
                 cy.layout(layout).run();
             } if (layoutInput === "random") {
                 cy.layout(randomLayout).run();
