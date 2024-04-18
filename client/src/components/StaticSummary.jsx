@@ -45,7 +45,7 @@ export default function StaticSummary({
             <div className="query-result-container">
                 <div className="query-result-link-container">
                     <a
-                        className="red-sidebar-link"
+                        className="red-sidebar-link sidebar-button-block"
                         href={sourceNodeLink}
                         target="_blank"
                         rel="noopener"
@@ -55,7 +55,7 @@ export default function StaticSummary({
                 </div>
                 <div className="query-result-link-container">
                     <a
-                        className="blue-sidebar-link"
+                        className="blue-sidebar-link sidebar-button-block"
                         href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
                         target="_blank"
                         rel="noopener"
