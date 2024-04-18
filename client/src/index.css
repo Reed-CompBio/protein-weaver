@@ -368,6 +368,21 @@ select {
   text-align: center;
 }
 
+.new-source-disabled {
+  margin-top: 0;
+  margin-left: 16px;
+  margin-bottom: 16px;
+  min-height: 50px;
+  min-width: 96px;
+  word-wrap: nowrap;
+  background: #888888;
+  color: #fff;
+  border: 2px solid var(--light-background);
+  border-radius: 5px;
+  text-align: center;
+  cursor: auto;
+}
+
 .new-source-container {
   padding-left: 24px;
   flex: 1;
@@ -734,6 +749,8 @@ select {
 }
 
 .go-def-content {
+  padding-left: 16px;
+  padding-right: 16px;
   margin-bottom: 0;
 }
 
