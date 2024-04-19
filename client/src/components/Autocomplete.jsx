@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function MyAutocomplete(props) {
+export default function Autocomplete(props) {
     const { suggestions, inputName, inputValue, onInputChange, placeholder } =
         props;
     const [active, setActive] = useState(0);

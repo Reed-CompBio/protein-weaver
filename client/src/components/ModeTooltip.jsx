@@ -6,15 +6,15 @@ export default function Modetooltip() {
       <ReactTooltip
         id="path-tooltip"
         place="top"
-        content="This query mode will output a graph that shows k-unique paths"
-        style={{ backgroundColor: "#f7e3e1", color: "black"}}
+        content="Finds the k-shortest paths from the protein of interest to proteins annotated with the queried GO term."
+        style={{ backgroundColor: "#f7e3e1", color: "black" }}
       />
       <ReactTooltip
         id="node-tooltip"
         place="top"
         variant="info"
-        content="This query mode will output a graph that shows k-nodes that are closest to the protein of interest"
-        style={{ backgroundColor: "#f7e3e1", color: "black"}}
+        content="Finds the k-closest proteins annotated to the queried GO term, in relation to the protein of interest."
+        style={{ backgroundColor: "#f7e3e1", color: "black" }}
       />
     </div>
   );

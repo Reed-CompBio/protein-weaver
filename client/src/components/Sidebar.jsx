@@ -20,14 +20,13 @@ export default function Sidebar({
   parentGoTerms,
   childrenGoTerms,
   storeGoTermValue,
-  handleGoTermChange
+  handleGoTermChange,
 }) {
   const [proteinCount, setProteinCount] = useState(0);
   const [selectedDbLink, setSelectedDbLink] = useState("");
   const [sourceNodeLink, setSourceNodeLink] = useState("");
   const [neverAnnotateWarning, setNeverAnnotateWarning] = useState(false);
   const [showNeverAnnotate, setShowNeverAnnotate] = useState(false);
-  const [bold, setBold] = useState(false);
 
   useEffect(() => {
     if (goTerm.never_annotate === "true") {
@@ -37,31 +36,37 @@ export default function Sidebar({
     }
   }, [goTerm.never_annotate]);
 
-  console.log("DEBUGGING", currentNode);
-
   useEffect(() => {
     if (query.species === "txid7227") {
-      setSourceNodeLink(`https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`)
+      setSourceNodeLink(
+        `https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`
+      );
     } else if (query.species === "txid224308") {
-      var bsubId = query.protein.replace(/_/g, '')
-      setSourceNodeLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}#tab=GO`)
+      var bsubId = query.protein.replace(/_/g, "");
+      setSourceNodeLink(
+        `https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}#tab=GO`
+      );
     } else if (query.species === "txid7955") {
-      setSourceNodeLink(`https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`)
+      setSourceNodeLink(
+        `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
+      );
     }
   }, [query.species]);
 
   useEffect(() => {
     if (currentNode) {
       if (query.species === "txid7227") {
-        setSelectedDbLink(`https://flybase.org/reports/${currentNode.id}`)
+        setSelectedDbLink(`https://flybase.org/reports/${currentNode.id}`);
       } else if (query.species === "txid224308") {
-        var bsubId = query.protein.replace(/_/g, '')
-        setSelectedDbLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}`)
+        var bsubId = query.protein.replace(/_/g, "");
+        setSelectedDbLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}`);
       } else if (query.species === "txid7955") {
-        setSelectedDbLink(`https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`)
+        setSelectedDbLink(
+          `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`
+        );
       }
     }
-  }, [currentNode, query.species])
+  }, [currentNode, query.species]);
 
   useEffect(() => {
     if (currentNode) {
@@ -71,7 +76,7 @@ export default function Sidebar({
         timestamp: new Date().toISOString(),
       };
       setProteinCount(proteinCount + 1);
-      handleLog(newProtein)
+      handleLog(newProtein);
     }
   }, [currentNode]);
 
@@ -93,7 +98,9 @@ export default function Sidebar({
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
           <h3>Select a node to learn more</h3>
-          <p>Queried protein: <b>{sourceNode.label}</b></p>
+          <p>
+            Queried protein: <b>{sourceNode.label}</b>
+          </p>
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
@@ -126,10 +133,13 @@ export default function Sidebar({
                   onMouseLeave={() => setShowNeverAnnotate(false)}
                 >
                   <PiWarningBold className="never-annotate-icon" />
-                  {showNeverAnnotate && <div className="never-annotate-warning">This term should not be used for direct annotation.</div>}
+                  {showNeverAnnotate && (
+                    <div className="never-annotate-warning">
+                      This term should not be used for direct annotation.
+                    </div>
+                  )}
                 </div>
-              )
-              }
+              )}
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
                 storeGoTermValue={storeGoTermValue}
@@ -157,14 +167,19 @@ export default function Sidebar({
         </div>
       </div>
     );
-  } else if (currentNode.type === "go_protein" || currentNode.type === "go_source") {
+  } else if (
+    currentNode.type === "go_protein" ||
+    currentNode.type === "go_source"
+  ) {
     // if currentNode.type === "go_protein" then display specific relation information about the go term and level of evidence
     // still need to add level of evidence to the sidebar
     return (
       <div>
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
-          <p>Protein of interest: <b>{sourceNode.label}</b></p>
+          <p>
+            Protein of interest: <b>{sourceNode.label}</b>
+          </p>
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
@@ -197,10 +212,13 @@ export default function Sidebar({
                   onMouseLeave={() => setShowNeverAnnotate(false)}
                 >
                   <PiWarningBold className="never-annotate-icon" />
-                  {showNeverAnnotate && <div className="never-annotate-warning">This term should not be used for direct annotation.</div>}
+                  {showNeverAnnotate && (
+                    <div className="never-annotate-warning">
+                      This term should not be used for direct annotation.
+                    </div>
+                  )}
                 </div>
-              )
-              }
+              )}
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
                 storeGoTermValue={storeGoTermValue}
@@ -231,7 +249,14 @@ export default function Sidebar({
             </a>
           </p>
           <p>GO relationship (qualifier):</p>
-          <p style={{ fontWeight: currentNode.go_protein === "inferred_from_descendant" ? "bold" : "normal" }}>
+          <p
+            style={{
+              fontWeight:
+                currentNode.go_protein === "inferred_from_descendant"
+                  ? "bold"
+                  : "normal",
+            }}
+          >
             {currentNode.go_protein}
           </p>
           <div className="center-buttons">
@@ -260,7 +285,9 @@ export default function Sidebar({
       <div>
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
-          <p>Protein of interest: <b>{sourceNode.label}</b></p>
+          <p>
+            Protein of interest: <b>{sourceNode.label}</b>
+          </p>
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
@@ -293,10 +320,13 @@ export default function Sidebar({
                   onMouseLeave={() => setShowNeverAnnotate(false)}
                 >
                   <PiWarningBold className="never-annotate-icon" />
-                  {showNeverAnnotate && <div className="never-annotate-warning">This term should not be used for direct annotation.</div>}
+                  {showNeverAnnotate && (
+                    <div className="never-annotate-warning">
+                      This term should not be used for direct annotation.
+                    </div>
+                  )}
                 </div>
-              )
-              }
+              )}
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
                 storeGoTermValue={storeGoTermValue}
@@ -353,7 +383,9 @@ export default function Sidebar({
       <div>
         <div id="sidebarContent" className="sidebar">
           <h2>Network Results</h2>
-          <p>Protein of interest: <b>{sourceNode.label}</b></p>
+          <p>
+            Protein of interest: <b>{sourceNode.label}</b>
+          </p>
           <div className="center-buttons">
             <a
               className="red-sidebar-link"
@@ -386,10 +418,13 @@ export default function Sidebar({
                   onMouseLeave={() => setShowNeverAnnotate(false)}
                 >
                   <PiWarningBold className="never-annotate-icon" />
-                  {showNeverAnnotate && <div className="never-annotate-warning">This term should not be used for direct annotation.</div>}
+                  {showNeverAnnotate && (
+                    <div className="never-annotate-warning">
+                      This term should not be used for direct annotation.
+                    </div>
+                  )}
                 </div>
-              )
-              }
+              )}
               <DescendantSelector
                 childrenGoTerms={childrenGoTerms}
                 storeGoTermValue={storeGoTermValue}

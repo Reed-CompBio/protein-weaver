@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.0",
     "cytoscape": "^3.26.0",
+    "cytoscape-cola": "^2.5.1",
     "cytoscape-cose-bilkent": "^4.1.0",
     "file-saver": "^2.0.5",
     "react": "^18.2.0",
@@ -22,7 +23,9 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-joyride": "^2.6.1",
+    "react-resizable-panels": "^2.0.16",
     "react-router-dom": "^6.16.0",
+    "react-tabs": "^6.0.2",
     "react-tooltip": "^5.25.1"
   },
   "devDependencies": {
