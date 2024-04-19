@@ -18,7 +18,6 @@ export default function SearchBar({
   return (
     // Search Bar Component
     <div className="query-container">
-
       {/* search inputs and button */}
       <form method="post" onSubmit={handleSubmit}>
         <div className="search-container">
@@ -72,9 +71,7 @@ export default function SearchBar({
           data-tooltip-id="path-tooltip"
           type="button"
           className={
-            activeModeButton === "path"
-              ? "active-button"
-              : "inactive-button"
+            activeModeButton === "path" ? "active-button" : "inactive-button"
           }
           onClick={handleQueryMode}
           value="Paths"
@@ -83,9 +80,7 @@ export default function SearchBar({
           data-tooltip-id="node-tooltip"
           type="button"
           className={
-            activeModeButton === "node"
-              ? "active-button"
-              : "inactive-button"
+            activeModeButton === "node" ? "active-button" : "inactive-button"
           }
           onClick={handleQueryMode}
           value="Nodes"
