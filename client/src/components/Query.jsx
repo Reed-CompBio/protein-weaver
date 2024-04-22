@@ -542,7 +542,7 @@ export default function Query() {
 
   // Allow users to change query mode
   const handleQueryMode = (e) => {
-    if (e.target.value == "K Unique Paths") {
+    if (e.target.value == "Paths") {
       setQuery((prevState) => ({
         ...prevState,
         mode: "path",
