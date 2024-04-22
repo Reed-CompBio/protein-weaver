@@ -81,11 +81,11 @@ button:focus-visible {
   padding-left: 12px;
 }
 
-.navbar > ul {
+.navbar>ul {
   list-style-type: none;
 }
 
-.navbar > ul > * {
+.navbar>ul>* {
   margin-left: 10px;
   color: black;
 }
@@ -226,7 +226,7 @@ body {
   z-index: 999;
 }
 
-.autocomplete > .active,
+.autocomplete>.active,
 .autocomplete li:hover {
   background-color: rgba(0, 0, 0, 0.24);
   cursor: pointer;
@@ -308,7 +308,7 @@ select {
   font-weight: bold;
 }
 
-.example > a {
+.example>a {
   color: white;
   font-weight: bold;
   margin-left: 5px;
@@ -635,7 +635,7 @@ select {
   box-shadow: 0px -0px 10px 5px var(--shadow);
 }
 
-.sidebar > h2,
+.sidebar>h2,
 h3,
 p {
   color: black;
@@ -655,6 +655,7 @@ p {
 
 /* Query Error */
 .query-error {
+  position: relative;
   margin: auto;
   background-color: #eed202;
   border-radius: 10px;
@@ -665,10 +666,33 @@ p {
   display: flex;
   justify-content: center;
 }
+
 .error-icon {
   margin-right: 10px;
   align-self: center;
   height: 50px;
+}
+
+
+.bug-report {
+  margin-left: 10px;
+  align-self: center;
+  position: absolute;
+  right: 0;
+}
+
+.bug-report-message {
+  display: inline-block;
+  position: absolute;
+  background-color: rgb(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 10px;
+  z-index: 1;
+  text-align: center;
+  align-self: center;
+  width: 100px;
 }
 
 .center-buttons {
@@ -704,14 +728,14 @@ select {
   align-items: center;
 }
 
-.footer > * {
+.footer>* {
   margin-left: 15px;
   color: black;
   font-family: "Lora", serif;
   font-weight: 600;
 }
 
-.footer > *:hover {
+.footer>*:hover {
   color: var(--home-button-hover);
 }
 
@@ -917,8 +941,8 @@ select {
   text-align: center;
 }
 
-.about-body > p,
-.about-body > h3,
+.about-body>p,
+.about-body>h3,
 .about-body-text {
   color: white;
   text-align: justify;
@@ -929,25 +953,25 @@ select {
   color: white;
 }
 
-.about-body > ul {
+.about-body>ul {
   list-style-type: disc;
 }
 
-.about-body > p > a,
-.about-list > li > a,
+.about-body>p>a,
+.about-list>li>a,
 .about-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.about-body > p > a:hover,
-.about-body > p > ul > li > a:hover,
+.about-body>p>a:hover,
+.about-body>p>ul>li>a:hover,
 .about-body-link:hover {
   color: var(--text-hover);
 }
 
-.about-list > li > a:hover {
+.about-list>li>a:hover {
   color: var(--text-hover);
 }
 
@@ -971,8 +995,8 @@ select {
   text-align: center;
 }
 
-.faq-body > p,
-.faq-body > h3,
+.faq-body>p,
+.faq-body>h3,
 .faq-body-text {
   color: white;
   text-align: justify;
@@ -983,25 +1007,25 @@ select {
   color: white;
 }
 
-.faq-body > ul {
+.faq-body>ul {
   list-style-type: disc;
 }
 
-.faq-body > p > a,
-.faq-list > li > a,
+.faq-body>p>a,
+.faq-list>li>a,
 .faq-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.faq-body > p > a:hover,
-.faq-body > p > ul > li > a:hover,
+.faq-body>p>a:hover,
+.faq-body>p>ul>li>a:hover,
 .faq-body-link:hover {
   color: var(--text-hover);
 }
 
-.faq-list > li > a:hover {
+.faq-list>li>a:hover {
   color: var(--text-hover);
 }
 
@@ -1025,8 +1049,8 @@ select {
   text-align: center;
 }
 
-.tos-body > p,
-.tos-body > h3,
+.tos-body>p,
+.tos-body>h3,
 .tos-body-text {
   color: white;
   text-align: justify;
@@ -1037,25 +1061,25 @@ select {
   color: white;
 }
 
-.tos-body > ul {
+.tos-body>ul {
   list-style-type: disc;
 }
 
-.tos-body > p > a,
-.tos-list > li > a,
+.tos-body>p>a,
+.tos-list>li>a,
 .tos-body-link {
   color: white;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.tos-body > p > a:hover,
-.tos-body > p > ul > li > a:hover,
+.tos-body>p>a:hover,
+.tos-body>p>ul>li>a:hover,
 .tos-body-link:hover {
   color: var(--text-hover);
 }
 
-.tos-list > li > a:hover {
+.tos-list>li>a:hover {
   color: var(--text-hover);
 }
 
@@ -1380,9 +1404,12 @@ select {
 }
 
 .stats-tab-list {
-  list-style-type: none; /* Remove bullets */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margins */
+  list-style-type: none;
+  /* Remove bullets */
+  padding: 0;
+  /* Remove padding */
+  margin: 0;
+  /* Remove margins */
   display: flex;
 }
 
@@ -1408,6 +1435,7 @@ select {
   text-decoration: underline;
   background-color: white;
 }
+
 .stats-tab-selected {
   /* border-bottom: 0px solid #828588;
   border-right: 1px solid #828588;
