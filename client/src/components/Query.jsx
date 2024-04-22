@@ -224,9 +224,6 @@ export default function Query() {
             }
           })
           .then((data) => {
-            setNetworkResult(
-              NetworkParserPath(data, query.protein, query.goTerm)
-            );
             return NetworkParserPath(data, query.protein, query.goTerm);
           });
       } catch (error) {
@@ -260,7 +257,6 @@ export default function Query() {
             }
           })
           .then((data) => {
-            setNetworkResult(NetworkParserNode(data, query.protein, query.k));
             return NetworkParserNode(data, query.protein, query.k);
           });
       } catch (error) {
