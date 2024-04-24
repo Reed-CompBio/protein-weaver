@@ -52,7 +52,7 @@ export default function GraphExploration({
                 <div className="graph-exploration">
                     {/* New Source Node Button */}
                     <div className="new-source-container">
-                        <h5>Selected Protein: {currentNode.label}</h5>
+                        <h5>Selected protein: {currentNode.label}</h5>
                         <form method="post" onSubmit={handleSubmit}>
                             <button
                                 className="new-source"
