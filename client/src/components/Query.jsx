@@ -12,11 +12,11 @@ import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import cola from "cytoscape-cola";
-import {
-  cytoscapeTestElements,
-  cytoscapeTest,
-  cytoscapeTest2,
-} from "../assets/CytoscapeTestElements";
+// import {
+//   cytoscapeTestElements,
+//   cytoscapeTest,
+//   cytoscapeTest2,
+// } from "../assets/CytoscapeTestElements";
 
 // component imports
 import QueryError from "./QueryError";
@@ -26,11 +26,10 @@ import SearchBar from "./SearchBar";
 import Legend from "./Legend";
 import GraphExploration from "./GraphExploration";
 import GraphSummary from "./GraphSummary";
+import StatisticsTab from "./StatisticsTab";
 
 // panel imports
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-
-import StatisticsTab from "./StatisticsTab";
 
 export default function Query() {
   const [query, setQuery] = useState({
@@ -40,7 +39,6 @@ export default function Query() {
     goTerm: "",
     k: [],
   });
-  const [showResults, setShowResults] = useState(false);
   const [networkResult, setNetworkResult] = useState({});
   const cyRef = useRef(cytoscape.Core | undefined);
   const [sidebarNode, setSidebarNode] = useState("");
@@ -166,7 +164,6 @@ export default function Query() {
   // Show results if done loading
   useEffect(() => {
     if (dataParsingStatus) {
-      setShowResults(true);
       setIsLoading(false);
     }
   }, [dataParsingStatus]);
@@ -186,7 +183,6 @@ export default function Query() {
     setHasError(false);
     setQueryCount(queryCount + 1);
     setIsLoading(true);
-    setShowResults(false);
     setDataParsingStatus(false);
     setErrorMessage("");
 

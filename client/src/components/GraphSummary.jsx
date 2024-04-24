@@ -26,6 +26,7 @@ export default function GraphSummary({
     }, [currentNode, query.species]);
 
     if (!currentNode) {
+        // Dynamically render the summary based on the selected node
         return (
             <div>
                 <StaticSummary // This part of the graph summary never changes

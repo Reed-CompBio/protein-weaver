@@ -91,7 +91,6 @@ export default function Legend({
                 onClick={(e) => handleLayoutChange("random", e)}
                 aria-label="random"
               />
-
               <span className="tooltiptext">Random</span>
             </div>
             <div className="layout-tooltip">

@@ -46,6 +46,7 @@ export default function GraphExploration({
         }
     }, [searchExecuted]);
     if (currentNode) {
+        // If a protein is selected, allow the user to set as source node
         return (
             <div>
                 <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
@@ -98,6 +99,7 @@ export default function GraphExploration({
 
         )
     } else {
+        // If no protein is selected, do not allow the user to set as source node
         return (
             <div>
                 <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
