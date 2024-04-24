@@ -28,15 +28,14 @@ export default function DescendantSelector({
         }
     }
 
+    // Call the function to populate the datalist based on queried GO term
     useEffect(() => {
         populateDatalistWithOptions(childrenGoTerms);
     }, [childrenGoTerms]);
-    // Call the function to populate the datalist
 
     return (
         <div className="descendant-input">
             <div className="hierarchy-input-container">
-
                 {/* display warning message when at root GO term */}
                 {isEmpty && (
                     <div
@@ -48,7 +47,7 @@ export default function DescendantSelector({
                         {showTooltip && <div className="hierarchy-warning">You have reached the most specific GO term.</div>}
                     </div>
                 )}
-
+                {/* normal input display */}
                 <input
                     list="child-go-terms"
                     id="descendant-selector"

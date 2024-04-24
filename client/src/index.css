@@ -39,7 +39,7 @@ body {
   margin: 0px;
   padding: 0px;
   border: 0px;
-  min-width: 320px;
+  min-width: 1080px;
   min-height: 100vh;
   color: white;
 }
@@ -76,6 +76,7 @@ button:focus-visible {
 
 /* NavBar CSS */
 .website-title {
+  width: 100%;
   font-family: "Lora", serif;
   font-weight: 500;
   padding-left: 12px;
@@ -142,6 +143,7 @@ body {
   right: 0;
   top: 71px;
   width: 100%;
+  min-width: 1080px;
 }
 
 .query-container {
@@ -191,7 +193,7 @@ body {
   max-height: 120px;
   overflow-y: auto;
   padding-left: 0px;
-  width: 180px;
+  width: 150px;
   margin-left: 0px;
   pointer-events: auto;
   z-index: 900;
@@ -200,7 +202,7 @@ body {
 .autocomplete-input-container {
   margin-top: 1px;
   position: relative;
-  width: 180px;
+  width: 150px;
   display: inline-block;
   flex-wrap: nowrap;
   height: 180px;
@@ -213,7 +215,7 @@ body {
   pointer-events: auto;
   height: 24px;
   min-height: 24px;
-  width: 155px;
+  width: 125px;
 }
 
 .autocomplete li {
@@ -221,7 +223,7 @@ body {
   background-color: rgba(0, 0, 0, 0.24);
   border: none;
   border-radius: 2px;
-  width: 155px;
+  width: 125px;
   overflow: auto;
   z-index: 999;
 }
@@ -239,7 +241,7 @@ body {
 
 .autocomplete-dropdown {
   position: absolute;
-  width: 180px;
+  width: 150px;
   height: 90px;
   max-height: 90px;
 }
@@ -718,8 +720,15 @@ select {
   border-radius: 5px;
 }
 
+.footer-container {
+  position: relative;
+  bottom: 0;
+  width: 100%
+}
+
 .footer {
-  margin-left: 40%;
+  margin: auto;
+  justify-content: center;
   margin-top: 10px;
   margin-bottom: 10px;
   color: black;
@@ -740,7 +749,7 @@ select {
 }
 
 .footer-title:hover {
-  color: white;
+  color: grey;
 }
 
 .footer-right-align {

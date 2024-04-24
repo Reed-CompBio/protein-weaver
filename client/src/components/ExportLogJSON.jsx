@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function ExportLogJSON({ log }) {
+  // Function to download the file as JSON
   const downloadFile = ({ data, fileName, fileType }) => {
     // Create a blob with the data we want to download as a file
     const blob = new Blob([data], { type: fileType });
@@ -18,6 +19,7 @@ export default function ExportLogJSON({ log }) {
     a.remove();
   };
 
+  // Convert the logs to JSON
   const exportToJson = (e) => {
     e.preventDefault();
     downloadFile({
@@ -28,6 +30,7 @@ export default function ExportLogJSON({ log }) {
   };
 
   return (
+    // display the download text
     <div>
       <a className="export" onClick={exportToJson}>
         Export Log to JSON

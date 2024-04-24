@@ -36,7 +36,6 @@ export default function AncestorSelector({
     return (
         <div className="ancestor-input">
             <div className="hierarchy-input-container">
-
                 {/* display warning message when at root GO term */}
                 {isEmpty && (
                     <div
@@ -48,7 +47,7 @@ export default function AncestorSelector({
                         {showTooltip && <div className="hierarchy-warning">You have reached the most general GO term.</div>}
                     </div>
                 )}
-
+                {/* normal input display */}
                 <input
                     list="parent-go-terms"
                     id="ancestor-selector"

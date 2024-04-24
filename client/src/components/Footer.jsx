@@ -6,28 +6,35 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   const githubLink = "https://github.com/Reed-CompBio/protein-weaver/";
-  const githubIssuesLink =
-    "https://github.com/Reed-CompBio/protein-weaver/issues/";
+  const githubIssuesLink = "https://github.com/Reed-CompBio/protein-weaver/issues/";
 
   return (
-    <footer className="footer">
-      <p className="footer-title">ProteinWeaver © 2023</p>
-      <Link to={"/tos"}>TOS</Link>
-      <p> | </p>
-      <Link to={"/faq"}>FAQ</Link>
-      <IconContext.Provider
-        value={{
-          className: "icon",
-          size: "1.5em",
-        }}
-      >
-        <a href={githubLink} target="_blank" rel="noopener noreferrer">
-          <FaGithub className="footer-icon" />
-        </a>
-        <a href={githubIssuesLink} target="_blank" rel="noopener noreferrer">
-          <BiSolidMessageAltError className="footer-icon" />
-        </a>
-      </IconContext.Provider>
-    </footer>
+    <div className="footer-container">
+      <footer className="footer">
+        <p className="footer-title">ProteinWeaver © 2023</p>
+        {/* Terms of Service */}
+        <Link to={"/tos"}>TOS</Link>
+        <p> | </p>
+        {/* FAQs */}
+        <Link to={"/faq"}>FAQ</Link>
+        <p> | </p>
+        <IconContext.Provider
+          value={{
+            size: "1.2em",
+            align: "middle",
+          }}
+        >
+          {/* GitHub */}
+          <a href={githubLink} target="_blank" rel="noopener noreferrer">
+            <FaGithub className="footer-icon" />
+          </a>
+          <p> | </p>
+          {/* GitHub Issues */}
+          <a href={githubIssuesLink} target="_blank" rel="noopener noreferrer">
+            <BiSolidMessageAltError className="footer-icon" />
+          </a>
+        </IconContext.Provider>
+      </footer>
+    </div>
   );
 }

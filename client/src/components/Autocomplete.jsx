@@ -8,6 +8,7 @@ export default function Autocomplete(props) {
     const [isFocused, setIsFocused] = useState(false); // Track input focus
     const [input, setInput] = useState("");
 
+    // Change input value on input change
     const onChange = (e) => {
         const inputText = e.currentTarget.value;
         const newFilteredSuggestions = suggestions.filter((suggestion) =>
@@ -19,6 +20,7 @@ export default function Autocomplete(props) {
         onInputChange({ target: { name: inputName, value: inputText } });
     };
 
+    // Change input on clicking on suggestion
     const onClick = (e) => {
         setActive(0);
         setFiltered([]);
@@ -29,17 +31,19 @@ export default function Autocomplete(props) {
         });
     };
 
+    // Show autocomplete when input is in focus
     const onFocus = () => {
-        setIsFocused(true); // Show autocomplete when input is in focus
+        setIsFocused(true);
     };
 
+    // Delay hiding autocomplete to allow for click on suggestion
     const onBlur = () => {
-        // Delay hiding autocomplete to allow for click on suggestion
         setTimeout(() => {
             setIsFocused(false);
         }, 200);
     };
 
+    // Change active suggestion on up/down arrow press
     const onKeyDown = (e) => {
         if (e.keyCode === 13) {
             // Enter key
@@ -62,6 +66,7 @@ export default function Autocomplete(props) {
     };
 
     const renderMyAutocomplete = () => {
+        // Render suggestions when user interacts with the input
         if (isFocused && input) {
             if (filtered.length) {
                 return (
@@ -87,6 +92,7 @@ export default function Autocomplete(props) {
         return null;
     };
 
+    // Otherwise, display inputs
     return (
         <div className="autocomplete-input-container">
             <input
