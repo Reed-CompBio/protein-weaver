@@ -42,15 +42,15 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#project-layout">Project layout</a>
-    </li>
     </ul>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="about/">About</a>
+                <li class="toctree-l1"><a class="reference internal" href="setup/">Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="data-import/">Data Import</a>
                 </li>
               </ul>
       </div>
@@ -76,26 +76,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
-<ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre>
+                <h1 id="welcome-to-proteinweaver-docs">Welcome to ProteinWeaver Docs</h1>
+<p>ProteinWeaver is a web interface for ontology-based protein network visualization.</p>
+<p><img width="500" alt="Screenshot 2023-10-05 at 11 11 20 AM" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/0b9e6235-efdd-4781-81a6-ba41a33d0f4e"></p>
+<h1 id="background-motivation">Background &amp; Motivation</h1>
+<p>Being able to explore how proteins are connected to other proteins with a specific function is a great tool for a biologists, as it allows them to quickly generate hypotheses that seeks to answer the ways that a protein is connected to a pathway or process. ProteinWeaver provides the tools for this type of exploration via an intuitive website that easily lets users query a protein and a specific function or process (as a <a href="https://geneontology.org/">gene ontology term</a>). </p>
+<h1 id="website-overview">Website Overview</h1>
+<p>ProteinWeaver allows the users to input a protein of their interest, a specific function or process (<a href="https://geneontology.org/">gene ontology term</a>), and the number of paths to output in the network. This generates a subnetwork that connects the protein of interest to the k shortest paths that include a protein labeled with the specific GO term. The network's information is summarised, including GO term description, links to proteins' and GO term AmiGO entry, and GO term qualifiers of the proteins. Exploration is possibly by easily interacting with the graph and setting new nodes as the protein of interest. Queries are easily reproduced through exporting a log history of all queries and explorations done in a session, and exporting networks via images. </p>
+<p><img width="700" alt="Screenshot 2023-10-05 at 11 30 52 AM" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/f0029e57-a9ba-4410-a54e-e4a632daf2d7"></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="setup/" class="btn btn-neutral float-right" title="Setup">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -119,7 +112,7 @@ docs/
     
     
     
-      <span><a href="about/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="setup/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
@@ -139,5 +132,5 @@ docs/
 
 <!--
 MkDocs version : 1.6.0
-Build Date UTC : 2024-04-26 17:48:29.734523+00:00
+Build Date UTC : 2024-04-26 18:08:27.002908+00:00
 -->
