@@ -1,5 +1,7 @@
 site_name: ProteinWeaver Docs
 nav:
   - Home: index.md
-  - About: about.md
+  - Setup: setup.md
+  - Data Import: data-import.md
+
 theme: readthedocs
