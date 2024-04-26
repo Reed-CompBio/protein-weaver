@@ -144,7 +144,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-## March 18, 2024 Major Data Update:
+### March 18, 2024 Major Data Update
 
 Don't forget to drop the existing projection before adding more data.
 `call gds.graph.drop("proGoGraph") YIELD graphName`
@@ -267,7 +267,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-## Mar. 28, 2024
+### Mar. 28, 2024
 1. Add blacklist indicator to GO term nodes from [new dataset](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_2024-03-28.txt):
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
@@ -279,7 +279,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-## April. 1, 2024
+### April. 1, 2024
 * We added inferred ProGo edges from descendant ProGo edges. This means that proteins annotated to a specific GO term, such as Mbs to enzyme inhibitor activity, will also be annotated to that GO term's ancestors, such as molecular function inhibitor activity and molecular_function. We need to create more ProGo edges across all the species using the following commands:
 
 1. Add ancestral edges for *D. rerio*.
