@@ -1,0 +1,5 @@
+site_name: ProteinWeaver Docs
+nav:
+  - Home: index.md
+  - About: about.md
+theme: readthedocs
