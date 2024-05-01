@@ -6,7 +6,6 @@ import NetworkService from "../services/network.service.js";
 import EdgeDataService from "../services/edge.data.service.js";
 import ProteinService from "../services/protein.service.js";
 import GoTermService from "../services/go.term.service.js";
-// import Txid7227Service from "../services/txid7227.service.js";
 import QueryService from "../services/query.service.js";
 import AncestorsService from "../services/ancestors.service.js";
 import DescendantsService from "../services/descendants.service.js";
@@ -16,6 +15,7 @@ import GoNodeService from "../services/go.node.service.js";
 import AllShortestPathsService from "../services/dijkstra.all.service.js";
 import ProteinFinderService from "../services/protein.finder.service.js";
 import GoFinderService from "../services/go.finder.service.js";
+import AvgDegreeService from "../services/avg.degree.service.js";
 const router = new Router();
 const jsonParser = bodyParser.json();
 
@@ -87,7 +87,10 @@ router.post("/getDescendants", jsonParser, async (req, res, next) => {
   try {
     const descendantsService = new DescendantsService(getDriver());
 
-    const descendants = await descendantsService.getDescendants(goTerm, species);
+    const descendants = await descendantsService.getDescendants(
+      goTerm,
+      species
+    );
 
     res.json(descendants);
   } catch (e) {
@@ -122,40 +125,23 @@ router.post("/getEdgeData", jsonParser, async (req, res, next) => {
   }
 });
 
-// // get D. melanogaster data
-// router.post("/getTxid7227", jsonParser, async (req, res, next) => {
-//   const data = req.body;
-//   const species = data.species;
-//   const protein = data.protein;
-//   const goTerm = data.goTerm;
-//   const k = data.k;
+router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const nodeList = data.nodeList;
+  const species = data.species;
 
-//   console.log("Species:", species);
-//   console.log("Protein:", protein);
-//   console.log("GO Term:", goTerm);
-//   console.log("k:", k);
+  try {
+    const avgDegreeService = new AvgDegreeService(getDriver());
 
-//   try {
-//     const queryService = new Txid7227Service(getDriver());
-//     const queryResult = await queryService.getTxid7227(protein, goTerm, k);
-//     // console.log(queryResult)
+    const avgDegree = await avgDegreeService.getAvgDegree(species, nodeList);
+    console.log("Average Degree:");
+    console.log(avgDegree);
 
-//     if (queryResult.length === 0) {
-//       console.log("No data found.");
-//       res.status(404).send({ error: "No data found." });
-//     } else {
-//       res.status(200).json(queryResult);
-//     }
-//   } catch (error) {
-//     console.error("Error in /getFlyBase:", error);
-//     res.status(500).json({ error: "Internal server error." });
-//   }
-// });
-
-// router.post("/postRequest", async (req, res, next) => {
-//   const body = req.body;
-//   res.json(body);
-// });
+    res.json(avgDegree);
+  } catch (e) {
+    next(e);
+  }
+});
 
 // dynamic query
 router.post("/getQuery", jsonParser, async (req, res, next) => {
@@ -196,10 +182,14 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
 
         console.log(neighborData.length);
         if (neighborData.length == 0) {
-          console.log("No direct proteins connected to GO term for this species");
+          console.log(
+            "No direct proteins connected to GO term for this species"
+          );
           res
             .status(404)
-            .send({ error: "No direct proteins connected to GO term for this species" });
+            .send({
+              error: "No direct proteins connected to GO term for this species",
+            });
         } else {
           //DO this to all GOterm
           const queryService = new QueryService(getDriver());
@@ -268,10 +258,14 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
 
         console.log(neighborData.length);
         if (neighborData.length == 0) {
-          console.log("No direct proteins connected to GO term for this species");
+          console.log(
+            "No direct proteins connected to GO term for this species"
+          );
           res
             .status(404)
-            .send({ error: "No direct proteins connected to GO term for this species" });
+            .send({
+              error: "No direct proteins connected to GO term for this species",
+            });
         } else {
           const allShortestPathsService = new AllShortestPathsService(
             getDriver()
