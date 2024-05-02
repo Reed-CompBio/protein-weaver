@@ -1,33 +1,44 @@
 export default class QueryService {
-    /**
-     * @type {neo4j.Driver}
-     */
-    driver;
+  /**
+   * @type {neo4j.Driver}
+   */
+  driver;
 
-    /**
-     * The constructor expects an instance of the Neo4j Driver, which will be
-     * used to interact with Neo4j.
-     *
-     * @param {neo4j.Driver} driver
-     */
-    constructor(driver) {
-        this.driver = driver;
+  /**
+   * The constructor expects an instance of the Neo4j Driver, which will be
+   * used to interact with Neo4j.
+   *
+   * @param {neo4j.Driver} driver
+   */
+  constructor(driver) {
+    this.driver = driver;
+  }
+
+  async getQuery(speciesInput, proteinInput, goTermInput, kInput) {
+    if (!speciesInput || !proteinInput || !goTermInput || !kInput) {
+      console.error(
+        "Organism, Protein, GO Term and Number of Pathways are required inputs."
+      );
+      return null;
     }
 
-    async getQuery(speciesInput, proteinInput, goTermInput, kInput) {
-        if (!speciesInput || !proteinInput || !goTermInput || !kInput) {
-            console.error('Organism, Protein, GO Term and Number of Pathways are required inputs.');
-            return null;
-        }
+    console.log(
+      "Getting k paths for Protein:",
+      proteinInput,
+      "and GO Term:",
+      goTermInput,
+      "with k =",
+      kInput,
+      "for",
+      speciesInput
+    );
 
-        console.log("Getting k paths for Protein:", proteinInput, "and GO Term:", goTermInput, "with k =", kInput, "for", speciesInput);
+    const session = this.driver.session();
 
-        const session = this.driver.session();
-
-        try {
-            const res = await session.executeRead(async (tx) => {
-                const network = await tx.run(
-                    `
+    try {
+      const res = await session.executeRead(async (tx) => {
+        const network = await tx.run(
+          `
             MATCH (source:protein {txid: $species})
             WHERE source.id =~'(?i)' + $protein OR source.name =~'(?i)' + $protein OR source.alt_name =~'(?i)' + $protein
             MATCH (target:go_term)
@@ -35,7 +46,8 @@ export default class QueryService {
             CALL gds.shortestPath.yens.stream('proGoGraph', {
               sourceNode: source,
               targetNode: target,
-              k: toInteger($k)
+              k: toInteger($k),
+              relationshipTypes: ["ProGo", "ProProUndirected"]
             })
             YIELD index, sourceNode, targetNode, nodeIds, path
             RETURN
@@ -46,25 +58,24 @@ export default class QueryService {
               nodes(path) as path
             ORDER BY index
             `,
-                    {
-                        species: speciesInput,
-                        protein: proteinInput,
-                        goTerm: goTermInput,
-                        k: kInput
-                    }
-                );
-                return network.records;
-            });
+          {
+            species: speciesInput,
+            protein: proteinInput,
+            goTerm: goTermInput,
+            k: kInput,
+          }
+        );
+        return network.records;
+      });
 
-            console.log("Network result:", res);
+      console.log("Network result:", res);
 
-            return res;
-        } catch (error) {
-            console.error('Error in getQuery:', error);
-            return null; // You can handle the error in a more appropriate way
-        } finally {
-            await session.close();
-        }
+      return res;
+    } catch (error) {
+      console.error("Error in getQuery:", error);
+      return null; // You can handle the error in a more appropriate way
+    } finally {
+      await session.close();
     }
-
-};
+  }
+}

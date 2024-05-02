@@ -40,7 +40,6 @@ export default function StatisticsTab({ networkStatistics }) {
                 <li># of edges:</li>
                 <li># of paths from source:</li>
                 <li>Average node degree:</li>
-                <li>Average clustering coefficient:</li>
               </ul>
             </div>
             <div>
@@ -49,7 +48,6 @@ export default function StatisticsTab({ networkStatistics }) {
                 <li>{networkStatistics.edgeCount}</li>
                 <li>{networkStatistics.pathCount}</li>
                 <li>{networkStatistics.avgNodeDegree}</li>
-                <li>{networkStatistics.avgClusteringCoef}</li>
               </ul>
             </div>
           </div>

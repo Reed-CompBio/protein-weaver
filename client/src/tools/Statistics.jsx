@@ -1,10 +1,9 @@
-export function getNetworkStatistics(network, rawData, query) {
+export function getBasicStatistics(network, rawData, query) {
   let networkStatistics = {
     nodeCount: null,
     edgeCount: null,
     pathCount: null,
     avgNodeDegree: null,
-    avgClusteringCoef: null,
   };
   networkStatistics.nodeCount = network.nodeList.length - 1;
   networkStatistics.edgeCount = network.edgeList.length - 1;
@@ -44,6 +43,6 @@ export async function fetchAvgDegree(network, species) {
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    throw error; // Optional: rethrow the error to handle it elsewhere
+    throw error;
   }
 }

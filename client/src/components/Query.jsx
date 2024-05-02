@@ -12,11 +12,6 @@ import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import cola from "cytoscape-cola";
-// import {
-//   cytoscapeTestElements,
-//   cytoscapeTest,
-//   cytoscapeTest2,
-// } from "../assets/CytoscapeTestElements";
 
 // component imports
 import QueryError from "./QueryError";
@@ -30,7 +25,7 @@ import StatisticsTab from "./StatisticsTab";
 
 // panel imports
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import { fetchAvgDegree, getNetworkStatistics } from "../tools/Statistics";
+import { fetchAvgDegree, getBasicStatistics } from "../tools/Statistics";
 
 export default function Query() {
   const [query, setQuery] = useState({
@@ -74,7 +69,6 @@ export default function Query() {
     edgeCount: null,
     pathCount: null,
     avgNodeDegree: null,
-    avgClusteringCoef: null,
   });
 
   const [pageState, setPageState] = useState(0);
@@ -188,6 +182,7 @@ export default function Query() {
   //Once the network parsing has completed, get all the stats information of the subnetwork.
   useEffect(() => {
     if (dataParsingStatus) {
+      //asyc function to get the average degree of subnetwork
       const getAvgDegree = async () => {
         try {
           const avgNodeDegree = await fetchAvgDegree(
@@ -196,14 +191,15 @@ export default function Query() {
           );
           setNetworkStatistics((prevState) => ({
             ...prevState,
-            avgNodeDegree: avgNodeDegree,
+            avgNodeDegree: avgNodeDegree.toFixed(1),
           }));
         } catch (error) {
           return Promise.reject(
             new Error(`${response.status} ${response.statusText}`)
-          );        }
+          );
+        }
       };
-      setNetworkStatistics(getNetworkStatistics(networkResult, rawData, query));
+      setNetworkStatistics(getBasicStatistics(networkResult, rawData, query));
       getAvgDegree();
     }
   }, [dataParsingStatus]);
