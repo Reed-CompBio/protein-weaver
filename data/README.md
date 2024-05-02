@@ -1,6 +1,6 @@
 # Data Import Tutorial
 
-**NOTE: This tutorial will show you how to import a protein interaction and gene association dataset into Neo4j. To get to the local dev state you will need to follow the import process in the main branch.**
+**NOTE: NEVER MERGE THIS BRANCH. This tutorial will show you how to import a protein interaction and gene association dataset into Neo4j. To get to the local dev state you will need to follow the import process in the main branch.**
 
 ## How to get started with Neo4j and upload the data
 1. Create a directory in your `$HOME` named `neo4j`
@@ -152,3 +152,5 @@ CALL gds.graph.project(
 
 1. Show database information:
 `:schema`
+
+**NOTE: NEVER MERGE THIS BRANCH.**
