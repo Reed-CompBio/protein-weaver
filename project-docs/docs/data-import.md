@@ -1,20 +1,22 @@
 # Data Import Instructions
 
 ## How to get started with Neo4j and upload the data
+
 1. Create a directory in your $HOME named `neo4j`
- - Within `~/neo4j` directory create the following directories:
-    - `~/neo4j/data/` to allow storage of data between docker instances
-    - `~/neo4j/logs/` to allow storage of logs between docker instances
-    - `~/neo4j/import/` to import data
-        - Load any FlyBase data by copying [`interactome-flybase-collapsed-weighted.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/interactome-flybase-collapsed-weighted.txt)
-        into import directory
-        	- Delete 'sy#' preceding the first column name in `interactome-flybase-collapsed-weighted.txt`
-        - Import the properly formatted GO terms file from FlyBase and store in the GitHub repository: [`gene_association.fb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/gene_association.fb).
-    - `~/neo4j/plugins/` to store any necessary plugins for production environments
+
+- Within `~/neo4j` directory create the following directories:
+  - `~/neo4j/data/` to allow storage of data between docker instances
+  - `~/neo4j/logs/` to allow storage of logs between docker instances
+  - `~/neo4j/import/` to import data
+    - Load any FlyBase data by copying [`interactome-flybase-collapsed-weighted.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/interactome-flybase-collapsed-weighted.txt)
+      into import directory - Delete 'sy#' preceding the first column name in `interactome-flybase-collapsed-weighted.txt`
+    - Import the properly formatted GO terms file from FlyBase and store in the GitHub repository: [`gene_association.fb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/gene_association.fb).
+  - `~/neo4j/plugins/` to store any necessary plugins for production environments
 
 2. Download all the content of [`/import`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/) and place it inside of your `~/neo4j/import/`. These are all the prerequisite files you will need for this tutorial.
 
 3. Create a docker instance with APOC plugin using the following command:
+
 ```sh
 docker run \
     --name proteinweaver \
@@ -31,17 +33,19 @@ docker run \
     -e NEO4JLABS_PLUGINS=\[\"apoc\"\] \
     neo4j:latest
 ```
+
 - This docker instance has no security restrictions, to change username and password edit:
-    `--env NEO4J_AUTH=username/password`
+  `--env NEO4J_AUTH=username/password`
 
 4. Access the docker image at [http://localhost:7474](http://localhost:7474)
 
 5. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
-    `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
-    Create a constraint for the GO terms in the database using the following command:
-    `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
+   `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
+   Create a constraint for the GO terms in the database using the following command:
+   `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
 
-6. Import *D. melanogaster* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/interactome-flybase-collapsed-weighted.txt) using the following command:
+6. Import _D. melanogaster_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/interactome-flybase-collapsed-weighted.txt) using the following command:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
 FIELDTERMINATOR '\t'
@@ -52,9 +56,11 @@ CALL {
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
+
 - This will create all of the protein-protein relationships and populate the database.
 
 7. Set a relationship property for the PubmedID
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
 FIELDTERMINATOR '\t'
@@ -66,6 +72,7 @@ CALL {
 ```
 
 8. Import the Gene Ontology data, [gene_association.fb](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/gene_association.fb), into the database using the following command:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association.fb' AS flygo
 FIELDTERMINATOR '\t'
@@ -78,6 +85,7 @@ CALL {
 ```
 
 9. Import the relationships qualifiers for the GO terms and fly proteins using the following commands:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association.fb' AS flygo
 FIELDTERMINATOR '\t'
@@ -88,7 +96,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-10. Import *B. subtilis* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_interactome.csv) with the following command:
+10. Import _B. subtilis_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_interactome.csv) with the following command:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
 CALL {
@@ -99,7 +108,8 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-11. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data.csv) to *B. subtilis* nodes:
+11. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data.csv) to _B. subtilis_ nodes:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
@@ -110,7 +120,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-12. Set qualifier property for *B. subtilis*.
+12. Set qualifier property for _B. subtilis_.
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
@@ -121,6 +132,7 @@ CALL {
 ```
 
 13. Download and import the [GO hierarchy]https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/is_a_import.tsv) using the commands below. This is made from the script [ParseOntologyRelationship.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb) if you are interested.
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
@@ -134,6 +146,7 @@ CALL {
 ```
 
 14. Download and import the [GO term common names](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/go.txt) and descriptions with the Cypher commands below. This file is made from the script [ParseOBOtoTXT.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb) if you are interested.
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
@@ -151,7 +164,8 @@ CALL {
 Don't forget to drop the existing projection before adding more data.
 `call gds.graph.drop("proGoGraph") YIELD graphName`
 
-1. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/dmel_GO_data_Mar15_24.tsv) for *D. melanogaster*
+1. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/dmel_GO_data_Mar15_24.tsv) for _D. melanogaster_
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_Mar15_24.tsv' AS dmelgo
 FIELDTERMINATOR '\t'
@@ -163,7 +177,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-2. Set qualifier property for *D. melanogaster*.
+2. Set qualifier property for _D. melanogaster_.
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_Mar15_24.tsv' AS dmelgo
 FIELDTERMINATOR '\t'
@@ -174,7 +189,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-3. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data_Mar18_24.tsv) for *B. subtilis*
+3. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data_Mar18_24.tsv) for _B. subtilis_
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_Mar18_24.tsv' AS bsubgo
 FIELDTERMINATOR '\t'
@@ -186,7 +202,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-4. Set qualifier property for *B. subtilis*.
+4. Set qualifier property for _B. subtilis_.
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_Mar18_24.tsv' AS bsubgo
 FIELDTERMINATOR '\t'
@@ -197,7 +214,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-5. Import *D. rerio* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_interactome_Mar12_2024.txt) with the following command:
+5. Import _D. rerio_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_interactome_Mar12_2024.txt) with the following command:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
 FIELDTERMINATOR '\t'
@@ -210,6 +228,7 @@ CALL {
 ```
 
 6. Set a relationship property for the evidence
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
 FIELDTERMINATOR '\t'
@@ -220,7 +239,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-7. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_GO_data_Mar12_24.tsv) to *D. rerio* nodes:
+7. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_GO_data_Mar12_24.tsv) to _D. rerio_ nodes:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
@@ -232,7 +252,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-8. Set qualifier property for *D. rerio*.
+8. Set qualifier property for _D. rerio_.
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
@@ -244,6 +265,7 @@ CALL {
 ```
 
 9. Import the GO hierarchy with the following command:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
@@ -257,6 +279,7 @@ CALL {
 ```
 
 10. Import the GO term common names and descriptions with the following Cypher command:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
@@ -270,7 +293,9 @@ CALL {
 ```
 
 ### Mar. 28, 2024
+
 1. Add blacklist indicator to GO term nodes from [new dataset](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/go_2024-03-28.txt):
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
 FIELDTERMINATOR '\t'
@@ -282,9 +307,11 @@ CALL {
 ```
 
 ### April. 1, 2024
-* We added inferred ProGo edges from descendant ProGo edges. This means that proteins annotated to a specific GO term, such as Mbs to enzyme inhibitor activity, will also be annotated to that GO term's ancestors, such as molecular function inhibitor activity and molecular_function. We need to create more ProGo edges across all the species using the following commands:
 
-1. Add ancestral edges for *D. rerio*.
+- We added inferred ProGo edges from descendant ProGo edges. This means that proteins annotated to a specific GO term, such as Mbs to enzyme inhibitor activity, will also be annotated to that GO term's ancestors, such as molecular function inhibitor activity and molecular_function. We need to create more ProGo edges across all the species using the following commands:
+
+1. Add ancestral edges for _D. rerio_.
+
 ```js
 MATCH (p:protein {txid: 'txid7955'})-[:ProGo]-(g:go_term)
 WITH p, collect(g) AS go_terms
@@ -297,7 +324,8 @@ UNWIND parent_terms AS parent_term
 MERGE (p)-[r:ProGo]-(parent_term)
 ```
 
-2. Add ancestral edges for *B. subtilis*.
+2. Add ancestral edges for _B. subtilis_.
+
 ```js
 MATCH (p:protein {txid: 'txid224308'})-[:ProGo]-(g:go_term)
 WITH p, collect(g) AS go_terms
@@ -310,7 +338,8 @@ UNWIND parent_terms AS parent_term
 MERGE (p)-[r:ProGo]-(parent_term)
 ```
 
-3. Add ancestral edges for *D. melanogaster*.
+3. Add ancestral edges for _D. melanogaster_.
+
 ```js
 MATCH (p:protein {txid: 'txid7227'})-[:ProGo]-(g:go_term)
 WITH p, collect(g) AS go_terms
@@ -324,47 +353,69 @@ MERGE (p)-[r:ProGo]-(parent_term)
 ```
 
 4. Add qualifiers for new ProGo edges.
+
 ```js
 MATCH (p:protein)-[r:ProGo]-(g:go_term)
 WHERE r.relationship IS NULL
 SET r.relationship = "inferred_from_descendant"
 ```
 
-Species        |Relationships Added |
----------------|:-------------------|
-D. Melanogaster|415,493             |
-B. Subtilis    |39,215              |
-D.Rerio        |86,304              | 
-Total          |541,012             |
+| Species         | Relationships Added |
+| --------------- | :------------------ |
+| D. Melanogaster | 415,493             |
+| B. Subtilis     | 39,215              |
+| D.Rerio         | 86,304              |
+| Total           | 541,012             |
 
 ### Call the graph projection
+
 ```js
-CALL gds.graph.project(
-  'proGoGraph',
-  {
-    go_term: {
-      label: 'go_term'
-    },
-    protein: {
-      label: 'protein'
-    }
-  },
-  {
-    ProGo: {
-      type: 'ProGo',
-      orientation: 'NATURAL',
-      properties: {}
-    },
-    ProPro: {
-      type: 'ProPro',
-      orientation: 'UNDIRECTED',
-      properties: {}
-    }
-  }
-);
+CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
+CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;
+```
+
+# Verify Guide
+
+Once you have completed the guide, you can use the following query to verify that the database matches the most updated version (AS OF 05/06/2024).
+
+```
+match (fly:protein {txid :"txid7227"})
+WITH COUNT(fly) AS flyCount
+match (bsub:protein {txid :"txid224308"})
+WITH flyCount, COUNT(bsub) AS bsubCount
+match (drerio:protein {txid :"txid7955"})
+WITH flyCount, bsubCount, COUNT(drerio) AS drerioCount
+match (go:go_term)
+WITH flyCount, bsubCount, drerioCount, COUNT(go) AS goCount
+match (fly1 {txid :"txid7227"}) -[flyProPro:ProPro]- (fly2 {txid :"txid7227"})
+WITH flyCount, bsubCount, drerioCount, goCount, COUNT(flyProPro)/2 AS flyProProCount
+match (bsub1 {txid :"txid224308"}) -[bsubProPro:ProPro]- (bsub2 {txid :"txid224308"})
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, COUNT(bsubProPro)/2 AS bsubProProCount
+match (drerio1 {txid :"txid7955"}) -[drerioProPro:ProPro]- (drerio2 {txid :"txid7955"})
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, COUNT(drerioProPro)/2 AS drerioProProProCount
+match (go1:go_term) -[goGoGo:GoGo]- (go2:go_term)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, COUNT(goGoGo) AS goGoGoCount
+match (fly:protein {txid :"txid7227"}) -[flyProGo:ProGo]- (go)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount, COUNT(flyProGo) AS flyProGoCount
+match (bsub:protein {txid :"txid224308"}) -[bsubProGo:ProGo]- (go)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount,flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
+match (drerio:protein {txid :"txid7955"}) -[drerioProGo:ProGo]- (go)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount,flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
+RETURN flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount,flyProGoCount, bsubProGoCount,drerioProGoCount
+```
+
+You should get the following output
+
+```
+╒════════╤═════════╤═══════════╤═══════╤══════════════╤═══════════════╤════════════════════╤═══════════╤═════════════╤══════════════╤════════════════╕
+│flyCount│bsubCount│drerioCount│goCount│flyProProCount│bsubProProCount│drerioProProProCount│goGoGoCount│flyProGoCount│bsubProGoCount│drerioProGoCount│
+╞════════╪═════════╪═══════════╪═══════╪══════════════╪═══════════════╪════════════════════╪═══════════╪═════════════╪══════════════╪════════════════╡
+│11501   │1394     │6438       │42858  │233054        │2715           │45018               │136616     │513425       │48705         │108758          │
+└────────┴─────────┴───────────┴───────┴──────────────┴───────────────┴────────────────────┴───────────┴─────────────┴──────────────┴────────────────┘
 ```
 
 ### Useful Commands
+
 Delete nodes:
 `MATCH (n:protein {txid: "example", species: "example"}) DETACH DELETE n`
 
