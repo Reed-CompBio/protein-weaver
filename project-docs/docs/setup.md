@@ -368,26 +368,25 @@ WITH flyCount, bsubCount, drerioCount, goCount, COUNT(flyProPro)/2 AS flyProProC
 match (bsub1 {txid :"txid224308"}) -[bsubProPro:ProPro]- (bsub2 {txid :"txid224308"})
 WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, COUNT(bsubProPro)/2 AS bsubProProCount
 match (drerio1 {txid :"txid7955"}) -[drerioProPro:ProPro]- (drerio2 {txid :"txid7955"})
-WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, COUNT(drerioProPro)/2 AS drerioProProProCount
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, COUNT(drerioProPro)/2 AS drerioProProCount
 match (go1:go_term) -[goGoGo:GoGo]- (go2:go_term)
-WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, COUNT(goGoGo) AS goGoGoCount
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, COUNT(goGoGo)/2 AS goGoGoCount
 match (fly:protein {txid :"txid7227"}) -[flyProGo:ProGo]- (go)
-WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount, COUNT(flyProGo) AS flyProGoCount
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount, COUNT(flyProGo) AS flyProGoCount
 match (bsub:protein {txid :"txid224308"}) -[bsubProGo:ProGo]- (go)
-WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount,flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount,flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
 match (drerio:protein {txid :"txid7955"}) -[drerioProGo:ProGo]- (go)
-WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount,flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
-RETURN flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount,flyProGoCount, bsubProGoCount,drerioProGoCount
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount,flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
+RETURN flyCount, flyProProCount, flyProGoCount, bsubCount, bsubProProCount, bsubProGoCount, drerioCount, drerioProProCount, drerioProGoCount, goCount, goGoGoCount
 ```
 
-You should get the following output
-
+You should get the following output:
 ```js
-╒════════╤═════════╤═══════════╤═══════╤══════════════╤═══════════════╤════════════════════╤═══════════╤═════════════╤══════════════╤════════════════╕
-│flyCount│bsubCount│drerioCount│goCount│flyProProCount│bsubProProCount│drerioProProProCount│goGoGoCount│flyProGoCount│bsubProGoCount│drerioProGoCount│
-╞════════╪═════════╪═══════════╪═══════╪══════════════╪═══════════════╪════════════════════╪═══════════╪═════════════╪══════════════╪════════════════╡
-│11501   │1394     │6438       │42858  │233054        │2715           │45018               │136616     │513425       │48705         │108758          │
-└────────┴─────────┴───────────┴───────┴──────────────┴───────────────┴────────────────────┴───────────┴─────────────┴──────────────┴────────────────┘
+╒════════╤══════════════╤═════════════╤═════════╤═══════════════╤══════════════╤═══════════╤═════════════════╤════════════════╤═══════╤═══════════╕
+│flyCount│flyProProCount│flyProGoCount│bsubCount│bsubProProCount│bsubProGoCount│drerioCount│drerioProProCount│drerioProGoCount│goCount│goGoGoCount│
+╞════════╪══════════════╪═════════════╪═════════╪═══════════════╪══════════════╪═══════════╪═════════════════╪════════════════╪═══════╪═══════════╡
+│11501   │233054        │510962       │1394     │2715           │48705         │6438       │45018            │108758          │42858  │68308      │
+└────────┴──────────────┴─────────────┴─────────┴───────────────┴──────────────┴───────────┴─────────────────┴────────────────┴───────┴───────────┘
 ```
 
 ## Useful Commands
