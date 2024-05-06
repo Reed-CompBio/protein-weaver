@@ -6,7 +6,7 @@ export function getBasicStatistics(network, rawData, query) {
     avgNodeDegree: null,
   };
   networkStatistics.nodeCount = network.nodeList.length - 1;
-  networkStatistics.edgeCount = network.edgeList.length - 1;
+  networkStatistics.edgeCount = network.edgeList.length;
 
   networkStatistics.pathCount = getPathCount(rawData, query.k, query.mode);
   return networkStatistics;
