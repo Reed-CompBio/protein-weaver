@@ -288,7 +288,8 @@ SET r.relationship = "inferred_from_descendant"
 27. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 ```js
 CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
-CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;```
+CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;
+```
 
 ## Backend Server
 The backend server is run using Express.js. To setup the server continue with the following steps:
