@@ -34,7 +34,7 @@ docker run \
     -e NEO4J_apoc_import_file_use__neo4j__config=true \
     -e NEO4J_PLUGINS='["graph-data-science"]' \
     -e NEO4JLABS_PLUGINS=\[\"apoc\"\] \
-    neo4j:latest/5.12.0-community-bullseye
+    neo4j:5.12.0-community-bullseye
 ```
 
 - This example Docker instance has no security restrictions, to set a username and password edit this line in the previous command:
@@ -348,3 +348,56 @@ node -v
 npm run dev
 ```
 ProteinWeaver should now be up and running on [http://localhost:5173/](http://localhost:5173/)!
+
+## Verify Guide
+
+Once you have completed the guide, you can use the following query to verify that the database matches the most updated version (AS OF 2024-05-06):
+```
+match (fly:protein {txid :"txid7227"})
+WITH COUNT(fly) AS flyCount
+match (bsub:protein {txid :"txid224308"})
+WITH flyCount, COUNT(bsub) AS bsubCount
+match (drerio:protein {txid :"txid7955"})
+WITH flyCount, bsubCount, COUNT(drerio) AS drerioCount
+match (go:go_term)
+WITH flyCount, bsubCount, drerioCount, COUNT(go) AS goCount
+match (fly1 {txid :"txid7227"}) -[flyProPro:ProPro]- (fly2 {txid :"txid7227"})
+WITH flyCount, bsubCount, drerioCount, goCount, COUNT(flyProPro)/2 AS flyProProCount
+match (bsub1 {txid :"txid224308"}) -[bsubProPro:ProPro]- (bsub2 {txid :"txid224308"})
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, COUNT(bsubProPro)/2 AS bsubProProCount
+match (drerio1 {txid :"txid7955"}) -[drerioProPro:ProPro]- (drerio2 {txid :"txid7955"})
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, COUNT(drerioProPro)/2 AS drerioProProProCount
+match (go1:go_term) -[goGoGo:GoGo]- (go2:go_term)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, COUNT(goGoGo) AS goGoGoCount
+match (fly:protein {txid :"txid7227"}) -[flyProGo:ProGo]- (go)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount, COUNT(flyProGo) AS flyProGoCount
+match (bsub:protein {txid :"txid224308"}) -[bsubProGo:ProGo]- (go)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount,flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
+match (drerio:protein {txid :"txid7955"}) -[drerioProGo:ProGo]- (go)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount,flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
+RETURN flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProProCount, goGoGoCount,flyProGoCount, bsubProGoCount,drerioProGoCount
+```
+
+You should get the following output
+
+```
+╒════════╤═════════╤═══════════╤═══════╤══════════════╤═══════════════╤════════════════════╤═══════════╤═════════════╤══════════════╤════════════════╕
+│flyCount│bsubCount│drerioCount│goCount│flyProProCount│bsubProProCount│drerioProProProCount│goGoGoCount│flyProGoCount│bsubProGoCount│drerioProGoCount│
+╞════════╪═════════╪═══════════╪═══════╪══════════════╪═══════════════╪════════════════════╪═══════════╪═════════════╪══════════════╪════════════════╡
+│11501   │1394     │6438       │42858  │233054        │2715           │45018               │136616     │513425       │48705         │108758          │
+└────────┴─────────┴───────────┴───────┴──────────────┴───────────────┴────────────────────┴───────────┴─────────────┴──────────────┴────────────────┘
+```
+
+## Useful Commands
+
+* Delete nodes:
+`MATCH (n:protein {txid: "example", species: "example"}) DETACH DELETE n`
+
+* Drop constraints:
+`DROP CONSTRAINT constraint`
+
+* Drop graph projection:
+`CALL gds.graph.drop('proGoGraph') YIELD graphName`
+
+* Show database information:
+`:schema`

@@ -1,4 +1,3 @@
-# Data Import Instructions
 
 ## How to get started with Neo4j and upload the data
 
