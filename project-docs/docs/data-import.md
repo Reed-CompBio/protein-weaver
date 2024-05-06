@@ -12,9 +12,9 @@
         - Import the properly formatted GO terms file from FlyBase and store in the GitHub repository: [`gene_association.fb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/gene_association.fb).
     - `~/neo4j/plugins/` to store any necessary plugins for production environments
 
-2. Download all the content of [`/import`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/import/) and place it inside of your `~/neo4j/import/`. These are all the prerequisite files you will need for this tutorial.
+2. Download all the content of [`/import`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/) and place it inside of your `~/neo4j/import/`. These are all the prerequisite files you will need for this tutorial.
 
-2. Create a docker instance with APOC plugin using the following command:
+3. Create a docker instance with APOC plugin using the following command:
 ```sh
 docker run \
     --name proteinweaver \
@@ -34,14 +34,14 @@ docker run \
 - This docker instance has no security restrictions, to change username and password edit:
     `--env NEO4J_AUTH=username/password`
 
-3. Access the docker image at [http://localhost:7474](http://localhost:7474)
+4. Access the docker image at [http://localhost:7474](http://localhost:7474)
 
-4. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
+5. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
     `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
     Create a constraint for the GO terms in the database using the following command:
     `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
 
-5. Import *D. melanogaster* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/import/interactome-flybase-collapsed-weighted.txt) using the following command:
+6. Import *D. melanogaster* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/interactome-flybase-collapsed-weighted.txt) using the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
 FIELDTERMINATOR '\t'
@@ -54,7 +54,7 @@ CALL {
 ```
 - This will create all of the protein-protein relationships and populate the database.
 
-6. Set a relationship property for the PubmedID
+7. Set a relationship property for the PubmedID
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
 FIELDTERMINATOR '\t'
@@ -65,7 +65,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-7. Import the Gene Ontology data, [gene_association.fb](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/gene_association.fb), into the database using the following command:
+8. Import the Gene Ontology data, [gene_association.fb](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/gene_association.fb), into the database using the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association.fb' AS flygo
 FIELDTERMINATOR '\t'
@@ -77,7 +77,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-8. Import the relationships qualifiers for the GO terms and fly proteins using the following commands:
+9. Import the relationships qualifiers for the GO terms and fly proteins using the following commands:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association.fb' AS flygo
 FIELDTERMINATOR '\t'
@@ -88,7 +88,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-9. Import *B. subtilis* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_interactome.csv) with the following command:
+10. Import *B. subtilis* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_interactome.csv) with the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
 CALL {
@@ -99,7 +99,7 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-10. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_GO_data.csv) to *B. subtilis* nodes:
+11. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data.csv) to *B. subtilis* nodes:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
@@ -110,7 +110,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-11. Set qualifier property for *B. subtilis*.
+12. Set qualifier property for *B. subtilis*.
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
 CALL {
@@ -120,7 +120,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-12. Download and import the [GO hierarchy](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/is_a_import.tsv) using the commands below. This is made from the script [ParseOntologyRelationship.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb) if you are interested.
+13. Download and import the [GO hierarchy]https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/is_a_import.tsv) using the commands below. This is made from the script [ParseOntologyRelationship.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb) if you are interested.
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
 FIELDTERMINATOR '\t'
@@ -133,7 +133,7 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
-13. Download and import the [GO term common names](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go.txt) and descriptions with the Cypher commands below. This file is made from the script [ParseOBOtoTXT.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb) if you are interested.
+14. Download and import the [GO term common names](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/go.txt) and descriptions with the Cypher commands below. This file is made from the script [ParseOBOtoTXT.ipynb](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb) if you are interested.
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///go.txt' AS go
 FIELDTERMINATOR '\t'
@@ -151,7 +151,7 @@ CALL {
 Don't forget to drop the existing projection before adding more data.
 `call gds.graph.drop("proGoGraph") YIELD graphName`
 
-1. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/dmel_GO_data_Mar15_24.tsv) for *D. melanogaster*
+1. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/dmel_GO_data_Mar15_24.tsv) for *D. melanogaster*
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_Mar15_24.tsv' AS dmelgo
 FIELDTERMINATOR '\t'
@@ -174,7 +174,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-3. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_GO_data_Mar18_24.tsv) for *B. subtilis*
+3. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data_Mar18_24.tsv) for *B. subtilis*
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_Mar18_24.tsv' AS bsubgo
 FIELDTERMINATOR '\t'
@@ -197,7 +197,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-5. Import *D. rerio* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_interactome_Mar12_2024.txt) with the following command:
+5. Import *D. rerio* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_interactome_Mar12_2024.txt) with the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
 FIELDTERMINATOR '\t'
@@ -220,7 +220,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-7. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_GO_data_Mar12_24.tsv) to *D. rerio* nodes:
+7. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_GO_data_Mar12_24.tsv) to *D. rerio* nodes:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
@@ -270,7 +270,7 @@ CALL {
 ```
 
 ### Mar. 28, 2024
-1. Add blacklist indicator to GO term nodes from [new dataset](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_2024-03-28.txt):
+1. Add blacklist indicator to GO term nodes from [new dataset](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/go_2024-03-28.txt):
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
 FIELDTERMINATOR '\t'
