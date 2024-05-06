@@ -42,10 +42,12 @@ docker run \
 
 5. Access the Docker image at [http://localhost:7474](http://localhost:7474). You will need to input the username and password you defined in the `run` command.
 
-6. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
-   `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
-   Create a constraint for the GO terms in the database using the following command:
-   `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
+6. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers:
+```
+CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;
+CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;
+
+```
 
 ##### _D. melanogaster_ imports
 7. Import _D. melanogaster_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/interactome-flybase-collapsed-weighted.txt) using the following command:
@@ -283,10 +285,10 @@ WHERE r.relationship IS NULL
 SET r.relationship = "inferred_from_descendant"
 ```
 
-27. The last step is calling a graph projection for pathfinding algorithms:
+27. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 ```js
 CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
-```
+CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;```
 
 ## Backend Server
 The backend server is run using Express.js. To setup the server continue with the following steps:
