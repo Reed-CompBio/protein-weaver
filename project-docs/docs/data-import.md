@@ -12,6 +12,8 @@
         - Import the properly formatted GO terms file from FlyBase and store in the GitHub repository: [`gene_association.fb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/gene_association.fb).
     - `~/neo4j/plugins/` to store any necessary plugins for production environments
 
+2. Download all the content of [`/import`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/import/) and place it inside of your `~/neo4j/import/`. These are all the prerequisite files you will need for this tutorial.
+
 2. Create a docker instance with APOC plugin using the following command:
 ```sh
 docker run \
@@ -39,7 +41,7 @@ docker run \
     Create a constraint for the GO terms in the database using the following command:
     `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
 
-5. Import *D. melanogaster* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/interactome-flybase-collapsed-weighted.txt) using the following command:
+5. Import *D. melanogaster* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/import/interactome-flybase-collapsed-weighted.txt) using the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
 FIELDTERMINATOR '\t'
@@ -220,7 +222,7 @@ CALL {
 
 7. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_GO_data_Mar12_24.tsv) to *D. rerio* nodes:
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
 CALL {
     with zfishgo
@@ -232,7 +234,7 @@ CALL {
 
 8. Set qualifier property for *D. rerio*.
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
 CALL {
     with zfishgo
