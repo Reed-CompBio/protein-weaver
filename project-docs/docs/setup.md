@@ -43,10 +43,9 @@ docker run \
 5. Access the Docker image at [http://localhost:7474](http://localhost:7474). You will need to input the username and password you defined in the `run` command.
 
 6. Create constraints before data import. We use NCBI as the source of the unique taxon identifiers:
-```
+```js
 CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;
 CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;
-
 ```
 
 ##### _D. melanogaster_ imports
@@ -355,7 +354,7 @@ ProteinWeaver should now be up and running on [http://localhost:5173/](http://lo
 ## Verify Guide
 
 Once you have completed the guide, you can use the following query to verify that the database matches the most updated version (AS OF 2024-05-06):
-```
+```js
 match (fly:protein {txid :"txid7227"})
 WITH COUNT(fly) AS flyCount
 match (bsub:protein {txid :"txid224308"})
@@ -383,7 +382,7 @@ RETURN flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCoun
 
 You should get the following output
 
-```
+```js
 ╒════════╤═════════╤═══════════╤═══════╤══════════════╤═══════════════╤════════════════════╤═══════════╤═════════════╤══════════════╤════════════════╕
 │flyCount│bsubCount│drerioCount│goCount│flyProProCount│bsubProProCount│drerioProProProCount│goGoGoCount│flyProGoCount│bsubProGoCount│drerioProGoCount│
 ╞════════╪═════════╪═══════════╪═══════╪══════════════╪═══════════════╪════════════════════╪═══════════╪═════════════╪══════════════╪════════════════╡
