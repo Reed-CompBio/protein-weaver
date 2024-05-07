@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { getDriver } from "../src/neo4j.js";
 import bodyParser from "body-parser";
-import MovieService from "../services/movie.service.js";
 import NetworkService from "../services/network.service.js";
 import EdgeDataService from "../services/edge.data.service.js";
 import ProteinService from "../services/protein.service.js";
@@ -22,18 +21,6 @@ const jsonParser = bodyParser.json();
 router.get("/test", (req, res) => {
   res.json({ message: "Successfully connected to the backend API" });
   console.log("successfully connected to the backend API");
-});
-
-router.get("/getMovie", async (res, next) => {
-  try {
-    const movieService = new MovieService(getDriver());
-
-    const movies = await movieService.getMovie();
-
-    res.json(movies);
-  } catch (e) {
-    next(e);
-  }
 });
 
 router.get("/getNetwork", async (res, next) => {

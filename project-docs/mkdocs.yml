@@ -2,7 +2,7 @@ site_name: ProteinWeaver Docs
 nav:
   - Home: index.md
   - Setup: setup.md
-  - Data Import: data-import.md
+  - Data Log & Version: data-version.md
   - Tech Stack: tech-stack.md
 
 theme: readthedocs
