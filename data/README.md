@@ -1,0 +1,2 @@
+# Data
+This folder contains all the information related to the datasets we used in ProteinWeaver. For a full and complete guide of the data import tutorial, please visit our [ReadTheDocs](https://reed-compbio.github.io/protein-weaver/data-import/)

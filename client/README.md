@@ -1,0 +1,2 @@
+# Client
+This directory contains all files related to the frontend of ProteinWeaver.  For more information about our techstack, please visit our [ReadTheDocs](https://reed-compbio.github.io/protein-weaver/)
