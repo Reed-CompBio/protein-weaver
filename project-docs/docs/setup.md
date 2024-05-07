@@ -277,9 +277,19 @@ UNWIND parent_terms AS parent_term
 MERGE (p)-[r:ProGo]-(parent_term)
 ```
 
-26. Add qualifiers for new ProGo edges.
+26. Add qualifiers for new ProGo edges for each species.
 ```js
-MATCH (p:protein)-[r:ProGo]-(g:go_term)
+MATCH (p:protein  {txid: 'txid7227'})-[r:ProGo]-(g:go_term)
+WHERE r.relationship IS NULL
+SET r.relationship = "inferred_from_descendant"
+```
+```js
+MATCH (p:protein {txid: 'txid224308'})-[r:ProGo]-(g:go_term)
+WHERE r.relationship IS NULL
+SET r.relationship = "inferred_from_descendant"
+```
+```js
+MATCH (p:protein {txid: 'txid7955'})-[r:ProGo]-(g:go_term)
 WHERE r.relationship IS NULL
 SET r.relationship = "inferred_from_descendant"
 ```
