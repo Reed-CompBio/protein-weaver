@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Oliver Anderson, Altaf Barelvi, Anna Ritz" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Data Log & Version - ProteinWeaver Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Data Log \u0026 Version";
+        var mkdocs_page_input_path = "data-version.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ProteinWeaver Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../setup/">Setup</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Data Log & Version</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#drosophila-melanogaster-data-sources">Drosophila melanogaster Data Sources</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#2023-09-29-beta">2023-09-29 (BETA):</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#interaction-data">Interaction data:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#go-association-data">GO association data:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-03-18">2024-03-18:</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#go-association-data_1">GO association data:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#flybase-ids-from-uniprot-ids-for-mapping">FlyBase IDs from UniProt IDs for mapping:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-04-01">2024-04-01:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-04-03">2024-04-03:</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#go-association-data_2">GO association data:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#current-d-melanogaster-network">Current D. melanogaster Network</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bacillus-subtilis-data-sources">Bacillus subtilis Data Sources</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#2023-10-18-beta">2023-10-18 (BETA):</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#interaction-data_1">Interaction data:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#go-association-data_3">GO association data:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-03-18_1">2024-03-18:</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#go-association-data_4">GO association data:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#bsu-ids-from-uniprot-ids-for-mapping">BSU IDs from UniProt IDs for mapping:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-04-01_1">2024-04-01:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-04-03_1">2024-04-03:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#current-b-subtilis-network">Current B. subtilis Network</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#danio-rerio-data-sources">Danio rerio Data Sources</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-03-18_2">2024-03-18:</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#interaction-data_2">Interaction data:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#go-association-data_5">GO Association Data:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-04-01_2">2024-04-01:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-04-03_2">2024-04-03:</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#go-association-data_6">GO association data:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#current-d-rerio-network">Current D. rerio Network</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#gene-ontology-hierarchy-data-sources">Gene Ontology Hierarchy Data Sources</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#2023-09-29">2023-09-29:</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#common-name">Common name:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#relationships">Relationships:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-03-28">2024-03-28:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gene-ontology-data-structure">Gene Ontology Data Structure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#taxon-id-source">Taxon ID source:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#versioning-dates">Versioning &amp; Dates</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#2023-09-29-2024-03-17-beta">2023-09-29 -- 2024-03-17 (BETA):</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-03-18_3">2024-03-18:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-03-28_1">2024-03-28:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-04-01_3">2024-04-01:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-04-03_3">2024-04-03:</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../tech-stack/">Tech Stack</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ProteinWeaver Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Data Log & Version</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="proteinweaver-data-log-version">ProteinWeaver Data Log &amp; Version</h1>
+<p>This section of the documentation outlines the data sources, processing steps and versions of the ProteinWeaver web interface.</p>
+<h2 id="drosophila-melanogaster-data-sources"><em>Drosophila melanogaster</em> Data Sources</h2>
+<h3 id="2023-09-29-beta">2023-09-29 (BETA):</h3>
+<h4 id="interaction-data">Interaction data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/interactome-flybase-collapsed-weighted.txt"><code>interactome-flybase-collapsed-weighted.txt</code></a> <a href="https://github.com/annaritz/fly-interactome/tree/master/interactome/weighted-interactome">(Source)</a></li>
+</ul>
+<h4 id="go-association-data">GO association data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/gene_association.fb"><code>gene_association.fb</code></a> <a href="https://wiki.flybase.org/wiki/FlyBase:Downloads_Overview#Gene_Association_File_-_GAF_.28gene_association.fb.gz.29">(Source)</a></li>
+</ul>
+<h3 id="2024-03-18">2024-03-18:</h3>
+<h4 id="go-association-data_1">GO association data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/dmel_GO_data_Mar15_24.tsv"><code>dmel_GO_data_Mar15_24.tsv</code></a> <a href="https://www.ebi.ac.uk/QuickGO/annotations?taxonId=7227&amp;taxonUsage=descendants&amp;geneProductSubset=Swiss-Prot&amp;geneProductType=protein">(Source)</a></li>
+<li>Downloaded and merged data together in <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R"><code>scripts/SubColNames.R</code></a>.</li>
+</ul>
+<h4 id="flybase-ids-from-uniprot-ids-for-mapping">FlyBase IDs from UniProt IDs for mapping:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/idmapping_2024_03_18.tsv"><code>idmapping_2024_03_18.tsv</code></a> <a href="https://www.uniprot.org/id-mapping">(Source)</a></li>
+<li>Downloaded from UniProt and merged with GO data from QuickGO to match the FlyBase naming convention. Renamed columns to "GENE_PRODUCT_ID" and "FB_ID" and merged in <code>scripts/SubColNames.R</code>.</li>
+</ul>
+<h3 id="2024-04-01">2024-04-01:</h3>
+<ul>
+<li>Added 415,493 inferred ProGo edges using a Cypher command.</li>
+</ul>
+<h3 id="2024-04-03">2024-04-03:</h3>
+<h4 id="go-association-data_2">GO association data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/gene_association_fb_2024-04-03.tsv"><code>gene_association_fb_2024-04-03.tsv</code></a></li>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/dmel_GO_data_2024-04-03.tsv"><code>dmel_GO_data_2024-04-03.tsv</code></a></li>
+<li>Removed qualifiers with "NOT" preceding them using <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R">`scripts/RemoveNotQualifier.R</a></li>
+<li>Reduced inferred ProGo edges to 413,704.</li>
+</ul>
+<h3 id="current-d-melanogaster-network">Current <em>D. melanogaster</em> Network</h3>
+<pre><code>| Proteins | Interactions (ProPro) | Annotations (ProGo) |
+| -------- | --------------------- | :------------------ |
+| 11501    | 233054                | 510962              |
+</code></pre>
+<h2 id="bacillus-subtilis-data-sources"><em>Bacillus subtilis</em> Data Sources</h2>
+<h3 id="2023-10-18-beta">2023-10-18 (BETA):</h3>
+<h4 id="interaction-data_1">Interaction data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_interactome.csv"><code>bsub_interactome.csv</code></a></li>
+<li><a href="http://subtiwiki.uni-goettingen.de/v4/exports">Source</a></li>
+<li>Exported the “Interaction” set and renamed to <code>bsub_interactome.csv</code>.</li>
+</ul>
+<h4 id="go-association-data_3">GO association data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/subtiwiki.gene.export.2023-10-18.tsv"><code>subtiwiki.gene.export.2023-10-18.tsv</code></a> processed and merged into <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_GO_data.csv"><code>bsub_GO_data.csv</code></a> <a href="http://subtiwiki.uni-goettingen.de/v4/exports">(Source)</a></li>
+<li>
+<p>Exported the “Gene” set with all options selected. Processed and merged the file according to <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/JoinBSUtoUniProt.R"><code>scripts/JoinBSUtoUniProt.R</code></a>.</p>
+</li>
+<li>
+<p><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_go_uniprot.csv"><code>bsub_go_uniprot.tsv</code></a> <a href="https://amigo.geneontology.org/amigo/search/annotation">(Source)</a></p>
+</li>
+<li>Selected all annotations for <em>B. subtilis</em> and used the following bash command to download:</li>
+</ul>
+<pre><code>wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&amp;qt=standard&amp;indent=on&amp;wt=csv&amp;rows=100000&amp;start=0&amp;fl=source,bioentity_internal_id,bioentity_label,qualifier,annotation_class,reference,evidence_type,evidence_with,aspect,bioentity_name,synonym,type,taxon,date,assigned_by,annotation_extension_class,bioentity_isoform&amp;facet=true&amp;facet.mincount=1&amp;facet.sort=count&amp;json.nl=arrarr&amp;facet.limit=25&amp;hl=true&amp;hl.simple.pre=%3Cem%20class=%22hilite%22%3E&amp;hl.snippets=1000&amp;csv.encapsulator=&amp;csv.separator=%09&amp;csv.header=false&amp;csv.mv.separator=%7C&amp;fq=document_category:%22annotation%22&amp;fq=taxon_subset_closure_label:%22Bacillus%20subtilis%20subsp.%20subtilis%20str.%20168%22&amp;facet.field=aspect&amp;facet.field=taxon_subset_closure_label&amp;facet.field=type&amp;facet.field=evidence_subset_closure_label&amp;facet.field=regulates_closure_label&amp;facet.field=isa_partof_closure_label&amp;facet.field=annotation_class_label&amp;facet.field=qualifier&amp;facet.field=annotation_extension_class_closure_label&amp;facet.field=assigned_by&amp;facet.field=panther_family_label&amp;q=*:*'
+</code></pre>
+<ul>
+<li>File was renamed to <code>bsub_go_uniprot.tsv</code>, processed and merged into <code>bsub_GO_data.csv</code> according to the <code>scripts/JoinBSUtoUniProt.R</code> file.</li>
+</ul>
+<h3 id="2024-03-18_1">2024-03-18:</h3>
+<h4 id="go-association-data_4">GO association data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_GO_data_Mar18_24.tsv"><code>bsub_GO_data_Mar18_24.tsv</code></a> <a href="https://www.ebi.ac.uk/QuickGO/annotations?taxonId=224308&amp;taxonUsage=descendants&amp;geneProductSubset=Swiss-Prot&amp;geneProductType=protein">(Source)</a></li>
+<li>Downloaded and merged data together in <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R"><code>scripts/SubColNames.R</code></a> and imported with <code>data/README.md</code>.</li>
+</ul>
+<h4 id="bsu-ids-from-uniprot-ids-for-mapping">BSU IDs from UniProt IDs for mapping:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/subtiwiki.gene.export.2024-03-18.tsv"><code>subtiwiki.gene.export.2024-03-18.tsv</code></a> <a href="http://subtiwiki.uni-goettingen.de/v4/gene/exporter">(Source)</a></li>
+<li>Selected BSU and UniProt outlinks from menu and exported. Renamed columns to "GENE_PRODUCT_ID" and "BSU_ID" to remove special characters. Merged in <code>scripts/SubColNames.R</code>.</li>
+</ul>
+<h3 id="2024-04-01_1">2024-04-01:</h3>
+<ul>
+<li>Added 39,215 inferred ProGo edges using a Cypher command.</li>
+</ul>
+<h3 id="2024-04-03_1">2024-04-03:</h3>
+<ul>
+<li>No "NOT" qualifiers were found in the dataset so there were no changes to the <em>B. subtilis</em> data structure during this update.</li>
+</ul>
+<h3 id="current-b-subtilis-network">Current <em>B. subtilis</em> Network</h3>
+<pre><code>| Proteins | Interactions (ProPro) | Annotations (ProGo) |
+| -------- | --------------------- | :------------------ |
+| 1394     | 2715                  | 48705               |
+</code></pre>
+<h2 id="danio-rerio-data-sources"><em>Danio rerio</em> Data Sources</h2>
+<h3 id="2024-03-18_2">2024-03-18:</h3>
+<h4 id="interaction-data_2">Interaction data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_string_db_results.csv"><code>zfish_string_db_results.csv</code></a> merged into <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_interactome_Mar12_2024.txt"><code>zfish_interactome_Mar12_2024.txt</code></a>. <a href="https://string-db.org/cgi/download?sessionId=bjC4UlI45w0z&amp;species_text=Danio+rerio">(Source)</a></li>
+<li>
+<p>Downloaded file <code>7955.protein.physical.links.full.v12.0.txt.gz</code> from String-DB and filtered to experimentally validated, database-curated, and textmined interactions according to <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ZebrafishDataMerging.Rmd"><code>scripts/ZebrafishDataMerging.Rmd</code></a>. Mar. 12, 2024.</p>
+</li>
+<li>
+<p><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/7955.protein.aliases.v12.0.txt"><code>7955.protein.aliases.v12.0.txt</code></a> merged into <code>zfish_interactome_Mar12_2024.txt</code> <a href="https://string-db.org/cgi/download?sessionId=bjC4UlI45w0z&amp;species_text=Danio+rerio">(Source)</a></p>
+</li>
+<li>
+<p>Downloaded file from String-DB to provide UniProt IDs for STRING-DB aliases.</p>
+</li>
+<li>
+<p><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_psicquic_results.csv"><code>zfish_psicquic_results.csv</code></a> merged into <code>zfish_interactome_Mar12_2024.txt</code> <a href="http://www.ebi.ac.uk/Tools/webservices/psicquic/view/home.xhtml">(Source)</a></p>
+</li>
+<li>
+<p>Used a Python script <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GetXML.ipynb"><code>scripts/GetXML.ipynb</code></a> to scrape all entries for “<em>Danio rerio</em>” from the REST API. Removed all <code>&lt;entrySet&gt;</code> tags that were in between the first and last instance. All <code>&lt;xml&gt;</code> tags but the first were removed from the file. Got data for interactions and interactors and converted XML format to JSON using <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/get-interactions.js"><code>scripts/get-interactions.js</code></a> and <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/get-interactors.js"><code>scripts/get-interactors.js</code></a>. Converted the resulting JSON files to CSV using a <a href="https://www.convertcsv.com/json-to-csv.htm">free online convertor</a>. Merged <code>interactions.csv</code> and <code>interactors.csv</code> into <code>zfish_psicquic_results.csv</code> using <code>scripts/ZebrafishDataMerging.Rmd</code>. Some UniProt IDs were found from the IntAct entry using the IntAct ID as documented in the Rmd.</p>
+</li>
+<li>
+<p><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_id_mapper.tsv"><code>zfish_id_mapper.tsv</code></a> merged into <code>zfish_interactome_Mar12_2024.txt</code> <a href="https://www.uniprot.org/id-mapping/uniprotkb">(Source)</a></p>
+</li>
+<li>Retrieved updated UniProt entries and common names for 11,765 entries. 2781 protein entries were found to be obsolete, thus did not have a name available on UniProt. These were removed and separated into their own dataset.</li>
+<li>
+<p>The resulting dataset had 6,438 unique proteins.</p>
+</li>
+<li>
+<p><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_gene_names.tsv"><code>zfish_gene_names.tsv</code></a> merged into <code>zfish_interactome_Mar12_2024.txt</code> <a href="https://www.uniprot.org/id-mapping/uniprotkb">(Source)</a></p>
+</li>
+<li>
+<p>Retrieved gene names for 6,438 <em>D. rerio</em> proteins <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/updated_Mar12_24_zfish_unique_protein_ids.txt"><code>zfish_unique_protein_ids_Mar12_24.txt</code></a> from UniProt's name mapping service. For entries with a "gene name", the gene name was used as the name, for those without a gene name, the first portion of the "protein name" was used. This was decided to ensure uniqueness for the node names in the user interface.</p>
+</li>
+<li>
+<p>Merged all <em>D. rerio</em> data together into one master file using the instructions in <code>scripts/ZebrafishDataMerging.Rmd</code>.</p>
+</li>
+</ul>
+<h4 id="go-association-data_5">GO Association Data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_GO_data_Mar12_24.tsv"><code>zfish_GO_data_Mar12_24.tsv</code></a> <a href="https://www.ebi.ac.uk/QuickGO/annotations">(Source)</a></li>
+<li>Used QuickGO to get all 65,876 "Reviewed" GO annotations for <em>D. rerio</em>. Replaced the " " in headers with "_" to ease data import.</li>
+</ul>
+<h3 id="2024-04-01_2">2024-04-01:</h3>
+<ul>
+<li>Added 86,304 inferred ProGo edges using a Cypher command.</li>
+</ul>
+<h3 id="2024-04-03_2">2024-04-03:</h3>
+<h4 id="go-association-data_6">GO association data:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_GO_data_2024-04-03.tsv"><code>zfish_GO_data_2024-04-03.tsv</code></a></li>
+<li>Removed qualifiers with "NOT" preceding them using <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R">`scripts/RemoveNotQualifier.R</a></li>
+<li>Reduced inferred ProGo edges to 86,216.</li>
+</ul>
+<h3 id="current-d-rerio-network">Current <em>D. rerio</em> Network</h3>
+<pre><code>| Proteins | Interactions (ProPro) | Annotations (ProGo) |
+| -------- | --------------------- | :------------------ |
+| 6438     | 45018                 | 108758              |
+</code></pre>
+<h2 id="gene-ontology-hierarchy-data-sources">Gene Ontology Hierarchy Data Sources</h2>
+<h3 id="2023-09-29">2023-09-29:</h3>
+<h4 id="common-name">Common name:</h4>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go.obo"><code>go.obo</code></a> processed into <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go.txt"><code>go.txt</code></a> <a href="http://current.geneontology.org/ontology/go.obo">(Source)</a></li>
+<li>Used <code>wget</code> to download the file. Processed the file using <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOBOtoTXT.ipynb"><code>scripts/ParseOBOtoTXT.ipynb</code></a>.</li>
+</ul>
+<h4 id="relationships">Relationships:</h4>
+<ul>
+<li><code>go.obo</code> processed into <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/is_a_import.tsv"><code>is_a_import.tsv</code></a></li>
+<li>
+<p>Processed the file using <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb"><code>scripts/ParseOntologyRelationship.ipynb</code></a>.</p>
+</li>
+<li>
+<p><code>go.obo</code> processed into <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/relationship_import.tsv"><code>relationship_import.tsv</code></a></p>
+</li>
+<li>Processed the file using <code>scripts/ParseOntologyRelationship.ipynb</code>.</li>
+</ul>
+<h3 id="2024-03-28">2024-03-28:</h3>
+<ul>
+<li><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/goNeverAnnotate.txt"><code>goNeverAnnotate.txt</code></a> joined with <code>go.txt</code> into <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_2024-03-28.txt"><code>go_2024-03-28.txt</code></a></li>
+<li>
+<p>Joined the data together with <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GeneOntologyNeverAnnotate.R"><code>scripts/GeneOntologyNeverAnnotate.R</code></a>.</p>
+</li>
+<li>
+<p><a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/gocheck_do_not_annotate.txt"><code>gocheck_do_not_annotate.txt</code></a> parsed from <code>gocheck_do_not_annotate.obo</code> using <code>scripts/ParseOBOtoTXT.ipynb</code> and merged into <code>go_2024-03-28.txt</code>.</p>
+</li>
+</ul>
+<h3 id="gene-ontology-data-structure">Gene Ontology Data Structure</h3>
+<pre><code>| GO Terms | &quot;is_a&quot; Relationships (GoGo) |
+| -------- | :-------------------------- |
+| 42854    | 68308                       |
+</code></pre>
+<h3 id="taxon-id-source">Taxon ID source:</h3>
+<p><a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/">NCBI taxonomy browser</a>
+Looked up species name and got taxon ID.</p>
+<h2 id="versioning-dates">Versioning &amp; Dates</h2>
+<h3 id="2023-09-29-2024-03-17-beta">2023-09-29 -- 2024-03-17 (BETA):</h3>
+<ul>
+<li>Imported weighted <em>D. melanogaster</em> interactome and FlyBase annotations.</li>
+<li>Imported raw GO data and "is_a" relationships.</li>
+</ul>
+<h3 id="2024-03-18_3">2024-03-18:</h3>
+<ul>
+<li>Added <em>D. rerio</em> protein interactome and GO association data.</li>
+<li>Updated <em>B. subtilis</em> and <em>D. melanogaster</em> GO association networks with QuickGO data.</li>
+</ul>
+<h3 id="2024-03-28_1">2024-03-28:</h3>
+<ul>
+<li>Added blacklist indicator to GO term nodes that should never have an annotation.</li>
+</ul>
+<h3 id="2024-04-01_3">2024-04-01:</h3>
+<ul>
+<li>Added inferred ProGo edges from descendant ProGo edges. This means that proteins annotated to a specific GO term, such as Mbs to enzyme inhibitor activity, will also be annotated to that GO term's ancestors, such as molecular function inhibitor activity and molecular_function.</li>
+</ul>
+<pre><code>| Species         | Inferred Edges |
+| --------------- | :------------- |
+| D. melanogaster | 415,493        |
+| B. subtilis     | 39,215         |
+| D. rerio        | 86,304         |
+| Total           | 541,012        |
+</code></pre>
+<h3 id="2024-04-03_3">2024-04-03:</h3>
+<ul>
+<li>Removed "NOT" qualifiers (those that should not be explicitly annotated to the GO term due to experimental or other evidence) from all GO assocation datasets.</li>
+<li>Repropogated the "inferred_from_descendant" edges to ensure no false propogation of "NOT" qualifiers.</li>
+</ul>
+<pre><code>| Species         | Inferred Edges |
+| --------------- | :------------- |
+| D. melanogaster | 413,704        |
+| B. subtilis     | 39,215         |
+| D. rerio        | 86,216         |
+| Total           | 539,135        |
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../setup/" class="btn btn-neutral float-left" title="Setup"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tech-stack/" class="btn btn-neutral float-right" title="Tech Stack">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../setup/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tech-stack/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

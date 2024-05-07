@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Oliver Anderson, Altaf Barelvi, Anna Ritz" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
     <title>Setup - ProteinWeaver Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
@@ -47,16 +47,36 @@
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Setup</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#backend-database">Backend Database</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#d-melanogaster-imports">D. melanogaster imports</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#b-subtilis-imports">B. subtilis imports</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#d-rerio-imports">D. rerio imports</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gene-ontology-hierarchy-imports">Gene Ontology hierarchy imports</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#propogation-of-ancestral-progo-edges">Propogation of ancestral ProGo edges</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#backend-server">Backend Server</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#frontend">Frontend</a>
+    <li class="toctree-l2"><a class="reference internal" href="#frontend-client">Frontend Client</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#verify-guide">Verify Guide</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#useful-commands">Useful Commands</a>
     </li>
     </ul>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../data-import/">Data Import</a>
+                <li class="toctree-l1"><a class="reference internal" href="../data-version/">Data Log & Version</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../tech-stack/">Tech Stack</a>
                 </li>
               </ul>
       </div>
@@ -83,56 +103,435 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="setup">Setup</h1>
-<p>The setup guide will include the backend database, server, and the frontend</p>
+<p>The setup guide will include instructions for creating the front and backenbd local dev environments (database, server, and client).</p>
 <h2 id="backend-database">Backend Database</h2>
-<p>Neo4j is the database. We will need Docker to setup the database. <a href="https://docs.docker.com/get-docker/">Follow this page</a> to install the Docker Desktop. First pull the official Neo4j Docker image</p>
+<p>ProteinWeaver uses a Dockerized version of Neo4j as the database. <a href="https://docs.docker.com/get-docker/">Follow these instructions</a> to install Docker Desktop. Once installed continue with the following steps:</p>
+<ol>
+<li>Pull the official Neo4j Docker image.</li>
+</ol>
 <pre><code>docker pull neo4j
 </code></pre>
-<p>Run the Neo4j Docker image</p>
-<pre><code>docker run --interactive --tty -p7687:7687 -p7474:7474 -p7473:7473 --env NEO4J_AUTH=neo4j/testpassword --env NEO4J_ACCEPT_LICENSE_AGREEMENT=yes neo4j:5.11.0-community-bullseye
+<ol>
+<li>
+<p>Create a directory in your <code>$HOME</code> named <code>neo4j</code></p>
+</li>
+<li>
+<p>Within <code>~/neo4j</code> directory create the following directories:</p>
+</li>
+<li><code>~/neo4j/data/</code> to allow storage of database state between Docker instances</li>
+<li><code>~/neo4j/logs/</code> to allow storage of logs between Docker instances</li>
+<li><code>~/neo4j/import/</code> to store data for import</li>
+<li>
+<p><code>~/neo4j/plugins/</code> to store any necessary plugins for production environments</p>
+</li>
+<li>
+<p>Download the most recent datasets from the <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/"><code>/import</code></a> directory on GitHub and place them inside of your <code>~/neo4j/import/</code> local directory. These are all the prerequisite files you will need for this tutorial and will be updated as new versions are released.</p>
+</li>
+<li>
+<p>Create a Docker instance with GDS and APOC plugins using the following command:</p>
+</li>
+</ol>
+<pre><code class="language-sh">docker run \
+    --name proteinweaver \
+    -p7474:7474 -p7687:7687 \
+    -v $HOME/neo4j/data:/data \
+    -v $HOME/neo4j/logs:/logs \
+    -v $HOME/neo4j/import:/import \
+    -v $HOME/neo4j/plugins:/plugins \
+    --env NEO4J_AUTH=none \
+    -e NEO4J_apoc_export_file_enabled=true \
+    -e NEO4J_apoc_import_file_enabled=true \
+    -e NEO4J_apoc_import_file_use__neo4j__config=true \
+    -e NEO4J_PLUGINS='[&quot;graph-data-science&quot;]' \
+    -e NEO4JLABS_PLUGINS=\[\&quot;apoc\&quot;\] \
+    neo4j:5.12.0-community-bullseye
 </code></pre>
-<p>Visit your <a href="http://localhost:7474/browser/">http://localhost:7474/browser/</a> to view the database. You will need to input the username and password credentials which is outlined in the previous docker command.</p>
-<p>For the first iteration, we need to manually input the Movies database provided by Neo4j. You can create this data by opening the live data guide, and inputting the first code block in the editor. The database is now hosted locally, and you will need to keep the terminal window open</p>
+<ul>
+<li>
+<p>This example Docker instance has no security restrictions, to set a username and password edit this line in the previous command:
+  <code>--env NEO4J_AUTH=username/password</code></p>
+</li>
+<li>
+<p>Access the Docker image at <a href="http://localhost:7474">http://localhost:7474</a>. You will need to input the username and password you defined in the <code>run</code> command.</p>
+</li>
+<li>
+<p>Create constraints before data import. We use NCBI as the source of the unique taxon identifiers:</p>
+</li>
+</ul>
+<pre><code class="language-js">CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;
+CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;
+</code></pre>
+<h5 id="d-melanogaster-imports"><em>D. melanogaster</em> imports</h5>
+<ol>
+<li>Import <em>D. melanogaster</em> <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/interactome-flybase-collapsed-weighted.txt">protein interactome</a> using the following command:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
+FIELDTERMINATOR '\t'
+CALL {
+    with fly
+    MERGE (a:protein {id: fly.FlyBase1, name: fly.symbol1, txid: &quot;txid7227&quot;, species: &quot;Drosophila melanogaster&quot;})
+    MERGE (b:protein {id: fly.FlyBase2, name: fly.symbol2, txid: &quot;txid7227&quot;, species: &quot;Drosophila melanogaster&quot;})
+    MERGE (a)-[r:ProPro]-(b)
+} IN TRANSACTIONS OF 100 ROWS;
+</code></pre>
+<ol>
+<li>Import the first batch of <em>D. melanogaster</em> <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/gene_association_fb_2024-04-03.tsv">GO data from FlyBase</a> into the database using the following command:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
+FIELDTERMINATOR '\t'
+CALL {
+    with flygo
+    MATCH (n:protein {id: flygo.db_object_id, txid:&quot;txid7227&quot;})
+    MERGE (g:go_term {id: flygo.go_id})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<ol>
+<li>Import the relationships qualifiers for the first batch of GO terms and <em>D. melanogaster</em> proteins using the following commands:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
+FIELDTERMINATOR '\t'
+CALL {
+    with flygo
+    MATCH (p:protein {id: flygo.db_object_id, txid:&quot;txid7227&quot;})-[r:ProGo]-(g:go_term {id: flygo.go_id})
+    SET r.relationship = flygo.qualifier
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<ol>
+<li>Import more <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/dmel_GO_data_2024-04-03.tsv">GO data</a> for <em>D. melanogaster</em></li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_2024-04-03.tsv' AS dmelgo
+FIELDTERMINATOR '\t'
+CALL {
+    with dmelgo
+    MATCH (n:protein {id: dmelgo.FB_ID, txid: &quot;txid7227&quot;})
+    MERGE (g:go_term {id: dmelgo.GO_TERM})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<ol>
+<li>Set second batch of qualifier properties for <em>D. melanogaster</em>.</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_2024-04-03.tsv' AS dmelgo
+FIELDTERMINATOR '\t'
+CALL {
+    with dmelgo
+    MATCH (p:protein {id: dmelgo.FB_ID, txid: &quot;txid7227&quot;})-[r:ProGo]-(g:go_term {id: dmelgo.GO_TERM})
+    SET r.relationship = dmelgo.QUALIFIER
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<h5 id="b-subtilis-imports"><em>B. subtilis</em> imports</h5>
+<ol>
+<li>Import <em>B. subtilis</em> <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_interactome.csv">protein interactome</a> with the following command:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
+CALL {
+    with bsub
+    MERGE (a:protein {id: bsub.protein_1_locus, name: bsub.protein_1_name, txid: &quot;txid224308&quot;, species: &quot;Bacillus subtilis 168&quot;})
+    MERGE (b:protein {id: bsub.protein_2_locus, name: bsub.protein_2_name, txid: &quot;txid224308&quot;, species: &quot;Bacillus subtilis 168&quot;})
+    MERGE (a)-[r:ProPro]-(b)
+} IN TRANSACTIONS OF 100 ROWS;
+</code></pre>
+<ol>
+<li>Add first batch of <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data.csv">GO data from SubtiWiki</a> to <em>B. subtilis</em> nodes:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
+CALL {
+    with bsubgo
+    MATCH (n:protein {id: bsubgo.locus, txid: &quot;txid224308&quot;})
+    MERGE (g:go_term {id: bsubgo.go_term})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<ol>
+<li>Set qualifier property from first batch of GO data for <em>B. subtilis</em>.</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
+CALL {
+    with bsubgo
+    MATCH (p:protein {id: bsubgo.locus, txid: &quot;txid224308&quot;})-[r:ProGo]-(g:go_term {id: bsubgo.go_term})
+    SET r.relationship = bsubgo.qualifier
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<ol>
+<li>Import more <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data_2024-04-03.tsv">GO data</a> for <em>B. subtilis</em></li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_2024-04-03.tsv' AS bsubgo
+FIELDTERMINATOR '\t'
+CALL {
+    with bsubgo
+    MATCH (n:protein {id: bsubgo.BSU_ID, txid: &quot;txid224308&quot;})
+    MERGE (g:go_term {id: bsubgo.GO_TERM})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<ol>
+<li>Set qualifier property for second batch of GO data (<em>B. subtilis</em>).</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_2024-04-03.tsv' AS bsubgo
+FIELDTERMINATOR '\t'
+CALL {
+    with bsubgo
+    MATCH (p:protein {id: bsubgo.BSU_ID, txid: &quot;txid224308&quot;})-[r:ProGo]-(g:go_term {id: bsubgo.GO_TERM})
+    SET r.relationship = bsubgo.QUALIFIER
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<h5 id="d-rerio-imports"><em>D. rerio</em> imports</h5>
+<ol>
+<li>Import <em>D. rerio</em> <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_interactome_Mar12_2024.txt">protein interactome</a> with the following command:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
+FIELDTERMINATOR '\t'
+CALL {
+    with zfish
+    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, txid: &quot;txid7955&quot;, species: &quot;Danio rerio&quot;})
+    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, txid: &quot;txid7955&quot;, species: &quot;Danio rerio&quot;})
+    MERGE (a)-[r:ProPro]-(b)
+} IN TRANSACTIONS OF 100 ROWS;
+</code></pre>
+<ol>
+<li>Add <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_GO_data_2024-04-03.tsv">GO data</a> to <em>D. rerio</em> nodes:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
+FIELDTERMINATOR '\t'
+CALL {
+    with zfishgo
+    MATCH (n:protein {id: zfishgo.GENE_PRODUCT_ID, txid: &quot;txid7955&quot;})
+    MERGE (g:go_term {id: zfishgo.GO_TERM})
+    MERGE (n)-[r:ProGo]-(g)
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<ol>
+<li>Set qualifier property for <em>D. rerio</em>.</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
+FIELDTERMINATOR '\t'
+CALL {
+    with zfishgo
+    MATCH (p:protein {id: zfishgo.GENE_PRODUCT_ID, txid: &quot;txid7955&quot;})-[r:ProGo]-(g:go_term {id: zfishgo.GO_TERM})
+    SET r.relationship = zfishgo.QUALIFIER
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<h5 id="gene-ontology-hierarchy-imports">Gene Ontology hierarchy imports</h5>
+<ol>
+<li>Import the <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/is_a_import.tsv">GO hierarchy</a> with the following command:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
+FIELDTERMINATOR '\t'
+CALL {
+    with go
+    MERGE (a:go_term {id: go.id})
+    MERGE (b:go_term {id: go.id2})
+    MERGE (a)-[r:GoGo]-&gt;(b)
+    SET r.relationship = go.is_a
+} IN TRANSACTIONS OF 100 ROWS;
+</code></pre>
+<ol>
+<li>Import the <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/go_2024-03-28.txt">GO term common names and descriptions</a> with the following Cypher command:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
+FIELDTERMINATOR '\t'
+CALL {
+    with go
+    MATCH (n:go_term {id: go.id})
+    SET n.name = go.name,
+    n.namespace = go.namespace,
+    n.def = go.def
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<ol>
+<li>Add blacklist indicator to GO term nodes:</li>
+</ol>
+<pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
+FIELDTERMINATOR '\t'
+CALL {
+    with go
+    MATCH (n:go_term {id: go.id})
+    SET n.never_annotate = go.never_annotate
+} IN TRANSACTIONS OF 1000 ROWS;
+</code></pre>
+<h5 id="propogation-of-ancestral-progo-edges">Propogation of ancestral ProGo edges</h5>
+<ol>
+<li>Add ancestral edges for <em>D. rerio</em>.</li>
+</ol>
+<pre><code class="language-js">MATCH (p:protein {txid: 'txid7955'})-[:ProGo]-(g:go_term)
+WITH p, collect(g) AS go_terms
+
+UNWIND go_terms as go_input
+MATCH (p)-[:ProGo]-(g:go_term {id: go_input.id})-[:GoGo*]-&gt;(g2)
+WITH p, collect(distinct g2) AS parent_terms
+UNWIND parent_terms AS parent_term
+
+MERGE (p)-[r:ProGo]-(parent_term)
+</code></pre>
+<ol>
+<li>Add ancestral edges for <em>B. subtilis</em>.</li>
+</ol>
+<pre><code class="language-js">MATCH (p:protein {txid: 'txid224308'})-[:ProGo]-(g:go_term)
+WITH p, collect(g) AS go_terms
+
+UNWIND go_terms as go_input
+MATCH (p)-[:ProGo]-(g:go_term {id: go_input.id})-[:GoGo*]-&gt;(g2)
+WITH p, collect(distinct g2) AS parent_terms
+UNWIND parent_terms AS parent_term
+
+MERGE (p)-[r:ProGo]-(parent_term)
+</code></pre>
+<ol>
+<li>Add ancestral edges for <em>D. melanogaster</em>.</li>
+</ol>
+<pre><code class="language-js">MATCH (p:protein {txid: 'txid7227'})-[:ProGo]-(g:go_term)
+WITH p, collect(g) AS go_terms
+
+UNWIND go_terms as go_input
+MATCH (p)-[:ProGo]-(g:go_term {id: go_input.id})-[:GoGo*]-&gt;(g2)
+WITH p, collect(distinct g2) AS parent_terms
+UNWIND parent_terms AS parent_term
+
+MERGE (p)-[r:ProGo]-(parent_term)
+</code></pre>
+<ol>
+<li>Add qualifiers for new ProGo edges for each species.</li>
+</ol>
+<pre><code class="language-js">MATCH (p:protein  {txid: 'txid7227'})-[r:ProGo]-(g:go_term)
+WHERE r.relationship IS NULL
+SET r.relationship = &quot;inferred_from_descendant&quot;
+</code></pre>
+<pre><code class="language-js">MATCH (p:protein {txid: 'txid224308'})-[r:ProGo]-(g:go_term)
+WHERE r.relationship IS NULL
+SET r.relationship = &quot;inferred_from_descendant&quot;
+</code></pre>
+<pre><code class="language-js">MATCH (p:protein {txid: 'txid7955'})-[r:ProGo]-(g:go_term)
+WHERE r.relationship IS NULL
+SET r.relationship = &quot;inferred_from_descendant&quot;
+</code></pre>
+<ol>
+<li>The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.</li>
+</ol>
+<pre><code class="language-js">CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
+CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;
+</code></pre>
 <h2 id="backend-server">Backend Server</h2>
-<p>The backend server is run using Express.js</p>
-<p>Open a new terminal window and clone the repository. Locate the server in the <code>server directory</code></p>
-<pre><code>cd server
+<p>The backend server is run using Express.js. To setup the server continue with the following steps:</p>
+<ol>
+<li>Open a new terminal window and clone the ProteinWeaver GitHub repository. Locate the <code>server</code> directory:</li>
+</ol>
+<pre><code class="language-bash">cd server
 </code></pre>
-<p>Next we need to install node.js, and the recommended way is to use an Node Version Manager. Follow the <a href="https://github.com/nvm-sh/nvm">NVM Github</a> instruction before proceeding.</p>
-<p>The node version is outlined in the <code>.nvmrc</code> file in both of the client and server directories. Follow the command below to use the correct version.</p>
-<pre><code>nvm use
+<ol>
+<li>
+<p>Next we need to install <code>node.js</code>, and the recommended way is to use a Node Version Manager. Follow the <a href="https://github.com/nvm-sh/nvm">NVM GitHub</a> instructions before proceeding.</p>
+</li>
+<li>
+<p>The correct version is outlined in the <code>.nvmrc</code> file in both of the client and server directories. Follow the command below to use the correct version.</p>
+</li>
+</ol>
+<pre><code class="language-bash">nvm use
 </code></pre>
-<p>If the node version is not installed, follow the instuction to do so.</p>
-<pre><code>npm install
+<ol>
+<li>If you do not have the correct version, install it with the following command:</li>
+</ol>
+<pre><code class="language-bash">npm install
 </code></pre>
-<p>You can verify the node version currently being used using:</p>
-<pre><code>node -v
+<ol>
+<li>You can verify your node version is now correct with the following command:</li>
+</ol>
+<pre><code class="language-bash">node -v
 </code></pre>
-<p>To start the server, do the following function:</p>
-<pre><code>npm start
+<ol>
+<li>Finally, to start the server enter:</li>
+</ol>
+<pre><code class="language-bash">npm start
 </code></pre>
-<p>The server should be running on <a href="http://localhost:3000/">http://localhost:3000/</a>. There are several APIs, and you can verify it works by using <a href="http://localhost:3000/api/test">http://localhost:3000/api/test</a> which should output a JSON object. Please keep the terminal window open.</p>
-<h2 id="frontend">Frontend</h2>
-<p>The frontend uses the React.js framework, and uses Vite.js as a bundler.</p>
-<p>Open a new terminal window and clone the repository. Locate the server in the <code>server directory</code></p>
-<pre><code>cd client
+<ol>
+<li>The server should be running on <a href="http://localhost:3000/">http://localhost:3000/</a>. There are several APIs, and you can verify it works by using <a href="http://localhost:3000/api/test">http://localhost:3000/api/test</a> which should output a JSON object. Please keep the terminal window open.</li>
+</ol>
+<h2 id="frontend-client">Frontend Client</h2>
+<p>The client uses the <code>React.js</code> framework, and uses <code>Vite.js</code> as a bundler.</p>
+<ol>
+<li>Open a new terminal window and navigate to the cloned ProteinWeaver Github repository. Locate the <code>client</code> directory with the following <code>bash</code> command:</li>
+</ol>
+<pre><code class="language-bash">cd client
 </code></pre>
-<p>Similar to the backend server setup, we need to use and install the correct node.js version.
-Follow the commands below, and you may need to install the correct node version:</p>
-<pre><code>nvm use
-npm install
-node -v
+<ol>
+<li>Similar to the backend server setup, we need to use and install the correct <code>node.js</code> version. Follow the command below to use the correct version.</li>
+</ol>
+<pre><code class="language-bash">nvm use
 </code></pre>
-<p>To start the frontend, do the following command:</p>
-<pre><code>npm run dev
+<ol>
+<li>If you do not have the correct version, install it with the following command:</li>
+</ol>
+<pre><code class="language-bash">npm install
 </code></pre>
-<p>The website should be running on <a href="http://localhost:5173/">http://localhost:5173/</a></p>
+<ol>
+<li>You can verify your node version is now correct with the following command:</li>
+</ol>
+<pre><code class="language-bash">node -v
+</code></pre>
+<ol>
+<li>Lastly, start the client with the following command:</li>
+</ol>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<p>ProteinWeaver should now be up and running on <a href="http://localhost:5173/">http://localhost:5173/</a>!</p>
+<h2 id="verify-guide">Verify Guide</h2>
+<p>Once you have completed the guide, you can use the following query to verify that the database matches the most updated version (AS OF 2024-05-06):</p>
+<pre><code class="language-js">match (fly:protein {txid :&quot;txid7227&quot;})
+WITH COUNT(fly) AS flyCount
+match (bsub:protein {txid :&quot;txid224308&quot;})
+WITH flyCount, COUNT(bsub) AS bsubCount
+match (drerio:protein {txid :&quot;txid7955&quot;})
+WITH flyCount, bsubCount, COUNT(drerio) AS drerioCount
+match (go:go_term)
+WITH flyCount, bsubCount, drerioCount, COUNT(go) AS goCount
+match (fly1 {txid :&quot;txid7227&quot;}) -[flyProPro:ProPro]- (fly2 {txid :&quot;txid7227&quot;})
+WITH flyCount, bsubCount, drerioCount, goCount, COUNT(flyProPro)/2 AS flyProProCount
+match (bsub1 {txid :&quot;txid224308&quot;}) -[bsubProPro:ProPro]- (bsub2 {txid :&quot;txid224308&quot;})
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, COUNT(bsubProPro)/2 AS bsubProProCount
+match (drerio1 {txid :&quot;txid7955&quot;}) -[drerioProPro:ProPro]- (drerio2 {txid :&quot;txid7955&quot;})
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, COUNT(drerioProPro)/2 AS drerioProProCount
+match (go1:go_term) -[goGoGo:GoGo]- (go2:go_term)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, COUNT(goGoGo)/2 AS goGoGoCount
+match (fly:protein {txid :&quot;txid7227&quot;}) -[flyProGo:ProGo]- (go)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount, COUNT(flyProGo) AS flyProGoCount
+match (bsub:protein {txid :&quot;txid224308&quot;}) -[bsubProGo:ProGo]- (go)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount,flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
+match (drerio:protein {txid :&quot;txid7955&quot;}) -[drerioProGo:ProGo]- (go)
+WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount,flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
+RETURN flyCount, flyProProCount, flyProGoCount, bsubCount, bsubProProCount, bsubProGoCount, drerioCount, drerioProProCount, drerioProGoCount, goCount, goGoGoCount
+</code></pre>
+<p>You should get the following output:</p>
+<pre><code class="language-js">╒════════╤══════════════╤═════════════╤═════════╤═══════════════╤══════════════╤═══════════╤═════════════════╤════════════════╤═══════╤═══════════╕
+│flyCount│flyProProCount│flyProGoCount│bsubCount│bsubProProCount│bsubProGoCount│drerioCount│drerioProProCount│drerioProGoCount│goCount│goGoGoCount│
+╞════════╪══════════════╪═════════════╪═════════╪═══════════════╪══════════════╪═══════════╪═════════════════╪════════════════╪═══════╪═══════════╡
+│11501   │233054        │510962       │1394     │2715           │48705         │6438       │45018            │108758          │42858  │68308      │
+└────────┴──────────────┴─────────────┴─────────┴───────────────┴──────────────┴───────────┴─────────────────┴────────────────┴───────┴───────────┘
+</code></pre>
+<h2 id="useful-commands">Useful Commands</h2>
+<ul>
+<li>
+<p>Delete nodes:
+<code>MATCH (n:protein {txid: "example", species: "example"}) DETACH DELETE n</code></p>
+</li>
+<li>
+<p>Drop constraints:
+<code>DROP CONSTRAINT constraint</code></p>
+</li>
+<li>
+<p>Drop graph projection:
+<code>CALL gds.graph.drop('proGoGraph') YIELD graphName</code></p>
+</li>
+<li>
+<p>Show database information:
+<code>:schema</code></p>
+</li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../data-import/" class="btn btn-neutral float-right" title="Data Import">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../data-version/" class="btn btn-neutral float-right" title="Data Log & Version">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -158,7 +557,7 @@ node -v
       <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../data-import/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../data-version/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

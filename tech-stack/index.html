@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Oliver Anderson, Altaf Barelvi, Anna Ritz" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Tech Stack - ProteinWeaver Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Tech Stack";
+        var mkdocs_page_input_path = "tech-stack.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ProteinWeaver Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../setup/">Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../data-version/">Data Log & Version</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Tech Stack</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#frontend">Frontend</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#important-files-directories">Important Files &amp; Directories</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#concepts">Concepts</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resources">Resources</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#backend-server">Backend Server</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#structure">Structure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#important-files-directories_1">Important Files &amp; Directories</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#concepts_1">Concepts</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resources_1">Resources</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ProteinWeaver Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Tech Stack</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="tech-stack">Tech Stack</h1>
+<h2 id="frontend">Frontend</h2>
+<p>This section documents the structure of the frontend and outlines the important interactions.</p>
+<pre><code>/client
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── layout/
+│   ├── pages/
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
+│   ├── main.jsx
+├── index.html
+├── package.json
+├── vite.config.js
+</code></pre>
+<h3 id="important-files-directories">Important Files &amp; Directories</h3>
+<ul>
+<li><code>index.html</code> serves as a way to connect our React framework to standard HTML format.</li>
+<li><code>package.json</code> is where all the dependancies of our node.js config lives</li>
+<li><code>main.jsx</code> is where we inject the jsx code into the root div in the index.html. This is also where the website routing is structured</li>
+<li><code>App.jsx</code> can be thought of as the "home" page</li>
+<li><code>index.css</code> provides the style of our website</li>
+<li><code>layout directory</code> structures main website so that it can be browsed through dynamically</li>
+<li><code>pages directory</code> populates the page using the layout</li>
+<li><code>components directory</code> the bread and butter of react lives here. React follows a composable model, where we build smaller components and are able to dynamically and efficiently call them whenever they are needed.</li>
+</ul>
+<h3 id="concepts">Concepts</h3>
+<p>A vague list of core concepts to learn</p>
+<ul>
+<li><code>HTML</code></li>
+<li><code>CSS</code></li>
+<li><code>node.js</code></li>
+<li><code>React.js</code></li>
+<li><code>React Components</code></li>
+<li><code>react-dom-router</code></li>
+<li><code>useState</code></li>
+<li><code>useEffect</code></li>
+</ul>
+<h3 id="resources">Resources</h3>
+<ul>
+<li><a href="https://www.mongodb.com/languages/full-stack-development">Full Stack Development Explained</a></li>
+<li><a href="https://www.youtube.com/watch?v=erEgovG9WBs&amp;ab_channel=Fireship">100+ Web Development Things you Should Know
+  </a></li>
+<li><a href="https://www.youtube.com/watch?v=Sxxw3qtb3_g&amp;ab_channel=Fireship">How to OVER Engineer a Website // What is a Tech Stack?
+  </a></li>
+<li><a href="https://www.youtube.com/watch?v=w3vs4a03y3I&amp;ab_channel=ArpanNeupane">How to Create a Express/Node + React Project | Node Backend + React Frontend
+  </a></li>
+<li><a href="https://scrimba.com/learn/learnreact">Scrimba: Learn React</a></li>
+</ul>
+<h2 id="backend-server">Backend Server</h2>
+<p>This section outlines the structure of the backend server, and important concepts to understand the structure.</p>
+<h3 id="structure">Structure</h3>
+<pre><code>/server
+├── routes/
+├── services/
+├── tests/
+├── src/
+│   ├── constants.js
+│   ├── index.js
+│   ├── neo4j.js
+├── .env
+├── package.json
+</code></pre>
+<h3 id="important-files-directories_1">Important Files &amp; Directories</h3>
+<ul>
+<li><code>index.js</code> initializes the neo4j database connection and api routing using Express.js as the server</li>
+<li><code>.env</code> config file which contains information necessary to connect to the neo4j database</li>
+<li><code>constants.js</code>contain config information in the form of js</li>
+<li><code>neo4j.js</code> initializes a singleton instance of the neo4j driver, which is used to make API calls to the database</li>
+<li><code>routes.js</code> is where API calls are created which utilizes the neo4j driver</li>
+<li><code>services directory</code> contains a list of classes which contains the methods to build the API calls in routes.</li>
+</ul>
+<h3 id="concepts_1">Concepts</h3>
+<p>A Vague list of concepts that are useful to understand</p>
+<ul>
+<li><code>API calls</code></li>
+<li><code>server</code></li>
+<li><code>routing</code></li>
+<li><code>middleware</code></li>
+<li><code>backend frameworks</code></li>
+</ul>
+<h3 id="resources_1">Resources</h3>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=XBu54nfzxAQ&amp;ab_channel=SuperSimpleDev">Backend web development - a complete overview</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../data-version/" class="btn btn-neutral float-left" title="Data Log & Version"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../data-version/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
