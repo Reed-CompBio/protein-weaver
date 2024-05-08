@@ -14,6 +14,7 @@ import GoNodeService from "../services/go.node.service.js";
 import AllShortestPathsService from "../services/dijkstra.all.service.js";
 import ProteinFinderService from "../services/protein.finder.service.js";
 import GoFinderService from "../services/go.finder.service.js";
+import AvgDegreeService from "../services/avg.degree.service.js";
 const router = new Router();
 const jsonParser = bodyParser.json();
 
@@ -73,7 +74,10 @@ router.post("/getDescendants", jsonParser, async (req, res, next) => {
   try {
     const descendantsService = new DescendantsService(getDriver());
 
-    const descendants = await descendantsService.getDescendants(goTerm, species);
+    const descendants = await descendantsService.getDescendants(
+      goTerm,
+      species
+    );
 
     res.json(descendants);
   } catch (e) {
@@ -103,6 +107,24 @@ router.post("/getEdgeData", jsonParser, async (req, res, next) => {
     const edgeData = await edgeDataService.getEdgeData(nodeList);
 
     res.json(edgeData);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const nodeList = data.nodeList;
+  const species = data.species;
+
+  try {
+    const avgDegreeService = new AvgDegreeService(getDriver());
+
+    const avgDegree = await avgDegreeService.getAvgDegree(species, nodeList);
+    console.log("Average Degree:");
+    console.log(avgDegree);
+
+    res.json(avgDegree);
   } catch (e) {
     next(e);
   }
@@ -147,10 +169,14 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
 
         console.log(neighborData.length);
         if (neighborData.length == 0) {
-          console.log("No direct proteins connected to GO term for this species");
+          console.log(
+            "No direct proteins connected to GO term for this species"
+          );
           res
             .status(404)
-            .send({ error: "No direct proteins connected to GO term for this species" });
+            .send({
+              error: "No direct proteins connected to GO term for this species",
+            });
         } else {
           //DO this to all GOterm
           const queryService = new QueryService(getDriver());
@@ -219,10 +245,14 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
 
         console.log(neighborData.length);
         if (neighborData.length == 0) {
-          console.log("No direct proteins connected to GO term for this species");
+          console.log(
+            "No direct proteins connected to GO term for this species"
+          );
           res
             .status(404)
-            .send({ error: "No direct proteins connected to GO term for this species" });
+            .send({
+              error: "No direct proteins connected to GO term for this species",
+            });
         } else {
           const allShortestPathsService = new AllShortestPathsService(
             getDriver()
