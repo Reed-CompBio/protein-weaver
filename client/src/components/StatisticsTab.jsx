@@ -16,14 +16,14 @@ export default function StatisticsTab({ networkStatistics }) {
       >
         <TabList className="stats-tab-list">
           <Tab className="stats-tab">Graph</Tab>
-          <Tab className="stats-tab-construction">
+          <Tab className="stats-tab-construction" disabled={true}>
             Nodes
             <MdConstruction
               data-tooltip-id="construction-tooltip"
               className="construction"
             />
           </Tab>{" "}
-          <Tab className="stats-tab-construction">
+          <Tab className="stats-tab-construction" disabled={true}>
             Edges
             <MdConstruction
               data-tooltip-id="construction-tooltip"
@@ -53,10 +53,10 @@ export default function StatisticsTab({ networkStatistics }) {
           </div>
         </TabPanel>
         <TabPanel>
-          <h4 className="stats-title">Node stats</h4>
+          <h4 className="stats-title" >Node stats</h4>
         </TabPanel>
         <TabPanel>
-          <h4 className="stats-title">Edges stats</h4>
+          <h4 className="stats-title" >Edges stats</h4>
         </TabPanel>
       </Tabs>
       <ReactTooltip
