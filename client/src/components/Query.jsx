@@ -12,11 +12,6 @@ import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import cola from "cytoscape-cola";
-// import {
-//   cytoscapeTestElements,
-//   cytoscapeTest,
-//   cytoscapeTest2,
-// } from "../assets/CytoscapeTestElements";
 
 // component imports
 import QueryError from "./QueryError";
@@ -30,6 +25,7 @@ import StatisticsTab from "./StatisticsTab";
 
 // panel imports
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import { fetchAvgDegree, getBasicStatistics } from "../tools/Statistics";
 
 export default function Query() {
   const [query, setQuery] = useState({
@@ -67,6 +63,13 @@ export default function Query() {
   const [activeModeButton, setActiveModeButton] = useState("");
   const [dataParsingStatus, setDataParsingStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [rawData, setRawData] = useState("");
+  const [networkStatistics, setNetworkStatistics] = useState({
+    nodeCount: null,
+    edgeCount: null,
+    pathCount: null,
+    avgNodeDegree: null,
+  });
 
   const [pageState, setPageState] = useState(0);
   cytoscape.use(cola);
@@ -176,6 +179,31 @@ export default function Query() {
     }
   }, [networkResult]);
 
+  //Once the network parsing has completed, get all the stats information of the subnetwork.
+  useEffect(() => {
+    if (dataParsingStatus) {
+      //asyc function to get the average degree of subnetwork
+      const getAvgDegree = async () => {
+        try {
+          const avgNodeDegree = await fetchAvgDegree(
+            networkResult,
+            query.species
+          );
+          setNetworkStatistics((prevState) => ({
+            ...prevState,
+            avgNodeDegree: avgNodeDegree.toFixed(1),
+          }));
+        } catch (error) {
+          return Promise.reject(
+            new Error(`${response.status} ${response.statusText}`)
+          );
+        }
+      };
+      setNetworkStatistics(getBasicStatistics(networkResult, rawData, query));
+      getAvgDegree();
+    }
+  }, [dataParsingStatus]);
+
   // Function for submitting the query
   async function handleSubmit(e) {
     setSidebarNode(null);
@@ -197,6 +225,7 @@ export default function Query() {
     // get the k shortest paths for the query
     e.preventDefault();
     let network = null;
+    let rawData = null;
     if (query.mode == "path") {
       try {
         network = await fetch("/api/getQuery", {
@@ -220,6 +249,7 @@ export default function Query() {
             }
           })
           .then((data) => {
+            rawData = data;
             return NetworkParserPath(data, query.protein, query.goTerm);
           });
       } catch (error) {
@@ -253,6 +283,7 @@ export default function Query() {
             }
           })
           .then((data) => {
+            rawData = data;
             return NetworkParserNode(data, query.protein, query.k);
           });
       } catch (error) {
@@ -261,11 +292,9 @@ export default function Query() {
         setHasError(true);
         setPageState(0);
         setIsLoading(false);
-
         return;
       }
     }
-
     // get induced subgraph
     if (network != null) {
       let nodeList = { nodeList: network.nodeList };
@@ -293,6 +322,7 @@ export default function Query() {
           })
           .then((edgeData) => {
             setNetworkResult(EdgeDataParser(network, edgeData));
+            setRawData(rawData);
             setDataParsingStatus(true);
             return EdgeDataParser(network, edgeData);
           });
@@ -715,7 +745,9 @@ export default function Query() {
                   </Panel>
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={40} minSize={10}>
-                    <StatisticsTab></StatisticsTab>
+                    <StatisticsTab
+                      networkStatistics={networkStatistics}
+                    ></StatisticsTab>
                   </Panel>
                 </PanelGroup>
               </Panel>

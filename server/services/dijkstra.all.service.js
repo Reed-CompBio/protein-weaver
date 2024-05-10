@@ -23,7 +23,9 @@ export default class AllShortestPathsService {
           MATCH (source:protein)
           WHERE source.id =~'(?i)' + $source OR source.name =~'(?i)' + $source OR source.alt_name =~'(?i)' + $source
           CALL gds.allShortestPaths.dijkstra.stream('proGoGraph', {
-              sourceNode: source
+              sourceNode: source,
+              relationshipTypes: ["ProGo", "ProProUndirected"],
+              nodeLabels: ["protein", "go_term"]
           })
           YIELD index, sourceNode, targetNode, nodeIds, path
           RETURN

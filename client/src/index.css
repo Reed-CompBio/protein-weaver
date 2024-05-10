@@ -675,7 +675,6 @@ p {
   height: 50px;
 }
 
-
 .bug-report {
   margin-left: 10px;
   align-self: center;
@@ -723,7 +722,7 @@ select {
 .footer-container {
   position: relative;
   bottom: 0;
-  width: 100%
+  width: 100%;
 }
 
 .footer {
@@ -1420,6 +1419,7 @@ select {
   margin: 0;
   /* Remove margins */
   display: flex;
+  cursor: pointer;
 }
 
 .stats-tab {
@@ -1430,15 +1430,20 @@ select {
   background-color: #828588;
 }
 
-.stats-tab:hover {
+.stats-tab-construction {
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+  background-color: #828588;
+}
+
+.stats-tab:hover,
+.stats-tab-construction:hover {
   cursor: pointer;
+  pointer-events: none;
 }
 
 .stats-tab-selected {
-  /* border-bottom: 0px solid #828588;
-  border-right: 1px solid #828588;
-  border-top: 1px solid #828588;
-  border-left: 1px solid #828588; */
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-decoration: underline;
@@ -1446,10 +1451,6 @@ select {
 }
 
 .stats-tab-selected {
-  /* border-bottom: 0px solid #828588;
-  border-right: 1px solid #828588;
-  border-top: 1px solid #828588;
-  border-left: 1px solid #828588; */
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-decoration: underline;
@@ -1462,7 +1463,22 @@ select {
 }
 
 .stats-title {
-  margin-left: 16px;
-  margin-top: 16px;
-  margin-bottom: 10px;
+  text-align: left;
+}
+
+.graph-statistics-container {
+  display: flex;
+  margin: auto;
+  width: 90%;
+  justify-content: center;
+}
+
+.statistics-list {
+  list-style: none;
+  padding-left: 15px;
+}
+
+.right-aligned-list {
+  list-style: none;
+  text-align: right;
 }

@@ -3,10 +3,13 @@ import { FaGithub } from "react-icons/fa";
 import { BiSolidMessageAltError } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
+import { MdOutlineMenuBook } from "react-icons/md";
+
 
 export default function Footer() {
   const githubLink = "https://github.com/Reed-CompBio/protein-weaver/";
   const githubIssuesLink = "https://github.com/Reed-CompBio/protein-weaver/issues/";
+  const githuPagesDoc = "https://reed-compbio.github.io/protein-weaver/"
 
   return (
     <div className="footer-container">
@@ -32,6 +35,11 @@ export default function Footer() {
           {/* GitHub Issues */}
           <a href={githubIssuesLink} target="_blank" rel="noopener noreferrer">
             <BiSolidMessageAltError className="footer-icon" />
+          </a>
+          <p> | </p>
+          {/* GitHub Issues */}
+          <a href={githuPagesDoc} target="_blank" rel="noopener noreferrer">
+            <MdOutlineMenuBook className="footer-icon" />
           </a>
         </IconContext.Provider>
       </footer>
