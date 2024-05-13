@@ -275,6 +275,8 @@ export default class AvgDegreeService {
 
 
 #### Testing API using Postman
+![postman_example](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/d3bd8851-39f6-4822-9ee5-d5235bf8dd6f)
+
 We can test this API call in many ways but one that is common is using Postman. Postman allows you to create API requests without the need of a frontend server. You can download the app or use the browser. We will test out the getAvgDegree API Call with the following steps: 
 - Create a new workspace in Postman.
 - Select POST as the request type, and use http://localhost:3000/api/getAvgDegree as the URL
@@ -283,6 +285,7 @@ We can test this API call in many ways but one that is common is using Postman. 
 
 
 Below includes a visualization that summarises the key parts of the backend server. Now that you have a better understanding about how API calls are made and how to test them, we can now implement a new API call that will use the neo4j query you made previously.
+![ProteinWeaver_Backend](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/40e2d2c4-852b-4520-a75a-ea6d006adde6)
 
 #### Adding new API Call
 
