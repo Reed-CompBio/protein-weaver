@@ -156,3 +156,11 @@ Now that you have imported the _D. rerio_ interaction network and annotations. I
 9. Now it is your turn to devise a new Cypher query. Your query should end in a RETURN statement rather than change a property. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface.
 
 ## Create a New Page with Query
+
+### Create New API Call
+
+### Add a New Page
+
+### Add New Page Icon to Navbar
+
+### Add Button to Execute Query
