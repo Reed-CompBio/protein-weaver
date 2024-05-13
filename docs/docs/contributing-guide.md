@@ -160,7 +160,97 @@ Now that you have imported the _D. rerio_ interaction network and annotations. I
 ### Create New API Call
 
 ### Add a New Page
+Now that we have linked the backend with the Neo4j database through the API call, we will create a React webpage with a button that lets a user execute our new query.
 
-### Add New Page Icon to Navbar
+1. Navigate to `client/src/pages` and create a new page named `NewPage.jsx`. Examine the other pages in this directory and copy the content from `TestingPage.jsx` into the blank `NewPage.jsx`. Replace `TestingPage()` with the name of the new page you created: `NewPage()`.
+
+2. Navigate to `client/src/main.jsx` and add the `NewPage` component to the main website by importing it and creating a route. Import the component by adding this below the other import statements: `import NewPage from "./pages/NewPage.jsx";`. Copy one of the route snippets and replace the `path` and `element` with `"/newpage"` and `<NewPage />`.
+
+3. Navigate to `client/src/components/` and add a new component by creating a page named `NewQuery.jsx`. This document will be where we add the API query and do other styling. Copy these imports to the top of the page and create the NewQuery component:
+```js
+import React, { useState, useEffect } from "react";
+
+// create component
+export default function NewQuery() { };
+```
+
+4. Now go back to the first page you created `NewPage.jsx`. Import the NewQuery component with `import NewQuery from "../components/NewQuery.jsx";`. Within the central `<div></div>` add `<NewQuery />` to place the component within the NewPage.
+
+5. Go to the previous Service that you created with your own Neo4j Query from earlier. Modify the `return` statement within the first `try` section of your service to `return network.records.map((record) => record.get('n'));` to extract only the data on the nodes that your query returned.
+
+6. Finally, add a `useEffect` hook that will execute your API query when you load the page. Inside of the set of "{ }" brackets in `NewQuery() { }` copy the following code to execute your query on refresh:
+```js
+// create empty object to store query results
+const [nodeNames, setNodeNames] = useState([]);
+
+    // execute query on page reload
+    useEffect(() => {
+        fetch("/api/newQuery")
+            .then((res) => res.json())
+            .then((data) => {
+                const names = data.map((item) => item.properties.name); // extract just names
+                setNodeNames(names);
+            })
+            .catch((error) => {
+                console.error("Error fetching network data:", error);
+            });
+    }, []);
+
+    // display the node names in the console (right click and inspect element)
+    console.log(nodeNames);
+```
+You can check the structure of your query response in the running `server` terminal. Using the object hierarchy displayed there, we extracted just the "name" property in the useEffect hook for displaying. You should now have a blank page at http://localhost:5173/newpage that allows you to see the names of the nodes returned by your Neo4j query in the console when you inspect the page element.
 
 ### Add Button to Execute Query
+1. Now we will add the ability for users to execute the query on demand rather than when refreshing the page. To do this, first we will modify the useEffect statement and make it a function:
+```js
+// Function for submitting the query
+async function handleNewQuery(e) {
+        setNodeNames([]); // reset upon execution
+        e.preventDefault(); // prevent default form submission
+
+        // copied exactly from the useEffect statement
+        fetch("/api/newQuery")
+            .then((res) => res.json())
+            .then((data) => {
+                const names = data.map((item) => item.properties.name);
+                setNodeNames(names);
+            })
+            .catch((error) => {
+                console.error("Error fetching network data:", error);
+            });
+
+        // functions must return something, since we executed everything and assigned node names already we just return
+        return;
+    }
+```
+
+2. Next we will create a New Query button that executes our new function when clicked. Place this inside of the { } brackets of `NewQuery() { }` after everything else. A React component is like any other function, it must end in a return statement. The return statement holds everything that the user will actually interact with and is where we will style things as well.
+```js
+return (
+        <div>
+            <button onClick={handleNewQuery}>New Query</button>
+        </div>
+    );
+```
+Now we should have a button that will set the node results in the console only after we have pressed it.
+
+3. Now lets display the information to the users without having to inspect the element. Copy the following code below the `<button></button>` inside of the `<div></div>`:
+ ```js
+{nodeNames.map((name, index) => (
+                <p key={index}>{index + 1}: {name}</p>
+            ))}
+```
+We are now displaying a list of the node names ordered by their index.
+
+Congratulations, you have now created a new webpage with full connection to the Neo4j database!
+### Add New Page Icon to NavBar
+Let's finish off by doing some styling and adding a new icon to the NavBar.
+
+1. Navigate to `client/src/components/NavBar.jsx` and copy one of the `<li></li>` snippets and paste it below another. Create a new link to your page by replacing the old link with `<Link to={`/newpage`}>`.
+
+2. Now rename the icon by putting "New" within the `<div></div>`.
+
+3. Finally navigate to https://react-icons.github.io/react-icons/ and choose your favorite icon. I will be using the GiTigerHead icon for mine! Add the relevant import statement to the top of the NavBar page: `import { GiTigerHead } from "react-icons/gi";`. Next replace the icon component in the code that you copied from earlier with the name of the new one. In my case I put `<GiTigerHead />`.
+
+Congratulations, you have now completed the contributing guide!
