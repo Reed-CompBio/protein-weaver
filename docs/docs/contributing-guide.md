@@ -1,7 +1,9 @@
 # Contributing Guide
+
 This is the guide for getting started with ProteinWeaver and will set you up to contribute to whichever aspects of ProteinWeaver interest you.
 
 ## Fork & Installation
+
 ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these instructions](https://docs.docker.com/get-docker/) to install Docker Desktop.
 
 We will also be using GitHub to contribute to ProteinWeaver. It is recommended to install [GitHub Desktop](https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop) because of its easy user interface.
@@ -11,11 +13,13 @@ Then you will need to [fork](https://docs.github.com/en/pull-requests/collaborat
 Once forked, clone the repository to your local desktop so that you have access to ProteinWeaver locally.
 
 ## Data Import
-The following section will be using a [`bash`](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) terminal to set up the Dockerized Neo4j environment.
+
+The following section will be using a [`bash`](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>) terminal to set up the Dockerized Neo4j environment.
 
 1. Open the Docker Desktop application.
 
 2. Navigate to a terminal window and pull the official Neo4j Docker image with the following command:
+
 ```bash
 docker pull neo4j
 ```
@@ -31,6 +35,7 @@ docker pull neo4j
 4. Copy over all of the files in the cloned ProteinWeaver `/data/tutorial` directory to `~/neo4j/import/`.
 
 5. Create a Neo4j Docker instance with GDS and APOC plugins using the following command:
+
 ```sh
 docker run \
     --name proteinweaver \
@@ -47,17 +52,19 @@ docker run \
     -e NEO4JLABS_PLUGINS=\[\"apoc\"\] \
     neo4j:5.12.0-community-bullseye
 ```
+
 - This docker instance has no security restrictions, to change username and password edit:
-    `--env NEO4J_AUTH=username/password`
+  `--env NEO4J_AUTH=username/password`
 
 6. Access the docker image at [http://localhost:7474](http://localhost:7474) in your browser.
 
 7. Once in the Neo4j Browser, create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
-    `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
-    Create a constraint for the GO terms in the database using the following command:
-    `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
+   `CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;`
+   Create a constraint for the GO terms in the database using the following command:
+   `CREATE CONSTRAINT go_constraint FOR (n:go_term) REQUIRE n.id IS UNIQUE;`
 
-8. Import *D. rerio* [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/database-tutorial/data/tutorial/zfish_interactome_Mar12_2024.txt) with the following command:
+8. Import _D. rerio_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/database-tutorial/data/tutorial/zfish_interactome_Mar12_2024.txt) with the following command:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
 FIELDTERMINATOR '\t'
@@ -70,6 +77,7 @@ CALL {
 ```
 
 9. Set a relationship property for the evidence
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
 FIELDTERMINATOR '\t'
@@ -80,7 +88,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-10. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/database-tutorial/data/tutorial/zfish_GO_data_Mar12_24.tsv) to *D. rerio* nodes:
+10. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/database-tutorial/data/tutorial/zfish_GO_data_Mar12_24.tsv) to _D. rerio_ nodes:
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
@@ -92,7 +101,8 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-12. Set qualifier property for *D. rerio*.
+12. Set qualifier property for _D. rerio_.
+
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_Mar12_24.tsv' AS zfishgo
 FIELDTERMINATOR '\t'
@@ -104,6 +114,7 @@ CALL {
 ```
 
 13. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
+
 ```js
 CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
 CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;
@@ -112,52 +123,191 @@ CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'Pro
 ### Useful Commands:
 
 1. Drop graph projection:
-`CALL gds.graph.drop('proGoGraph') YIELD graphName;`
+   `CALL gds.graph.drop('proGoGraph') YIELD graphName;`
 
 2. Drop constraints:
-`DROP CONSTRAINT txid_constraint;`
-`DROP CONSTRAINT go_constraint;`
+   `DROP CONSTRAINT txid_constraint;`
+   `DROP CONSTRAINT go_constraint;`
 
 3. Delete nodes:
-`MATCH (n:protein {txid: 'txid7955'}) DETACH DELETE n;`
+   `MATCH (n:protein {txid: 'txid7955'}) DETACH DELETE n;`
 
 4. Show database information:
-`:schema`
+   `:schema`
 
 ## Create a New Query in Neo4j
+
 Now that you have imported the _D. rerio_ interaction network and annotations. It's time to explore the network and generate a new interesting query to you.
 
 ### First practice with some example commands:
 
 1. Count how many nodes there are in the database:
-`MATCH (n) RETURN COUNT(n);`
+   `MATCH (n) RETURN COUNT(n);`
 
 2. Now count how many protein nodes there are:
-`MATCH (n:protein) RETURN COUNT(n);`
+   `MATCH (n:protein) RETURN COUNT(n);`
 
 3. Return the first 25 nodes in the zebrafish txid:
-`MATCH (n:protein {txid: 'txid7955'}) RETURN n LIMIT 25;`
+   `MATCH (n:protein {txid: 'txid7955'}) RETURN n LIMIT 25;`
 
 4. Retrieve all the species in the database:
-`MATCH (n:protein) RETURN COLLECT(DISTINCT n.species);`
+   `MATCH (n:protein) RETURN COLLECT(DISTINCT n.species);`
 
 5. Find nodes with a ProGo relationship (limit 25):
-`MATCH (p)-[r:ProGo]->(g) RETURN p, r, g LIMIT 25;`
+   `MATCH (p)-[r:ProGo]->(g) RETURN p, r, g LIMIT 25;`
 
 6. Return the relationship qualifier property for the ProGo relationship (limit 25):
-`MATCH (p)-[r:ProGo]->(g) RETURN r.relationship LIMIT 25;`
+   `MATCH (p)-[r:ProGo]->(g) RETURN r.relationship LIMIT 25;`
 
 7. Update property of existing node (for fun):
-`MATCH (n:protein {species: 'Danio rerio'}) SET n.species = 'Ranio derio';`
+   `MATCH (n:protein {species: 'Danio rerio'}) SET n.species = 'Ranio derio';`
 
 8. Set species property back to proper one:
-`MATCH (n:protein {species: 'Ranio derio'}) SET n.species = 'Danio rerio';`
+   `MATCH (n:protein {species: 'Ranio derio'}) SET n.species = 'Danio rerio';`
 
 9. Now it is your turn to devise a new Cypher query. Your query should end in a RETURN statement rather than change a property. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface.
 
 ## Create a New Page with Query
 
 ### Create New API Call
+
+This section aims to create a new API call in the backend, utilizing the neo4j query you made previously. Before we start implementing a new API call, it is important to have a better understanding of how the backend codebase looks like for proteinweaver. We will go through the important files in the backend:
+
+#### /src
+
+Within the server directory, there is another folder called src, which contains important files that sets up the node.js server. You will generally never need to make changes within this folder. index.js is responsible for initializing node.js server, and also the neo4j driver that will be used to make the connection to the database. The neo4j.js file contains the driver. constants.js store variables including ports, url, and neo4j credentials.
+
+#### .env
+
+Within the server folder, we also have a file called .env which outlines the neo4j credentials we need.
+
+#### /routes
+
+The routes folder contains routes.js which houses all the API calls we use for proteinweaver. The router can take in multiple requests, including POST or GET requests. It is helpful to understand the general structure of setting up an API call, and we will use the example below. This API call is responsible for, given a list of nodes, provide us the average degree value.
+
+```js
+//Example of API call in routes.js
+
+router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const nodeList = data.nodeList;
+  const species = data.species;
+
+  try {
+    const avgDegreeService = new AvgDegreeService(getDriver());
+
+    const avgDegree = await avgDegreeService.getAvgDegree(species, nodeList);
+    console.log("Average Degree:");
+    console.log(avgDegree);
+
+    res.json(avgDegree);
+  } catch (e) {
+    next(e);
+  }
+});
+```
+
+- We use the route.post() function to create a new POST API call.
+- It takes in three parameters, first the API call’s URL, the parser we use, and the request, response and next variables
+- The req.body holds the information that the API caller has provided. This usually comes in the form of a JSON request body, and in this case this if the following body: `{"nodeList": ["FBgn0003731","FBgn0031972","FBgn0264492","FBgn0000499","FBgn0001139"],"species": "txid7227"}`
+- The try-catch statement is used to capture potential errors and throw them in an appropriate manner.
+- The try portion of the statement creates a new variable called avgDegreeService by using a class AvgDegreeService. This class is defined in a file called avg.degree.service.js in the service folder, and it is responsible for utilizing the neo4j driver, creating a query call with some parameters, and getting the response. The class contains the function getAvgDegree which takes in two parameters, species and nodeList
+- We use the await key because this is a type of Promise. This essentially tells the program to wait until we get the output from the avgDegreeService.getAvgDegree() function.
+- Finally, we set the response in res.json to be the variable avgDegree
+
+#### /services
+
+The service folder contains the heart of all the dependent functions the routes.js file needs. This is where you will be adding a new neo4j query as a function that will then be called into a new route in routes.js. Before that, it is helpful to understand the general structure of what a service file is, and we will use avg.degree.service.js as an example.
+
+```js
+//avg.degree.service.js file
+
+export default class AvgDegreeService {
+  /**
+   * @type {neo4j.Driver}
+   */
+  driver;
+
+  /**
+   * The constructor expects an instance of the Neo4j Driver, which will be
+   * used to interact with Neo4j.
+   *
+   * @param {neo4j.Driver} driver
+   */
+  constructor(driver) {
+    this.driver = driver;
+  }
+
+  async getAvgDegree(speciesInput, nodeList) {
+    const session = this.driver.session();
+    const res = await session.executeRead((tx) =>
+      tx.run(
+        `
+          MATCH (p:protein {txid: $speciesInput})
+          WHERE p.id IN toStringList($nodeList)
+          WITH p
+          MATCH (p)-[r:ProPro]-()
+          WITH p, count(r) as degree
+          RETURN avg(degree) as averageDegree;
+          `,
+        {
+          speciesInput: speciesInput,
+          nodeList: nodeList,
+        }
+      )
+    );
+
+    const deg = res.records;
+
+    await session.close();
+
+    return deg;
+  }
+}
+
+```
+
+- This file creates a call called AvgDegreeService, and requires the neo4j driver we initialized in src/neo4j.js as a variable in the constructor
+- We create an async method (which is why we need the await keyword when we call the method) called getAvgDegree, which takes in the two parameters.
+- You first have to initialize the neo4j driver session, and then we execute a read on the database with a neo4j query.
+- Everything inside tx.run() is where you place the neo4j query. Notice that within the query, we use variables as the txid and the nodelist. These variables are paired in the portion after the neo4j query.
+- Finally we close the neo4j session and return the res.records in a variable.
+
+
+#### Testing API using Postman
+We can test this API call in many ways but one that is common is using Postman. Postman allows you to create API requests without the need of a frontend server. You can download the app or use the browser. We will test out the getAvgDegree API Call with the following steps: 
+- Create a new workspace in Postman.
+- Select POST as the request type, and use http://localhost:3000/api/getAvgDegree as the URL
+- We need to set the body of the request. Navigate to the body tab and set the body as raw and JSON. Now use the following example as the input: `{"nodeList": ["FBgn0003731","FBgn0031972","FBgn0264492","FBgn0000499","FBgn0001139"],"species": "txid7227"}`
+- When you are ready, click the send button. If it is successful you should get a 200 OK response and within the response body a value of 354.4 for the average node degree.
+
+
+Below includes a visualization that summarises the key parts of the backend server. Now that you have a better understanding about how API calls are made and how to test them, we can now implement a new API call that will use the neo4j query you made previously.
+
+#### Adding new API Call
+
+1. Create a new file in the service directory. 
+    - You can duplicate the avg.degree.service.js file and rename it to something that represents your query.
+    - Within the file, rename the class name to something that represents your query.
+    - Rename the method “getAvgDegree” to something that represents your query.
+    - Change the parameters of the method to include what you need for your query. (You may not need any in your parameters if you are hardcoding a query)
+    - Place your neo4j query inside of tx.run()
+    - You can delete the part where speciesInput and nodeList are paired if you do not have any parameters. If you do have parameters, make sure you pair the parameters properly with the neo4j query.
+    - You are now done with setting up your service file for your API call
+2. Create a new API call in router.js. 
+    - You can use the /getAvgDegree API call as reference.
+    - Set the API URL to a name that represents your query
+    - If your API call will need some parameters, set the correct variables in the request body, just like how getAvgDegree did it with nodeList and species
+    - Create a new instance of the service class you made previously like AvgDegreeService with the neo4j driver
+    - Call your method in the service class, and making sure if you need the parameters, you order it correctly
+    - Finally make sure the res.json function has the correct variable.
+3. Test out your API call using Postman
+    - All API calls in proteinweaver goes under the following url. Simply add your API call after the last backslash: http://localhost:3000/api/
+    - Ensure that you are setting the response as a POST response
+    - If you require parameters in your API call, make sure to set the body, configure as raw and JSON mode, and then ensure the JSON body is in the correct format (See the example previously when testing out Postman)
+    - If you get a 200 OK response and you’ve inspected the response body to what you expect, then you have completed the backend portion.
+
+
 
 ### Add a New Page
 
