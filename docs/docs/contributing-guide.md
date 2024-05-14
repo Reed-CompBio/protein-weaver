@@ -358,7 +358,8 @@ Below includes a visualization that summarises the key parts of the backend serv
 
 
 ## Step: 6 Add a New Page
-Now that we have linked the backend with the Neo4j database through the API call, we will create a React webpage with a button that lets a user execute our new query.
+Now that we have linked the backend with the Neo4j database through the API call, we will create a React webpage with a button that lets a user execute our new query. Here is a general overview of adding a new page and a new API query:
+![ProteinWeaver Frontend](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/ef6e911f-83b0-4c70-869c-699e6544d9de)
 
 1. Navigate to `client/src/pages` and create a new page named `NewPage.jsx`. Examine the other pages in this directory and copy the content from `TestingPage.jsx` into the blank `NewPage.jsx`. Replace `TestingPage()` with the name of the new page you created: `NewPage()`.
 
