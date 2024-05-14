@@ -447,7 +447,7 @@ Let's finish off by doing some styling and adding a new icon to the NavBar.
 
 1. Navigate to `client/src/components/NavBar.jsx` and copy one of the `<li></li>` snippets and paste it below another. Create a new link to your page by replacing the old link with `<Link to={`/newpage`}>`.
 
-2. Now rename the icon by putting "New" within the `<div></div>`.
+2. Now rename the icon by typing "New" within the `<div></div>`.
 
 3. Finally navigate to https://react-icons.github.io/react-icons/ and choose your favorite icon. I will be using the GiTigerHead icon for mine! Add the relevant import statement to the top of the NavBar page: `import { GiTigerHead } from "react-icons/gi";`. Next replace the icon component in the code that you copied from earlier with the name of the new one. In my case I put `<GiTigerHead />`.
 
