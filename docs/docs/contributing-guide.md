@@ -167,6 +167,50 @@ Now that you have imported the _D. rerio_ interaction network and annotations. I
 
 9. Now it is your turn to devise a new Cypher query. Your query should end in a RETURN statement rather than change a property. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface.
 
+## Setting up Local Development
+
+Now that you have the Neo4j database up and running, and you have a query that you are interested in, we will now set up the frontend and backend for local development
+
+### Backend Server
+
+1. Open up a terminal window and go to the server director inside the protein-weaver directory.
+
+2. We want to install npm which is responsible for building the necessary packages of the server. We will use a version manager for node, called nvm. This is helpful as it allows you to install multiple versions of node. More information about nvm can be found [here](https://github.com/nvm-sh/nvm). Follow the following commands in your terminal
+```
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+nvm use
+
+nvm install
+
+npm install
+
+npm start         # This starts our node.js server for our backend
+```
+3. If everything goes smoothly, you will get a message saying “Server listening on http://localhost:3000/”
+4. If you also want to test that the API functionality is working, you can go to the following URL and it should say that you have successfully connected to the backend API: [http://localhost:3000/api/test](http://localhost:3000/api/test)
+
+### Frontend
+
+1. Open up another terminal window, and go to the client directory in the protein-weaver directory. 
+2. Do the following commands in the terminal window:
+```
+nvm use
+
+nvm install
+
+npm install
+
+npm run dev       # This will start our frontend instance
+```
+3. If everything goes smoothly, you should be greeted with a message from VITE, and that it is running on the local host of http://localhost:5173/
+
+To summarize, we have set up neo4j and populated the database with D. rerio, created a query that we are interested in, and then set up the backend and frontend of protein-weaver for local development. The three localhost urls are found below
+- Neo4j: http://localhost:7474/browser/
+- Backend: http://localhost:3000/api/test 
+- Frontend: http://localhost:5173/ 
+
 ## Create a New Page with Query
 
 ### Create New API Call
