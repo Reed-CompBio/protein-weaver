@@ -2,7 +2,7 @@
 
 This is the guide for getting started with ProteinWeaver and will set you up to contribute to whichever aspects of ProteinWeaver interest you.
 
-## Fork & Installation
+## Step 1: Fork & Installation
 
 ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these instructions](https://docs.docker.com/get-docker/) to install Docker Desktop.
 
@@ -12,7 +12,7 @@ Then you will need to [fork](https://docs.github.com/en/pull-requests/collaborat
 
 Once forked, clone the repository to your local desktop so that you have access to ProteinWeaver locally.
 
-## Data Import
+## Step 2: Data Import
 
 The following section will be using a [`bash`](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>) terminal to set up the Dockerized Neo4j environment.
 
@@ -135,7 +135,7 @@ CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'Pro
 4. Show database information:
    `:schema`
 
-## Create a New Query in Neo4j
+## Step 3: Create a New Query in Neo4j
 
 Now that you have imported the _D. rerio_ interaction network and annotations. It's time to explore the network and generate a new interesting query to you.
 
@@ -167,7 +167,7 @@ Now that you have imported the _D. rerio_ interaction network and annotations. I
 
 9. Now it is your turn to devise a new Cypher query. Your query should end in a RETURN statement rather than change a property. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface.
 
-## Setting up Local Development
+## Step 4: Setting up Local Development
 
 Now that you have the Neo4j database up and running, and you have a query that you are interested in, we will now set up the frontend and backend for local development
 
@@ -211,7 +211,7 @@ To summarize, we have set up neo4j and populated the database with D. rerio, cre
 - Backend: http://localhost:3000/api/test 
 - Frontend: http://localhost:5173/ 
 
-## Create a New Page with Query
+## Step 5: Create a New Page with Query
 
 ### Create New API Call
 
@@ -322,6 +322,7 @@ export default class AvgDegreeService {
 ![postman_example](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/d3bd8851-39f6-4822-9ee5-d5235bf8dd6f)
 
 We can test this API call in many ways but one that is common is using [Postman](https://www.postman.com/). Postman allows you to create API requests without the need of a frontend server. You can download the app or use the browser. We will test out the getAvgDegree API Call with the following steps: 
+
 - Create a new workspace in Postman.
 - Select POST as the request type, and use http://localhost:3000/api/getAvgDegree as the URL
 - We need to set the body of the request. Navigate to the body tab and set the body as raw and JSON. Now use the following example as the input: `{"nodeList": ["FBgn0003731","FBgn0031972","FBgn0264492","FBgn0000499","FBgn0001139"],"species": "txid7227"}`
@@ -356,7 +357,7 @@ Below includes a visualization that summarises the key parts of the backend serv
 
 
 
-### Add a New Page
+## Step: 6 Add a New Page
 Now that we have linked the backend with the Neo4j database through the API call, we will create a React webpage with a button that lets a user execute our new query.
 
 1. Navigate to `client/src/pages` and create a new page named `NewPage.jsx`. Examine the other pages in this directory and copy the content from `TestingPage.jsx` into the blank `NewPage.jsx`. Replace `TestingPage()` with the name of the new page you created: `NewPage()`.
@@ -434,7 +435,7 @@ return (
 Now we should have a button that will set the node results in the console only after we have pressed it.
 
 3. Now lets display the information to the users without having to inspect the element. Copy the following code below the `<button></button>` inside of the `<div></div>`:
- ```js
+```js
 {nodeNames.map((name, index) => (
                 <p key={index}>{index + 1}: {name}</p>
             ))}
