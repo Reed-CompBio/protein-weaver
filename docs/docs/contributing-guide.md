@@ -321,7 +321,7 @@ export default class AvgDegreeService {
 #### Testing API using Postman
 ![postman_example](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/d3bd8851-39f6-4822-9ee5-d5235bf8dd6f)
 
-We can test this API call in many ways but one that is common is using Postman. Postman allows you to create API requests without the need of a frontend server. You can download the app or use the browser. We will test out the getAvgDegree API Call with the following steps: 
+We can test this API call in many ways but one that is common is using [Postman](https://www.postman.com/). Postman allows you to create API requests without the need of a frontend server. You can download the app or use the browser. We will test out the getAvgDegree API Call with the following steps: 
 - Create a new workspace in Postman.
 - Select POST as the request type, and use http://localhost:3000/api/getAvgDegree as the URL
 - We need to set the body of the request. Navigate to the body tab and set the body as raw and JSON. Now use the following example as the input: `{"nodeList": ["FBgn0003731","FBgn0031972","FBgn0264492","FBgn0000499","FBgn0001139"],"species": "txid7227"}`
