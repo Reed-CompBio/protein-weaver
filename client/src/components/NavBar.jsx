@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaInfo, FaHome, FaSearch } from "react-icons/fa";
-import { GiTigerHead } from "react-icons/gi";
 import { IconContext } from "react-icons";
 
 export default function NavBar() {
@@ -48,20 +47,6 @@ export default function NavBar() {
                 <FaInfo />
               </IconContext.Provider>
               <div>About</div>
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link to={`/newpage`}>
-            <button className="navbar-menu-button">
-              <IconContext.Provider
-                value={{
-                  size: "1.5em",
-                }}
-              >
-                <GiTigerHead />
-              </IconContext.Provider>
-              <div>New</div>
             </button>
           </Link>
         </li>
