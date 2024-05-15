@@ -4,6 +4,8 @@ nav:
   - Setup: setup.md
   - Data Log & Version: data-version.md
   - Tech Stack: tech-stack.md
+  - Contributing Guide: contributing-guide.md
+
 
 theme: readthedocs
 site_description: ProteinWeaver is a web interface for ontology-based protein network visualization.
