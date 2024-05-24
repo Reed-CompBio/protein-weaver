@@ -14,7 +14,7 @@ Once forked, clone the repository to your local desktop so that you have access 
 
 ## Step 2: Data Import
 
-The following section will be using a [`bash`](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>) terminal to set up the Dockerized Neo4j environment. We highly reccomend looking through the Neo4j part of the Contributing guide doc in the GDrive and familiarising yourself with what is Neo4j, what are nodes and relationships, what the cypher query language is. 
+The following section will be using a [`bash`](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>) terminal to set up the Dockerized Neo4j environment. We highly reccomend looking through the Neo4j part of the Contributing guide doc in the GDrive and familiarising yourself with what is Neo4j, what are nodes and relationships, what the cypher query language is.
 
 1. Open the Docker Desktop application.
 
@@ -61,6 +61,7 @@ docker run \
 ### Toy Dataset
 
 Before adding the zfish dataset it is reccomended to play around with a toy dataset. This will get you a feel of what querying in neo4j is like. Write the following command in neo4j:
+
 ```
 CREATE
   (alice:User {name: 'Alice', posts: 4, seed_label: 52}),
@@ -191,9 +192,10 @@ Now that you have imported the _D. rerio_ interaction network and annotations. I
 8. Set species property back to proper one:
    `MATCH (n:protein {species: 'Ranio derio'}) SET n.species = 'Danio rerio';`
 
-9. Now it is your turn to devise a new Cypher query. 
+9. Now it is your turn to devise a new Cypher query.
 
 Your query should end in a RETURN statement rather than change a property. We highly reccomend that your query return node(s). This will make the contributing guide smoother. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface. Here are some examples:
+
 - What are top 10 proteins that have the highest degree number?
 - What proteins have the most ProGo edges?
 - What are the top 10 least annotated GO terms?
@@ -207,6 +209,7 @@ Now that you have the Neo4j database up and running, and you have a query that y
 1. Open up a terminal window and go to the protein-weaver directory. Then go to the /server directory
 
 2. We want to install npm which is responsible for building the necessary packages of the server. We will use a version manager for node, called nvm. This is helpful as it allows you to install multiple versions of node. More information about nvm can be found [here](https://github.com/nvm-sh/nvm). Follow the following commands in your terminal
+
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
@@ -221,13 +224,15 @@ npm install
 
 npm start         # This starts our node.js server for our backend
 ```
+
 3. If everything goes smoothly, you will get a message saying “Server listening on http://localhost:3000/”
 4. If you also want to test that the API functionality is working, you can go to the following URL and it should say that you have successfully connected to the backend API: [http://localhost:3000/api/test](http://localhost:3000/api/test)
 
 ### Frontend
 
-1. Open up another terminal window, and go to the client directory in the protein-weaver directory. 
+1. Open up another terminal window, and go to the client directory in the protein-weaver directory.
 2. Do the following commands in the terminal window:
+
 ```
 nvm use
 
@@ -235,6 +240,7 @@ npm install
 
 npm run dev       # This will start our frontend instance
 ```
+
 3. If everything goes smoothly, you should be greeted with a message from VITE, and that it is running on the local host of http://localhost:5173/
 
 To summarize, we have set up neo4j and populated the database with D. rerio, created a query that we are interested in, and then set up the backend and frontend of protein-weaver for local development. The three localhost urls are found below
@@ -245,7 +251,7 @@ To summarize, we have set up neo4j and populated the database with D. rerio, cre
 
 ## Step 5: Creating a New API Call
 
-This section aims to create a new API call in the backend, utilizing the neo4j query you made previously. 
+This section aims to create a new API call in the backend, utilizing the neo4j query you made previously.
 
 ### Understanding the Backend
 
@@ -285,13 +291,14 @@ router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
 });
 ```
 
-We use the route.post() function to create a new POST API call. It takes in three parameters, first the API call’s URL, the parser we use, and the request, response and next variables. The req.body holds the information that the API caller has provided. This usually comes in the form of a JSON request body, and in this case this if the following body: 
+We use the route.post() function to create a new POST API call. It takes in three parameters, first the API call’s URL, the parser we use, and the request, response and next variables. The req.body holds the information that the API caller has provided. This usually comes in the form of a JSON request body, and in this case this if the following body:
 
 ```
 {"nodeList": ["FBgn0003731","FBgn0031972","FBgn0264492","FBgn0000499","FBgn0001139"],"species": "txid7227"}
 ```
 
 The try-catch statement is used to capture potential errors and throw them in an appropriate manner. The try portion of the statement creates a new variable called avgDegreeService by using a class AvgDegreeService. This class is defined in a file called avg.degree.service.js in the service folder, and it is responsible for utilizing the neo4j driver, creating a query call with some parameters, and getting the response. The class contains the function getAvgDegree which takes in two parameters, species and nodeList. We use the await key because this is a type of Promise. This essentially tells the program to wait until we get the output from the avgDegreeService.getAvgDegree() function.
+
 - Finally, we set the response in res.json to be the variable avgDegree
 
 #### /services
@@ -343,21 +350,21 @@ export default class AvgDegreeService {
     return deg;
   }
 }
-
 ```
 
 This file creates a call called AvgDegreeService, and requires the neo4j driver we initialized in src/neo4j.js as a variable in the constructor. We create an async method (which is why we need the await keyword when we call the method) called getAvgDegree, which takes in the two parameters. You first have to initialize the neo4j driver session, and then we execute a read on the database with a neo4j query. Everything inside tx.run() is where you place the neo4j query. Notice that within the query, we use variables as the txid and the nodelist. These variables are paired in the portion after the neo4j query. Finally we close the neo4j session and return the res.records in a variable.
 
-
 #### Testing API Calls
 
 There are a number of ways to test our API calls. For this example, we will be testing out the `/getAvgDegree` API call using Google Chrome's developer feature (You can most likely try this with other browsers' developer tools). Do the following steps to test out the API call:
-- Open up a Google Chrome tab
-- In the top nav bar's "Help" section, type out developer and click the "Developer > Developer Tools" results. Alternatively you can press Command + Option + I in your keyboard. You should see a new popup on the right handside of the screen.
+
+- Open up a Google Chrome tab and go to [https://example.com/](). For some reason testing API calls in the browser does not work on a new tab that is empty.
+- In the top nav bar's "Help" section, type out developer and click the "Developer > Developer Tools" results. Alternatively you can press `Command + Option + I` in your keyboard. You should see a new popup on the right handside of the screen.
 - <img width="600" alt="Screenshot 2024-05-23 at 4 11 48 PM" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/b2686767-4a46-4bf6-8fd8-c3a27c3d8fc5">
 - Type out the following code into the console
+
 ```
-fetch('http://localhost:5173/api/getAvgDegree', {
+fetch('http://localhost:3000/api/getAvgDegree', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -370,11 +377,10 @@ fetch('http://localhost:5173/api/getAvgDegree', {
     console.error('Error:', error);
 });
 ```
-- This is calling out the /getAvgDegree API and specifying that it is a POST request type. Since this is a POST request, we need to provide it with a body. Notice that we provide a JSON object with two keys, "nodeList" and "species". This matches the API call's requirements in the routes.js of /getAvgdegree.
+
+- This is connecting to the backend's port of 3000 and calling out the /getAvgDegree API and specifying that it is a POST request type. Since this is a POST request, we need to provide it with a body. Notice that we provide a JSON object with two keys, "nodeList" and "species". This matches the API call's requirements in the routes.js of /getAvgdegree.
 - You should get the following result:
-- ![Screenshot 2024-05-23 at 4 15 07 PM](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/48e5c9e8-bed7-40d7-ae4e-f92895f7c72d)
-
-
+-
 
 Below includes a visualization that summarises the key parts of the backend server. Now that you have a better understanding about how API calls are made and how to test them, we can now implement a new API call that will use the neo4j query you made previously.
 ![ProteinWeaver_Backend](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/40e2d2c4-852b-4520-a75a-ea6d006adde6)
@@ -383,38 +389,72 @@ Below includes a visualization that summarises the key parts of the backend serv
 
 Now we are ready to implement a new API call. For this project we highly recommend creating a new Neo4j query that you like. We recommend that your query should only return nodes, as this will help the later steps.
 
-1. Create a new file in the service directory. 
-    - You can duplicate the avg.degree.service.js file and rename it to something that represents your query.
-    - Within the file, rename the class name to something that represents your query.
-    - Rename the method “getAvgDegree” to something that represents your query.
-    - Change the parameters of the method to include what you need for your query. (You may not need any in your parameters if you are hardcoding a query)
-    - Place your neo4j query inside of tx.run()
-    - You can delete the part where speciesInput and nodeList are paired if you do not have any parameters. If you do have parameters, make sure you pair the parameters properly with the neo4j query.
-    - We want to only return the nodes of the query. Add the following code to the bottom of the method's return. You may need to change the variable names to match the res:
-    ```
-    //return nodes;
-    return res.records.map((record) => record.get('n'));
-    ```
-    - You are now done with setting up your service file for your API call
-2. Create a new API call in router.js. 
-    - You can use the /getAvgDegree API call as reference.
-    - Make sure to import your new service file at the top of the router.js
-    - Set the API URL to a name that represents your query
-    - If your API call will need some parameters, set the correct variables in the request body, just like how getAvgDegree did it with nodeList and species
-    - Create a new instance of the service class you made previously like AvgDegreeService with the neo4j driver
-    - Call your method in the service class, and making sure if you need the parameters, you order it correctly
-    - Finally make sure the res.json function has the correct variable.
-3. Test out your API call 
-    - All API calls in proteinweaver goes under the following url. Simply add your API call after the last backslash: http://localhost:3000/api/
-    - Ensure that you are setting the response as a POST response
-    - If you require parameters in your API call, make sure to set the body. Refer to the previous example where we tested the API call of /getAvgDegree
+1. Create a new file in the service directory.
+   - You can duplicate the avg.degree.service.js file and rename it to something that represents your query.
+   - Within the file, rename the class name to something that represents your query.
+   - Rename the method “getAvgDegree” to something that represents your query.
+   - Change the parameters of the method to include what you need for your query. (You may not need any in your parameters if you are hardcoding a query)
+   - Place your neo4j query inside of tx.run()
+   - You can delete the part where speciesInput and nodeList are paired if you do not have any parameters. If you do have parameters, make sure you pair the parameters properly with the neo4j query.
+   - We want to only return the nodes of the query. Add the following code to the bottom of the method's return. You may need to change the variable names to match the res:
+   ```
+   //return nodes;
+   return res.records.map((record) => record.get('n'));
+   ```
+   - You are now done with setting up your service file for your API call
+2. Create a new API call in router.js.
+   - You can use the /getAvgDegree API call as reference.
+   - Make sure to import your new service file at the top of the router.js
+   - Set the API URL to a name that represents your query
+   - If your API call will need some parameters, set the correct variables in the request body, just like how getAvgDegree did it with nodeList and species
+   - Create a new instance of the service class you made previously like AvgDegreeService with the neo4j driver
+   - Call your method in the service class, and making sure if you need the parameters, you order it correctly
+   - Finally make sure the res.json function has the correct variable.
+3. Test out your API call
+   - All API calls in proteinweaver goes under the following url. Simply add your API call after the last backslash: http://localhost:3000/api/
+   - Ensure that you are setting the response as a POST response
+   - If you require parameters in your API call, make sure to set the body. Refer to the previous example where we tested the API call of /getAvgDegree
 
-If you see that the API response is what you expect, good job! 
-
-
+If you see that the API response is what you expect, good job!
 
 ## Step: 6 Add a New Page
-Now that we have linked the backend with the Neo4j database through the API call, we will create a React webpage with a button that lets a user execute our new query. The Protein Weaver Contributing Guide Doc in the GDrive has resources to understand what the frontend does. Here is a general overview of adding a new page and a new API query:
+
+Now that we have linked the backend with the Neo4j database through the API call, we will create a React webpage with a button that lets a user execute our new query. The Protein Weaver Contributing Guide Doc in the GDrive has resources to understand what the frontend does.
+
+### Understanding the frontend
+
+Before we connect our new API call in the backend to the frontend and display the information in a new page, it is important to understand the frontend code. Here is a brief description of the important files in the `/client` directory
+
+#### index.html
+
+The start of how most web browsers will understand our code. It is very simple but this is the original way of making websites. since we are using React.js as a frontend framework, we link HTML with react in `<body>` tag,
+
+```html
+<script type="module" src="/src/main.jsx"></script>
+```
+
+#### main.jsx
+
+Now we are in the land of Javascript. This file is responsible for routing the users through the various pages in our website. Given a certain file path, we associate it with a component that represents the page.
+
+```js
+  {
+    path: "/about",
+    element: <AboutPage />,
+    errorElement: <ErrorPage />,
+  },
+```
+
+#### Page Example
+
+We wrap all the contents of the page in a Page.jsx file, for example AboutPage.jsx. Here the page comtains a `MainLayout.jsx` component that is contains the footer and nav bar
+
+#### Components
+
+Components are the heart of how React apps are built. They are an important concept to learn and allows you to modularise parts of your website that repeat itself, such as the NavBar, Footer, MainLayout etc. They follow a simple structure of importing all the packages you need, defining and exporting a component as a function, adding other helper functions, and returning the HTML part of your code. `NavBar.jsx` is a simple example of a component and `Query.jsx` is a complex component that includes many state variables, helper functions, and uses other components within.
+
+
+You are now ready to tackle the next part of your contributing guide, where we will create a new page that incorporates the new API call you previously have made. Take your time to look at videos about frontend development. Here is a general overview of adding a new page and a new API query:
 ![ProteinWeaver Frontend](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/ef6e911f-83b0-4c70-869c-699e6544d9de)
 
 ### Add a Page and Button to Execute Query
@@ -424,84 +464,121 @@ Now that we have linked the backend with the Neo4j database through the API call
 2. Navigate to `client/src/main.jsx` and add the `NewPage` component to the main website by importing it and creating a route. Import the component by adding this below the other import statements: `import NewPage from "./pages/NewPage.jsx";`. Copy one of the route snippets and replace the `path` and `element` with `"/newpage"` and `<NewPage />`.
 
 3. Navigate to `client/src/components/` and add a new component by creating a page named `NewQuery.jsx`. This document will be where we add the API query and do other styling. Copy these imports to the top of the page and create the NewQuery component:
+
 ```js
 import React, { useState, useEffect } from "react";
 
 // create component
-export default function NewQuery() { };
+export default function NewQuery() {}
 ```
 
 4. Now go back to the first page you created `NewPage.jsx`. Import the NewQuery component with `import NewQuery from "../components/NewQuery.jsx";`. Within the central `<div></div>` add `<NewQuery />` to place the component within the NewPage.
 
 5. Go to the previous Service that you created with your own Neo4j Query from earlier. Modify the `return` statement within the first `try` section of your service to `return network.records.map((record) => record.get('n'));` to extract only the data on the nodes that your query returned.
 
-6. Finally, add a `useEffect` hook that will execute your API query when you load the page. Inside of the set of "{ }" brackets in `NewQuery() { }` copy the following code to execute your query on refresh:
+6. Finally, add a `useEffect` hook that will execute your API query when you load the page. Inside of the set of "{ }" brackets in `NewQuery() { }` copy the following code to execute your query on refresh. This is an example of the getAvgDegree API call. Make sure that you change the `/api/newQuery` to match what the API URL is in the routes.js you previously made and put the correct json object your API call needs in the body.
+
 ```js
 // create empty object to store query results
 const [nodeNames, setNodeNames] = useState([]);
 
-    // execute query on page reload
-    useEffect(() => {
-        fetch("/api/newQuery")
-            .then((res) => res.json())
-            .then((data) => {
-                const names = data.map((item) => item.properties.name); // extract just names
-                setNodeNames(names);
-            })
-            .catch((error) => {
-                console.error("Error fetching network data:", error);
-            });
-    }, []);
+// execute query on page reload
+useEffect(() => {
+  fetch("/api/getAvgDegree", {
+    // change to YOUR API call's URL
+    method: "POST", // Change to GET if your call is a get request
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      // Example of json body request. need to match your POST request's parameters
+      nodeList: ["Q6P2U7", "Q6DHB6", "Q1LXK0", "Q502C6", "F1QC03"],
+      species: "txid7955",
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      const names = data.map((item) => item.properties.name); // extract just names
+      setNodeNames(names);
+    })
+    .catch((error) => {
+      console.error("Error fetching network data:", error);
+    });
+}, []);
 
-    // display the node names in the console (right click and inspect element)
-    console.log(nodeNames);
+// display the node names in the console (right click and inspect element)
+console.log(nodeNames);
 ```
+
 You can check the structure of your query response in the running `server` terminal. Using the object hierarchy displayed there, we extracted just the "name" property in the useEffect hook for displaying. You should now have a blank page at http://localhost:5173/newpage that allows you to see the names of the nodes returned by your Neo4j query in the console when you inspect the page element.
 
 ### Add Button to Execute Query
+
 1. Now we will add the ability for users to execute the query on demand rather than when refreshing the page. To do this, first we will modify the useEffect statement and make it a function:
+
 ```js
 // Function for submitting the query
 async function handleNewQuery(e) {
-        setNodeNames([]); // reset upon execution
-        e.preventDefault(); // prevent default form submission
+  setNodeNames([]); // reset upon execution
+  e.preventDefault(); // prevent default form submission
 
-        // copied exactly from the useEffect statement
-        fetch("/api/newQuery")
-            .then((res) => res.json())
-            .then((data) => {
-                const names = data.map((item) => item.properties.name);
-                setNodeNames(names);
-            })
-            .catch((error) => {
-                console.error("Error fetching network data:", error);
-            });
+  // copied exactly from the useEffect statement
+  fetch("/api/getAvgDegree", {
+    // change to YOUR API call's URL
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      // Example of json body request. need to match your POST request's parameters
+      nodeList: ["Q6P2U7", "Q6DHB6", "Q1LXK0", "Q502C6", "F1QC03"],
+      species: "txid7955",
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const names = data.map((item) => item.properties.name);
+      setNodeNames(names);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 
-        // functions must return something, since we executed everything and assigned node names already we just return
-        return;
-    }
+  // functions must return something, since we executed everything and assigned node names already we just return
+  return;
+}
 ```
 
 2. Next we will create a New Query button that executes our new function when clicked. Place this inside of the { } brackets of `NewQuery() { }` after everything else. A React component is like any other function, it must end in a return statement. The return statement holds everything that the user will actually interact with and is where we will style things as well.
+
 ```js
 return (
-        <div>
-            <button onClick={handleNewQuery}>New Query</button>
-        </div>
-    );
+  <div>
+    <button onClick={handleNewQuery}>New Query</button>
+  </div>
+);
 ```
+
 Now we should have a button that will set the node results in the console only after we have pressed it.
 
 3. Now lets display the information to the users without having to inspect the element. Copy the following code below the `<button></button>` inside of the `<div></div>`:
+
 ```js
-{nodeNames.map((name, index) => (
-                <p key={index}>{index + 1}: {name}</p>
-            ))}
+{
+  nodeNames.map((name, index) => (
+    <p key={index}>
+      {index + 1}: {name}
+    </p>
+  ));
+}
 ```
+
 We are now displaying a list of the node names ordered by their index.
 
 Congratulations, you have now created a new webpage with full connection to the Neo4j database!
+
 ### Add New Page Icon to NavBar
+
 Let's finish off by doing some styling and adding a new icon to the NavBar.
 
 1. Navigate to `client/src/components/NavBar.jsx` and copy one of the `<li></li>` snippets and paste it below another. Create a new link to your page by replacing the old link with `<Link to={`/newpage`}>`.
