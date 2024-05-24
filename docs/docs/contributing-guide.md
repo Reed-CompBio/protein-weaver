@@ -60,7 +60,7 @@ docker run \
 
 ### Toy Dataset
 
-Before adding the zfish dataset it is reccomended to play around with a toy dataset. This will get you a feel of what querying in neo4j is like. Write the following command in neo4j:
+Before adding the zfish dataset it is recommended to play around with a toy dataset. This will get you a feel of what querying in neo4j is like. Write the following command in neo4j:
 
 ```
 CREATE
@@ -206,7 +206,7 @@ Now that you have imported the _D. rerio_ interaction network and annotations. I
 
 9. Now it is your turn to devise a new Cypher query.
 
-Your query should end in a RETURN statement rather than change a property. We highly reccomend that your query return node(s). This will make the contributing guide smoother. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface. Here are some examples:
+Your query should end in a RETURN statement rather than change a property. We highly recomend that your query return node(s). This will make the contributing guide smoother. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface. Here are some examples:
 
 - What are top 10 proteins that have the highest degree number?
 - What proteins have the most ProGo edges?
