@@ -83,6 +83,10 @@ CREATE
   (charles)-[:FOLLOW {weight: 1}]->(doug)
 ```
 
+Before moving on remove all of the newly created nodes with the following command: 
+
+`MATCH (n) DETACH DELETE n;`
+
 ### Adding Z.Fish Data
 
 1. Once in the Neo4j Browser, create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
