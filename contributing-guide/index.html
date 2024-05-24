@@ -62,6 +62,10 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#step-2-data-import">Step 2: Data Import</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#toy-dataset">Toy Dataset</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#adding-zfish-data">Adding Z.Fish Data</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#useful-commands">Useful Commands:</a>
     </li>
         </ul>
@@ -80,9 +84,9 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#step-5-create-a-new-page-with-query">Step 5: Create a New Page with Query</a>
+    <li class="toctree-l2"><a class="reference internal" href="#step-5-creating-a-new-api-call">Step 5: Creating a New API Call</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#create-new-api-call">Create New API Call</a>
+    <li class="toctree-l3"><a class="reference internal" href="#understanding-the-backend">Understanding the Backend</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#src">/src</a>
     </li>
@@ -92,7 +96,7 @@
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#services">/services</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#testing-api-using-postman">Testing API using Postman</a>
+    <li class="toctree-l4"><a class="reference internal" href="#testing-api-calls">Testing API Calls</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#adding-new-api-call">Adding new API Call</a>
     </li>
@@ -102,9 +106,9 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#step-6-add-a-new-page">Step: 6 Add a New Page</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#add-button-to-execute-query">Add Button to Execute Query</a>
+    <li class="toctree-l3"><a class="reference internal" href="#add-a-page-and-button-to-execute-query">Add a Page and Button to Execute Query</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#add-button-to-execute-query_1">Add Button to Execute Query</a>
+    <li class="toctree-l3"><a class="reference internal" href="#add-button-to-execute-query">Add Button to Execute Query</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#add-new-page-icon-to-navbar">Add New Page Icon to NavBar</a>
     </li>
@@ -144,7 +148,7 @@
 <p>Then you will need to <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo">fork</a> the <a href="https://github.com/Reed-CompBio/protein-weaver/tree/contributing-guide"><code>contributing-guide</code></a> branch of the ProteinWeaver GitHub repository to get the Zebrafish datasets and the base code for the front and backends in your own repository.</p>
 <p>Once forked, clone the repository to your local desktop so that you have access to ProteinWeaver locally.</p>
 <h2 id="step-2-data-import">Step 2: Data Import</h2>
-<p>The following section will be using a <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)"><code>bash</code></a> terminal to set up the Dockerized Neo4j environment.</p>
+<p>The following section will be using a <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)"><code>bash</code></a> terminal to set up the Dockerized Neo4j environment. We highly reccomend looking through the Neo4j part of the Contributing guide doc in the GDrive and familiarising yourself with what is Neo4j, what are nodes and relationships, what the cypher query language is. </p>
 <ol>
 <li>
 <p>Open the Docker Desktop application.</p>
@@ -196,8 +200,32 @@
   <code>--env NEO4J_AUTH=username/password</code></p>
 </li>
 <li>
-<p>Access the docker image at <a href="http://localhost:7474">http://localhost:7474</a> in your browser.</p>
+<p>Access the docker image at <a href="http://localhost:7474">http://localhost:7474</a> in your browser. You can ignore the username and password and just click connect.</p>
 </li>
+</ul>
+<h3 id="toy-dataset">Toy Dataset</h3>
+<p>Before adding the zfish dataset it is reccomended to play around with a toy dataset. This will get you a feel of what querying in neo4j is like. Write the following command in neo4j:</p>
+<pre><code>CREATE
+  (alice:User {name: 'Alice', posts: 4, seed_label: 52}),
+  (bridget:User {name: 'Bridget', posts: 13, seed_label: 21}),
+  (charles:User {name: 'Charles', posts: 55, seed_label: 43}),
+  (doug:User {name: 'Doug', posts: 5, seed_label: 21}),
+  (mark:User {name: 'Mark', posts: 7, seed_label: 19}),
+  (michael:User {name: 'Michael', posts: 15, seed_label: 52}),
+
+  (alice)-[:FOLLOW {weight: 1}]-&gt;(bridget),
+  (alice)-[:FOLLOW {weight: 10}]-&gt;(charles),
+  (mark)-[:FOLLOW {weight: 1}]-&gt;(doug),
+  (bridget)-[:FOLLOW {weight: 1}]-&gt;(michael),
+  (doug)-[:FOLLOW {weight: 1}]-&gt;(mark),
+  (michael)-[:FOLLOW {weight: 1}]-&gt;(alice),
+  (alice)-[:FOLLOW {weight: 1}]-&gt;(michael),
+  (bridget)-[:FOLLOW {weight: 1}]-&gt;(alice),
+  (michael)-[:FOLLOW {weight: 1}]-&gt;(bridget),
+  (charles)-[:FOLLOW {weight: 1}]-&gt;(doug)
+</code></pre>
+<h3 id="adding-zfish-data">Adding Z.Fish Data</h3>
+<ol>
 <li>
 <p>Once in the Neo4j Browser, create constraints before data import. We use NCBI as the source of the unique taxon identifiers.
    <code>CREATE CONSTRAINT txid_constraint FOR (n:protein) REQUIRE (n.txid, n.id) IS UNIQUE;</code>
@@ -207,7 +235,7 @@
 <li>
 <p>Import <em>D. rerio</em> <a href="https://github.com/Reed-CompBio/protein-weaver/blob/database-tutorial/data/tutorial/zfish_interactome_Mar12_2024.txt">protein interactome</a> with the following command:</p>
 </li>
-</ul>
+</ol>
 <pre><code class="language-js">:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
 FIELDTERMINATOR '\t'
 CALL {
@@ -314,21 +342,27 @@ CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'Pro
    <code>MATCH (n:protein {species: 'Ranio derio'}) SET n.species = 'Danio rerio';</code></p>
 </li>
 <li>
-<p>Now it is your turn to devise a new Cypher query. Your query should end in a RETURN statement rather than change a property. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface.</p>
+<p>Now it is your turn to devise a new Cypher query. </p>
 </li>
 </ol>
+<p>Your query should end in a RETURN statement rather than change a property. We highly reccomend that your query return node(s). This will make the contributing guide smoother. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface. Here are some examples:
+- What are top 10 proteins that have the highest degree number?
+- What proteins have the most ProGo edges?
+- What are the top 10 least annotated GO terms?</p>
 <h2 id="step-4-setting-up-local-development">Step 4: Setting up Local Development</h2>
 <p>Now that you have the Neo4j database up and running, and you have a query that you are interested in, we will now set up the frontend and backend for local development</p>
 <h3 id="backend-server">Backend Server</h3>
 <ol>
 <li>
-<p>Open up a terminal window and go to the server director inside the protein-weaver directory.</p>
+<p>Open up a terminal window and go to the protein-weaver directory. Then go to the /server directory</p>
 </li>
 <li>
 <p>We want to install npm which is responsible for building the necessary packages of the server. We will use a version manager for node, called nvm. This is helpful as it allows you to install multiple versions of node. More information about nvm can be found <a href="https://github.com/nvm-sh/nvm">here</a>. Follow the following commands in your terminal</p>
 </li>
 </ol>
-<pre><code>export NVM_DIR=&quot;$([ -z &quot;${XDG_CONFIG_HOME-}&quot; ] &amp;&amp; printf %s &quot;${HOME}/.nvm&quot; || printf %s &quot;${XDG_CONFIG_HOME}/nvm&quot;)&quot;
+<pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+export NVM_DIR=&quot;$([ -z &quot;${XDG_CONFIG_HOME-}&quot; ] &amp;&amp; printf %s &quot;${HOME}/.nvm&quot; || printf %s &quot;${XDG_CONFIG_HOME}/nvm&quot;)&quot;
 [ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm
 
 nvm use
@@ -350,8 +384,6 @@ npm start         # This starts our node.js server for our backend
 </ol>
 <pre><code>nvm use
 
-nvm install
-
 npm install
 
 npm run dev       # This will start our frontend instance
@@ -359,13 +391,16 @@ npm run dev       # This will start our frontend instance
 <ol>
 <li>If everything goes smoothly, you should be greeted with a message from VITE, and that it is running on the local host of http://localhost:5173/</li>
 </ol>
-<p>To summarize, we have set up neo4j and populated the database with D. rerio, created a query that we are interested in, and then set up the backend and frontend of protein-weaver for local development. The three localhost urls are found below
-- Neo4j: http://localhost:7474/browser/
-- Backend: http://localhost:3000/api/test 
-- Frontend: http://localhost:5173/ </p>
-<h2 id="step-5-create-a-new-page-with-query">Step 5: Create a New Page with Query</h2>
-<h3 id="create-new-api-call">Create New API Call</h3>
-<p>This section aims to create a new API call in the backend, utilizing the neo4j query you made previously. Before we start implementing a new API call, it is important to have a better understanding of how the backend codebase looks like for proteinweaver. We will go through the important files in the backend:</p>
+<p>To summarize, we have set up neo4j and populated the database with D. rerio, created a query that we are interested in, and then set up the backend and frontend of protein-weaver for local development. The three localhost urls are found below</p>
+<ul>
+<li>Neo4j: <a href="">http://localhost:7474/browser/</a></li>
+<li>Backend: <a href="">http://localhost:3000/api/test</a></li>
+<li>Frontend: <a href="">http://localhost:5173/</a></li>
+</ul>
+<h2 id="step-5-creating-a-new-api-call">Step 5: Creating a New API Call</h2>
+<p>This section aims to create a new API call in the backend, utilizing the neo4j query you made previously. </p>
+<h3 id="understanding-the-backend">Understanding the Backend</h3>
+<p>Before we start implementing a new API call, it is important to have a better understanding of how the backend codebase looks like for proteinweaver. Refer to the videos to understand what the backend is in the ProteinWeaver's Contributing Guide Doc in the GDrive. We will go through the important files in the backend:</p>
 <h4 id="src">/src</h4>
 <p>Within the server directory, there is another folder called src, which contains important files that sets up the node.js server. You will generally never need to make changes within this folder. index.js is responsible for initializing node.js server, and also the neo4j driver that will be used to make the connection to the database. The neo4j.js file contains the driver. constants.js store variables including ports, url, and neo4j credentials.</p>
 <h4 id="env">.env</h4>
@@ -392,15 +427,11 @@ router.post(&quot;/getAvgDegree&quot;, jsonParser, async (req, res, next) =&gt; 
   }
 });
 </code></pre>
-<ul>
-<li>We use the route.post() function to create a new POST API call.</li>
-<li>It takes in three parameters, first the API call’s URL, the parser we use, and the request, response and next variables</li>
-<li>The req.body holds the information that the API caller has provided. This usually comes in the form of a JSON request body, and in this case this if the following body: <code>{"nodeList": ["FBgn0003731","FBgn0031972","FBgn0264492","FBgn0000499","FBgn0001139"],"species": "txid7227"}</code></li>
-<li>The try-catch statement is used to capture potential errors and throw them in an appropriate manner.</li>
-<li>The try portion of the statement creates a new variable called avgDegreeService by using a class AvgDegreeService. This class is defined in a file called avg.degree.service.js in the service folder, and it is responsible for utilizing the neo4j driver, creating a query call with some parameters, and getting the response. The class contains the function getAvgDegree which takes in two parameters, species and nodeList</li>
-<li>We use the await key because this is a type of Promise. This essentially tells the program to wait until we get the output from the avgDegreeService.getAvgDegree() function.</li>
-<li>Finally, we set the response in res.json to be the variable avgDegree</li>
-</ul>
+<p>We use the route.post() function to create a new POST API call. It takes in three parameters, first the API call’s URL, the parser we use, and the request, response and next variables. The req.body holds the information that the API caller has provided. This usually comes in the form of a JSON request body, and in this case this if the following body: </p>
+<pre><code>{&quot;nodeList&quot;: [&quot;FBgn0003731&quot;,&quot;FBgn0031972&quot;,&quot;FBgn0264492&quot;,&quot;FBgn0000499&quot;,&quot;FBgn0001139&quot;],&quot;species&quot;: &quot;txid7227&quot;}
+</code></pre>
+<p>The try-catch statement is used to capture potential errors and throw them in an appropriate manner. The try portion of the statement creates a new variable called avgDegreeService by using a class AvgDegreeService. This class is defined in a file called avg.degree.service.js in the service folder, and it is responsible for utilizing the neo4j driver, creating a query call with some parameters, and getting the response. The class contains the function getAvgDegree which takes in two parameters, species and nodeList. We use the await key because this is a type of Promise. This essentially tells the program to wait until we get the output from the avgDegreeService.getAvgDegree() function.
+- Finally, we set the response in res.json to be the variable avgDegree</p>
 <h4 id="services">/services</h4>
 <p>The service folder contains the heart of all the dependent functions the routes.js file needs. This is where you will be adding a new neo4j query as a function that will then be called into a new route in routes.js. Before that, it is helpful to understand the general structure of what a service file is, and we will use avg.degree.service.js as an example.</p>
 <pre><code class="language-js">//avg.degree.service.js file
@@ -449,25 +480,35 @@ export default class AvgDegreeService {
 }
 
 </code></pre>
+<p>This file creates a call called AvgDegreeService, and requires the neo4j driver we initialized in src/neo4j.js as a variable in the constructor. We create an async method (which is why we need the await keyword when we call the method) called getAvgDegree, which takes in the two parameters. You first have to initialize the neo4j driver session, and then we execute a read on the database with a neo4j query. Everything inside tx.run() is where you place the neo4j query. Notice that within the query, we use variables as the txid and the nodelist. These variables are paired in the portion after the neo4j query. Finally we close the neo4j session and return the res.records in a variable.</p>
+<h4 id="testing-api-calls">Testing API Calls</h4>
+<p>There are a number of ways to test our API calls. For this example, we will be testing out the <code>/getAvgDegree</code> API call using Google Chrome's developer feature (You can most likely try this with other browsers' developer tools). Do the following steps to test out the API call:
+- Open up a Google Chrome tab
+- In the top nav bar's "Help" section, type out developer and click the "Developer &gt; Developer Tools" results. Alternatively you can press Command + Option + I in your keyboard. You should see a new popup on the right handside of the screen.
+- 
+- Type out the following code into the console</p>
+<pre><code>fetch('http://localhost:5173/api/getAvgDegree', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({&quot;nodeList&quot;: [&quot;Q6P2U7&quot;,&quot;Q6DHB6&quot;,&quot;Q1LXK0&quot;,&quot;Q502C6&quot;,&quot;F1QC03&quot;],&quot;species&quot;: &quot;txid7955&quot;}),
+})
+.then(response =&gt; response.json())
+.then(data =&gt; console.log(data))
+.catch((error) =&gt; {
+    console.error('Error:', error);
+});
+</code></pre>
 <ul>
-<li>This file creates a call called AvgDegreeService, and requires the neo4j driver we initialized in src/neo4j.js as a variable in the constructor</li>
-<li>We create an async method (which is why we need the await keyword when we call the method) called getAvgDegree, which takes in the two parameters.</li>
-<li>You first have to initialize the neo4j driver session, and then we execute a read on the database with a neo4j query.</li>
-<li>Everything inside tx.run() is where you place the neo4j query. Notice that within the query, we use variables as the txid and the nodelist. These variables are paired in the portion after the neo4j query.</li>
-<li>Finally we close the neo4j session and return the res.records in a variable.</li>
-</ul>
-<h4 id="testing-api-using-postman">Testing API using Postman</h4>
-<p><img alt="postman_example" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/d3bd8851-39f6-4822-9ee5-d5235bf8dd6f" /></p>
-<p>We can test this API call in many ways but one that is common is using <a href="https://www.postman.com/">Postman</a>. Postman allows you to create API requests without the need of a frontend server. You can download the app or use the browser. We will test out the getAvgDegree API Call with the following steps: </p>
-<ul>
-<li>Create a new workspace in Postman.</li>
-<li>Select POST as the request type, and use http://localhost:3000/api/getAvgDegree as the URL</li>
-<li>We need to set the body of the request. Navigate to the body tab and set the body as raw and JSON. Now use the following example as the input: <code>{"nodeList": ["FBgn0003731","FBgn0031972","FBgn0264492","FBgn0000499","FBgn0001139"],"species": "txid7227"}</code></li>
-<li>When you are ready, click the send button. If it is successful you should get a 200 OK response and within the response body a value of 354.4 for the average node degree.</li>
+<li>This is calling out the /getAvgDegree API and specifying that it is a POST request type. Since this is a POST request, we need to provide it with a body. Notice that we provide a JSON object with two keys, "nodeList" and "species". This matches the API call's requirements in the routes.js of /getAvgdegree.</li>
+<li>You should get the following result:</li>
+<li></li>
 </ul>
 <p>Below includes a visualization that summarises the key parts of the backend server. Now that you have a better understanding about how API calls are made and how to test them, we can now implement a new API call that will use the neo4j query you made previously.
 <img alt="ProteinWeaver_Backend" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/40e2d2c4-852b-4520-a75a-ea6d006adde6" /></p>
 <h4 id="adding-new-api-call">Adding new API Call</h4>
+<p>Now we are ready to implement a new API call. For this project we highly recommend creating a new Neo4j query that you like. We recommend that your query should only return nodes, as this will help the later steps.</p>
 <ol>
 <li>Create a new file in the service directory. <ul>
 <li>You can duplicate the avg.degree.service.js file and rename it to something that represents your query.</li>
@@ -476,11 +517,15 @@ export default class AvgDegreeService {
 <li>Change the parameters of the method to include what you need for your query. (You may not need any in your parameters if you are hardcoding a query)</li>
 <li>Place your neo4j query inside of tx.run()</li>
 <li>You can delete the part where speciesInput and nodeList are paired if you do not have any parameters. If you do have parameters, make sure you pair the parameters properly with the neo4j query.</li>
+<li>We want to only return the nodes of the query. Add the following code to the bottom of the method's return. You may need to change the variable names to match the res:
+<code>//return nodes;
+return res.records.map((record) =&gt; record.get('n'));</code></li>
 <li>You are now done with setting up your service file for your API call</li>
 </ul>
 </li>
 <li>Create a new API call in router.js. <ul>
 <li>You can use the /getAvgDegree API call as reference.</li>
+<li>Make sure to import your new service file at the top of the router.js</li>
 <li>Set the API URL to a name that represents your query</li>
 <li>If your API call will need some parameters, set the correct variables in the request body, just like how getAvgDegree did it with nodeList and species</li>
 <li>Create a new instance of the service class you made previously like AvgDegreeService with the neo4j driver</li>
@@ -488,22 +533,22 @@ export default class AvgDegreeService {
 <li>Finally make sure the res.json function has the correct variable.</li>
 </ul>
 </li>
-<li>Test out your API call using Postman<ul>
+<li>Test out your API call <ul>
 <li>All API calls in proteinweaver goes under the following url. Simply add your API call after the last backslash: http://localhost:3000/api/</li>
 <li>Ensure that you are setting the response as a POST response</li>
-<li>If you require parameters in your API call, make sure to set the body, configure as raw and JSON mode, and then ensure the JSON body is in the correct format (See the example previously when testing out Postman)</li>
-<li>If you get a 200 OK response and you’ve inspected the response body to what you expect, then you have completed the backend portion.</li>
+<li>If you require parameters in your API call, make sure to set the body. Refer to the previous example where we tested the API call of /getAvgDegree</li>
 </ul>
 </li>
 </ol>
+<p>If you see that the API response is what you expect, good job! </p>
 <h2 id="step-6-add-a-new-page">Step: 6 Add a New Page</h2>
-<p>Now that we have linked the backend with the Neo4j database through the API call, we will create a React webpage with a button that lets a user execute our new query. Here is a general overview of adding a new page and a new API query:
+<p>Now that we have linked the backend with the Neo4j database through the API call, we will create a React webpage with a button that lets a user execute our new query. The Protein Weaver Contributing Guide Doc in the GDrive has resources to understand what the frontend does. Here is a general overview of adding a new page and a new API query:
 <img alt="ProteinWeaver Frontend" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/ef6e911f-83b0-4c70-869c-699e6544d9de" /></p>
+<h3 id="add-a-page-and-button-to-execute-query">Add a Page and Button to Execute Query</h3>
 <ol>
-<li>Navigate to <code>client/src/pages</code> and create a new page named <code>NewPage.jsx</code>. Examine the other pages in this directory and copy the content from <code>TestingPage.jsx</code> into the blank <code>NewPage.jsx</code>. Replace <code>TestingPage()</code> with the name of the new page you created: <code>NewPage()</code>.</li>
-</ol>
-<h3 id="add-button-to-execute-query">Add Button to Execute Query</h3>
-<ol>
+<li>
+<p>Navigate to <code>client/src/pages</code> and create a new page named <code>NewPage.jsx</code>. Examine the other pages in this directory and copy the content from <code>TestingPage.jsx</code> into the blank <code>NewPage.jsx</code>. Replace <code>TestingPage()</code> with the name of the new page you created: <code>NewPage()</code>.</p>
+</li>
 <li>
 <p>Navigate to <code>client/src/main.jsx</code> and add the <code>NewPage</code> component to the main website by importing it and creating a route. Import the component by adding this below the other import statements: <code>import NewPage from "./pages/NewPage.jsx";</code>. Copy one of the route snippets and replace the <code>path</code> and <code>element</code> with <code>"/newpage"</code> and <code>&lt;NewPage /&gt;</code>.</p>
 </li>
@@ -547,7 +592,7 @@ const [nodeNames, setNodeNames] = useState([]);
     console.log(nodeNames);
 </code></pre>
 <p>You can check the structure of your query response in the running <code>server</code> terminal. Using the object hierarchy displayed there, we extracted just the "name" property in the useEffect hook for displaying. You should now have a blank page at http://localhost:5173/newpage that allows you to see the names of the nodes returned by your Neo4j query in the console when you inspect the page element.</p>
-<h3 id="add-button-to-execute-query_1">Add Button to Execute Query</h3>
+<h3 id="add-button-to-execute-query">Add Button to Execute Query</h3>
 <ol>
 <li>Now we will add the ability for users to execute the query on demand rather than when refreshing the page. To do this, first we will modify the useEffect statement and make it a function:</li>
 </ol>
