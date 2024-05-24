@@ -216,7 +216,7 @@
 </li>
 </ul>
 <h3 id="toy-dataset">Toy Dataset</h3>
-<p>Before adding the zfish dataset it is reccomended to play around with a toy dataset. This will get you a feel of what querying in neo4j is like. Write the following command in neo4j:</p>
+<p>Before adding the zfish dataset it is recommended to play around with a toy dataset. This will get you a feel of what querying in neo4j is like. Write the following command in neo4j:</p>
 <pre><code>CREATE
   (alice:User {name: 'Alice', posts: 4, seed_label: 52}),
   (bridget:User {name: 'Bridget', posts: 13, seed_label: 21}),
@@ -236,6 +236,8 @@
   (michael)-[:FOLLOW {weight: 1}]-&gt;(bridget),
   (charles)-[:FOLLOW {weight: 1}]-&gt;(doug)
 </code></pre>
+<p>Before moving on remove all of the newly created nodes with the following command: </p>
+<p><code>MATCH (n) DETACH DELETE n;</code></p>
 <h3 id="adding-zfish-data">Adding Z.Fish Data</h3>
 <ol>
 <li>
@@ -298,11 +300,10 @@ CALL {
 CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;
 </code></pre>
 <h3 id="useful-commands">Useful Commands:</h3>
-<ol>
-<li>
-<p>Drop graph projection:
+<p>If you make any mistakes use the following three commands to reset the state of the database.
+1. Drop graph projection:
    <code>CALL gds.graph.drop('proGoGraph') YIELD graphName;</code></p>
-</li>
+<ol>
 <li>
 <p>Drop constraints:
    <code>DROP CONSTRAINT txid_constraint;</code>
@@ -315,6 +316,19 @@ CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'Pro
 <li>
 <p>Show database information:
    <code>:schema</code></p>
+</li>
+</ol>
+<p>Other useful commands:
+1. Select a node:
+    <code>MATCH (n:protein {name: "example"}) RETURN n</code></p>
+<ol>
+<li>
+<p>Select a relationship:
+    <code>MATCH (n:protein {name: "example"})-[r:ProGo]-(g:go_term) RETURN r</code></p>
+</li>
+<li>
+<p>Select a property:
+    <code>MATCH (n:protein {name: "example"})-[r:ProGo]-(g:go_term) RETURN r.relationship</code></p>
 </li>
 </ol>
 <h2 id="step-3-create-a-new-query-in-neo4j">Step 3: Create a New Query in Neo4j</h2>
@@ -357,7 +371,7 @@ CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'Pro
 <p>Now it is your turn to devise a new Cypher query.</p>
 </li>
 </ol>
-<p>Your query should end in a RETURN statement rather than change a property. We highly reccomend that your query return node(s). This will make the contributing guide smoother. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface. Here are some examples:</p>
+<p>Your query should end in a RETURN statement rather than change a property. We highly recomend that your query return node(s). This will make the contributing guide smoother. We will use this query in the next step to create a new webpage that returns and presents the results of this query on ProteinWeaver's user interface. Here are some examples:</p>
 <ul>
 <li>What are top 10 proteins that have the highest degree number?</li>
 <li>What proteins have the most ProGo edges?</li>
@@ -368,7 +382,7 @@ CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'Pro
 <h3 id="backend-server">Backend Server</h3>
 <ol>
 <li>
-<p>Open up a terminal window and go to the protein-weaver directory. Then go to the /server directory</p>
+<p>Open up a terminal window and go to the protein-weaver directory. Then go to the <code>/server</code> directory</p>
 </li>
 <li>
 <p>We want to install npm which is responsible for building the necessary packages of the server. We will use a version manager for node, called nvm. This is helpful as it allows you to install multiple versions of node. More information about nvm can be found <a href="https://github.com/nvm-sh/nvm">here</a>. Follow the following commands in your terminal</p>
@@ -696,7 +710,7 @@ async function handleNewQuery(e) {
 <p>Let's finish off by doing some styling and adding a new icon to the NavBar.</p>
 <ol>
 <li>
-<p>Navigate to <code>client/src/components/NavBar.jsx</code> and copy one of the <code>&lt;li&gt;&lt;/li&gt;</code> snippets and paste it below another. Create a new link to your page by replacing the old link with <code>&lt;Link to={</code>/newpage<code>}&gt;</code>.</p>
+<p>Navigate to <code>client/src/components/NavBar.jsx</code> and copy one of the <code>&lt;li&gt;&lt;/li&gt;</code> snippets and paste it below another. Create a new link to your page by replacing the old link with <code>&lt;Link to={/newpage}&gt;</code>.</p>
 </li>
 <li>
 <p>Now rename the icon by typing "New" within the <code>&lt;div&gt;&lt;/div&gt;</code>.</p>
