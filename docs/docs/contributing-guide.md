@@ -294,7 +294,7 @@ router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
 We use the route.post() function to create a new POST API call. It takes in three parameters, first the API call’s URL, the parser we use, and the request, response and next variables. The req.body holds the information that the API caller has provided. This usually comes in the form of a JSON request body, and in this case this if the following body:
 
 ```
-{"nodeList": ["FBgn0003731","FBgn0031972","FBgn0264492","FBgn0000499","FBgn0001139"],"species": "txid7227"}
+{"nodeList": ["Q6P2U7","Q6DHB6","Q1LXK0","Q502C6","F1QC03"],"species": "txid7955"}
 ```
 
 The try-catch statement is used to capture potential errors and throw them in an appropriate manner. The try portion of the statement creates a new variable called avgDegreeService by using a class AvgDegreeService. This class is defined in a file called avg.degree.service.js in the service folder, and it is responsible for utilizing the neo4j driver, creating a query call with some parameters, and getting the response. The class contains the function getAvgDegree which takes in two parameters, species and nodeList. We use the await key because this is a type of Promise. This essentially tells the program to wait until we get the output from the avgDegreeService.getAvgDegree() function.
