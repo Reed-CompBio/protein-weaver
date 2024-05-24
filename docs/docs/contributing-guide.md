@@ -380,7 +380,9 @@ fetch('http://localhost:3000/api/getAvgDegree', {
 
 - This is connecting to the backend's port of 3000 and calling out the /getAvgDegree API and specifying that it is a POST request type. Since this is a POST request, we need to provide it with a body. Notice that we provide a JSON object with two keys, "nodeList" and "species". This matches the API call's requirements in the routes.js of /getAvgdegree.
 - You should get the following result:
--
+- ![Screenshot 2024-05-24 at 1 01 21 PM](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/79a97f08-39d5-4fec-bd7a-c5f4c5f8cc61)
+- This output showcases that we found that the average degree of all these nodes is 10.6.
+
 
 Below includes a visualization that summarises the key parts of the backend server. Now that you have a better understanding about how API calls are made and how to test them, we can now implement a new API call that will use the neo4j query you made previously.
 ![ProteinWeaver_Backend](https://github.com/Reed-CompBio/protein-weaver/assets/67818840/40e2d2c4-852b-4520-a75a-ea6d006adde6)
