@@ -21,7 +21,7 @@ The following section will be using a [`bash`](<https://en.wikipedia.org/wiki/Ba
 2. Navigate to a terminal window and pull the official Neo4j Docker image with the following command:
 
 ```bash
-docker pull neo4j
+docker pull neo4j:5.12.0-community-bullseye
 ```
 
 3. Create a folder in your root directory named `neo4j`:
