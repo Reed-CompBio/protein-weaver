@@ -149,6 +149,7 @@ CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'Pro
 
 ### Useful Commands:
 
+If you make any mistakes use the following three commands to reset the state of the database.
 1. Drop graph projection:
    `CALL gds.graph.drop('proGoGraph') YIELD graphName;`
 
@@ -161,6 +162,17 @@ CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'Pro
 
 4. Show database information:
    `:schema`
+
+Other useful commands:
+1. Select a node:
+    `MATCH (n:protein {name: "example"}) RETURN n`
+
+2. Select a relationship:
+    `MATCH (n:protein {name: "example"})-[r:ProGo]-(g:go_term) RETURN r`
+
+3. Select a property:
+    `MATCH (n:protein {name: "example"})-[r:ProGo]-(g:go_term) RETURN r.relationship`
+
 
 ## Step 3: Create a New Query in Neo4j
 
@@ -206,7 +218,7 @@ Now that you have the Neo4j database up and running, and you have a query that y
 
 ### Backend Server
 
-1. Open up a terminal window and go to the protein-weaver directory. Then go to the /server directory
+1. Open up a terminal window and go to the protein-weaver directory. Then go to the `/server` directory
 
 2. We want to install npm which is responsible for building the necessary packages of the server. We will use a version manager for node, called nvm. This is helpful as it allows you to install multiple versions of node. More information about nvm can be found [here](https://github.com/nvm-sh/nvm). Follow the following commands in your terminal
 
@@ -583,7 +595,7 @@ Congratulations, you have now created a new webpage with full connection to the 
 
 Let's finish off by doing some styling and adding a new icon to the NavBar.
 
-1. Navigate to `client/src/components/NavBar.jsx` and copy one of the `<li></li>` snippets and paste it below another. Create a new link to your page by replacing the old link with `<Link to={`/newpage`}>`.
+1. Navigate to `client/src/components/NavBar.jsx` and copy one of the `<li></li>` snippets and paste it below another. Create a new link to your page by replacing the old link with `<Link to={/newpage}>`.
 
 2. Now rename the icon by typing "New" within the `<div></div>`.
 
