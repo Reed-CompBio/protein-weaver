@@ -485,7 +485,7 @@ export default class AvgDegreeService {
 <p>There are a number of ways to test our API calls. For this example, we will be testing out the <code>/getAvgDegree</code> API call using Google Chrome's developer feature (You can most likely try this with other browsers' developer tools). Do the following steps to test out the API call:
 - Open up a Google Chrome tab
 - In the top nav bar's "Help" section, type out developer and click the "Developer &gt; Developer Tools" results. Alternatively you can press Command + Option + I in your keyboard. You should see a new popup on the right handside of the screen.
-- 
+- <img width="600" alt="Screenshot 2024-05-23 at 4 11 48 PM" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/b2686767-4a46-4bf6-8fd8-c3a27c3d8fc5">
 - Type out the following code into the console</p>
 <pre><code>fetch('http://localhost:5173/api/getAvgDegree', {
     method: 'POST',
@@ -503,7 +503,7 @@ export default class AvgDegreeService {
 <ul>
 <li>This is calling out the /getAvgDegree API and specifying that it is a POST request type. Since this is a POST request, we need to provide it with a body. Notice that we provide a JSON object with two keys, "nodeList" and "species". This matches the API call's requirements in the routes.js of /getAvgdegree.</li>
 <li>You should get the following result:</li>
-<li></li>
+<li><img alt="Screenshot 2024-05-23 at 4 15 07 PM" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/48e5c9e8-bed7-40d7-ae4e-f92895f7c72d" /></li>
 </ul>
 <p>Below includes a visualization that summarises the key parts of the backend server. Now that you have a better understanding about how API calls are made and how to test them, we can now implement a new API call that will use the neo4j query you made previously.
 <img alt="ProteinWeaver_Backend" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/40e2d2c4-852b-4520-a75a-ea6d006adde6" /></p>
