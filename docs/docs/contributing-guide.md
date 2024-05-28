@@ -58,6 +58,8 @@ docker run \
 
 6. Access the docker image at [http://localhost:7474](http://localhost:7474) in your browser. You can ignore the username and password and just click connect.
 
+7. If you ever need to rerun the docker instance, you can do `docker start -a proteinweaver`
+
 ### Toy Dataset
 
 Before adding the zfish dataset it is recommended to play around with a toy dataset. This will get you a feel of what querying in neo4j is like. Write the following command in neo4j:
