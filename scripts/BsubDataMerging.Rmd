@@ -1,0 +1,109 @@
+---
+title: "B. Subtilis Data Processing and Merging"
+author: "Oliver F. Anderson"
+date: "2024-05-31"
+output: html_document
+---
+
+**B. Subtilis Data Merging and Wrangling Documentation**
+Initialize the work environment.
+```{r}
+library(tidyverse)
+```
+
+This is non-stringent data mining, filtered by experimental, database, and textmined data. The only thing we filter out is homology-inferred data.
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+# read the file in
+string_db_interactome <- read_delim("224308.protein.physical.links.full.v12.0.txt", delim = " ")
+
+# get only the data from String-DB that has experimental evidence
+string_db_interactome <- string_db_interactome %>% filter(experiments > 0 |
+                                                            database > 0 |
+                                                            textmining > 0)
+string_db_interactome <- string_db_interactome %>% 
+  mutate(
+      evidence = case_when(
+        experiments > 0 ~ "experimental",
+        (database > 0 & experiments <= 0) ~ "database",
+        (textmining > 0 & experiments <= 0 & database <= 0) ~ "textmined")
+      )
+
+
+# select only the relevant information
+string_db_interactome <- string_db_interactome %>% select(protein1, protein2, evidence)
+
+# get the mapping data to get uniprot aliases
+string_db_names2 <- read_tsv("224308.protein.info.v12.0.txt")
+
+string_db_names2 <- string_db_names2 %>%
+  select(string_protein_id, preferred_name)
+
+# join the uniprot IDs for protein1
+string_db_interactome <- left_join(string_db_interactome, string_db_names2, by = c("protein1" = "string_protein_id"), relationship = "many-to-many")
+
+# join the uniprot IDs for protein2
+string_db_interactome <- left_join(string_db_interactome, string_db_names2, by = c("protein2" = "string_protein_id"), relationship = "many-to-many")
+
+# rename the columns to prepare to merge datasets
+colnames(string_db_interactome) <- c("protein1", "protein2", "evidence", "name1", "name2")
+
+# extract only the relevant information
+string_db_interactome <-
+  string_db_interactome %>%
+  select(protein1, name1, protein2, name2, evidence) %>%
+  mutate(source = "string-db")
+
+# remove txid tag from beginning of BSU_ID
+string_db_interactome$protein1 <- gsub("224308.", "", string_db_interactome$protein1)
+
+string_db_interactome$protein2 <- gsub("224308.", "", string_db_interactome$protein2)
+
+# capitalize first letter of protein name
+string_db_interactome$name1 <- gsub("\\b([a-z])", "\\U\\1", string_db_interactome$name1, perl=TRUE)
+
+string_db_interactome$name2 <- gsub("\\b([a-z])", "\\U\\1", string_db_interactome$name2, perl=TRUE)
+
+colnames(string_db_interactome) <- c("protein_1_locus", "protein_1_name", "protein_2_locus", "protein_2_name", "evidence", "source")
+
+View(string_db_interactome)
+```
+The resulting interactome from STRING-DB had 11,766 unique proteins.
+
+Save the STRING-DB data to a separate file
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+write_csv(string_db_interactome, "./bsub_string_db_results.csv")
+```
+
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+subtiwiki_interactome <- read_csv("bsub_interactome.csv")
+
+length(subtiwiki_interactome$protein_1_locus)
+
+# Add columns to match data structure of STRING DB
+subtiwiki_interactome <- subtiwiki_interactome %>% mutate(
+  evidence = "experimental",
+  source = "subtiwiki")
+```
+
+
+Now, merge the SubtiWiki and STRING-DB interactomes together.
+```{r}
+bsub_interactome <- rbind(string_db_interactome, subtiwiki_interactome)
+```
+
+Sub the blank space in column names with underscore for Neo4j import.
+```{r}
+# # these are the "Reviewed" annotations downloaded from https://www.ebi.ac.uk/QuickGO/annotations?taxonId=7955&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein
+# go_terms <- read_tsv("zfish_GO_annotations_Mar12_24.tsv")
+# colnames(go_terms) <- gsub(" ", "_", colnames(go_terms))
+# write_tsv(go_terms, "zfish_GO_data_Mar12_24.tsv")
+```
+
+Sometimes the names will have trailing blank spaces so let's ensure that they won't with the following code. Finally, we will write out the final zebrafish interactome.
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+write_tsv(bsub_interactome, "bsub_interactome_May31_2024.txt")
+```
