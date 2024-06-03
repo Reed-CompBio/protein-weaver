@@ -137,6 +137,7 @@ export default function Query() {
       .then((data) => {
         const proteinNames = data.map((item) => item.name);
         const proteinIds = data.map((item) => item.id);
+        // const proteinAltNames = data.map((item) => item.alt_name);
         const proteinMerged = [
           ...new Set(proteinNames.concat(proteinIds)),
         ].filter((item) => item !== undefined);

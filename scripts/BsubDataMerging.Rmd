@@ -66,9 +66,17 @@ string_db_interactome$name2 <- gsub("\\b([a-z])", "\\U\\1", string_db_interactom
 
 colnames(string_db_interactome) <- c("protein_1_locus", "protein_1_name", "protein_2_locus", "protein_2_name", "evidence", "source")
 
+# Add an underscore to match the other BSU convention
+string_db_interactome$protein_1_locus <- gsub("BSU", "BSU_", string_db_interactome$protein_1_locus)
+
+string_db_interactome$protein_2_locus <- gsub("BSU", "BSU_", string_db_interactome$protein_2_locus)
+
+# Number of unique proteins
+length(unique(c(unique(string_db_interactome$protein_1_name), unique(string_db_interactome$protein_2_name))))
+
 View(string_db_interactome)
 ```
-The resulting interactome from STRING-DB had 11,766 unique proteins.
+The resulting interactome from STRING-DB had 1446 unique proteins.
 
 Save the STRING-DB data to a separate file
 ```{r}
@@ -80,27 +88,66 @@ write_csv(string_db_interactome, "./bsub_string_db_results.csv")
 setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
 subtiwiki_interactome <- read_csv("bsub_interactome.csv")
 
-length(subtiwiki_interactome$protein_1_locus)
-
 # Add columns to match data structure of STRING DB
 subtiwiki_interactome <- subtiwiki_interactome %>% mutate(
   evidence = "experimental",
   source = "subtiwiki")
+
+# Number of unique proteins in subtiwiki interactome
+length(unique(c(unique(subtiwiki_interactome$protein_1_name), unique(subtiwiki_interactome$protein_2_name))))
 ```
 
 
 Now, merge the SubtiWiki and STRING-DB interactomes together.
 ```{r}
 bsub_interactome <- rbind(string_db_interactome, subtiwiki_interactome)
+
+length(unique(c(unique(bsub_interactome$protein_1_name), unique(bsub_interactome$protein_2_name))))
+
+# During import we noticed some IDs have duplicate names. Let's fix this and set an alt_name parameter.
+protein_1_duplicates <- bsub_interactome %>%
+  group_by(protein_1_locus) %>%
+  filter(n_distinct(protein_1_name) > 1) %>%
+  arrange(protein_1_locus)
+
+protein_2_duplicates <- bsub_interactome %>%
+  group_by(protein_2_locus) %>%
+  filter(n_distinct(protein_2_name) > 1) %>%
+  arrange(protein_2_locus)
+
+duplicates <- rbind(protein_1_duplicates, protein_2_duplicates)
+
+length(unique(c(unique(duplicates$protein_1_locus), unique(duplicates$protein_2_locus))))
 ```
 
 Sub the blank space in column names with underscore for Neo4j import.
 ```{r}
-# # these are the "Reviewed" annotations downloaded from https://www.ebi.ac.uk/QuickGO/annotations?taxonId=7955&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein
-# go_terms <- read_tsv("zfish_GO_annotations_Mar12_24.tsv")
-# colnames(go_terms) <- gsub(" ", "_", colnames(go_terms))
-# write_tsv(go_terms, "zfish_GO_data_Mar12_24.tsv")
+# these are the "Reviewed" annotations downloaded from https://www.ebi.ac.uk/QuickGO/annotations?taxonId=7955&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+
+go_terms <- read_tsv("bsub_GO_annotations_2024-06-03.txt")
+colnames(go_terms) <- gsub(" ", "_", colnames(go_terms))
+
+go_terms$SYMBOL <- gsub("\\b([a-z])", "\\U\\1", go_terms$SYMBOL, perl=TRUE)
+
+write_tsv(go_terms, "bsub_GO_annotations_2024-06-03.txt")
 ```
+
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+
+BSU_to_Uniprot <- read_tsv("subtiwiki.gene.export.2024-06-03.tsv")
+
+BSU_to_Uniprot <- BSU_to_Uniprot %>% 
+  select(locus, GENE_PRODUCT_ID)
+
+# join datasets together
+bsub_GO_data <- inner_join(go_terms, BSU_to_Uniprot, "GENE_PRODUCT_ID", relationship="many-to-many")
+
+# write to csv
+write_tsv(bsub_GO_data, "bsub_GO_annotations_2024-06-03.txt")
+```
+
 
 Sometimes the names will have trailing blank spaces so let's ensure that they won't with the following code. Finally, we will write out the final zebrafish interactome.
 ```{r}
