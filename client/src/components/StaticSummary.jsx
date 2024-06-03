@@ -27,9 +27,8 @@ export default function StaticSummary({
                 `https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`
             );
         } else if (query.species === "txid224308") {
-            var bsubId = query.protein.replace(/_/g, "");
             setSourceNodeLink(
-                `https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}#tab=GO`
+                `https://bsubcyc.org/gene?orgid=BSUB&id=${sourceNode.id.replace('_', '')}#tab=GO`
             );
         } else if (query.species === "txid7955") {
             setSourceNodeLink(

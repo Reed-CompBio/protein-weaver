@@ -108,14 +108,15 @@ CALL {
 ```
 
 ##### _B. subtilis_ imports
-12. Import _B. subtilis_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_interactome.csv) with the following command:
+12. Import _B. subtilis_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/file:///bsub_interactome_2024-05-31.txt) with the following command:
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
+:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome_2024-05-31.txt' AS bsub
+FIELDTERMINATOR '\t'
 CALL {
-    with bsub
-    MERGE (a:protein {id: bsub.protein_1_locus, name: bsub.protein_1_name, txid: "txid224308", species: "Bacillus subtilis 168"})
-    MERGE (b:protein {id: bsub.protein_2_locus, name: bsub.protein_2_name, txid: "txid224308", species: "Bacillus subtilis 168"})
-    MERGE (a)-[r:ProPro]-(b)
+with bsub
+MERGE (a:protein {id: bsub.protein_1_locus, name: bsub.protein_1_name, txid: "txid224308", species: "Bacillus subtilis 168"})
+MERGE (b:protein {id: bsub.protein_2_locus, name: bsub.protein_2_name, txid: "txid224308", species: "Bacillus subtilis 168"})
+MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
