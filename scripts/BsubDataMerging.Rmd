@@ -117,8 +117,60 @@ protein_2_duplicates <- bsub_interactome %>%
 
 duplicates <- rbind(protein_1_duplicates, protein_2_duplicates)
 
-length(unique(c(unique(duplicates$protein_1_locus), unique(duplicates$protein_2_locus))))
+length(unique(c(unique(duplicates$protein_1_locus), unique(duplicates$protein_2_locus))))/2
 ```
+
+Separate name values for each ID.
+```{r}
+# duplicates in the protein1 position
+p1_dupes <- duplicates %>% select(protein_1_locus, protein_1_name) %>% group_by(protein_1_locus) %>% filter(n_distinct(protein_1_name) > 1) %>% distinct()
+
+p1_dupes <- p1_dupes %>% group_by(protein_1_locus) %>%
+  mutate(name_index = row_number()) %>%
+  ungroup()
+
+p1_dupes <- p1_dupes %>%
+  pivot_wider(names_from = name_index, values_from = protein_1_name, names_prefix = "name")
+
+colnames(p1_dupes) <- c("protein_1_locus", "protein_1_name", "protein_1_alt_name")
+
+# duplicates in the protein2 position
+p2_dupes <- duplicates[,c(3,4)] %>% group_by(protein_2_locus) %>% filter(n_distinct(protein_2_name) > 1) %>% distinct()
+
+p2_dupes <- p2_dupes %>% group_by(protein_2_locus) %>%
+  mutate(name_index = row_number()) %>%
+  ungroup()
+
+p2_dupes <- p2_dupes %>%
+  pivot_wider(names_from = name_index, values_from = protein_2_name, names_prefix = "name")
+
+colnames(p2_dupes) <- c("protein_2_locus", "protein_2_name", "protein_2_alt_name")
+```
+
+Add back alt_name parameters
+```{r}
+bsub_interactome <- left_join(bsub_interactome, p1_dupes, by = "protein_1_locus") %>% mutate(protein_1_name = case_when(
+  !is.na(protein_1_name.y) ~ protein_1_name.y,
+  .default = protein_1_name.x
+),
+    protein_1_alt_name = case_when(
+      is.na(protein_1_alt_name) ~ protein_1_name.x,
+      .default = protein_1_alt_name
+    )
+) %>% select(-c("protein_1_name.x", "protein_1_name.y"))
+
+
+bsub_interactome <- left_join(bsub_interactome, p2_dupes, by = "protein_2_locus") %>% mutate(protein_2_name = case_when(
+  !is.na(protein_2_name.y) ~ protein_2_name.y,
+  .default = protein_2_name.x
+),
+    protein_2_alt_name = case_when(
+      is.na(protein_2_alt_name) ~ protein_2_name.x,
+      .default = protein_2_alt_name
+    )
+) %>% select(-c("protein_2_name.x", "protein_2_name.y"))
+```
+
 
 Sub the blank space in column names with underscore for Neo4j import.
 ```{r}
@@ -152,5 +204,5 @@ write_tsv(bsub_GO_data, "bsub_GO_annotations_2024-06-03.txt")
 Sometimes the names will have trailing blank spaces so let's ensure that they won't with the following code. Finally, we will write out the final zebrafish interactome.
 ```{r}
 setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
-write_tsv(bsub_interactome, "bsub_interactome_May31_2024.txt")
+write_tsv(bsub_interactome, "interactome_txid224308_2024-06-06.txt")
 ```
