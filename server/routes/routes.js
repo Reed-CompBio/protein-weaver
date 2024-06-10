@@ -15,10 +15,11 @@ import AllShortestPathsService from "../services/dijkstra.all.service.js";
 import ProteinFinderService from "../services/protein.finder.service.js";
 import GoFinderService from "../services/go.finder.service.js";
 import AvgDegreeService from "../services/avg.degree.service.js";
+import PGStats from "../services/PG.Stats.Service.js";
 const router = new Router();
 const jsonParser = bodyParser.json();
 
-//test
+
 router.get("/test", (req, res) => {
   res.json({ message: "Successfully connected to the backend API" });
   console.log("successfully connected to the backend API");
@@ -127,6 +128,21 @@ router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
 
     res.json(avgDegree);
   } catch (e) {
+    next(e);
+  }
+});
+
+router.post("/PGStats", jsonParser, async (req, res, next) => {
+  try {
+    const data = req.body;
+    const GoName = data.GoName.name;
+    const PGS = new PGStats(getDriver());
+    const edges = await PGS.ProGoStats(GoName);
+    console.log("ProGo Edges:");
+    console.log(edges);
+    res.json(edges);
+  }
+  catch (e) {
     next(e);
   }
 });

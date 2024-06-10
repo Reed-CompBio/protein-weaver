@@ -18,14 +18,14 @@ export default class PGStats {
         const session = this.driver.session();
         const res = await session.executeRead((tx) =>
             tx.run(
-            `
+                `
             match (go:go_term)
             where (go.name = $GoName)
             return COUNT {(go) - [:ProGo] - (:protein)} as Count
             `,
 
                 {
-                    GoName:GoName
+                    GoName: GoName
                 }
             )
         );
@@ -33,9 +33,9 @@ export default class PGStats {
 
 
         await session.close();
-    
-    
+
+
         return count;
-    
+
     }
 }
