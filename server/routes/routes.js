@@ -18,6 +18,7 @@ import AvgDegreeService from "../services/avg.degree.service.js";
 const router = new Router();
 const jsonParser = bodyParser.json();
 
+//test
 router.get("/test", (req, res) => {
   res.json({ message: "Successfully connected to the backend API" });
   console.log("successfully connected to the backend API");
