@@ -110,12 +110,12 @@ CALL {
 ##### _B. subtilis_ imports
 12. Import _B. subtilis_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/file:///bsub_interactome_2024-05-31.txt) with the following command:
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome_2024-05-31.txt' AS bsub
+:auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-06-06.txt' AS bsub
 FIELDTERMINATOR '\t'
 CALL {
 with bsub
-MERGE (a:protein {id: bsub.protein_1_locus, name: bsub.protein_1_name, txid: "txid224308", species: "Bacillus subtilis 168"})
-MERGE (b:protein {id: bsub.protein_2_locus, name: bsub.protein_2_name, txid: "txid224308", species: "Bacillus subtilis 168"})
+MERGE (a:protein {id: bsub.protein_1_locus, name: bsub.protein_1_name, alt_name: bsub.protein_1_alt_name, txid: "txid224308", species: "Bacillus subtilis 168"})
+MERGE (b:protein {id: bsub.protein_2_locus, name: bsub.protein_2_name, alt_name: bsub.protein_2_alt_name, txid: "txid224308", species: "Bacillus subtilis 168"})
 MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
@@ -141,9 +141,9 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-15. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data_2024-04-03.tsv) for _B. subtilis_
+15. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/annotations_txid224308_2024-06-03.txt) for _B. subtilis_
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_2024-04-03.tsv' AS bsubgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///annotations_txid224308_2024-06-03.txt' AS bsubgo
 FIELDTERMINATOR '\t'
 CALL {
     with bsubgo
@@ -155,7 +155,7 @@ CALL {
 
 16. Set qualifier property for second batch of GO data (_B. subtilis_).
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_2024-04-03.tsv' AS bsubgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///annotations_txid224308_2024-06-03.txt' AS bsubgo
 FIELDTERMINATOR '\t'
 CALL {
     with bsubgo
@@ -171,8 +171,8 @@ CALL {
 FIELDTERMINATOR '\t'
 CALL {
     with zfish
-    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, txid: "txid7955", species: "Danio rerio"})
-    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, txid: "txid7955", species: "Danio rerio"})
+    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, alt_name: zfish.alt_name1, txid: "txid7955", species: "Danio rerio"})
+    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, alt_name: zfish.alt_name2, txid: "txid7955", species: "Danio rerio"})
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```

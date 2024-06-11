@@ -177,12 +177,12 @@ Sub the blank space in column names with underscore for Neo4j import.
 # these are the "Reviewed" annotations downloaded from https://www.ebi.ac.uk/QuickGO/annotations?taxonId=7955&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein
 setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
 
-go_terms <- read_tsv("bsub_GO_annotations_2024-06-03.txt")
+go_terms <- read_tsv("annotations_txid224308_2024-06-03.txt")
 colnames(go_terms) <- gsub(" ", "_", colnames(go_terms))
 
 go_terms$SYMBOL <- gsub("\\b([a-z])", "\\U\\1", go_terms$SYMBOL, perl=TRUE)
 
-write_tsv(go_terms, "bsub_GO_annotations_2024-06-03.txt")
+write_tsv(go_terms, "annotations_txid224308_2024-06-03.txt")
 ```
 
 ```{r}
@@ -196,8 +196,12 @@ BSU_to_Uniprot <- BSU_to_Uniprot %>%
 # join datasets together
 bsub_GO_data <- inner_join(go_terms, BSU_to_Uniprot, "GENE_PRODUCT_ID", relationship="many-to-many")
 
+bsub_GO_data <- bsub_GO_data %>% filter(str_detect("NOT|", QUALIFIER, negate=TRUE))
+
+colnames(bsub_GO_data)[colnames(bsub_GO_data) == 'locus'] <- 'BSU_ID'
+
 # write to csv
-write_tsv(bsub_GO_data, "bsub_GO_annotations_2024-06-03.txt")
+write_tsv(bsub_GO_data, "annotations_txid224308_2024-06-03.txt")
 ```
 
 
