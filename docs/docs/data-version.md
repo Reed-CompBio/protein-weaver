@@ -199,3 +199,11 @@ Looked up species name and got taxon ID.
 * Added _B. subtilis_ interaction data from STRING-DB and updated QuickGO annotations.
 * Added alt_name parameters to _B. subtilis_ and _D. rerio_ nodes.
 
+```
+| Species         | Inferred Edges |
+| --------------- | :------------- |
+| D. melanogaster | 413,704        |
+| B. subtilis     | 54,270         |
+| D. rerio        | 86,216         |
+| Total           | 554,190        |
+```

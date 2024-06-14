@@ -145,11 +145,44 @@ p2_dupes <- p2_dupes %>%
   pivot_wider(names_from = name_index, values_from = protein_2_name, names_prefix = "name")
 
 colnames(p2_dupes) <- c("protein_2_locus", "protein_2_name", "protein_2_alt_name")
+
+# find values in duplicates with different name/alt_name params
+matching_values <- inner_join(p1_dupes, p2_dupes, by = join_by(protein_1_locus == protein_2_locus))
+
+matching_values <- matching_values %>% mutate(protein_2_name = case_when(
+  protein_1_name != protein_2_name ~ protein_1_name,
+  .default = protein_1_name),
+  protein_2_alt_name = case_when(
+  protein_1_alt_name != protein_2_alt_name ~ protein_1_alt_name,
+  .default = protein_1_alt_name)
+  )
+
+p2_dupes_matching <- matching_values %>% select(-c(protein_1_name, protein_1_alt_name))
+
+colnames(p2_dupes_matching) <- c("protein_2_locus", "protein_2_name", "protein_2_alt_name")
+
+p2_dupes_filtered <- p2_dupes %>%
+  anti_join(p2_dupes_matching, by = "protein_2_locus")
+
+p2_dupes <- rbind(p2_dupes_filtered, p2_dupes_matching)
+
+# make sure alt_name and name is same in both
+p1_dupes2 <- p2_dupes
+
+colnames(p1_dupes2) <- c("protein_1_locus", "protein_1_name", "protein_1_alt_name")
+
+duplicates1 <- rbind(p1_dupes, p1_dupes2)
+
+p2_dupes2 <- p1_dupes
+
+colnames(p2_dupes2) <- c("protein_2_locus", "protein_2_name", "protein_2_alt_name")
+
+duplicates2 <- rbind(p2_dupes, p2_dupes2)
 ```
 
 Add back alt_name parameters
 ```{r}
-bsub_interactome <- left_join(bsub_interactome, p1_dupes, by = "protein_1_locus") %>% mutate(protein_1_name = case_when(
+bsub_interactome <- left_join(bsub_interactome, duplicates1, by = "protein_1_locus") %>% mutate(protein_1_name = case_when(
   !is.na(protein_1_name.y) ~ protein_1_name.y,
   .default = protein_1_name.x
 ),
@@ -160,7 +193,7 @@ bsub_interactome <- left_join(bsub_interactome, p1_dupes, by = "protein_1_locus"
 ) %>% select(-c("protein_1_name.x", "protein_1_name.y"))
 
 
-bsub_interactome <- left_join(bsub_interactome, p2_dupes, by = "protein_2_locus") %>% mutate(protein_2_name = case_when(
+bsub_interactome <- left_join(bsub_interactome, duplicates2, by = "protein_2_locus") %>% mutate(protein_2_name = case_when(
   !is.na(protein_2_name.y) ~ protein_2_name.y,
   .default = protein_2_name.x
 ),
@@ -185,6 +218,7 @@ go_terms$SYMBOL <- gsub("\\b([a-z])", "\\U\\1", go_terms$SYMBOL, perl=TRUE)
 write_tsv(go_terms, "annotations_txid224308_2024-06-03.txt")
 ```
 
+Filter out NOT qualifiers
 ```{r}
 setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
 
@@ -205,7 +239,7 @@ write_tsv(bsub_GO_data, "annotations_txid224308_2024-06-03.txt")
 ```
 
 
-Sometimes the names will have trailing blank spaces so let's ensure that they won't with the following code. Finally, we will write out the final zebrafish interactome.
+Sometimes the names will have trailing blank spaces so let's ensure that they won't with the following code. Finally, we will write out the final B. subtilis interactome.
 ```{r}
 setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
 write_tsv(bsub_interactome, "interactome_txid224308_2024-06-06.txt")
