@@ -61,6 +61,11 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
+8. Set the alt_name parameter as the same as the name.
+```js
+MATCH (n:protein {txid: "txid7227"}) SET n.alt_name = n.name;
+```
+
 8. Import the first batch of _D. melanogaster_ [GO data from FlyBase](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/gene_association_fb_2024-04-03.tsv) into the database using the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
