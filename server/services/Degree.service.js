@@ -1,4 +1,4 @@
-export default class PGStats {
+export default class Degree {
     /**
      * @type {neo4j.Driver}
      */
@@ -14,29 +14,21 @@ export default class PGStats {
         this.driver = driver;
     }
 
-    async ProGoStats(GoName, txid) {
+    async getdegree(id) {
         const session = this.driver.session();
         const res = await session.executeRead((tx) =>
             tx.run(
                 `
-                match (go:go_term{name:$GoName})-[pg:ProGo]-(pr:protein{txid:$txid})
-                return count(pg)
+                match (pr:protein{id:$id})
+                return pr.degree as degree
             `,
-
                 {
-                    GoName: GoName,
-                    txid: txid
+                    id: id
                 }
             )
         );
-        const count = res.records;
-        // console.log("res data raw-----------\n", res);
-        // console.log("res.records output from service\n", count);
-
+        const degree = res.records;
         await session.close();
-
-
-        return count;
-
+        return degree;
     }
 }

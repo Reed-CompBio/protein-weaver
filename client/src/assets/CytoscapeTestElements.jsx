@@ -4,6 +4,7 @@ export const cytoscapeTestElements = [
       id: "FBgn0003731",
       label: "Egfr",
       type: "source",
+      degree: "12"
     },
   },
   {
@@ -11,6 +12,7 @@ export const cytoscapeTestElements = [
       id: "FBgn0031972",
       label: "Wwox",
       type: "go_protein",
+      degree: "15"
     },
   },
   {

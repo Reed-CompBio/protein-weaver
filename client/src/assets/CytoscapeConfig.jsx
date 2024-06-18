@@ -2,8 +2,8 @@ export const cytoscapeStyle = [
   {
     selector: "node",
     style: {
-      width: 10,
-      height: 10,
+      width: 30,
+      height: 30,
       "background-color": "#03c2fc",
       label: "data(label)",
       color: "black",
@@ -45,8 +45,8 @@ export const cytoscapeStyle = [
   {
     selector: "node[type='intermediate']",
     style: {
-      width: 15,
-      height: 15,
+      width: 30,
+      height: 30,
       "border-width": "1px",
       "border-color": "black",
       "background-color": "#F9C784",
@@ -75,7 +75,7 @@ export const cytoscapeStyle = [
       "border-color": "white",
       "border-opacity": "0.5",
       width: 30,
-      height: 30,
+      height: 30
     },
   },
 ];
@@ -97,8 +97,8 @@ export const layout = {
   nodeDimensionsIncludeLabels: false, // whether labels should be included in determining the space used by a node
 
   // layout event callbacks
-  ready: function () {}, // on layoutready
-  stop: function () {}, // on layoutstop
+  ready: function () { }, // on layoutready
+  stop: function () { }, // on layoutstop
 
   // positioning options
   randomize: false, // use random node positions at beginning of layout

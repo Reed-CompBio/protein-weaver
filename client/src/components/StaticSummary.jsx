@@ -81,7 +81,7 @@ export default function StaticSummary({
             </div>
             <GoDefinition open>
                 <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
-                <PGStats name={goTerm.name} />
+                <PGStats name={goTerm.name} txid={query.species} />
             </GoDefinition>
         </div>
     )

@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import StaticSummary from "./StaticSummary";
+import Degree from "./Degree";
 
 export default function GraphSummary({
     currentNode,
@@ -47,7 +48,9 @@ export default function GraphSummary({
                     goTerm={goTerm}
                 />
                 <div className="protein-summary">
-                    <h5>Selected protein: {currentNode.label}</h5>
+                    <h5>Selected protein: {currentNode.label}
+                        <Degree id={currentNode.id} />
+                    </h5>
                     <p className="database-link">
                         Database link:&nbsp;
                         <a
@@ -71,7 +74,9 @@ export default function GraphSummary({
                     goTerm={goTerm}
                 />
                 <div className="protein-summary">
-                    <h5>Selected protein: {currentNode.label}</h5>
+                    <h5>Selected protein: {currentNode.label}
+                        <Degree id={currentNode.id} />
+                    </h5>
                     <p className="database-link">
                         Database link:&nbsp;
                         <a
@@ -98,7 +103,9 @@ export default function GraphSummary({
                     goTerm={goTerm}
                 />
                 <div className="go-protein-summary">
-                    <h5>Selected protein: {currentNode.label}</h5>
+                    <h5>Selected protein: {currentNode.label}
+                        <Degree id={currentNode.id} />
+                    </h5>
                     <p className="database-link">
                         Database link:&nbsp;
                         <a
