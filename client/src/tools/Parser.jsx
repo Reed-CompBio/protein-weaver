@@ -8,7 +8,6 @@
  */
 // tag::NetworkParser
 export function NetworkParserPath(data, source, go_term) {
-  // console.log(data);
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
   //Iterate through data where each element is a path
   for (let i = 0; i < data.length; i++) {

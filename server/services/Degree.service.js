@@ -31,23 +31,4 @@ export default class Degree {
         await session.close();
         return degree;
     }
-
-    async getdegrees(ids) {
-        const session = this.driver.session();
-        const res = await session.executeRead((tx) =>
-            tx.run(
-                `
-                match (pr:protein)
-                where pr.id in $ids
-                return pr.degree as degree
-            `,
-                {
-                    ids: ids
-                }
-            )
-        );
-        const degrees = res.records;
-        await session.close();
-        return degrees;
-    }
 }

@@ -30,13 +30,7 @@ export default class PGStats {
             )
         );
         const count = res.records;
-        // console.log("res data raw-----------\n", res);
-        // console.log("res.records output from service\n", count);
-
         await session.close();
-
-
         return count;
-
     }
 }

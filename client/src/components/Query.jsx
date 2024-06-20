@@ -11,7 +11,7 @@ import {
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
-import cola, { cytoscapeCola } from "cytoscape-cola";
+import cola from "cytoscape-cola";
 
 // component imports
 import QueryError from "./QueryError";
@@ -72,28 +72,8 @@ export default function Query() {
     avgNodeDegree: null,
   });
   const [queryComplete, setqQueryComplete] = useState(false);
-
-
   const [pageState, setPageState] = useState(0);
   cytoscape.use(cola);
-
-  // useEffect(() => {
-  //   const nodeLst = networkResult.nodeList;
-  //   const cy = cyRef.current;
-  //   if (cy) {
-  //     for (let i = 0; i < nodeLst.length; i++) {
-  //       cy.style()
-  //         .selector("node[id='" + nodeLst[i] + "']")
-  //         .style({
-  //           "background-color": "red"
-  //         })
-  //         .update();
-  //     };
-  //   }
-  // }, [networkResult])
-
-
-
 
   useEffect(() => {
     if (searchParams.get("species") === "") {
@@ -365,20 +345,21 @@ export default function Query() {
 
 
   useEffect(() => {
-    console.log("use effect triggered");
     if (networkResult != null && queryComplete == true) {
-      console.log("inside if statement");
       let proteinDegree = {};
       const nodeLst = networkResult.nodeList;
       const degLst = networkResult.nodes;
       const cy = cyRef.current;
       if (cy) {
+
         for (let i = 0; i < degLst.length; i++) {
           proteinDegree[nodeLst[i]] = degLst[i].data.degree;
         };
+
         let values = Object.values(proteinDegree);
         var pdMax = Math.max(...values),
           pdMin = Math.min(...values);
+
         for (const [key, value] of Object.entries(proteinDegree)) {
           let scaledValue = (((value - pdMin) * 10) / (pdMax - pdMin)) + 1
           cy.style()
