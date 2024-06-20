@@ -165,6 +165,20 @@ router.post("/Degree", jsonParser, async (req, res, next) => {
   }
 });
 
+// router.post("/Degrees", jsonParser, async (req, res, next) => {
+//   try {
+//     const data = req.body;
+//     const ids = data.id.id;
+//     const DEG = new Degree(getDriver());
+//     const degrees = await DEG.getdegrees(ids);
+//     console.log("Degrees: ", degrees);
+//     res.json(degrees);
+//   }
+//   catch (e) {
+//     next(e);
+//   }
+// });
+
 // dynamic query
 router.post("/getQuery", jsonParser, async (req, res, next) => {
   const data = req.body;

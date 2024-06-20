@@ -26,7 +26,7 @@ import StatisticsTab from "./StatisticsTab";
 // panel imports
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { fetchAvgDegree, getBasicStatistics } from "../tools/Statistics";
-import { cytoscapeTest2, cytoscapeTest, cytoscapeTestElements } from "../assets/CytoscapeTestElements";
+
 
 export default function Query() {
   const [query, setQuery] = useState({
@@ -71,25 +71,29 @@ export default function Query() {
     pathCount: null,
     avgNodeDegree: null,
   });
+  const [queryComplete, setqQueryComplete] = useState(false);
+
 
   const [pageState, setPageState] = useState(0);
   cytoscape.use(cola);
 
-  const tst = ["FBgn0000384", "FBgn0024273"];
+  // useEffect(() => {
+  //   const nodeLst = networkResult.nodeList;
+  //   const cy = cyRef.current;
+  //   if (cy) {
+  //     for (let i = 0; i < nodeLst.length; i++) {
+  //       cy.style()
+  //         .selector("node[id='" + nodeLst[i] + "']")
+  //         .style({
+  //           "background-color": "red"
+  //         })
+  //         .update();
+  //     };
+  //   }
+  // }, [networkResult])
 
-  useEffect(() => {
-    const cy = cyRef.current;
-    if (cy) {
-      for (let i = 0; i < tst.length; i++) {
-        cy.style()
-          .selector("node[id='" + tst[i] + "']")
-          .style({
-            "background-color": "red"
-          })
-          .update();
-      };
-    }
-  }, [networkResult])
+
+
 
   useEffect(() => {
     if (searchParams.get("species") === "") {
@@ -164,6 +168,22 @@ export default function Query() {
       });
   }, [query.species]);
 
+  // Get autocomplete options for GO Terms
+  useEffect(() => {
+    fetch("/api/getGoTermOptions")
+      .then((res) => res.json())
+      .then((data) => {
+        const goTermNames = data.map((item) => item.name);
+        const goTermIds = data.map((item) => item.id);
+        const goTermMerged = [...new Set(goTermNames.concat(goTermIds))].filter(
+          (item) => item !== undefined
+        );
+        setGoTermOptions(goTermMerged);
+      })
+      .catch((error) => {
+        console.error("Error fetching GO term options:", error);
+      });
+  }, []);
 
   // Show results if done loading
   useEffect(() => {
@@ -207,6 +227,7 @@ export default function Query() {
 
   // Function for submitting the query
   async function handleSubmit(e) {
+    setqQueryComplete(false);
     setSidebarNode(null);
     setNetworkResult({});
     setHasError(false);
@@ -325,6 +346,7 @@ export default function Query() {
             setNetworkResult(EdgeDataParser(network, edgeData));
             setRawData(rawData);
             setDataParsingStatus(true);
+            setqQueryComplete(true);
             return EdgeDataParser(network, edgeData);
           });
       } catch (error) {
@@ -338,7 +360,40 @@ export default function Query() {
     }
     setIsLoading(false);
     setPageState(1);
+
   }
+
+
+  useEffect(() => {
+    console.log("use effect triggered");
+    if (networkResult != null && queryComplete == true) {
+      console.log("inside if statement");
+      let proteinDegree = {};
+      const nodeLst = networkResult.nodeList;
+      const degLst = networkResult.nodes;
+      const cy = cyRef.current;
+      if (cy) {
+        for (let i = 0; i < degLst.length; i++) {
+          proteinDegree[nodeLst[i]] = degLst[i].data.degree;
+        };
+        let values = Object.values(proteinDegree);
+        var pdMax = Math.max(...values),
+          pdMin = Math.min(...values);
+        for (const [key, value] of Object.entries(proteinDegree)) {
+          let scaledValue = (((value - pdMin) * 10) / (pdMax - pdMin)) + 1
+          cy.style()
+            .selector("node[id='" + key + "']")
+            .style({
+              width: scaledValue * 10,
+              height: scaledValue * 10,
+            })
+            .update();
+        }
+      }
+
+    }
+  }, [queryComplete])
+
 
   // Get descendants for queried GO term
   useEffect(() => {

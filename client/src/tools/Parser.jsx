@@ -8,6 +8,7 @@
  */
 // tag::NetworkParser
 export function NetworkParserPath(data, source, go_term) {
+  // console.log(data);
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
   //Iterate through data where each element is a path
   for (let i = 0; i < data.length; i++) {
@@ -21,13 +22,14 @@ export function NetworkParserPath(data, source, go_term) {
         data: {
           id: currentPath[j].properties.id,
           label: currentPath[j].properties.name,
+          degree: currentPath[j].properties.degree.low
         },
       };
       if (
         (currentPath[j].properties.name.toUpperCase() ===
           source.toUpperCase() ||
           currentPath[j].properties.id.toUpperCase() ===
-            source.toUpperCase()) &&
+          source.toUpperCase()) &&
         j == currentPath.length - 2
       ) {
         nodeEntry.data.type = "go_source";
@@ -123,13 +125,14 @@ export function NetworkParserNode(data, source, k) {
         data: {
           id: currentPath[j].properties.id,
           label: currentPath[j].properties.name,
+          degree: currentPath[j].properties.degree.low
         },
       };
       if (
         (currentPath[j].properties.name.toUpperCase() ===
           source.toUpperCase() ||
           currentPath[j].properties.id.toUpperCase() ===
-            source.toUpperCase()) &&
+          source.toUpperCase()) &&
         j == currentPath.length - 1
       ) {
         nodeEntry.data.type = "go_source";
