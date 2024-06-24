@@ -258,3 +258,22 @@ df$name2 <- df$name2 %>% str_trim()
 
 write_tsv(df, "zfish_interactome_Mar12_2024.txt")
 ```
+
+Cleaning up dataset after an bug was found with trailing whitespaces on June 24, 2024.
+```{r}
+library(tidyverse)
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/DanioRerio/")
+df <- read_tsv("zfish_interactome_Mar12_2024.txt")
+
+
+df %>% 
+  group_by(alt_name1) %>% 
+  View()
+
+df$alt_name1 <- df$alt_name1 %>% str_trim()
+df$alt_name2 <- df$alt_name2 %>% str_trim()
+df$name1 <- df$name1 %>% str_trim()
+df$name2 <- df$name2 %>% str_trim()
+
+write_tsv(df, "interactome_txid7955_2024-06-24.txt")
+```
