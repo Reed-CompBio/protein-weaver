@@ -207,3 +207,7 @@ Looked up species name and got taxon ID.
 | D. rerio        | 86,216         |
 | Total           | 554,190        |
 ```
+
+### 2024-06-24:
+* Removed trailing whitespaces from _D. rerio_ data.
+* Removed "self-edges" i.e., interactions between two copies of the same protein to improve path algorithm performance.

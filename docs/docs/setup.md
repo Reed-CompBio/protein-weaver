@@ -170,9 +170,9 @@ CALL {
 ```
 
 ##### _D. rerio_ imports
-17. Import _D. rerio_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_interactome_Mar12_2024.txt) with the following command:
+17. Import _D. rerio_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/interactome_txid7955_2024-06-24.txt) with the following command:
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
+:auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-06-24.txt' AS zfish
 FIELDTERMINATOR '\t'
 CALL {
     with zfish
