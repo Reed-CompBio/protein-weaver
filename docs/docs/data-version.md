@@ -76,11 +76,14 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 * Downloaded all reviewed annotations from QuickGO ([Source])(https://www.ebi.ac.uk/QuickGO/annotations?taxonId=224308&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein) and downloaded UniProt and BSU ID mapper [`subtiwiki.gene.export.2024-06-03.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/subtiwiki.gene.export.2024-06-03.tsv) from [SubtiWiki](https://subtiwiki.uni-goettingen.de/v4/gene/exporter).
 * Merged the two into [`annotations_txid224308_2024-06-03.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/annotations_txid224308_2024-06-03.txt) according to `BsubDataMerging.Rmd`.
 
+### 2024-06-24:
+* Remove "self-edges" from PPI data.
+
 ### Current _B. subtilis_ Network
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
 | -------- | --------------------- | :------------------ |
-| 1394     | 2715                  | 48705               |
+| 1933     | 6441                  | 65063               |
 ```
 
 ## *Danio rerio* Data Sources
@@ -120,11 +123,15 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ### 2024-06-11:
 * Added alt_name parameter to Neo4j import statement.
 
+### 2024-06-24:
+* Remove trailing whitespaces from some names according to `ZebrafishDataMerging.Rmd`.
+* Remove "self-edges" from PPI data.
+
 ### Current _D. rerio_ Network
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
 | -------- | --------------------- | :------------------ |
-| 6438     | 45018                 | 108758              |
+| 6438     | 45003                 | 108758              |
 ```
 
 ## Gene Ontology Hierarchy Data Sources
@@ -211,3 +218,4 @@ Looked up species name and got taxon ID.
 ### 2024-06-24:
 * Removed trailing whitespaces from _D. rerio_ data.
 * Removed "self-edges" i.e., interactions between two copies of the same protein to improve path algorithm performance.
+    - 309 "self-edges" were removed from the data from _B. subtilis_ and _D. rerio_.

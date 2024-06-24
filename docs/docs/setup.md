@@ -300,7 +300,12 @@ WHERE r.relationship IS NULL
 SET r.relationship = "inferred_from_descendant"
 ```
 
-27. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
+27. Now remove all the Protein-Protein edges from the same protein to itself with the following command (these edges may causes issues with our path algorithms).
+```js
+MATCH (p:protein)-[rel:ProPro]-(p) DETACH DELETE rel;
+```
+
+28. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 ```js
 CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
 CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;
@@ -401,7 +406,7 @@ You should get the following output:
 ╒════════╤══════════════╤═════════════╤═════════╤═══════════════╤══════════════╤═══════════╤═════════════════╤════════════════╤═══════╤═══════════╕
 │flyCount│flyProProCount│flyProGoCount│bsubCount│bsubProProCount│bsubProGoCount│drerioCount│drerioProProCount│drerioProGoCount│goCount│goGoGoCount│
 ╞════════╪══════════════╪═════════════╪═════════╪═══════════════╪══════════════╪═══════════╪═════════════════╪════════════════╪═══════╪═══════════╡
-│11501   │233054        │510962       │1394     │2715           │48705         │6438       │45018            │108758          │42858  │68308      │
+│11501   │233054        │510962       │1933     │6441           │65063         │6438       │45003            │108758          │42861  │68308      │
 └────────┴──────────────┴─────────────┴─────────┴───────────────┴──────────────┴───────────┴─────────────────┴────────────────┴───────┴───────────┘
 ```
 
