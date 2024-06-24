@@ -1,7 +1,8 @@
 # ProteinWeaver
 [ProteinWeaver](https://proteinweaver.reedcompbio.org/) is a web interface for ontology-based protein network visualization.
 
-<img width="1040" alt="Screenshot 2023-10-05 at 11 11 20 AM" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/0b9e6235-efdd-4781-81a6-ba41a33d0f4e">
+<img width="1040" alt="Screenshot 2023-10-05 at 11 11 20 AM" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/9ecf19ef-898f-4b54-a8a8-f005a8f62c4b">
+
 
 # Background & Motivation
 Being able to explore how proteins are connected to other proteins with a specific function is a great tool for a biologists, as it allows them to quickly generate hypotheses that seeks to answer the ways that a protein is connected to a pathway or process. ProteinWeaver provides the tools for this type of exploration via an intuitive website that easily lets users query a protein and a specific function or process (as a [gene ontology term](https://geneontology.org/)). 
@@ -9,7 +10,7 @@ Being able to explore how proteins are connected to other proteins with a specif
 # Website Overview
 ProteinWeaver allows the users to input a protein of their interest, a specific function or process ([gene ontology term](https://geneontology.org/)), and the number of paths to output in the network. This generates a subnetwork that connects the protein of interest to the k shortest paths that include a protein labeled with the specific GO term. The network's information is summarised, including GO term description, links to proteins' and GO term AmiGO entry, and GO term qualifiers of the proteins. Exploration is possibly by easily interacting with the graph and setting new nodes as the protein of interest. Queries are easily reproduced through exporting a log history of all queries and explorations done in a session, and exporting networks via images. 
 
-<img width="700" alt="Screenshot 2023-10-05 at 11 30 52 AM" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/f0029e57-a9ba-4410-a54e-e4a632daf2d7">
+<img width="700" alt="Screenshot 2024-06-07 at 9 20 46 AM" src="https://github.com/Reed-CompBio/protein-weaver/assets/67818840/64d50761-e7b4-4ca5-9aaf-bf2cd01cf80d">
 
 # Setup
 For an introduction to Neo4j and the ProteinWeaver site architecture, the [contributing guide](https://reed-compbio.github.io/protein-weaver/contributing-guide/) is a good place to start before completing the setup guide.
