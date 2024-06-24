@@ -169,8 +169,8 @@ router.post("/Degree", jsonParser, async (req, res, next) => {
 router.post("/getQuery", jsonParser, async (req, res, next) => {
   const data = req.body;
   const species = data.species;
-  const protein = data.protein;
-  const goTerm = data.goTerm;
+  const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
+  const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
 
   console.log("Species:", species);
@@ -245,8 +245,8 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
 router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
   const data = req.body;
   const species = data.species;
-  const protein = data.protein;
-  const goTerm = data.goTerm;
+  const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
+  const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
 
   console.log("Species:", species);
@@ -274,7 +274,6 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
       } else {
         //find the neighbor of all the associated GO terms
         const neighborService = new NeighborService(getDriver());
-
         var neighborData = await neighborService.getNeighbor(goTerm, species);
         neighborData = neighborParser(neighborData);
 

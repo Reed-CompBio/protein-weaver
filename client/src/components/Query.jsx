@@ -286,6 +286,7 @@ export default function Query() {
           })
           .then((data) => {
             rawData = data;
+            console.log("-----------raw data----------", rawData)
             return NetworkParserNode(data, query.protein, query.k);
           });
       } catch (error) {
@@ -358,16 +359,17 @@ export default function Query() {
         let values = Object.values(proteinDegree);
         var pdMax = Math.max(...values),
           pdMin = Math.min(...values);
-
-        for (const [key, value] of Object.entries(proteinDegree)) {
-          let scaledValue = (((value - pdMin) * 10) / (pdMax - pdMin)) + 2
-          cy.style()
-            .selector("node[id='" + key + "']")
-            .style({
-              width: scaledValue * 10,
-              height: scaledValue * 10,
-            })
-            .update();
+        if (pdMax != pdMin) {
+          for (const [key, value] of Object.entries(proteinDegree)) {
+            let scaledValue = (((value - pdMin) * 10) / (pdMax - pdMin)) + 2
+            cy.style()
+              .selector("node[id='" + key + "']")
+              .style({
+                width: scaledValue * 10,
+                height: scaledValue * 10,
+              })
+              .update();
+          }
         }
       }
     }
