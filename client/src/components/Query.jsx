@@ -361,7 +361,9 @@ export default function Query() {
           pdMin = Math.min(...values);
         if (pdMax != pdMin) {
           for (const [key, value] of Object.entries(proteinDegree)) {
-            let scaledValue = (((value - pdMin) * 10) / (pdMax - pdMin)) + 2
+            let scaledValue = (((value - pdMin) * 10) / (pdMax - pdMin))
+            if (scaledValue > 7) { scaledValue = 7 }
+            if (scaledValue < 2) { scaledValue = 2 }
             cy.style()
               .selector("node[id='" + key + "']")
               .style({
