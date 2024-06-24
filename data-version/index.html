@@ -102,6 +102,10 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#2024-04-03_1">2024-04-03:</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-06-11">2024-06-11:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-06-24">2024-06-24:</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#current-b-subtilis-network">Current B. subtilis Network</a>
     </li>
         </ul>
@@ -123,6 +127,10 @@
     <li class="toctree-l4"><a class="reference internal" href="#go-association-data_6">GO association data:</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-06-11_1">2024-06-11:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-06-24_1">2024-06-24:</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#current-d-rerio-network">Current D. rerio Network</a>
     </li>
@@ -157,6 +165,10 @@
     <li class="toctree-l3"><a class="reference internal" href="#2024-04-01_3">2024-04-01:</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#2024-04-03_3">2024-04-03:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-06-11_2">2024-06-11:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2024-06-24_2">2024-06-24:</a>
     </li>
         </ul>
     </li>
@@ -277,10 +289,22 @@
 <ul>
 <li>No "NOT" qualifiers were found in the dataset so there were no changes to the <em>B. subtilis</em> data structure during this update.</li>
 </ul>
+<h3 id="2024-06-11">2024-06-11:</h3>
+<ul>
+<li>Added new interaction data from <a href="https://string-db.org/cgi/download">STRING-DB</a>.</li>
+<li>Downloaded physical interactions full <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/224308.protein.physical.links.full.v12.0.txt"><code>224308.protein.physical.links.full.v12.0.txt</code></a> and <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/224308.protein.info.v12.0.txt"><code>224308.protein.info.v12.0.txt</code></a> and merged both into <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/interactome_txid224308_2024-06-06.txt"><code>interactome_txid224308_2024-06-06.txt</code></a> and cleaned according to <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/scripts/BsubDataMerging.Rmd"><code>BsubDataMerging.Rmd</code></a>.</li>
+<li>Added updated GO term edges for B. subtilis after new data import.</li>
+<li>Downloaded all reviewed annotations from QuickGO ([Source])(https://www.ebi.ac.uk/QuickGO/annotations?taxonId=224308&amp;taxonUsage=descendants&amp;geneProductSubset=Swiss-Prot&amp;geneProductType=protein) and downloaded UniProt and BSU ID mapper <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/subtiwiki.gene.export.2024-06-03.tsv"><code>subtiwiki.gene.export.2024-06-03.tsv</code></a> from <a href="https://subtiwiki.uni-goettingen.de/v4/gene/exporter">SubtiWiki</a>.</li>
+<li>Merged the two into <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/annotations_txid224308_2024-06-03.txt"><code>annotations_txid224308_2024-06-03.txt</code></a> according to <code>BsubDataMerging.Rmd</code>.</li>
+</ul>
+<h3 id="2024-06-24">2024-06-24:</h3>
+<ul>
+<li>Remove "self-edges" from PPI data.</li>
+</ul>
 <h3 id="current-b-subtilis-network">Current <em>B. subtilis</em> Network</h3>
 <pre><code>| Proteins | Interactions (ProPro) | Annotations (ProGo) |
 | -------- | --------------------- | :------------------ |
-| 1394     | 2715                  | 48705               |
+| 1933     | 6441                  | 65063               |
 </code></pre>
 <h2 id="danio-rerio-data-sources"><em>Danio rerio</em> Data Sources</h2>
 <h3 id="2024-03-18_2">2024-03-18:</h3>
@@ -335,10 +359,19 @@
 <li>Removed qualifiers with "NOT" preceding them using <a href="https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R">`scripts/RemoveNotQualifier.R</a></li>
 <li>Reduced inferred ProGo edges to 86,216.</li>
 </ul>
+<h3 id="2024-06-11_1">2024-06-11:</h3>
+<ul>
+<li>Added alt_name parameter to Neo4j import statement.</li>
+</ul>
+<h3 id="2024-06-24_1">2024-06-24:</h3>
+<ul>
+<li>Remove trailing whitespaces from some names according to <code>ZebrafishDataMerging.Rmd</code>.</li>
+<li>Remove "self-edges" from PPI data.</li>
+</ul>
 <h3 id="current-d-rerio-network">Current <em>D. rerio</em> Network</h3>
 <pre><code>| Proteins | Interactions (ProPro) | Annotations (ProGo) |
 | -------- | --------------------- | :------------------ |
-| 6438     | 45018                 | 108758              |
+| 6438     | 45003                 | 108758              |
 </code></pre>
 <h2 id="gene-ontology-hierarchy-data-sources">Gene Ontology Hierarchy Data Sources</h2>
 <h3 id="2023-09-29">2023-09-29:</h3>
@@ -414,6 +447,26 @@ Looked up species name and got taxon ID.</p>
 | D. rerio        | 86,216         |
 | Total           | 539,135        |
 </code></pre>
+<h3 id="2024-06-11_2">2024-06-11:</h3>
+<ul>
+<li>Added <em>B. subtilis</em> interaction data from STRING-DB and updated QuickGO annotations.</li>
+<li>Added alt_name parameters to <em>B. subtilis</em> and <em>D. rerio</em> nodes.</li>
+</ul>
+<pre><code>| Species         | Inferred Edges |
+| --------------- | :------------- |
+| D. melanogaster | 413,704        |
+| B. subtilis     | 54,270         |
+| D. rerio        | 86,216         |
+| Total           | 554,190        |
+</code></pre>
+<h3 id="2024-06-24_2">2024-06-24:</h3>
+<ul>
+<li>Removed trailing whitespaces from <em>D. rerio</em> data.</li>
+<li>Removed "self-edges" i.e., interactions between two copies of the same protein to improve path algorithm performance.<ul>
+<li>309 "self-edges" were removed from the data from <em>B. subtilis</em> and <em>D. rerio</em>.</li>
+</ul>
+</li>
+</ul>
               
             </div>
           </div><footer>
