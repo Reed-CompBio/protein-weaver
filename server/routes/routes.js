@@ -134,7 +134,7 @@ router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
 router.post("/getQuery", jsonParser, async (req, res, next) => {
   const data = req.body;
   const species = data.species;
-  const protein = data.protein;
+  const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
   const goTerm = data.goTerm;
   const k = data.k;
 
