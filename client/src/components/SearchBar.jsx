@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Autocomplete from "./Autocomplete";
 import Modetooltip from "./ModeTooltip";
+import Select from "react-select";
 
 export default function SearchBar({
   handleSubmit,
@@ -15,6 +16,19 @@ export default function SearchBar({
   handleQueryMode,
   activeModeButton,
 }) {
+  const options = [
+    { value: "none", label: "Empty" },
+    { value: "left", label: "Open Left" },
+    { value: "right", label: "Open Right" },
+    {
+      value: "tilt,left",
+      label: "Tilf and Open Left",
+    },
+    {
+      value: "tilt,right",
+      label: "Tilf and Open Right",
+    },
+  ];
   return (
     // Search Bar Component
     <div className="query-container">
@@ -22,7 +36,15 @@ export default function SearchBar({
       <form method="post" onSubmit={handleSubmit}>
         <div className="search-container">
           <div className="search-input-wrapper">
-            <Autocomplete
+            <Select
+              options={options}
+              // onChange={handleTypeSelect}
+              // value={options.filter(function (option) {
+              //   return option.value === selectedOption;
+              // })}
+              label="Single select"
+            />
+            {/* <Autocomplete
               suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
               inputName="protein"
               inputValue={query.protein}
@@ -36,7 +58,7 @@ export default function SearchBar({
               inputValue={query.goTerm}
               onInputChange={handleInputChange}
               placeholder="GO Term"
-            />
+            /> */}
             <input
               className="k-input" // User input for k
               type="number"
