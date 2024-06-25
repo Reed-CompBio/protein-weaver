@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function Autocomplete(props) {
-    const { suggestions, inputName, inputValue, onInputChange, placeholder } =
+    const { className, suggestions, inputName, inputValue, onInputChange, placeholder, autocomplete } =
         props;
     const [active, setActive] = useState(0);
     const [filtered, setFiltered] = useState([]);
@@ -70,7 +70,7 @@ export default function Autocomplete(props) {
         if (isFocused && input) {
             if (filtered.length) {
                 return (
-                    <ul className="autocomplete">
+                    <ul className={autocomplete}>
                         {filtered.map((suggestion, index) => {
                             let className = index === active ? "active" : "";
                             return (
@@ -94,7 +94,7 @@ export default function Autocomplete(props) {
 
     // Otherwise, display inputs
     return (
-        <div className="autocomplete-input-container">
+        <div className={className}>
             <input
                 required
                 type="text"

@@ -186,7 +186,7 @@ body {
   padding: 0px;
 }
 
-.autocomplete {
+.protein-autocomplete {
   border-top-width: 0;
   list-style: none;
   margin-top: 0;
@@ -199,7 +199,17 @@ body {
   z-index: 900;
 }
 
-.autocomplete-input-container {
+.protein-autocomplete li {
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.24);
+  border: none;
+  border-radius: 2px;
+  width: 125px;
+  overflow: auto;
+  z-index: 999;
+}
+
+.protein-input-container {
   margin-top: 1px;
   position: relative;
   width: 150px;
@@ -210,7 +220,7 @@ body {
   pointer-events: none;
 }
 
-.autocomplete-input-container input {
+.protein-input-container input {
   margin-right: 10px;
   pointer-events: auto;
   height: 24px;
@@ -218,30 +228,72 @@ body {
   width: 125px;
 }
 
-.autocomplete li {
-  padding: 8px;
-  background-color: rgba(0, 0, 0, 0.24);
-  border: none;
-  border-radius: 2px;
-  width: 125px;
-  overflow: auto;
-  z-index: 999;
-}
-
-.autocomplete>.active,
-.autocomplete li:hover {
+.protein-autocomplete>.active,
+.protein-autocomplete li:hover {
   background-color: rgba(0, 0, 0, 0.24);
   cursor: pointer;
   font-weight: 700;
 }
 
-.autocomplete li:not(:last-of-type) {
+.protein-autocomplete li:not(:last-of-type) {
+  border-bottom: 1px solid black;
+}
+
+.go-term-autocomplete {
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  max-height: 120px;
+  overflow-y: auto;
+  padding-left: 0px;
+  width: 250px;
+  margin-left: 0px;
+  pointer-events: auto;
+  z-index: 900;
+}
+
+.go-term-autocomplete li {
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.24);
+  border: none;
+  border-radius: 2px;
+  width: 225px;
+  overflow: auto;
+  z-index: 999;
+}
+
+.go-term-input-container {
+  margin-top: 1px;
+  position: relative;
+  width: 250px;
+  display: inline-block;
+  flex-wrap: nowrap;
+  height: 180px;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.go-term-input-container input {
+  margin-right: 10px;
+  pointer-events: auto;
+  height: 24px;
+  min-height: 24px;
+  width: 225px;
+}
+
+.go-term-autocomplete>.active,
+.go-term-autocomplete li:hover {
+  background-color: rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.go-term-autocomplete li:not(:last-of-type) {
   border-bottom: 1px solid black;
 }
 
 .autocomplete-dropdown {
   position: absolute;
-  width: 150px;
   height: 90px;
   max-height: 90px;
 }
