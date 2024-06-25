@@ -1,0 +1,2 @@
+# Import
+This directory contains the most updated data files for Neo4j import. To ensure that your local development environment is the same, ensure that your local `neo4j/import` folder is the exact same as this `data/Import` directory on GitHub.

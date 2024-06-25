@@ -25,16 +25,17 @@ export function NetworkParserPath(data, source, go_term) {
         },
       };
       if (
-        (currentPath[j].properties.name.toUpperCase() ===
-          source.toUpperCase() ||
-          currentPath[j].properties.id.toUpperCase() ===
-          source.toUpperCase()) &&
+        (currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
+          currentPath[j].properties.id.toUpperCase() === source.toUpperCase() ||
+          currentPath[j].properties.alt_name.toUpperCase() === source.toUpperCase()
+        ) &&
         j == currentPath.length - 2
       ) {
         nodeEntry.data.type = "go_source";
       } else if (
         currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
-        currentPath[j].properties.id.toUpperCase() === source.toUpperCase()
+        currentPath[j].properties.id.toUpperCase() === source.toUpperCase() ||
+        currentPath[j].properties.alt_name.toUpperCase() === source.toUpperCase()
       ) {
         nodeEntry.data.type = "source";
       } else if (j == currentPath.length - 2) {
@@ -128,16 +129,17 @@ export function NetworkParserNode(data, source, k) {
         },
       };
       if (
-        (currentPath[j].properties.name.toUpperCase() ===
-          source.toUpperCase() ||
-          currentPath[j].properties.id.toUpperCase() ===
-          source.toUpperCase()) &&
+        (currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
+          currentPath[j].properties.id.toUpperCase() === source.toUpperCase() ||
+          currentPath[j].properties.alt_name.toUpperCase() === source.toUpperCase()
+        ) &&
         j == currentPath.length - 1
       ) {
         nodeEntry.data.type = "go_source";
       } else if (
         currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
-        currentPath[j].properties.id.toUpperCase() === source.toUpperCase()
+        currentPath[j].properties.id.toUpperCase() === source.toUpperCase() ||
+        currentPath[j].properties.alt_name.toUpperCase() === source.toUpperCase()
       ) {
         nodeEntry.data.type = "source";
       } else if (j == currentPath.length - 1) {

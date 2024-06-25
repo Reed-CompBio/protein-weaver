@@ -16,8 +16,7 @@ export default function GraphSummary({
             if (query.species === "txid7227") {
                 setSelectedDbLink(`https://flybase.org/reports/${currentNode.id}`);
             } else if (query.species === "txid224308") {
-                var bsubId = query.protein.replace(/_/g, "");
-                setSelectedDbLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}`);
+                setSelectedDbLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${currentNode.id.replace("_", "")}`);
             } else if (query.species === "txid7955") {
                 setSelectedDbLink(
                     `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`
