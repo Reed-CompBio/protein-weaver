@@ -287,7 +287,6 @@ export default function Query() {
           })
           .then((data) => {
             rawData = data;
-            console.log("-----------raw data----------", rawData)
             return NetworkParserNode(data, query.protein, query.k);
           });
       } catch (error) {
@@ -576,7 +575,7 @@ export default function Query() {
           setQuery({
             mode: "node",
             species: "txid7955",
-            protein: "Mothers against decapentaplegic homolog 2 ",
+            protein: "smad2",
             goTerm: "DNA damage response",
             k: "4",
           });
@@ -586,7 +585,7 @@ export default function Query() {
           setQuery({
             mode: "node",
             species: "txid7955",
-            protein: "Mothers against decapentaplegic homolog 1 ",
+            protein: "smad1",
             goTerm: "positive regulation of cell development",
             k: "4",
           });
@@ -596,7 +595,7 @@ export default function Query() {
           setQuery({
             mode: "node",
             species: "txid7955",
-            protein: "Mothers against decapentaplegic homolog 5 ",
+            protein: "smad5",
             goTerm: "neural plate pattern specification",
             k: "7",
           });

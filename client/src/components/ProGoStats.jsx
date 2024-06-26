@@ -5,7 +5,7 @@ export default function PGStats({ name, txid }) {
     // create empty object to store query results
     const [count, setCount] = useState([]);
     useEffect(() => {
-        fetch("/api/PGStats", {
+        fetch("/api/getProGoStats", {
             // change to YOUR API call's URL
             method: "POST", // Change to GET if your call is a get request
             headers: {
@@ -20,8 +20,6 @@ export default function PGStats({ name, txid }) {
             .then(response => response.json())
 
             .then(data => {
-                // console.log("-------------------------\n", data)
-                // console.log(data[0]._fields[0]["low"])
                 const count = data[0]._fields[0]["low"];
                 setCount(count);
             })

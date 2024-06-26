@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import GoDefinition from "./GoDefinition";
 import { PiWarningBold } from "react-icons/pi";
-import PGStats from "./PGStats";
+import PGStats from "./ProGoStats";
 
 export default function StaticSummary({
     sourceNode,
