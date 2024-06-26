@@ -10,10 +10,15 @@ export default function Autocomplete(props) {
 
     // Change input value on input change
     const onChange = (e) => {
-        const inputText = e.currentTarget.value;
-        const newFilteredSuggestions = suggestions.filter((suggestion) =>
-            suggestion.toLowerCase().includes(inputText.toLowerCase())
-        );
+        const inputText = e.currentTarget.value.toLowerCase();
+        const newFilteredSuggestions = suggestions
+            .filter((suggestion) => suggestion.toLowerCase().includes(inputText))
+            .sort((a, b) => {
+                if (a.toLowerCase() === inputText) return -1;
+                if (b.toLowerCase() === inputText) return 1;
+                return 0;
+            });
+
         setActive(0);
         setFiltered(newFilteredSuggestions);
         setInput(inputText);
