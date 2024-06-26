@@ -21,6 +21,7 @@ export function NetworkParserPath(data, source, go_term) {
         data: {
           id: currentPath[j].properties.id,
           label: currentPath[j].properties.name,
+          degree: currentPath[j].properties.degree.low
         },
       };
       if (
@@ -124,6 +125,7 @@ export function NetworkParserNode(data, source, k) {
         data: {
           id: currentPath[j].properties.id,
           label: currentPath[j].properties.name,
+          degree: currentPath[j].properties.degree.low
         },
       };
       if (

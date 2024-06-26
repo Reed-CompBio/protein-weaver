@@ -15,6 +15,17 @@ export default function SearchBar({
   handleQueryMode,
   activeModeButton,
 }) {
+  let spName = ""
+  if (query.species == "txid224308") {
+    spName = "B. subtilis"
+  }
+  else if (query.species == "txid7227") {
+    spName = "D. melanogaster"
+  }
+  else if (query.species == "txid7955") {
+    spName = "D. rerio"
+  }
+
   return (
     // Search Bar Component
     <div className="query-container">
@@ -89,7 +100,8 @@ export default function SearchBar({
 
         {/* user examples */}
         <h4 className="example">
-          Examples: <a onClick={() => getExample(1)}>#1</a>{" "}
+          {spName} Examples:
+          <a onClick={() => getExample(1)}>#1</a>{" "}
           <a onClick={() => getExample(2)}>#2</a>{" "}
           <a onClick={() => getExample(3)}>#3</a>
         </h4>

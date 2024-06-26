@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import GoDefinition from "./GoDefinition";
 import { PiWarningBold } from "react-icons/pi";
+import PGStats from "./ProGoStats";
 
 export default function StaticSummary({
     sourceNode,
@@ -79,6 +80,7 @@ export default function StaticSummary({
             </div>
             <GoDefinition open>
                 <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
+                <PGStats name={goTerm.name} txid={query.species} />
             </GoDefinition>
         </div>
     )
