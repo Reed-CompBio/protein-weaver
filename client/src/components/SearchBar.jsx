@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Autocomplete from "./Autocomplete";
 import Modetooltip from "./ModeTooltip";
 import Select from "react-select";
+import AsyncSelect from "react-select/async";
 
 export default function SearchBar({
   handleSubmit,
@@ -16,19 +17,80 @@ export default function SearchBar({
   handleQueryMode,
   activeModeButton,
 }) {
-  const options = [
-    { value: "none", label: "Empty" },
-    { value: "left", label: "Open Left" },
-    { value: "right", label: "Open Right" },
-    {
-      value: "tilt,left",
-      label: "Tilf and Open Left",
-    },
-    {
-      value: "tilt,right",
-      label: "Tilf and Open Right",
-    },
-  ];
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [allOptions, setAllOptions] = useState([]);
+
+  useEffect(() => {
+    console.log("fetching suggestion data")
+    // Fetch all data options from your API once when the component mounts
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/getProteinOptions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(query),
+        });
+        const data = await response.json();
+        let formattedOptions = [];
+        data.map((item) =>
+          formattedOptions.push({
+            type: "protein",
+            value: item.id,
+            label: item.name,
+          })
+        );
+        data.map((item) =>
+          formattedOptions.push({
+            type: "protein",
+            value: item.id,
+            label: item.id,
+          })
+        );
+        setAllOptions(formattedOptions);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, [query.species]);
+
+  useEffect(() => {
+    console.log("useEffect triggered", query.protein)
+    console.log(allOptions.length)
+    allOptions.map((item) => {
+      if (item.value == query.protein && item.value != item.label) {
+        console.log("setting label")
+        setSelectedOption({
+          value: item.value,
+          label: item.label,
+          type: "protein",
+        });
+      }
+    });
+  }, [query.protein]);
+  const loadOptions = (inputValue, callback) => {
+    if (!inputValue) {
+      // If there is no input, return an empty array
+      callback([]);
+      return;
+    }
+
+    // Filter options based on the input value
+    const filteredOptions = allOptions.filter((option) =>
+      option.label.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    // Limit the number of options to display
+    const limitedOptions = filteredOptions.slice(0, 10); // Limit to 10 options
+    callback(limitedOptions);
+  };
+
+  const handleChange = (option) => {
+    setSelectedOption(option);
+    handleInputChange(option);
+  };
   return (
     // Search Bar Component
     <div className="query-container">
@@ -36,14 +98,33 @@ export default function SearchBar({
       <form method="post" onSubmit={handleSubmit}>
         <div className="search-container">
           <div className="search-input-wrapper">
-            <Select
-              options={options}
-              // onChange={handleTypeSelect}
-              // value={options.filter(function (option) {
-              //   return option.value === selectedOption;
-              // })}
-              label="Single select"
+            {/* <Select
+              className="basic-single"
+              classNamePrefix="select"
+              defaultValue={proteinOptions[0]}
+              isDisabled={isDisabled}
+              isLoading={isLoading}
+              isClearable={isClearable}
+              isRtl={isRtl}
+              isSearchable={isSearchable}
+              name="color"
+              options={proteinOptions}
+            /> */}
+            {/* <Select
+              // value={selectedOption}1
+              // onChange={handleChange}
+              options={proteinOptions}
+            /> */}
+            <AsyncSelect
+              className="basic-single"
+              cacheOptions
+              loadOptions={loadOptions}
+              defaultOptions={allOptions.slice(0, 10)} // Preload the first 10 options
+              value={selectedOption}
+              onChange={handleChange}
+              placeholder="Protein" // Placeholder text
             />
+
             {/* <Autocomplete
               suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
               inputName="protein"

@@ -115,6 +115,9 @@ export default function Query() {
       setActiveModeButton(searchParams.get("mode"));
     }
   }, []);
+  useEffect(() => {
+    // console.log(query)
+  }, [query]);
 
   // Open user guide
   useEffect(() => {
@@ -141,7 +144,12 @@ export default function Query() {
         const proteinMerged = [
           ...new Set(proteinNames.concat(proteinIds).concat(proteinAltNames)),
         ].filter((item) => item !== undefined);
-        setProteinOptions(proteinMerged);
+        let proteinSuggestions = [];
+        proteinMerged.map((protein) => {
+          proteinSuggestions.push({value: protein, label: protein})
+        });
+        // console.log(proteinSuggestions)
+        setProteinOptions(proteinSuggestions);
       })
       .catch((error) => {
         console.error("Error fetching protein options:", error);
@@ -448,10 +456,9 @@ export default function Query() {
 
   // Allow users to change protein/GO term input
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
     setQuery((prevData) => ({
       ...prevData,
-      [name]: value,
+      [e.type]: e.value,
     }));
   };
 
@@ -502,7 +509,7 @@ export default function Query() {
         setQuery({
           mode: "path",
           species: "txid7227",
-          protein: "egfr",
+          protein: "FBgn0003731",
           goTerm: "Wnt signaling pathway",
           k: "4",
         });
@@ -512,7 +519,7 @@ export default function Query() {
         setQuery({
           mode: "node",
           species: "txid7227",
-          protein: "flw",
+          protein: "FBgn0000711",
           goTerm: "apical constriction",
           k: "7",
         });
@@ -522,7 +529,7 @@ export default function Query() {
         setQuery({
           mode: "path",
           species: "txid7227",
-          protein: "flw",
+          protein: "FBgn0000711",
           goTerm: "myosin II binding",
           k: "3",
         });

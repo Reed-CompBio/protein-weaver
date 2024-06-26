@@ -166,7 +166,6 @@ body {
   margin-right: 10px;
   margin-left: 18px;
   margin-top: 18px;
-  overflow: hidden;
 }
 
 .search-input-wrapper {
@@ -1484,5 +1483,14 @@ select {
 }
 
 .basic-single {
+  /* border: 2px solid black; */
+  background-color: rgb(113, 39, 113);
+  color: black;
+  width: 250px;
+}
+
+.testing-button{
+  width: 50vh;
+  height: 20vh;
   border: 2px solid black;
 }
