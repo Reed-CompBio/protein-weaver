@@ -515,7 +515,6 @@ export default function Query() {
   };
 
   // Change protein value to the user selected protein
-  // MAY NEED TO UPDATE THIS FUNCTION IF IT STILL DOESN'T WORK
   const handleSourceNode = (e) => {
     const newSource = e.target.getAttribute("new-source-node");
 
