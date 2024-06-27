@@ -47,8 +47,8 @@ export default function Query() {
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [startGuide, setStartGuide] = useState(0);
-  const [proteinOptions, setProteinOptions] = useState([]);
-  const [goTermOptions, setGoTermOptions] = useState([]);
+  // const [proteinOptions, setProteinOptions] = useState([]);
+  // const [goTermOptions, setGoTermOptions] = useState([]);
   const [ancestorsOptions, setAncestorsOptions] = useState([]);
   const [descendantsOptions, setDescendantsOptions] = useState([]);
   const [showSharedEdges, setShowSharedEdges] = useState(true);
@@ -494,9 +494,19 @@ export default function Query() {
 
   // Allow users to change protein/GO term input
   const handleInputChange = (e) => {
+    console.log(e);
     setQuery((prevData) => ({
       ...prevData,
       [e.type]: e.value,
+    }));
+  };
+
+  // Allow users to change k value
+  const handleKInputChange = (e) => {
+    const { name, value } = e.target;
+    setQuery((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
   };
 
@@ -734,9 +744,8 @@ export default function Query() {
             submitRef={submitRef}
             query={query}
             handleInputChange={handleInputChange}
+            handleKInputChange={handleKInputChange}
             getExample={getExample}
-            proteinOptions={proteinOptions}
-            goTermOptions={goTermOptions}
             handleGuide={handleGuide}
             handleSpeciesChange={handleSpeciesChange}
             handleQueryMode={handleQueryMode}
@@ -773,9 +782,8 @@ export default function Query() {
               submitRef={submitRef}
               query={query}
               handleInputChange={handleInputChange}
+              handleKInputChange={handleKInputChange}
               getExample={getExample}
-              // proteinOptions={proteinOptions}
-              // goTermOptions={goTermOptions}
               handleGuide={handleGuide}
               handleSpeciesChange={handleSpeciesChange}
               handleQueryMode={handleQueryMode}

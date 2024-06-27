@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import Autocomplete from "./Autocomplete";
 import Modetooltip from "./ModeTooltip";
-import Select from "react-select";
 import AsyncSelect from "react-select/async";
 
 export default function SearchBar({
@@ -9,6 +7,7 @@ export default function SearchBar({
   submitRef,
   query,
   handleInputChange,
+  handleKInputChange,
   getExample,
   handleGuide,
   handleSpeciesChange,
@@ -153,7 +152,8 @@ export default function SearchBar({
       .then((data) => {
         const formattedOptions = data.map((item) => ({
           label: item.name || item.id,
-          value: item.id
+          value: item.id,
+          type: "goTerm",
         }));
         setGoTermOptions(formattedOptions);
       })
@@ -166,16 +166,17 @@ export default function SearchBar({
   useEffect(() => {
     console.log("useEffect triggered", query.goTerm);
     console.log(goTermOptions.length);
-    const matchingOption = goTermOptions.find(item => item.value === query.goTerm);
-    if (matchingOption) {
-      console.log("setting label");
-      setSelectedGoTermOption({
-        value: matchingOption.value,
-        label: matchingOption.label,
-        type: "go-term",
-      });
-    }
-  }, [query.goTerm, goTermOptions]);
+    goTermOptions.map((item) => {
+      if (item.value == query.goTerm && item.value != item.label) {
+        console.log("setting label");
+        setSelectedGoTermOption({
+          value: item.value,
+          label: item.label,
+          type: "goTerm",
+        });
+      }
+    });
+  }, [query.goTerm]);
 
   // Filters the options based on the input value
   const loadGoTermOptions = (inputValue, callback) => {
@@ -246,7 +247,7 @@ export default function SearchBar({
               name="k"
               placeholder="k"
               value={query.k}
-              onChange={handleInputChange}
+              onChange={handleKInputChange}
               required
             />
             <select
