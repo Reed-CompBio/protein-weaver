@@ -27,6 +27,7 @@ import StatisticsTab from "./StatisticsTab";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { fetchAvgDegree, getBasicStatistics } from "../tools/Statistics";
 
+
 export default function Query() {
   const [query, setQuery] = useState({
     mode: "",
@@ -70,7 +71,7 @@ export default function Query() {
     pathCount: null,
     avgNodeDegree: null,
   });
-
+  const [queryComplete, setqQueryComplete] = useState(false);
   const [pageState, setPageState] = useState(0);
   cytoscape.use(cola);
 
@@ -146,7 +147,7 @@ export default function Query() {
         ].filter((item) => item !== undefined);
         let proteinSuggestions = [];
         proteinMerged.map((protein) => {
-          proteinSuggestions.push({value: protein, label: protein})
+          proteinSuggestions.push({ value: protein, label: protein })
         });
         // console.log(proteinSuggestions)
         setProteinOptions(proteinSuggestions);
@@ -215,6 +216,7 @@ export default function Query() {
 
   // Function for submitting the query
   async function handleSubmit(e) {
+    setqQueryComplete(false);
     setSidebarNode(null);
     setNetworkResult({});
     setHasError(false);
@@ -333,6 +335,7 @@ export default function Query() {
             setNetworkResult(EdgeDataParser(network, edgeData));
             setRawData(rawData);
             setDataParsingStatus(true);
+            setqQueryComplete(true);
             return EdgeDataParser(network, edgeData);
           });
       } catch (error) {
@@ -346,7 +349,42 @@ export default function Query() {
     }
     setIsLoading(false);
     setPageState(1);
+
   }
+
+  //Scale node sizes to their degree
+  useEffect(() => {
+    if (networkResult != null && queryComplete == true) {
+      let proteinDegree = {};
+      const nodeLst = networkResult.nodes;
+      const cy = cyRef.current;
+      if (cy) {
+
+        for (let i = 0; i < nodeLst.length; i++) {
+          proteinDegree[nodeLst[i].data.id] = nodeLst[i].data.degree;
+        };
+
+        let values = Object.values(proteinDegree);
+        var pdMax = Math.max(...values),
+          pdMin = Math.min(...values);
+        if (pdMax != pdMin) {
+          for (const [key, value] of Object.entries(proteinDegree)) {
+            let scaledValue = (((value - pdMin) * 10) / (pdMax - pdMin))
+            if (scaledValue > 7) { scaledValue = 7 }
+            if (scaledValue < 2) { scaledValue = 2 }
+            cy.style()
+              .selector("node[id='" + key + "']")
+              .style({
+                width: scaledValue * 10,
+                height: scaledValue * 10,
+              })
+              .update();
+          }
+        }
+      }
+    }
+  }, [queryComplete])
+
 
   // Get descendants for queried GO term
   useEffect(() => {
@@ -484,7 +522,6 @@ export default function Query() {
   };
 
   // Change protein value to the user selected protein
-  // MAY NEED TO UPDATE THIS FUNCTION IF IT STILL DOESN'T WORK
   const handleSourceNode = (e) => {
     const newSource = e.target.getAttribute("new-source-node");
 
@@ -504,37 +541,107 @@ export default function Query() {
 
   // Set example queries in SearchBar
   const getExample = (i) => {
-    switch (i) {
-      case 1:
-        setQuery({
-          mode: "path",
-          species: "txid7227",
-          protein: "FBgn0003731",
-          goTerm: "Wnt signaling pathway",
-          k: "4",
-        });
-        setActiveModeButton("path");
-        break;
-      case 2:
-        setQuery({
-          mode: "node",
-          species: "txid7227",
-          protein: "FBgn0000711",
-          goTerm: "apical constriction",
-          k: "7",
-        });
-        setActiveModeButton("node");
-        break;
-      case 3:
-        setQuery({
-          mode: "path",
-          species: "txid7227",
-          protein: "FBgn0000711",
-          goTerm: "myosin II binding",
-          k: "3",
-        });
-        setActiveModeButton("path");
-        break;
+    if (query.species == "txid7227") {
+      switch (i) {
+        case 1:
+          setQuery({
+            mode: "path",
+            species: "txid7227",
+            protein: "egfr",
+            goTerm: "Wnt signaling pathway",
+            k: "4",
+          });
+          setActiveModeButton("path");
+          break;
+        case 2:
+          setQuery({
+            mode: "node",
+            species: "txid7227",
+            protein: "flw",
+            goTerm: "apical constriction",
+            k: "7",
+          });
+          setActiveModeButton("node");
+          break;
+        case 3:
+          setQuery({
+            mode: "path",
+            species: "txid7227",
+            protein: "flw",
+            goTerm: "myosin II binding",
+            k: "3",
+          });
+          setActiveModeButton("path");
+          break;
+      }
+    }
+    else if (query.species == "txid7955") {
+      switch (i) {
+        case 1:
+          setQuery({
+            mode: "node",
+            species: "txid7955",
+            protein: "smad2",
+            goTerm: "DNA damage response",
+            k: "4",
+          });
+          setActiveModeButton("node");
+          break;
+        case 2:
+          setQuery({
+            mode: "node",
+            species: "txid7955",
+            protein: "smad1",
+            goTerm: "positive regulation of cell development",
+            k: "4",
+          });
+          setActiveModeButton("node");
+          break;
+        case 3:
+          setQuery({
+            mode: "node",
+            species: "txid7955",
+            protein: "smad5",
+            goTerm: "neural plate pattern specification",
+            k: "7",
+          });
+          setActiveModeButton("node");
+          break;
+      }
+    }
+    else if (query.species == "txid224308") {
+      switch (i) {
+        case 1:
+          setQuery({
+            mode: "path",
+            species: "txid224308",
+            protein: "GanP",
+            goTerm: "ABC-type carbohydrate transporter activity",
+            k: "7",
+          });
+          setActiveModeButton("path");
+          break;
+        case 2:
+          setQuery({
+            mode: "node",
+            species: "txid224308",
+            protein: "MrpD",
+            goTerm: "monoatomic cation transmembrane transporter activity",
+            k: "6",
+          });
+          setActiveModeButton("node");
+          break;
+        case 3:
+          setQuery({
+            mode: "node",
+            species: "txid224308",
+            protein: "OppC",
+            goTerm: "sporulation",
+            k: "10",
+          });
+          setActiveModeButton("node");
+          break;
+      }
     }
   };
 
