@@ -774,8 +774,8 @@ export default function Query() {
               query={query}
               handleInputChange={handleInputChange}
               getExample={getExample}
-              proteinOptions={proteinOptions}
-              goTermOptions={goTermOptions}
+              // proteinOptions={proteinOptions}
+              // goTermOptions={goTermOptions}
               handleGuide={handleGuide}
               handleSpeciesChange={handleSpeciesChange}
               handleQueryMode={handleQueryMode}
