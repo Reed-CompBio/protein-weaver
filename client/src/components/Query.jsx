@@ -47,8 +47,6 @@ export default function Query() {
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [startGuide, setStartGuide] = useState(0);
-  // const [proteinOptions, setProteinOptions] = useState([]);
-  // const [goTermOptions, setGoTermOptions] = useState([]);
   const [ancestorsOptions, setAncestorsOptions] = useState([]);
   const [descendantsOptions, setDescendantsOptions] = useState([]);
   const [showSharedEdges, setShowSharedEdges] = useState(true);
@@ -126,53 +124,6 @@ export default function Query() {
       submitRef.current.click();
     }
   }, [startGuide]);
-
-  // Get autocomplete options for Proteins
-  useEffect(() => {
-    fetch("/api/getProteinOptions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // You can add any other headers if needed
-      },
-      body: JSON.stringify(query),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const proteinNames = data.map((item) => item.name);
-        const proteinIds = data.map((item) => item.id);
-        const proteinAltNames = data.map((item) => item.alt_name);
-        const proteinMerged = [
-          ...new Set(proteinNames.concat(proteinIds).concat(proteinAltNames)),
-        ].filter((item) => item !== undefined);
-        let proteinSuggestions = [];
-        proteinMerged.map((protein) => {
-          proteinSuggestions.push({ value: protein, label: protein })
-        });
-        // console.log(proteinSuggestions)
-        setProteinOptions(proteinSuggestions);
-      })
-      .catch((error) => {
-        console.error("Error fetching protein options:", error);
-      });
-  }, [query.species]);
-
-  // Get autocomplete options for GO Terms
-  useEffect(() => {
-    fetch("/api/getGoTermOptions")
-      .then((res) => res.json())
-      .then((data) => {
-        const goTermNames = data.map((item) => item.name);
-        const goTermIds = data.map((item) => item.id);
-        const goTermMerged = [...new Set(goTermNames.concat(goTermIds))].filter(
-          (item) => item !== undefined
-        );
-        setGoTermOptions(goTermMerged);
-      })
-      .catch((error) => {
-        console.error("Error fetching GO term options:", error);
-      });
-  }, []);
 
   // Show results if done loading
   useEffect(() => {
