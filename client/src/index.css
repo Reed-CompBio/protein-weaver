@@ -200,6 +200,7 @@ body {
   text-align: center;
   border-color: white;
   pointer-events: auto;
+  background-color: black;
 }
 
 input {

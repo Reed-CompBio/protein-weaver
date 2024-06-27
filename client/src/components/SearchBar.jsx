@@ -250,7 +250,7 @@ export default function SearchBar({
               required
             />
             <select
-              style={{ width: "180px" }}
+              style={{ width: "180px", backgroundColor: "black" }}
               name="species" // User input for species
               value={query.species}
               onChange={handleSpeciesChange}
