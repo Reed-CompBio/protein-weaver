@@ -20,7 +20,7 @@ export default function Autocomplete(props) {
             });
 
         setActive(0);
-        setFiltered(newFilteredSuggestions);
+        setFiltered(newFilteredSuggestions.slice(0,25));
         setInput(inputText);
         onInputChange({ target: { name: inputName, value: inputText } });
     };
