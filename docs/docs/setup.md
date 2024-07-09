@@ -305,7 +305,19 @@ SET r.relationship = "inferred_from_descendant"
 MATCH (p:protein)-[rel:ProPro]-(p) DETACH DELETE rel;
 ```
 
-28. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
+28. Now add the degree for all nodes for each species as a property:
+```js
+MATCH (pr:protein{txid: "txid224308"})
+SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
+
+MATCH (pr:protein{txid: "txid7955"})
+SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
+
+MATCH (pr:protein{txid: "txid7227"})
+SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
+```
+
+29. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 ```js
 CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
 CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;

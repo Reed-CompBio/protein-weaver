@@ -103,7 +103,7 @@ export default function SearchBar({
 
         {/* user examples */}
         <h4 className="example">
-          {spName} Examples:
+          <i>{spName}</i>Examples:
           <a onClick={() => getExample(1)}>#1</a>{" "}
           <a onClick={() => getExample(2)}>#2</a>{" "}
           <a onClick={() => getExample(3)}>#3</a>

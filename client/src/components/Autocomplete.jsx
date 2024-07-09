@@ -50,16 +50,7 @@ export default function Autocomplete(props) {
 
     // Change active suggestion on up/down arrow press
     const onKeyDown = (e) => {
-        if (e.keyCode === 13) {
-            // Enter key
-            setActive(0);
-            setFiltered([]);
-            setInput(filtered[active] || input);
-            setIsFocused(false); // Hide autocomplete on Enter key
-            onInputChange({
-                target: { name: inputName, value: filtered[active] || input },
-            });
-        } else if (e.keyCode === 38) {
+        if (e.keyCode === 38) {
             // Up arrow
             setActive(active > 0 ? active - 1 : 0);
         } else if (e.keyCode === 40) {
