@@ -362,6 +362,10 @@ select {
   font-weight: bold;
 }
 
+.example i {
+  margin-right: 8px;
+}
+
 .example>a {
   color: white;
   font-weight: bold;
