@@ -4,10 +4,11 @@ import { FaInfoCircle } from "react-icons/fa";
 export default function DescendantSelector({
     childrenGoTerms,
     storeGoTermValue,
+    handleInputChangeDescendant,
+    inputValueDescendant,
 }) {
     const [isEmpty, setIsEmpty] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
-    const [inputValue, setInputValue] = useState("");
 
     // Function to populate datalist with options from the dynamic array
     function populateDatalistWithOptions(array) {
@@ -36,12 +37,8 @@ export default function DescendantSelector({
 
     const onChange = (e) => {
         const inputText = e.currentTarget.value;
-        setInputValue(inputText);
+        handleInputChangeDescendant(inputText);
         storeGoTermValue(e);
-    };
-
-    const handleBlur = () => {
-        setInputValue("");
     };
 
     return (
@@ -69,8 +66,7 @@ export default function DescendantSelector({
                     name="descendant-selector"
                     onChange={onChange}
                     placeholder="Child GO Terms"
-                    value={inputValue}
-                    onBlur={handleBlur}
+                    value={inputValueDescendant}
                 />
             </div>
             <datalist id="child-go-terms"></datalist>

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 
-export default function AncestorSelector({ parentGoTerms, storeGoTermValue }) {
+export default function AncestorSelector({
+    parentGoTerms,
+    storeGoTermValue,
+    handleInputChangeAncestor,
+    inputValueAncestor,
+}) {
     const [isEmpty, setIsEmpty] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
-    const [inputValue, setInputValue] = useState("");
 
     // Function to populate datalist with options from the dynamic array
     function populateDatalistWithOptions(array) {
@@ -33,12 +37,8 @@ export default function AncestorSelector({ parentGoTerms, storeGoTermValue }) {
 
     const onChange = (e) => {
         const inputText = e.currentTarget.value;
-        setInputValue(inputText);
+        handleInputChangeAncestor(inputText);
         storeGoTermValue(e);
-    };
-
-    const handleBlur = () => {
-        setInputValue("");
     };
 
     return (
@@ -66,8 +66,7 @@ export default function AncestorSelector({ parentGoTerms, storeGoTermValue }) {
                     name="ancestor-selector"
                     onChange={onChange}
                     placeholder="Parent GO Terms"
-                    value={inputValue}
-                    onBlur={handleBlur}
+                    value={inputValueAncestor}
                 />
             </div>
             <datalist id="parent-go-terms"></datalist>

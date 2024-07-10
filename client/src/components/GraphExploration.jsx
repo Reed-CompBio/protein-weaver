@@ -19,6 +19,10 @@ export default function GraphExploration({
     handleGoTermChange,
 }) {
     const [proteinCount, setProteinCount] = useState(0);
+    const [inputValueAncestor, setInputValueAncestor] = useState("");
+    const [inputValueDescendant, setInputValueDescendant] = useState("");
+    const [goButtonClassname, setGoButtonClassname] =
+        useState("new-go-term-button");
 
     // Keep track of the proteins in the query
     useEffect(() => {
@@ -33,7 +37,6 @@ export default function GraphExploration({
         }
     }, [currentNode]);
 
-
     // Keep track of the queries
     useEffect(() => {
         if (query) {
@@ -45,11 +48,52 @@ export default function GraphExploration({
             handleLog(newQuery);
         }
     }, [searchExecuted]);
+
+    const handleInputChangeAncestor = (value) => {
+        setInputValueAncestor(value);
+    };
+
+    const handleInputChangeDescendant = (value) => {
+        setInputValueDescendant(value);
+    };
+
+    useEffect(() => {
+        if (inputValueAncestor == "" && inputValueDescendant == "") {
+            setGoButtonClassname("new-go-term-button-disabled");
+        } else if (inputValueAncestor != "" || inputValueDescendant != "") {
+            setGoButtonClassname("new-go-term-button");
+        }
+    }, [inputValueAncestor, inputValueDescendant]);
+
+    useEffect(() => {
+        if (inputValueAncestor != "") {
+            setInputValueDescendant("");
+        } else {
+            setInputValueAncestor("");
+        }
+    }, [inputValueAncestor]);
+
+    useEffect(() => {
+        if (inputValueDescendant != "") {
+            setInputValueAncestor("");
+        } else {
+            setInputValueDescendant("");
+        }
+    }, [inputValueDescendant]);
+
+    const handleNewGoButton = () => {
+        setInputValueAncestor("");
+        setInputValueDescendant("");
+        handleGoTermChange();
+    };
+
     if (currentNode) {
         // If a protein is selected, allow the user to set as source node
         return (
             <div>
-                <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
+                <h4 className="graph-exploration-title">
+                    Graph Exploration Tools
+                </h4>
                 <div className="graph-exploration">
                     {/* New Source Node Button */}
                     <div className="new-source-container">
@@ -71,15 +115,31 @@ export default function GraphExploration({
                             <AncestorSelector
                                 parentGoTerms={parentGoTerms}
                                 storeGoTermValue={storeGoTermValue}
+                                handleInputChangeAncestor={
+                                    handleInputChangeAncestor
+                                }
+                                inputValueAncestor={inputValueAncestor}
                             />
                             <DescendantSelector
                                 childrenGoTerms={childrenGoTerms}
                                 storeGoTermValue={storeGoTermValue}
+                                handleInputChangeDescendant={
+                                    handleInputChangeDescendant
+                                }
+                                inputValueDescendant={inputValueDescendant}
                             />
-                            <form method="post" onSubmit={handleSubmit} className="new-go-form">
+                            <form
+                                method="post"
+                                onSubmit={handleSubmit}
+                                className="new-go-form"
+                            >
                                 <button
-                                    className="new-go-term-button"
-                                    onClick={handleGoTermChange}
+                                    className={goButtonClassname}
+                                    onClick={handleNewGoButton}
+                                    disabled={
+                                        goButtonClassname ==
+                                        "new-go-term-button-disabled"
+                                    }
                                 >
                                     Set as New GO Term
                                 </button>
@@ -96,13 +156,14 @@ export default function GraphExploration({
                     </a>
                 </div>
             </div>
-
-        )
+        );
     } else {
         // If no protein is selected, do not allow the user to set as source node
         return (
             <div>
-                <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
+                <h4 className="graph-exploration-title">
+                    Graph Exploration Tools
+                </h4>
                 <div className="graph-exploration">
                     {/* New Source Node Button */}
                     <div className="new-source-container">
@@ -124,15 +185,31 @@ export default function GraphExploration({
                             <AncestorSelector
                                 parentGoTerms={parentGoTerms}
                                 storeGoTermValue={storeGoTermValue}
+                                handleInputChangeAncestor={
+                                    handleInputChangeAncestor
+                                }
+                                inputValueAncestor={inputValueAncestor}
                             />
                             <DescendantSelector
                                 childrenGoTerms={childrenGoTerms}
                                 storeGoTermValue={storeGoTermValue}
+                                handleInputChangeDescendant={
+                                    handleInputChangeDescendant
+                                }
+                                inputValueDescendant={inputValueDescendant}
                             />
-                            <form method="post" onSubmit={handleSubmit} className="new-go-form">
+                            <form
+                                method="post"
+                                onSubmit={handleSubmit}
+                                className="new-go-form"
+                            >
                                 <button
-                                    className="new-go-term-button"
-                                    onClick={handleGoTermChange}
+                                    className={goButtonClassname}
+                                    onClick={handleNewGoButton}
+                                    disabled={
+                                        goButtonClassname ==
+                                        "new-go-term-button-disabled"
+                                    }
                                 >
                                     Set as New GO Term
                                 </button>
@@ -149,6 +226,6 @@ export default function GraphExploration({
                     </a>
                 </div>
             </div>
-        )
+        );
     }
 }
