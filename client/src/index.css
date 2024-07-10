@@ -521,6 +521,20 @@ select {
   text-align: center;
 }
 
+.new-go-term-button-disabled {
+  display: inline-block;
+  margin-left: 36px;
+  min-height: 50px;
+  min-width: 200px;
+  word-wrap: nowrap;
+  background: #888888;
+  color: #fff;
+  border: 2px solid var(--light-background);
+  border-radius: 5px;
+  text-align: center;
+  cursor: auto;
+}
+
 .exports-container {
   text-align: center;
   flex: 1;

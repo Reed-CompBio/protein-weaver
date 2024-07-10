@@ -19,6 +19,14 @@ export default function GraphExploration({
     handleGoTermChange,
 }) {
     const [proteinCount, setProteinCount] = useState(0);
+    const [inputValueAncestor, setInputValueAncestor] = useState("");
+    const [inputValueDescendant, setInputValueDescendant] = useState("");
+    const [goButtonClassname, setGoButtonClassname] = useState(
+        "new-go-term-button-disabled"
+    );
+    const [sourceNodeButton, setSourceNodeButton] = useState(
+        "new-source-disabled"
+    );
 
     // Keep track of the proteins in the query
     useEffect(() => {
@@ -33,7 +41,6 @@ export default function GraphExploration({
         }
     }, [currentNode]);
 
-
     // Keep track of the queries
     useEffect(() => {
         if (query) {
@@ -45,110 +52,128 @@ export default function GraphExploration({
             handleLog(newQuery);
         }
     }, [searchExecuted]);
-    if (currentNode) {
-        // If a protein is selected, allow the user to set as source node
-        return (
-            <div>
-                <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
-                <div className="graph-exploration">
-                    {/* New Source Node Button */}
-                    <div className="new-source-container">
-                        <h5>Selected protein: {currentNode.label}</h5>
-                        <form method="post" onSubmit={handleSubmit}>
-                            <button
-                                className="new-source"
-                                onClick={handleSourceNode}
-                                new-source-node={currentNode.label}
-                            >
-                                Set as New Source Node
-                            </button>
-                        </form>
-                    </div>
-                    {/* GO Term Selection */}
-                    <div className="go-container">
-                        <h5>Change queried GO Term:</h5>
-                        <div className="go-selector-container">
-                            <AncestorSelector
-                                parentGoTerms={parentGoTerms}
-                                storeGoTermValue={storeGoTermValue}
-                            />
-                            <DescendantSelector
-                                childrenGoTerms={childrenGoTerms}
-                                storeGoTermValue={storeGoTermValue}
-                            />
-                            <form method="post" onSubmit={handleSubmit} className="new-go-form">
-                                <button
-                                    className="new-go-term-button"
-                                    onClick={handleGoTermChange}
-                                >
-                                    Set as New GO Term
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                {/* Export Logs/PNG */}
-                <div className="exports-container">
-                    <h5>Export logs or PNG of current network:</h5>
-                    <ExportLogJSON log={logs} />
-                    <a className="export" onClick={exportPNG}>
-                        Export Graph to PNG
-                    </a>
-                </div>
-            </div>
 
-        )
-    } else {
-        // If no protein is selected, do not allow the user to set as source node
-        return (
-            <div>
-                <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
-                <div className="graph-exploration">
-                    {/* New Source Node Button */}
-                    <div className="new-source-container">
-                        <h5>Select a protein: </h5>
-                        <form method="post" onSubmit={handleSubmit}>
+    const handleInputChangeAncestor = (value) => {
+        setInputValueAncestor(value);
+    };
+
+    const handleInputChangeDescendant = (value) => {
+        setInputValueDescendant(value);
+    };
+
+    useEffect(() => {
+        if (inputValueAncestor == "" && inputValueDescendant == "") {
+            setGoButtonClassname("new-go-term-button-disabled");
+        } else if (inputValueAncestor != "" || inputValueDescendant != "") {
+            setGoButtonClassname("new-go-term-button");
+        }
+    }, [inputValueAncestor, inputValueDescendant]);
+
+    useEffect(() => {
+        if (inputValueAncestor != "") {
+            setInputValueDescendant("");
+        } else {
+            setInputValueAncestor("");
+        }
+    }, [inputValueAncestor]);
+
+    useEffect(() => {
+        if (inputValueDescendant != "") {
+            setInputValueAncestor("");
+        } else {
+            setInputValueDescendant("");
+        }
+    }, [inputValueDescendant]);
+
+    const handleNewGoButton = () => {
+        setInputValueAncestor("");
+        setInputValueDescendant("");
+        handleGoTermChange();
+    };
+
+    useEffect(() => {
+        if (currentNode) {
+            setSourceNodeButton("new-source");
+        } else {
+            setSourceNodeButton("new-source-disabled");
+        }
+    }, [currentNode]);
+    return (
+        <div>
+            <h4 className="graph-exploration-title">Graph Exploration Tools</h4>
+            <div className="graph-exploration">
+                {/* New Source Node Button */}
+                <div className="new-source-container">
+                    {currentNode && (
+                        <h5>Selected protein: {currentNode.label}</h5>
+                    )}
+                    {!currentNode && <h5>Selected protein:</h5>}
+
+                    <form method="post" onSubmit={handleSubmit}>
+                        <button
+                            className={sourceNodeButton}
+                            onClick={handleSourceNode}
+                            new-source-node={
+                                currentNode && currentNode.label
+                                    ? currentNode.label
+                                    : ""
+                            }
+                            disabled={
+                                sourceNodeButton ==
+                                "new-go-term-button-disabled"
+                            }
+                        >
+                            Set as New Source Node
+                        </button>
+                    </form>
+                </div>
+                {/* GO Term Selection */}
+                <div className="go-container">
+                    <h5>Change queried GO Term:</h5>
+                    <div className="go-selector-container">
+                        <AncestorSelector
+                            parentGoTerms={parentGoTerms}
+                            storeGoTermValue={storeGoTermValue}
+                            handleInputChangeAncestor={
+                                handleInputChangeAncestor
+                            }
+                            inputValueAncestor={inputValueAncestor}
+                        />
+                        <DescendantSelector
+                            childrenGoTerms={childrenGoTerms}
+                            storeGoTermValue={storeGoTermValue}
+                            handleInputChangeDescendant={
+                                handleInputChangeDescendant
+                            }
+                            inputValueDescendant={inputValueDescendant}
+                        />
+                        <form
+                            method="post"
+                            onSubmit={handleSubmit}
+                            className="new-go-form"
+                        >
                             <button
-                                className="new-source-disabled"
-                                onClick={handleSourceNode}
-                                disabled={true}
+                                className={goButtonClassname}
+                                onClick={handleNewGoButton}
+                                disabled={
+                                    goButtonClassname ==
+                                    "new-go-term-button-disabled"
+                                }
                             >
-                                Set as New Source Node
+                                Set as New GO Term
                             </button>
                         </form>
                     </div>
-                    {/* GO Term Selection */}
-                    <div className="go-container">
-                        <h5>Change queried GO Term:</h5>
-                        <div className="go-selector-container">
-                            <AncestorSelector
-                                parentGoTerms={parentGoTerms}
-                                storeGoTermValue={storeGoTermValue}
-                            />
-                            <DescendantSelector
-                                childrenGoTerms={childrenGoTerms}
-                                storeGoTermValue={storeGoTermValue}
-                            />
-                            <form method="post" onSubmit={handleSubmit} className="new-go-form">
-                                <button
-                                    className="new-go-term-button"
-                                    onClick={handleGoTermChange}
-                                >
-                                    Set as New GO Term
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                {/* Export Logs/PNG */}
-                <div className="exports-container">
-                    <h5>Export logs or PNG of current network:</h5>
-                    <ExportLogJSON log={logs} />
-                    <a className="export" onClick={exportPNG}>
-                        Export Graph to PNG
-                    </a>
                 </div>
             </div>
-        )
-    }
+            {/* Export Logs/PNG */}
+            <div className="exports-container">
+                <h5>Export logs or PNG of current network:</h5>
+                <ExportLogJSON log={logs} />
+                <a className="export" onClick={exportPNG}>
+                    Export Graph to PNG
+                </a>
+            </div>
+        </div>
+    );
 }
