@@ -8,6 +8,7 @@ import AboutPage from "./pages/AboutPage.jsx";
 import QueryPage from "./pages/QueryPage.jsx";
 import TOSPage from "./pages/TOSPage.jsx";
 import FAQPage from "./pages/FAQPage.jsx";
+import NewPage from "./pages/NewPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,12 @@ const router = createBrowserRouter([
   {
     path: "/faq",
     element: <FAQPage />,
+    errorElement: <ErrorPage />,
+  }
+  ,
+  {
+    path: "/newpage",
+    element: <NewPage />,
     errorElement: <ErrorPage />,
   }
 ]);
