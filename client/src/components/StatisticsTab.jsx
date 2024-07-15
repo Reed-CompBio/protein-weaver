@@ -88,7 +88,7 @@ export default function StatisticsTab({ networkStatistics }) {
                 <ReactTooltip
                   id="paths-tooltip"
                   place="top"
-                  content="Number of paths from the GO term found in graph"
+                  content="Number of paths from the GO protein to source node"
                   effect="float" />
                 </div>
               </div>
@@ -107,7 +107,7 @@ export default function StatisticsTab({ networkStatistics }) {
                 <ReactTooltip
                   id="degree-tooltip"
                   place="top"
-                  content="Higher degree indicates more correlation between nodes"
+                  content="Higher degree indicates more neighboring nodes"
                   effect="float" />
                 </div>
               </div>
