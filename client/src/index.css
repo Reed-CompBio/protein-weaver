@@ -1496,8 +1496,9 @@ select {
   margin-right: 20px;
 }
 
-.img-text-container1 {
+.img-text-container {
   display: flex;
+  margin-top: 20px;
 }
 
 .node-icon-container:hover {
@@ -1512,11 +1513,6 @@ select {
   margin-right: 20px;
 }
 
-.img-text-container2 {
-  display: flex;
-  margin-top: 20px;
-}
-
 .edges-icon-container:hover {
   display: block;
 }
@@ -1529,11 +1525,6 @@ select {
   margin-right: 20px;
 }
 
-.img-text-container3 {
-  display: flex;
-  margin-top: 20px;
-}
-
 .paths-icon-container:hover {
   display: block;
 }
@@ -1544,11 +1535,6 @@ select {
   width: 70px;
   height: 55px;
   margin-right: 20px;
-}
-
-.img-text-container4 {
-  display: flex;
-  margin-top: 20px;
 }
 
 .degree-icon-container:hover {

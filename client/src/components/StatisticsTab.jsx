@@ -3,10 +3,10 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { MdConstruction } from "react-icons/md";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-import iconNode from "/src/assets/iconNode.png";
-import iconPaths from "/src/assets/iconPaths.png";
-import iconEdges from "/src/assets/iconEdges.png";
-import iconDegree from "/src/assets/iconDegree.png";
+import iconNode from "/src/assets/icon-node.png";
+import iconPaths from "/src/assets/icon-paths.png";
+import iconEdges from "/src/assets/icon-edges.png";
+import iconDegree from "/src/assets/icon-degree.png";
 
 export default function StatisticsTab({ networkStatistics }) {
   const [tabIndex, setTabIndex] = useState(0);
@@ -39,7 +39,7 @@ export default function StatisticsTab({ networkStatistics }) {
         <TabPanel>
           <h4 className="stats-title">Graph stats</h4>
           <div className="graph-stats-container">
-            <div className="img-text-container1">
+            <div className="img-text-container">
               <div>
                 <div className="node-icon-container">
                 <img src={iconNode} 
@@ -58,7 +58,7 @@ export default function StatisticsTab({ networkStatistics }) {
                 <p># of nodes: {networkStatistics.nodeCount}</p>
               </div>
             </div>
-            <div className="img-text-container2">
+            <div className="img-text-container">
               <div>
                 <div className="edges-icon-container">
                 <img src={iconPaths}
@@ -77,7 +77,7 @@ export default function StatisticsTab({ networkStatistics }) {
                 <p># of edges: {networkStatistics.edgeCount}</p>
               </div>
             </div>
-            <div className="img-text-container3">
+            <div className="img-text-container">
               <div>
                 <div className="paths-icon-container">
                 <img src={iconEdges}
@@ -96,7 +96,7 @@ export default function StatisticsTab({ networkStatistics }) {
                 <p># of paths: {networkStatistics.pathCount}</p>
               </div>
             </div>
-            <div className="img-text-container4">
+            <div className="img-text-container">
               <div>
                 <div className="degree-icon-container">
                 <img src={iconDegree}
