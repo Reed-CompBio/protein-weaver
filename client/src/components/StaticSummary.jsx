@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import GoDefinition from "./GoDefinition";
 import { PiWarningBold } from "react-icons/pi";
+import PGStats from "./ProGoStats";
 
 export default function StaticSummary({
     sourceNode,
@@ -27,16 +28,15 @@ export default function StaticSummary({
                 `https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`
             );
         } else if (query.species === "txid224308") {
-            var bsubId = query.protein.replace(/_/g, "");
             setSourceNodeLink(
-                `https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}#tab=GO`
+                `https://bsubcyc.org/gene?orgid=BSUB&id=${sourceNode.id.replace('_', '')}#tab=GO`
             );
         } else if (query.species === "txid7955") {
             setSourceNodeLink(
                 `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
             );
         }
-    }, [query.species]);
+    }, [sourceNode.id]);
 
     return (
         <div className="query-result-summary">
@@ -80,6 +80,7 @@ export default function StaticSummary({
             </div>
             <GoDefinition open>
                 <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
+                <PGStats name={goTerm.name} txid={query.species} />
             </GoDefinition>
         </div>
     )

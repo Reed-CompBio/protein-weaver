@@ -15,8 +15,12 @@ import AllShortestPathsService from "../services/dijkstra.all.service.js";
 import ProteinFinderService from "../services/protein.finder.service.js";
 import GoFinderService from "../services/go.finder.service.js";
 import AvgDegreeService from "../services/avg.degree.service.js";
+import PGStats from "../services/pro.go.stats.service.js";
+import Degree from "../services/degree.service.js";
+
 const router = new Router();
 const jsonParser = bodyParser.json();
+
 
 router.get("/test", (req, res) => {
   res.json({ message: "Successfully connected to the backend API" });
@@ -130,12 +134,43 @@ router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
   }
 });
 
+router.post("/getProGoStats", jsonParser, async (req, res, next) => {
+  try {
+    const data = req.body;
+    const GoName = data.GoName;
+    const txid = data.txid;
+    const PGS = new PGStats(getDriver());
+    const edges = await PGS.ProGoStats(GoName, txid);
+    console.log("ProGo Edges: ", edges);
+    res.json(edges);
+
+  }
+  catch (e) {
+    next(e);
+  }
+});
+
+
+router.post("/Degree", jsonParser, async (req, res, next) => {
+  try {
+    const data = req.body;
+    const id = data.id.id;
+    const DEG = new Degree(getDriver());
+    const degrees = await DEG.getdegree(id);
+    console.log("Degrees: ", degrees);
+    res.json(degrees);
+  }
+  catch (e) {
+    next(e);
+  }
+});
+
 // dynamic query
 router.post("/getQuery", jsonParser, async (req, res, next) => {
   const data = req.body;
   const species = data.species;
-  const protein = data.protein;
-  const goTerm = data.goTerm;
+  const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
+  const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
 
   console.log("Species:", species);
@@ -210,8 +245,8 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
 router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
   const data = req.body;
   const species = data.species;
-  const protein = data.protein;
-  const goTerm = data.goTerm;
+  const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
+  const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
 
   console.log("Species:", species);
@@ -239,7 +274,6 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
       } else {
         //find the neighbor of all the associated GO terms
         const neighborService = new NeighborService(getDriver());
-
         var neighborData = await neighborService.getNeighbor(goTerm, species);
         neighborData = neighborParser(neighborData);
 

@@ -1,0 +1,246 @@
+---
+title: "B. Subtilis Data Processing and Merging"
+author: "Oliver F. Anderson"
+date: "2024-05-31"
+output: html_document
+---
+
+**B. Subtilis Data Merging and Wrangling Documentation**
+Initialize the work environment.
+```{r}
+library(tidyverse)
+```
+
+This is non-stringent data mining, filtered by experimental, database, and textmined data. The only thing we filter out is homology-inferred data.
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+# read the file in
+string_db_interactome <- read_delim("224308.protein.physical.links.full.v12.0.txt", delim = " ")
+
+# get only the data from String-DB that has experimental evidence
+string_db_interactome <- string_db_interactome %>% filter(experiments > 0 |
+                                                            database > 0 |
+                                                            textmining > 0)
+string_db_interactome <- string_db_interactome %>% 
+  mutate(
+      evidence = case_when(
+        experiments > 0 ~ "experimental",
+        (database > 0 & experiments <= 0) ~ "database",
+        (textmining > 0 & experiments <= 0 & database <= 0) ~ "textmined")
+      )
+
+
+# select only the relevant information
+string_db_interactome <- string_db_interactome %>% select(protein1, protein2, evidence)
+
+# get the mapping data to get uniprot aliases
+string_db_names2 <- read_tsv("224308.protein.info.v12.0.txt")
+
+string_db_names2 <- string_db_names2 %>%
+  select(string_protein_id, preferred_name)
+
+# join the uniprot IDs for protein1
+string_db_interactome <- left_join(string_db_interactome, string_db_names2, by = c("protein1" = "string_protein_id"), relationship = "many-to-many")
+
+# join the uniprot IDs for protein2
+string_db_interactome <- left_join(string_db_interactome, string_db_names2, by = c("protein2" = "string_protein_id"), relationship = "many-to-many")
+
+# rename the columns to prepare to merge datasets
+colnames(string_db_interactome) <- c("protein1", "protein2", "evidence", "name1", "name2")
+
+# extract only the relevant information
+string_db_interactome <-
+  string_db_interactome %>%
+  select(protein1, name1, protein2, name2, evidence) %>%
+  mutate(source = "string-db")
+
+# remove txid tag from beginning of BSU_ID
+string_db_interactome$protein1 <- gsub("224308.", "", string_db_interactome$protein1)
+
+string_db_interactome$protein2 <- gsub("224308.", "", string_db_interactome$protein2)
+
+# capitalize first letter of protein name
+string_db_interactome$name1 <- gsub("\\b([a-z])", "\\U\\1", string_db_interactome$name1, perl=TRUE)
+
+string_db_interactome$name2 <- gsub("\\b([a-z])", "\\U\\1", string_db_interactome$name2, perl=TRUE)
+
+colnames(string_db_interactome) <- c("protein_1_locus", "protein_1_name", "protein_2_locus", "protein_2_name", "evidence", "source")
+
+# Add an underscore to match the other BSU convention
+string_db_interactome$protein_1_locus <- gsub("BSU", "BSU_", string_db_interactome$protein_1_locus)
+
+string_db_interactome$protein_2_locus <- gsub("BSU", "BSU_", string_db_interactome$protein_2_locus)
+
+# Number of unique proteins
+length(unique(c(unique(string_db_interactome$protein_1_name), unique(string_db_interactome$protein_2_name))))
+
+View(string_db_interactome)
+```
+The resulting interactome from STRING-DB had 1446 unique proteins.
+
+Save the STRING-DB data to a separate file
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+write_csv(string_db_interactome, "./bsub_string_db_results.csv")
+```
+
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+subtiwiki_interactome <- read_csv("bsub_interactome.csv")
+
+# Add columns to match data structure of STRING DB
+subtiwiki_interactome <- subtiwiki_interactome %>% mutate(
+  evidence = "experimental",
+  source = "subtiwiki")
+
+# Number of unique proteins in subtiwiki interactome
+length(unique(c(unique(subtiwiki_interactome$protein_1_name), unique(subtiwiki_interactome$protein_2_name))))
+```
+
+
+Now, merge the SubtiWiki and STRING-DB interactomes together.
+```{r}
+bsub_interactome <- rbind(string_db_interactome, subtiwiki_interactome)
+
+length(unique(c(unique(bsub_interactome$protein_1_name), unique(bsub_interactome$protein_2_name))))
+
+# During import we noticed some IDs have duplicate names. Let's fix this and set an alt_name parameter.
+protein_1_duplicates <- bsub_interactome %>%
+  group_by(protein_1_locus) %>%
+  filter(n_distinct(protein_1_name) > 1) %>%
+  arrange(protein_1_locus)
+
+protein_2_duplicates <- bsub_interactome %>%
+  group_by(protein_2_locus) %>%
+  filter(n_distinct(protein_2_name) > 1) %>%
+  arrange(protein_2_locus)
+
+duplicates <- rbind(protein_1_duplicates, protein_2_duplicates)
+
+length(unique(c(unique(duplicates$protein_1_locus), unique(duplicates$protein_2_locus))))/2
+```
+
+Separate name values for each ID.
+```{r}
+# duplicates in the protein1 position
+p1_dupes <- duplicates %>% select(protein_1_locus, protein_1_name) %>% group_by(protein_1_locus) %>% filter(n_distinct(protein_1_name) > 1) %>% distinct()
+
+p1_dupes <- p1_dupes %>% group_by(protein_1_locus) %>%
+  mutate(name_index = row_number()) %>%
+  ungroup()
+
+p1_dupes <- p1_dupes %>%
+  pivot_wider(names_from = name_index, values_from = protein_1_name, names_prefix = "name")
+
+colnames(p1_dupes) <- c("protein_1_locus", "protein_1_name", "protein_1_alt_name")
+
+# duplicates in the protein2 position
+p2_dupes <- duplicates[,c(3,4)] %>% group_by(protein_2_locus) %>% filter(n_distinct(protein_2_name) > 1) %>% distinct()
+
+p2_dupes <- p2_dupes %>% group_by(protein_2_locus) %>%
+  mutate(name_index = row_number()) %>%
+  ungroup()
+
+p2_dupes <- p2_dupes %>%
+  pivot_wider(names_from = name_index, values_from = protein_2_name, names_prefix = "name")
+
+colnames(p2_dupes) <- c("protein_2_locus", "protein_2_name", "protein_2_alt_name")
+
+# find values in duplicates with different name/alt_name params
+matching_values <- inner_join(p1_dupes, p2_dupes, by = join_by(protein_1_locus == protein_2_locus))
+
+matching_values <- matching_values %>% mutate(protein_2_name = case_when(
+  protein_1_name != protein_2_name ~ protein_1_name,
+  .default = protein_1_name),
+  protein_2_alt_name = case_when(
+  protein_1_alt_name != protein_2_alt_name ~ protein_1_alt_name,
+  .default = protein_1_alt_name)
+  )
+
+p2_dupes_matching <- matching_values %>% select(-c(protein_1_name, protein_1_alt_name))
+
+colnames(p2_dupes_matching) <- c("protein_2_locus", "protein_2_name", "protein_2_alt_name")
+
+p2_dupes_filtered <- p2_dupes %>%
+  anti_join(p2_dupes_matching, by = "protein_2_locus")
+
+p2_dupes <- rbind(p2_dupes_filtered, p2_dupes_matching)
+
+# make sure alt_name and name is same in both
+p1_dupes2 <- p2_dupes
+
+colnames(p1_dupes2) <- c("protein_1_locus", "protein_1_name", "protein_1_alt_name")
+
+duplicates1 <- rbind(p1_dupes, p1_dupes2)
+
+p2_dupes2 <- p1_dupes
+
+colnames(p2_dupes2) <- c("protein_2_locus", "protein_2_name", "protein_2_alt_name")
+
+duplicates2 <- rbind(p2_dupes, p2_dupes2)
+```
+
+Add back alt_name parameters
+```{r}
+bsub_interactome <- left_join(bsub_interactome, duplicates1, by = "protein_1_locus") %>% mutate(protein_1_name = case_when(
+  !is.na(protein_1_name.y) ~ protein_1_name.y,
+  .default = protein_1_name.x
+),
+    protein_1_alt_name = case_when(
+      is.na(protein_1_alt_name) ~ protein_1_name.x,
+      .default = protein_1_alt_name
+    )
+) %>% select(-c("protein_1_name.x", "protein_1_name.y"))
+
+
+bsub_interactome <- left_join(bsub_interactome, duplicates2, by = "protein_2_locus") %>% mutate(protein_2_name = case_when(
+  !is.na(protein_2_name.y) ~ protein_2_name.y,
+  .default = protein_2_name.x
+),
+    protein_2_alt_name = case_when(
+      is.na(protein_2_alt_name) ~ protein_2_name.x,
+      .default = protein_2_alt_name
+    )
+) %>% select(-c("protein_2_name.x", "protein_2_name.y"))
+```
+
+
+Sub the blank space in column names with underscore for Neo4j import.
+```{r}
+# these are the "Reviewed" annotations downloaded from https://www.ebi.ac.uk/QuickGO/annotations?taxonId=7955&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+
+go_terms <- read_tsv("annotations_txid224308_2024-06-03.txt")
+colnames(go_terms) <- gsub(" ", "_", colnames(go_terms))
+
+go_terms$SYMBOL <- gsub("\\b([a-z])", "\\U\\1", go_terms$SYMBOL, perl=TRUE)
+
+write_tsv(go_terms, "annotations_txid224308_2024-06-03.txt")
+```
+
+Filter out NOT qualifiers
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+
+BSU_to_Uniprot <- read_tsv("subtiwiki.gene.export.2024-06-03.tsv")
+
+BSU_to_Uniprot <- BSU_to_Uniprot %>% 
+  select(locus, GENE_PRODUCT_ID)
+
+# join datasets together
+bsub_GO_data <- inner_join(go_terms, BSU_to_Uniprot, "GENE_PRODUCT_ID", relationship="many-to-many")
+
+bsub_GO_data <- bsub_GO_data %>% filter(str_detect("NOT|", QUALIFIER, negate=TRUE))
+
+colnames(bsub_GO_data)[colnames(bsub_GO_data) == 'locus'] <- 'BSU_ID'
+
+# write to csv
+write_tsv(bsub_GO_data, "annotations_txid224308_2024-06-03.txt")
+```
+
+
+Sometimes the names will have trailing blank spaces so let's ensure that they won't with the following code. Finally, we will write out the final B. subtilis interactome.
+```{r}
+setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/BacillusSubtilis/")
+write_tsv(bsub_interactome, "interactome_txid224308_2024-06-06.txt")
+```

@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import StaticSummary from "./StaticSummary";
+import Degree from "./Degree";
 
 export default function GraphSummary({
     currentNode,
@@ -15,8 +16,7 @@ export default function GraphSummary({
             if (query.species === "txid7227") {
                 setSelectedDbLink(`https://flybase.org/reports/${currentNode.id}`);
             } else if (query.species === "txid224308") {
-                var bsubId = query.protein.replace(/_/g, "");
-                setSelectedDbLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${bsubId}`);
+                setSelectedDbLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${currentNode.id.replace("_", "")}`);
             } else if (query.species === "txid7955") {
                 setSelectedDbLink(
                     `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`
@@ -47,7 +47,9 @@ export default function GraphSummary({
                     goTerm={goTerm}
                 />
                 <div className="protein-summary">
-                    <h5>Selected protein: {currentNode.label}</h5>
+                    <h5>Selected protein: {currentNode.label}
+                        <Degree id={currentNode.id} />
+                    </h5>
                     <p className="database-link">
                         Database link:&nbsp;
                         <a
@@ -71,7 +73,9 @@ export default function GraphSummary({
                     goTerm={goTerm}
                 />
                 <div className="protein-summary">
-                    <h5>Selected protein: {currentNode.label}</h5>
+                    <h5>Selected protein: {currentNode.label}
+                        <Degree id={currentNode.id} />
+                    </h5>
                     <p className="database-link">
                         Database link:&nbsp;
                         <a
@@ -98,7 +102,9 @@ export default function GraphSummary({
                     goTerm={goTerm}
                 />
                 <div className="go-protein-summary">
-                    <h5>Selected protein: {currentNode.label}</h5>
+                    <h5>Selected protein: {currentNode.label}
+                        <Degree id={currentNode.id} />
+                    </h5>
                     <p className="database-link">
                         Database link:&nbsp;
                         <a
