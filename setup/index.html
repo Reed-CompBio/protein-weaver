@@ -421,6 +421,24 @@ SET r.relationship = &quot;inferred_from_descendant&quot;
 <pre><code class="language-js">MATCH (p:protein)-[rel:ProPro]-(p) DETACH DELETE rel;
 </code></pre>
 <ol>
+<li>Now add the degree for all nodes for each species as a property:</li>
+</ol>
+<pre><code class="language-js">MATCH (pr:protein{txid: &quot;txid224308&quot;})
+SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
+
+MATCH (pr:protein{txid: &quot;txid7955&quot;})
+SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
+
+MATCH (pr:protein{txid: &quot;txid7227&quot;})
+SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
+</code></pre>
+<ol>
+<li>Now we want to add the protein degrees as a property in the nodes:</li>
+</ol>
+<pre><code class="language-js">MATCH (pr:protein)
+set pr.degree = count{(pr)-[:ProPro]-(:protein)};
+</code></pre>
+<ol>
 <li>The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.</li>
 </ol>
 <pre><code class="language-js">CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
