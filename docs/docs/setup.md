@@ -317,7 +317,13 @@ MATCH (pr:protein{txid: "txid7227"})
 SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
 ```
 
-29. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
+29. Now we want to add the protein degrees as a property in the nodes:
+```js
+MATCH (pr:protein)
+set pr.degree = count{(pr)-[:ProPro]-(:protein)};
+```
+
+30. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 ```js
 CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
 CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;
