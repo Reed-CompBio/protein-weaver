@@ -217,14 +217,6 @@ export default function Query() {
     setDataParsingStatus(false);
     setErrorMessage("");
 
-    setSearchParams({
-      mode: query.mode,
-      species: query.species,
-      protein: query.protein,
-      goTerm: query.goTerm,
-      k: query.k,
-    });
-
     // get the k shortest paths for the query
     e.preventDefault();
     let network = null;
@@ -338,6 +330,14 @@ export default function Query() {
 
         return;
       }
+
+      setSearchParams({
+        mode: query.mode,
+        species: query.species,
+        protein: network.nodes[0].data.id,
+        goTerm: network.goTerm.id,
+        k: query.k,
+      });
     }
     setIsLoading(false);
     setPageState(1);
