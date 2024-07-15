@@ -61,6 +61,11 @@ CALL {
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
+8. Set the alt_name parameter as the same as the name.
+```js
+MATCH (n:protein {txid: "txid7227"}) SET n.alt_name = n.name;
+```
+
 8. Import the first batch of _D. melanogaster_ [GO data from FlyBase](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/gene_association_fb_2024-04-03.tsv) into the database using the following command:
 ```js
 :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
@@ -108,14 +113,15 @@ CALL {
 ```
 
 ##### _B. subtilis_ imports
-12. Import _B. subtilis_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_interactome.csv) with the following command:
+12. Import _B. subtilis_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/file:///bsub_interactome_2024-05-31.txt) with the following command:
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_interactome.csv' AS bsub
+:auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-06-06.txt' AS bsub
+FIELDTERMINATOR '\t'
 CALL {
-    with bsub
-    MERGE (a:protein {id: bsub.protein_1_locus, name: bsub.protein_1_name, txid: "txid224308", species: "Bacillus subtilis 168"})
-    MERGE (b:protein {id: bsub.protein_2_locus, name: bsub.protein_2_name, txid: "txid224308", species: "Bacillus subtilis 168"})
-    MERGE (a)-[r:ProPro]-(b)
+with bsub
+MERGE (a:protein {id: bsub.protein_1_locus, name: bsub.protein_1_name, alt_name: bsub.protein_1_alt_name, txid: "txid224308", species: "Bacillus subtilis 168"})
+MERGE (b:protein {id: bsub.protein_2_locus, name: bsub.protein_2_name, alt_name: bsub.protein_2_alt_name, txid: "txid224308", species: "Bacillus subtilis 168"})
+MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
 
@@ -140,9 +146,9 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 ```
 
-15. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data_2024-04-03.tsv) for _B. subtilis_
+15. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/annotations_txid224308_2024-06-03.txt) for _B. subtilis_
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_2024-04-03.tsv' AS bsubgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///annotations_txid224308_2024-06-03.txt' AS bsubgo
 FIELDTERMINATOR '\t'
 CALL {
     with bsubgo
@@ -154,7 +160,7 @@ CALL {
 
 16. Set qualifier property for second batch of GO data (_B. subtilis_).
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data_2024-04-03.tsv' AS bsubgo
+:auto LOAD CSV WITH HEADERS FROM 'file:///annotations_txid224308_2024-06-03.txt' AS bsubgo
 FIELDTERMINATOR '\t'
 CALL {
     with bsubgo
@@ -164,14 +170,14 @@ CALL {
 ```
 
 ##### _D. rerio_ imports
-17. Import _D. rerio_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_interactome_Mar12_2024.txt) with the following command:
+17. Import _D. rerio_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/interactome_txid7955_2024-06-24.txt) with the following command:
 ```js
-:auto LOAD CSV WITH HEADERS FROM 'file:///zfish_interactome_Mar12_2024.txt' AS zfish
+:auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-06-24.txt' AS zfish
 FIELDTERMINATOR '\t'
 CALL {
     with zfish
-    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, txid: "txid7955", species: "Danio rerio"})
-    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, txid: "txid7955", species: "Danio rerio"})
+    MERGE (a:protein {id: zfish.uniprotID1, name: zfish.name1, alt_name: zfish.alt_name1, txid: "txid7955", species: "Danio rerio"})
+    MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, alt_name: zfish.alt_name2, txid: "txid7955", species: "Danio rerio"})
     MERGE (a)-[r:ProPro]-(b)
 } IN TRANSACTIONS OF 100 ROWS;
 ```
@@ -294,7 +300,24 @@ WHERE r.relationship IS NULL
 SET r.relationship = "inferred_from_descendant"
 ```
 
-27. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
+27. Now remove all the Protein-Protein edges from the same protein to itself with the following command (these edges may causes issues with our path algorithms).
+```js
+MATCH (p:protein)-[rel:ProPro]-(p) DETACH DELETE rel;
+```
+
+28. Now add the degree for all nodes for each species as a property:
+```js
+MATCH (pr:protein{txid: "txid224308"})
+SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
+
+MATCH (pr:protein{txid: "txid7955"})
+SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
+
+MATCH (pr:protein{txid: "txid7227"})
+SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
+```
+
+29. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 ```js
 CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
 CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;
@@ -395,7 +418,7 @@ You should get the following output:
 ╒════════╤══════════════╤═════════════╤═════════╤═══════════════╤══════════════╤═══════════╤═════════════════╤════════════════╤═══════╤═══════════╕
 │flyCount│flyProProCount│flyProGoCount│bsubCount│bsubProProCount│bsubProGoCount│drerioCount│drerioProProCount│drerioProGoCount│goCount│goGoGoCount│
 ╞════════╪══════════════╪═════════════╪═════════╪═══════════════╪══════════════╪═══════════╪═════════════════╪════════════════╪═══════╪═══════════╡
-│11501   │233054        │510962       │1394     │2715           │48705         │6438       │45018            │108758          │42858  │68308      │
+│11501   │233054        │510962       │1933     │6441           │65063         │6438       │45003            │108758          │42861  │68308      │
 └────────┴──────────────┴─────────────┴─────────┴───────────────┴──────────────┴───────────┴─────────────────┴────────────────┴───────┴───────────┘
 ```
 

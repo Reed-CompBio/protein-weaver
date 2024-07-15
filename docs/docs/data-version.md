@@ -69,11 +69,21 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ### 2024-04-03:
 * No "NOT" qualifiers were found in the dataset so there were no changes to the _B. subtilis_ data structure during this update.
 
+### 2024-06-11:
+* Added new interaction data from [STRING-DB](https://string-db.org/cgi/download).
+* Downloaded physical interactions full [`224308.protein.physical.links.full.v12.0.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/224308.protein.physical.links.full.v12.0.txt) and [`224308.protein.info.v12.0.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/224308.protein.info.v12.0.txt) and merged both into [`interactome_txid224308_2024-06-06.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/interactome_txid224308_2024-06-06.txt) and cleaned according to [`BsubDataMerging.Rmd`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/scripts/BsubDataMerging.Rmd).
+* Added updated GO term edges for B. subtilis after new data import.
+* Downloaded all reviewed annotations from QuickGO ([Source])(https://www.ebi.ac.uk/QuickGO/annotations?taxonId=224308&taxonUsage=descendants&geneProductSubset=Swiss-Prot&geneProductType=protein) and downloaded UniProt and BSU ID mapper [`subtiwiki.gene.export.2024-06-03.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/subtiwiki.gene.export.2024-06-03.tsv) from [SubtiWiki](https://subtiwiki.uni-goettingen.de/v4/gene/exporter).
+* Merged the two into [`annotations_txid224308_2024-06-03.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/annotations_txid224308_2024-06-03.txt) according to `BsubDataMerging.Rmd`.
+
+### 2024-06-24:
+* Remove "self-edges" from PPI data.
+
 ### Current _B. subtilis_ Network
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
 | -------- | --------------------- | :------------------ |
-| 1394     | 2715                  | 48705               |
+| 1933     | 6441                  | 65063               |
 ```
 
 ## *Danio rerio* Data Sources
@@ -110,11 +120,18 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 * Removed qualifiers with "NOT" preceding them using [`scripts/RemoveNotQualifier.R](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R)
 * Reduced inferred ProGo edges to 86,216.
 
+### 2024-06-11:
+* Added alt_name parameter to Neo4j import statement.
+
+### 2024-06-24:
+* Remove trailing whitespaces from some names according to `ZebrafishDataMerging.Rmd`.
+* Remove "self-edges" from PPI data.
+
 ### Current _D. rerio_ Network
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
 | -------- | --------------------- | :------------------ |
-| 6438     | 45018                 | 108758              |
+| 6438     | 45003                 | 108758              |
 ```
 
 ## Gene Ontology Hierarchy Data Sources
@@ -184,3 +201,21 @@ Looked up species name and got taxon ID.
 | D. rerio        | 86,216         |
 | Total           | 539,135        |
 ```
+
+### 2024-06-11:
+* Added _B. subtilis_ interaction data from STRING-DB and updated QuickGO annotations.
+* Added alt_name parameters to _B. subtilis_ and _D. rerio_ nodes.
+
+```
+| Species         | Inferred Edges |
+| --------------- | :------------- |
+| D. melanogaster | 413,704        |
+| B. subtilis     | 54,270         |
+| D. rerio        | 86,216         |
+| Total           | 554,190        |
+```
+
+### 2024-06-24:
+* Removed trailing whitespaces from _D. rerio_ data.
+* Removed "self-edges" i.e., interactions between two copies of the same protein to improve path algorithm performance.
+    - 309 "self-edges" were removed from the data from _B. subtilis_ and _D. rerio_.
