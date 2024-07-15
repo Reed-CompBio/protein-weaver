@@ -1466,17 +1466,17 @@ select {
   text-align: left;
 }
 
-.graph-statistics-container {
+/* .graph-statistics-container {
   display: flex;
   margin: auto;
   width: 90%;
   justify-content: center;
-}
+} */
 
-.statistics-list {
+/* .statistics-list {
   list-style: none;
   padding-left: 15px;
-}
+} */
 
 .right-aligned-list {
   list-style: none;
