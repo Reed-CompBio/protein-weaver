@@ -1536,19 +1536,77 @@ select {
   text-align: left;
 }
 
-.graph-statistics-container {
+/* .graph-statistics-container {
   display: flex;
   margin: auto;
   width: 90%;
   justify-content: center;
-}
+} */
 
-.statistics-list {
+/* .statistics-list {
   list-style: none;
   padding-left: 15px;
-}
+} */
 
 .right-aligned-list {
   list-style: none;
   text-align: right;
+}
+
+.graph-stats-container {
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.node-icon-container {
+  display: flex;
+  flex-direction: column;
+  width: 70px;
+  height: 5px;
+  margin-right: 20px;
+}
+
+.img-text-container {
+  display: flex;
+  margin-top: 20px;
+}
+
+.node-icon-container:hover {
+  display: block;
+}
+
+.edges-icon-container {
+  display: flex;
+  flex-direction: column;
+  width: 70px;
+  height: 5px;
+  margin-right: 20px;
+}
+
+.edges-icon-container:hover {
+  display: block;
+}
+
+.paths-icon-container {
+  display: flex;
+  flex-direction: column;
+  width: 70px;
+  height: 5px;
+  margin-right: 20px;
+}
+
+.paths-icon-container:hover {
+  display: block;
+}
+
+.degree-icon-container {
+  display: flex;
+  flex-direction: column;
+  width: 70px;
+  height: 55px;
+  margin-right: 20px;
+}
+
+.degree-icon-container:hover {
+  display: block;
 }
