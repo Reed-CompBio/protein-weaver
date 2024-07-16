@@ -466,7 +466,8 @@ Let's finish off by doing some styling and adding a new icon to the NavBar.
 
 3. Next, navigate to [https://react-icons.github.io/react-icons/](https://react-icons.github.io/react-icons/) and choose your favorite icon. I will be using the GiTigerHead icon for mine!
 
-4. Add the relevant import statement to the top of the NavBar page: `import { GiTigerHead } from "react-icons/gi";`.
+4. Add the relevant import statement to the top of the NavBar page:<br>
+`import { GiTigerHead } from "react-icons/gi";`.
 
 5. Finally, replace the icon component in the code that you copied from earlier with the name of the new one. In my case I put `<GiTigerHead />`.
 
