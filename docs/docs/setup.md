@@ -260,12 +260,6 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-4. Remove GO term nodes without any information:
-
-        ```cypher
-        MATCH (n:go_term) WHERE n.namespace IS NULL DETACH DELETE n;
-        ```
-
 ##### Propogation of ancestral ProGo edges
 1. Add ancestral edges for _D. rerio_.
 
