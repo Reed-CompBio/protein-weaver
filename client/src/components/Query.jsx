@@ -495,10 +495,13 @@ export default function Query() {
 
   // Allow users to change species value
   const handleSpeciesChange = (e) => {
-    setQuery((prevData) => ({
-      ...prevData,
+    setQuery({
+      mode: query.mode,
+      protein: "",
+      goTerm: "",
+      k: [],
       species: e.target.value,
-    }));
+    });
   };
 
   // Store GO term value temporarily for new GO term selection when moving through hierarchy
