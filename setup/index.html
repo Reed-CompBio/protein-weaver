@@ -402,13 +402,6 @@ CALL {
 ```
 </code></pre>
 </li>
-<li>
-<p>Remove GO term nodes without any information:</p>
-<pre><code>```cypher
-MATCH (n:go_term) WHERE n.namespace IS NULL DETACH DELETE n;
-```
-</code></pre>
-</li>
 </ol>
 <h5 id="propogation-of-ancestral-progo-edges">Propogation of ancestral ProGo edges</h5>
 <ol>
