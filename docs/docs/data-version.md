@@ -151,7 +151,13 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 * [`goNeverAnnotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/goNeverAnnotate.txt) joined with `go.txt` into [`go_2024-03-28.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_2024-03-28.txt)
 * Joined the data together with [`scripts/GeneOntologyNeverAnnotate.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GeneOntologyNeverAnnotate.R).
 
-* [`gocheck_do_not_annotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/gocheck_do_not_annotate.txt) parsed from `gocheck_do_not_annotate.obo` using `scripts/ParseOBOtoTXT.ipynb` and merged into `go_2024-03-28.txt`.
+* [`gocheck_do_not_annotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/gocheck_do_not_annotate.txt) parsed from `gocheck_do_not_annotate.obo` [(Source)](https://current.geneontology.org/ontology/subsets/gocheck_do_not_annotate.obo) using `scripts/ParseOBOtoTXT.ipynb` and merged into `go_2024-03-28.txt`.
+
+### 2024-07-17:
+* [`go_2024-07-17.obo`] processed into `go_2024-07-17.txt`, `is_a_import_2024-07-17.tsv`, and `relationship_import_2024-07-17.tsv`.
+* [`is_a_import_2024-07-17.tsv`] created with `scripts/ParseOntologyRelationship.ipynb`.
+* [`relationship_import_2024-07-17.tsv`] created with `scripts/ParseOntologyRelationship.ipynb`.
+* [`go_2024-07-17.txt`] created with `scripts/ParseOBOtoTXT.ipynb` and `scripts/GeneOntologyNeverAnnotate.R`.
 
 ### Gene Ontology Data Structure
 ```
@@ -219,3 +225,6 @@ Looked up species name and got taxon ID.
 * Removed trailing whitespaces from _D. rerio_ data.
 * Removed "self-edges" i.e., interactions between two copies of the same protein to improve path algorithm performance.
     - 309 "self-edges" were removed from the data from _B. subtilis_ and _D. rerio_.
+
+### 2024-07-17:
+* Updated full Gene Ontology dataset including hierarchy and descriptions of GO terms.

@@ -223,7 +223,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 1. Import the [GO hierarchy](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/is_a_import.tsv) with the following command:
 
         ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
+        :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import_2024-07-17.tsv' AS go
         FIELDTERMINATOR '\t'
         CALL {
             with go
@@ -237,7 +237,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 2. Import the [GO term common names and descriptions](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/go_2024-03-28.txt) with the following Cypher command:
 
         ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
+        :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-07-17.txt' AS go
         FIELDTERMINATOR '\t'
         CALL {
             with go
@@ -251,19 +251,13 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 3. Add blacklist indicator to GO term nodes:
 
         ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
+        :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-07-17.txt' AS go
         FIELDTERMINATOR '\t'
         CALL {
             with go
             MATCH (n:go_term {id: go.id})
             SET n.never_annotate = go.never_annotate
         } IN TRANSACTIONS OF 1000 ROWS;
-        ```
-
-4. Remove GO term nodes without any information:
-
-        ```cypher
-        MATCH (n:go_term) WHERE n.namespace IS NULL DETACH DELETE n;
         ```
 
 ##### Propogation of ancestral ProGo edges
