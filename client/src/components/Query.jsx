@@ -39,6 +39,8 @@ export default function Query() {
     const cyRef = useRef(cytoscape.Core | undefined);
     const [sidebarNode, setSidebarNode] = useState("");
     const [sourceNode, setSourceNode] = useState("");
+    const [selectedNode, setSelectedNode] = useState("")
+    const [predictionValue, setPredictionValue] = useState("")
     const [goTerm, setGoTerm] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
@@ -510,10 +512,13 @@ export default function Query() {
 
     // Allow users to change species value
     const handleSpeciesChange = (e) => {
-        setQuery((prevData) => ({
-            ...prevData,
+        setQuery({
+            mode: query.mode,
+            protein: "",
+            goTerm: "",
+            k: [],
             species: e.target.value,
-        }));
+          });
     };
 
     // Store GO term value temporarily for new GO term selection when moving through hierarchy
@@ -718,6 +723,28 @@ export default function Query() {
         }
     };
 
+    useEffect(() => {
+        if(selectedNode.id != null){
+            setPredictionValue("Loading")
+            fetch('api/getPageRank', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                protein: selectedNode.id,
+                goTerm: searchParams.get("goTerm"),
+                species: searchParams.get("species")
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                setPredictionValue(data.page_rank)
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    }, [selectedNode]);
+
     return (
         <div>
             {/* pageState is responsible for handling if we are in query search only page or query w/ results page */}
@@ -829,6 +856,7 @@ export default function Query() {
                                                             getSidePanelData(
                                                                 evt
                                                             );
+                                                            setSelectedNode(evt.target._private.data)
                                                         }
                                                     );
                                                 }}
@@ -897,6 +925,7 @@ export default function Query() {
                                                 sourceNode={sourceNode}
                                                 query={query}
                                                 goTerm={goTerm}
+                                                predictionValue={predictionValue}
                                             />
                                         </div>
                                     </Panel>

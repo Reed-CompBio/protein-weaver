@@ -6,7 +6,8 @@ export default function GraphSummary({
     currentNode,
     sourceNode,
     query,
-    goTerm
+    goTerm,
+    predictionValue
 }) {
     const [selectedDbLink, setSelectedDbLink] = useState("");
 
@@ -49,6 +50,7 @@ export default function GraphSummary({
                 <div className="protein-summary">
                     <h5>Selected protein: {currentNode.label}
                         <Degree id={currentNode.id} />
+                        Prediction Value: {predictionValue}
                     </h5>
                     <p className="database-link">
                         Database link:&nbsp;
@@ -75,6 +77,7 @@ export default function GraphSummary({
                 <div className="protein-summary">
                     <h5>Selected protein: {currentNode.label}
                         <Degree id={currentNode.id} />
+                        Prediction Value: {predictionValue}
                     </h5>
                     <p className="database-link">
                         Database link:&nbsp;
@@ -104,6 +107,7 @@ export default function GraphSummary({
                 <div className="go-protein-summary">
                     <h5>Selected protein: {currentNode.label}
                         <Degree id={currentNode.id} />
+                        Prediction Value: {predictionValue}
                     </h5>
                     <p className="database-link">
                         Database link:&nbsp;
