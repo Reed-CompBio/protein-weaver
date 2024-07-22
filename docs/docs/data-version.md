@@ -228,7 +228,7 @@ Looked up species name and got taxon ID.
 
 ### 2024-07-17:
 * Updated full Gene Ontology dataset including hierarchy and descriptions of GO terms.
-* The Gene Ontology removed 660 GO terms in the update. This resulted in removal of previousl existing edges to GO terms.
+* The Gene Ontology removed 660 GO terms in the update. This resulted in the removal of previously existing edges to GO terms.
     * Removed 28,571 ProGo edges in _D. melanogaster_.
     * Removed 5,553 ProGo edges in _B. subtilis_.
     * Removed 5,619 ProGo edges in _D. rerio_.
