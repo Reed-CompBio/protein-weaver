@@ -329,7 +329,15 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         MATCH (p:protein)-[rel:ProPro]-(p) DETACH DELETE rel;
         ```
 
-6. Now add the degree for all nodes for each species as a property:
+6. Now remove obsolete/disconnected GO terms:
+
+        ```cypher
+        MATCH (g:go_term)
+        WHERE NOT (g)-[:GoGo]-()
+        DETACH DELETE g
+        ```
+
+7. Now add the degree for all nodes for each species as a property:
 
         ```cypher
         MATCH (pr:protein{txid: "txid224308"})
@@ -342,7 +350,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
         ```
 
-7. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
+8. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 
         ```cypher
         CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
