@@ -33,8 +33,16 @@ def get_pagerank_prediction():
 
     G = import_graph_from_pickle(graph_file_path)
     p = nx.pagerank(G, alpha=0.7, personalization={go_term: 1})
+    sorted_list = sorted(p.items(), key=lambda item: item[1], reverse=True)
 
-    return jsonify(page_rank=p.get(protein)), 200
+    sorted_dict = {}
+    i = 1
+    for key, value in sorted_list:
+        if "GO:" not in key:
+            sorted_dict[key] = i
+            i+=1
+
+    return jsonify(page_rank=p.get(protein), ranking=sorted_dict.get(protein)), 200
 
 
 if __name__ == "__main__":

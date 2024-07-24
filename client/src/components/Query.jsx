@@ -725,7 +725,7 @@ export default function Query() {
 
     useEffect(() => {
         if(selectedNode.id != null){
-            setPredictionValue("Loading")
+            setPredictionValue({pageRank: "Loading", rank: "Loading"})
             fetch('api/getPageRank', {
                 method: 'POST',
                 headers: {
@@ -739,7 +739,7 @@ export default function Query() {
             })
             .then(response => response.json())
             .then(data => {
-                setPredictionValue(data.page_rank)
+                setPredictionValue({pageRank: data.page_rank, rank: data.ranking})
             })
             .catch(error => console.error('Error:', error));
         }

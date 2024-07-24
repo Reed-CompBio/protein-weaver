@@ -50,7 +50,10 @@ export default function GraphSummary({
                 <div className="protein-summary">
                     <h5>Selected protein: {currentNode.label}
                         <Degree id={currentNode.id} />
-                        Prediction Value: {predictionValue}
+                        Prediction Value: {predictionValue.pageRank}
+                        <br></br>
+                        Prediction Rank: {predictionValue.rank}
+
                     </h5>
                     <p className="database-link">
                         Database link:&nbsp;
@@ -77,7 +80,9 @@ export default function GraphSummary({
                 <div className="protein-summary">
                     <h5>Selected protein: {currentNode.label}
                         <Degree id={currentNode.id} />
-                        Prediction Value: {predictionValue}
+                        Prediction Value: {predictionValue.pageRank}
+                        <br></br>
+                        Prediction Rank: {predictionValue.rank}
                     </h5>
                     <p className="database-link">
                         Database link:&nbsp;
@@ -107,7 +112,9 @@ export default function GraphSummary({
                 <div className="go-protein-summary">
                     <h5>Selected protein: {currentNode.label}
                         <Degree id={currentNode.id} />
-                        Prediction Value: {predictionValue}
+                        Prediction Value: {predictionValue.pageRank}
+                        <br></br>
+                        Prediction Rank: {predictionValue.rank}
                     </h5>
                     <p className="database-link">
                         Database link:&nbsp;
