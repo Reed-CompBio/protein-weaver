@@ -361,11 +361,13 @@ export default function Query() {
         setPageState(1);
     }
 
+    // when we have successfully queried something, we want to get the predicted values for all nodes in the network
     useEffect(() => {
         if (
             searchParams.get("protein") != "" &&
             searchParams.get("goTerm") != "" &&
-            searchParams.get("species") != ""
+            searchParams.get("species") != "" &&
+            pageState == 1
         ) {
             //getting prediction values for all nodes
             fetch("api/getPageRank", {
@@ -729,26 +731,12 @@ export default function Query() {
                 mode: "path",
             }));
             setActiveModeButton("path");
-            setSearchParams({
-                mode: "path",
-                species: query.species,
-                protein: query.protein,
-                goTerm: query.goTerm,
-                k: query.k,
-            });
         } else {
             setQuery((prevState) => ({
                 ...prevState,
                 mode: "node",
             }));
             setActiveModeButton("node");
-            setSearchParams({
-                mode: "node",
-                species: query.species,
-                protein: query.protein,
-                goTerm: query.goTerm,
-                k: query.k,
-            });
         }
     };
 
