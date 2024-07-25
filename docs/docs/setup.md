@@ -223,7 +223,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 1. Import the [GO hierarchy](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/is_a_import.tsv) with the following command:
 
         ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import.tsv' AS go
+        :auto LOAD CSV WITH HEADERS FROM 'file:///is_a_import_2024-07-17.tsv' AS go
         FIELDTERMINATOR '\t'
         CALL {
             with go
@@ -237,7 +237,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 2. Import the [GO term common names and descriptions](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/go_2024-03-28.txt) with the following Cypher command:
 
         ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
+        :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-07-17.txt' AS go
         FIELDTERMINATOR '\t'
         CALL {
             with go
@@ -251,19 +251,13 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 3. Add blacklist indicator to GO term nodes:
 
         ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-03-28.txt' AS go
+        :auto LOAD CSV WITH HEADERS FROM 'file:///go_2024-07-17.txt' AS go
         FIELDTERMINATOR '\t'
         CALL {
             with go
             MATCH (n:go_term {id: go.id})
             SET n.never_annotate = go.never_annotate
         } IN TRANSACTIONS OF 1000 ROWS;
-        ```
-
-4. Remove GO term nodes without any information:
-
-        ```cypher
-        MATCH (n:go_term) WHERE n.namespace IS NULL DETACH DELETE n;
         ```
 
 ##### Propogation of ancestral ProGo edges
@@ -335,7 +329,15 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         MATCH (p:protein)-[rel:ProPro]-(p) DETACH DELETE rel;
         ```
 
-6. Now add the degree for all nodes for each species as a property:
+6. Now remove obsolete/disconnected GO terms:
+
+        ```cypher
+        MATCH (g:go_term)
+        WHERE NOT (g)-[:GoGo]-()
+        DETACH DELETE g
+        ```
+
+7. Now add the degree for all nodes for each species as a property:
 
         ```cypher
         MATCH (pr:protein{txid: "txid224308"})
@@ -348,7 +350,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)}
         ```
 
-7. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
+8. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 
         ```cypher
         CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
@@ -463,7 +465,7 @@ You should get the following output:
         ╒════════╤══════════════╤═════════════╤═════════╤═══════════════╤══════════════╤═══════════╤═════════════════╤════════════════╤═══════╤═══════════╕
         │flyCount│flyProProCount│flyProGoCount│bsubCount│bsubProProCount│bsubProGoCount│drerioCount│drerioProProCount│drerioProGoCount│goCount│goGoGoCount│
         ╞════════╪══════════════╪═════════════╪═════════╪═══════════════╪══════════════╪═══════════╪═════════════════╪════════════════╪═══════╪═══════════╡
-        │11501   │233054        │510962       │1933     │6441           │65063         │6438       │45003            │108758          │42861  │68308      │
+        │11501   │233054        │482391       │1933     │6441           │59510         │6438       │45003            │103139          │42231  │66168      │
         └────────┴──────────────┴─────────────┴─────────┴───────────────┴──────────────┴───────────┴─────────────────┴────────────────┴───────┴───────────┘
         ```
 

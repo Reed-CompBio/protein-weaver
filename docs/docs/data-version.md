@@ -29,11 +29,11 @@ This section of the documentation outlines the data sources, processing steps an
 * Removed qualifiers with "NOT" preceding them using [`scripts/RemoveNotQualifier.R](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R)
 * Reduced inferred ProGo edges to 413,704.
 
-### Current _D. melanogaster_ Network
+### Current _D. melanogaster_ Network [Updated 2024-07-17]
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
 | -------- | --------------------- | :------------------ |
-| 11501    | 233054                | 510962              |
+| 11501    | 233054                | 482391              |
 ```
 
 ## *Bacillus subtilis* Data Sources
@@ -79,11 +79,11 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ### 2024-06-24:
 * Remove "self-edges" from PPI data.
 
-### Current _B. subtilis_ Network
+### Current _B. subtilis_ Network [Updated 2024-07-17]
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
 | -------- | --------------------- | :------------------ |
-| 1933     | 6441                  | 65063               |
+| 1933     | 6441                  | 59510               |
 ```
 
 ## *Danio rerio* Data Sources
@@ -127,11 +127,11 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 * Remove trailing whitespaces from some names according to `ZebrafishDataMerging.Rmd`.
 * Remove "self-edges" from PPI data.
 
-### Current _D. rerio_ Network
+### Current _D. rerio_ Network [Updated 2024-07-17]
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
 | -------- | --------------------- | :------------------ |
-| 6438     | 45003                 | 108758              |
+| 6438     | 45003                 | 103139              |
 ```
 
 ## Gene Ontology Hierarchy Data Sources
@@ -151,13 +151,19 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 * [`goNeverAnnotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/goNeverAnnotate.txt) joined with `go.txt` into [`go_2024-03-28.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/go_2024-03-28.txt)
 * Joined the data together with [`scripts/GeneOntologyNeverAnnotate.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GeneOntologyNeverAnnotate.R).
 
-* [`gocheck_do_not_annotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/gocheck_do_not_annotate.txt) parsed from `gocheck_do_not_annotate.obo` using `scripts/ParseOBOtoTXT.ipynb` and merged into `go_2024-03-28.txt`.
+* [`gocheck_do_not_annotate.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/GeneOntology/gocheck_do_not_annotate.txt) parsed from `gocheck_do_not_annotate.obo` [(Source)](https://current.geneontology.org/ontology/subsets/gocheck_do_not_annotate.obo) using `scripts/ParseOBOtoTXT.ipynb` and merged into `go_2024-03-28.txt`.
 
-### Gene Ontology Data Structure
+### 2024-07-17:
+* [`go_2024-07-17.obo`] processed into `go_2024-07-17.txt`, `is_a_import_2024-07-17.tsv`, and `relationship_import_2024-07-17.tsv`.
+* [`is_a_import_2024-07-17.tsv`] created with `scripts/ParseOntologyRelationship.ipynb`.
+* [`relationship_import_2024-07-17.tsv`] created with `scripts/ParseOntologyRelationship.ipynb`.
+* [`go_2024-07-17.txt`] created with `scripts/ParseOBOtoTXT.ipynb` and `scripts/GeneOntologyNeverAnnotate.R`.
+
+### Gene Ontology Data Structure [Updated 2024-07-17]
 ```
 | GO Terms | "is_a" Relationships (GoGo) |
 | -------- | :-------------------------- |
-| 42854    | 68308                       |
+| 42231    | 66168                       |
 ```
 
 ### Taxon ID source:
@@ -219,3 +225,12 @@ Looked up species name and got taxon ID.
 * Removed trailing whitespaces from _D. rerio_ data.
 * Removed "self-edges" i.e., interactions between two copies of the same protein to improve path algorithm performance.
     - 309 "self-edges" were removed from the data from _B. subtilis_ and _D. rerio_.
+
+### 2024-07-17:
+* Updated full Gene Ontology dataset including hierarchy and descriptions of GO terms.
+* The Gene Ontology removed 660 GO terms in the update. This resulted in the removal of previously existing edges to GO terms.
+    * Removed 28,571 ProGo edges in _D. melanogaster_.
+    * Removed 5,553 ProGo edges in _B. subtilis_.
+    * Removed 5,619 ProGo edges in _D. rerio_.
+    * Removed 2,140 GoGo edges.
+    * Removed 41,883 edges total.
