@@ -22,6 +22,9 @@ def get_pagerank_prediction():
     protein = data.get('protein')
     go_term = data.get('goTerm')
     species = data.get('species')
+    print("Protein: ", protein)
+    print("go_term: ", go_term)
+    print("species: ", species)
 
 
     if species == "txid7227":
@@ -39,10 +42,13 @@ def get_pagerank_prediction():
     i = 1
     for key, value in sorted_list:
         if "GO:" not in key:
-            sorted_dict[key] = i
+            sorted_dict[key] = {"rank": i, "value" :value}
+            print(key , sorted_dict[key])
             i+=1
 
-    return jsonify(page_rank=p.get(protein), ranking=sorted_dict.get(protein)), 200
+    # return jsonify(page_rank=p.get(protein), ranking=sorted_dict.get(protein)), 200
+    return jsonify(prediction_dict = sorted_dict), 200
+
 
 
 if __name__ == "__main__":

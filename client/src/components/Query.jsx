@@ -39,8 +39,9 @@ export default function Query() {
     const cyRef = useRef(cytoscape.Core | undefined);
     const [sidebarNode, setSidebarNode] = useState("");
     const [sourceNode, setSourceNode] = useState("");
-    const [selectedNode, setSelectedNode] = useState("")
-    const [predictionValue, setPredictionValue] = useState("")
+    const [selectedNode, setSelectedNode] = useState("");
+    const [predictionValue, setPredictionValue] = useState("");
+    const [predictionDict, setPredictionDict] = useState(null);
     const [goTerm, setGoTerm] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
@@ -221,6 +222,8 @@ export default function Query() {
         setIsLoading(true);
         setDataParsingStatus(false);
         setErrorMessage("");
+        setPredictionDict(null);
+        setPredictionValue({ value: "Loading", rank: "Loading" });
 
         // get the k shortest paths for the query
         e.preventDefault();
@@ -357,6 +360,32 @@ export default function Query() {
         setIsLoading(false);
         setPageState(1);
     }
+
+    useEffect(() => {
+        if (
+            searchParams.get("protein") != "" &&
+            searchParams.get("goTerm") != "" &&
+            searchParams.get("species") != ""
+        ) {
+            //getting prediction values for all nodes
+            fetch("api/getPageRank", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    protein: selectedNode.id,
+                    goTerm: searchParams.get("goTerm"),
+                    species: searchParams.get("species"),
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setPredictionDict(data.prediction_dict);
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+    }, [searchParams]);
 
     //Scale node sizes to their degree
     useEffect(() => {
@@ -518,7 +547,7 @@ export default function Query() {
             goTerm: "",
             k: [],
             species: e.target.value,
-          });
+        });
     };
 
     // Store GO term value temporarily for new GO term selection when moving through hierarchy
@@ -724,26 +753,13 @@ export default function Query() {
     };
 
     useEffect(() => {
-        if(selectedNode.id != null){
-            setPredictionValue({pageRank: "Loading", rank: "Loading"})
-            fetch('api/getPageRank', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                protein: selectedNode.id,
-                goTerm: searchParams.get("goTerm"),
-                species: searchParams.get("species")
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                setPredictionValue({pageRank: data.page_rank, rank: data.ranking})
-            })
-            .catch(error => console.error('Error:', error));
+        if (selectedNode.id != null && predictionDict != null) {
+            setPredictionValue({
+                value: predictionDict[selectedNode.id].value,
+                rank: predictionDict[selectedNode.id].rank,
+            });
         }
-    }, [selectedNode]);
+    }, [selectedNode, predictionDict]);
 
     return (
         <div>
@@ -856,7 +872,11 @@ export default function Query() {
                                                             getSidePanelData(
                                                                 evt
                                                             );
-                                                            setSelectedNode(evt.target._private.data)
+                                                            setSelectedNode(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                            );
                                                         }
                                                     );
                                                 }}
@@ -925,7 +945,9 @@ export default function Query() {
                                                 sourceNode={sourceNode}
                                                 query={query}
                                                 goTerm={goTerm}
-                                                predictionValue={predictionValue}
+                                                predictionValue={
+                                                    predictionValue
+                                                }
                                             />
                                         </div>
                                     </Panel>
