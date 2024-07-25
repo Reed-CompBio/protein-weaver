@@ -17,6 +17,7 @@ import GoFinderService from "../services/go.finder.service.js";
 import AvgDegreeService from "../services/avg.degree.service.js";
 import PGStats from "../services/pro.go.stats.service.js";
 import Degree from "../services/degree.service.js";
+import MotifService from "../services/motif.service.js";
 
 const router = new Router();
 const jsonParser = bodyParser.json();
@@ -159,6 +160,19 @@ router.post("/Degree", jsonParser, async (req, res, next) => {
     const degrees = await DEG.getdegree(id);
     console.log("Degrees: ", degrees);
     res.json(degrees);
+  }
+  catch (e) {
+    next(e);
+  }
+});
+
+router.post("/Motif", jsonParser, async (req, res, next) => {
+  try {
+    const data = req.body;
+    const nodeList = data.nodeList
+    const motif = new MotifService(getDriver());
+    const mCount = await motif.getMotif(nodeList);
+    res.json(mCount);
   }
   catch (e) {
     next(e);

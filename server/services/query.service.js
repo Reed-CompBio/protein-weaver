@@ -47,7 +47,7 @@ export default class QueryService {
               sourceNode: source,
               targetNode: target,
               k: toInteger($k),
-              relationshipTypes: ["ProGo", "ProProUndirected"]
+              relationshipTypes: ["ProGo", "ProProUndirected","Reg"]
             })
             YIELD index, sourceNode, targetNode, nodeIds, path
             RETURN
@@ -67,7 +67,6 @@ export default class QueryService {
         );
         return network.records;
       });
-
       console.log("Network result:", res);
 
       return res;

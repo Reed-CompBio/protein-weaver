@@ -73,6 +73,7 @@ export default function Query() {
   });
   const [queryComplete, setqQueryComplete] = useState(false);
   const [pageState, setPageState] = useState(0);
+  const [exState, setExState] = useState("")
   cytoscape.use(cola);
 
   useEffect(() => {
@@ -206,6 +207,11 @@ export default function Query() {
     }
   }, [dataParsingStatus]);
 
+  useEffect(() => {
+    console.log("network results query", networkResult)
+  }, [networkResult]);
+
+
   // Function for submitting the query
   async function handleSubmit(e) {
     setqQueryComplete(false);
@@ -253,6 +259,7 @@ export default function Query() {
           })
           .then((data) => {
             rawData = data;
+            setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
             return NetworkParserPath(data, query.protein, query.goTerm);
           });
       } catch (error) {
@@ -287,6 +294,7 @@ export default function Query() {
           })
           .then((data) => {
             rawData = data;
+            setNetworkResult(NetworkParserNode(data, query.protein, query.k));
             return NetworkParserNode(data, query.protein, query.k);
           });
       } catch (error) {
@@ -304,7 +312,6 @@ export default function Query() {
       nodeList.nodeList.push(network.goTerm.id);
       setSourceNode(network.nodes[0].data);
       setGoTerm(network.goTerm);
-
       let edgeData = null;
       try {
         edgeData = await fetch("/api/getEdgeData", {
@@ -324,6 +331,7 @@ export default function Query() {
             }
           })
           .then((edgeData) => {
+            console.log("edge data", edgeData)
             setNetworkResult(EdgeDataParser(network, edgeData));
             setRawData(rawData);
             setDataParsingStatus(true);
@@ -335,7 +343,6 @@ export default function Query() {
         setHasError(true);
         setPageState(0);
         setIsLoading(false);
-
         return;
       }
     }
@@ -351,11 +358,9 @@ export default function Query() {
       const nodeLst = networkResult.nodes;
       const cy = cyRef.current;
       if (cy) {
-
         for (let i = 0; i < nodeLst.length; i++) {
           proteinDegree[nodeLst[i].data.id] = nodeLst[i].data.degree;
         };
-
         let values = Object.values(proteinDegree);
         var pdMax = Math.max(...values),
           pdMin = Math.min(...values);
@@ -546,6 +551,7 @@ export default function Query() {
             k: "4",
           });
           setActiveModeButton("path");
+          setExState(String(i));
           break;
         case 2:
           setQuery({
@@ -556,6 +562,7 @@ export default function Query() {
             k: "7",
           });
           setActiveModeButton("node");
+          setExState(String(i));
           break;
         case 3:
           setQuery({
@@ -566,6 +573,7 @@ export default function Query() {
             k: "3",
           });
           setActiveModeButton("path");
+          setExState(String(i));
           break;
       }
     }
@@ -580,6 +588,7 @@ export default function Query() {
             k: "4",
           });
           setActiveModeButton("node");
+          setExState(String(i));
           break;
         case 2:
           setQuery({
@@ -590,6 +599,7 @@ export default function Query() {
             k: "4",
           });
           setActiveModeButton("node");
+          setExState(String(i));
           break;
         case 3:
           setQuery({
@@ -600,6 +610,7 @@ export default function Query() {
             k: "7",
           });
           setActiveModeButton("node");
+          setExState(String(i));
           break;
       }
     }
@@ -614,6 +625,7 @@ export default function Query() {
             k: "7",
           });
           setActiveModeButton("path");
+          setExState(String(i));
           break;
         case 2:
           setQuery({
@@ -624,6 +636,7 @@ export default function Query() {
             k: "6",
           });
           setActiveModeButton("node");
+          setExState(String(i));
           break;
         case 3:
           setQuery({
@@ -634,10 +647,17 @@ export default function Query() {
             k: "10",
           });
           setActiveModeButton("node");
+          setExState(String(i));
           break;
       }
     }
   };
+
+  //Resets highlighted example when switching species
+  useEffect(() => {
+    setExState("")
+  }, [query.species])
+
 
   // Allow users to export network as PNG
   const exportPNG = () => {
@@ -702,6 +722,8 @@ export default function Query() {
     }
   };
 
+
+
   return (
     <div>
       {/* pageState is responsible for handling if we are in query search only page or query w/ results page */}
@@ -735,6 +757,7 @@ export default function Query() {
             handleSpeciesChange={handleSpeciesChange}
             handleQueryMode={handleQueryMode}
             activeModeButton={activeModeButton}
+            exState={exState}
           />
 
           {hasError && <QueryError errorMessage={errorMessage} />}
@@ -774,6 +797,7 @@ export default function Query() {
               handleSpeciesChange={handleSpeciesChange}
               handleQueryMode={handleQueryMode}
               activeModeButton={activeModeButton}
+              exState={exState}
             />
 
             {hasError && <QueryError errorMessage={errorMessage} />}
@@ -855,7 +879,7 @@ export default function Query() {
                   <PanelResizeHandle className="panel-resize-handle" />
                   <Panel defaultSize={40} minSize={10}>
                     <StatisticsTab
-                      networkStatistics={networkStatistics}
+                      networkStatistics={networkStatistics} nodeList={networkResult.nodeList}
                     ></StatisticsTab>
                   </Panel>
                 </PanelGroup>

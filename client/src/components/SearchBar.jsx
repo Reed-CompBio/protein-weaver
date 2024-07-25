@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 import Autocomplete from "./Autocomplete";
 import Modetooltip from "./ModeTooltip";
 
@@ -14,6 +14,7 @@ export default function SearchBar({
   handleSpeciesChange,
   handleQueryMode,
   activeModeButton,
+  exState
 }) {
   let spName = ""
   if (query.species == "txid224308") {
@@ -101,9 +102,9 @@ export default function SearchBar({
         {/* user examples */}
         <h4 className="example">
           {spName} Examples:
-          <a onClick={() => getExample(1)}>#1</a>{" "}
-          <a onClick={() => getExample(2)}>#2</a>{" "}
-          <a onClick={() => getExample(3)}>#3</a>
+          <a onClick={() => getExample(1)} className={exState === "1" ? "activated" : "inactivated"} >#1</a>{" "}
+          <a onClick={() => getExample(2)} className={exState === "2" ? "activated" : "inactivated"}>#2</a>{" "}
+          <a onClick={() => getExample(3)} className={exState === "3" ? "activated" : "inactivated"}>#3</a>
         </h4>
       </div>
 

@@ -61,11 +61,22 @@ export const cytoscapeStyle = [
     },
   },
   {
-    selector: "edge[type='shared']",
+    selector: "edge[tst='shared']",
     style: {
       width: 2,
       "line-color": "#ACA9A4",
       "curve-style": "bezier",
+    },
+  },
+  {
+    selector: "edge[type='Reg']",
+    style: {
+      width: 2,
+      "line-color": "Red",
+      "curve-style": "bezier",
+      'source-arrow-shape': 'triangle',
+      'source-arrow-color': "red",
+      "line-style": "dashed"
     },
   },
   {

@@ -318,6 +318,22 @@ select {
   cursor: pointer;
 }
 
+a.activated {
+  color: Black;
+  font-weight: bold;
+  margin-left: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a.inactivated {
+  color: white;
+  font-weight: bold;
+  margin-left: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .guide-button {
   padding: 2.5px;
   margin-top: 24px;
@@ -1437,11 +1453,7 @@ select {
   background-color: #828588;
 }
 
-.stats-tab:hover,
-.stats-tab-construction:hover {
-  cursor: pointer;
-  pointer-events: none;
-}
+
 
 .stats-tab-selected {
   border-top-left-radius: 5px;
