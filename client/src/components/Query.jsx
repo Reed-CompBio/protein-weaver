@@ -73,7 +73,7 @@ export default function Query() {
         pathCount: null,
         avgNodeDegree: null,
     });
-    const [queryComplete, setqQueryComplete] = useState(false);
+    const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
     cytoscape.use(cola);
 
@@ -214,7 +214,7 @@ export default function Query() {
 
     // Function for submitting the query
     async function handleSubmit(e) {
-        setqQueryComplete(false);
+        setQueryComplete(false);
         setSidebarNode(null);
         setNetworkResult({});
         setHasError(false);
@@ -222,7 +222,6 @@ export default function Query() {
         setIsLoading(true);
         setDataParsingStatus(false);
         setErrorMessage("");
-        setPredictionDict(null);
         setPredictionValue({ value: "Loading", rank: "Loading" });
 
         // get the k shortest paths for the query
@@ -337,7 +336,7 @@ export default function Query() {
                         setNetworkResult(EdgeDataParser(network, edgeData));
                         setRawData(rawData);
                         setDataParsingStatus(true);
-                        setqQueryComplete(true);
+                        setQueryComplete(true);
                         return EdgeDataParser(network, edgeData);
                     });
             } catch (error) {
@@ -363,12 +362,7 @@ export default function Query() {
 
     // when we have successfully queried something, we want to get the predicted values for all nodes in the network
     useEffect(() => {
-        if (
-            searchParams.get("protein") != "" &&
-            searchParams.get("goTerm") != "" &&
-            searchParams.get("species") != "" &&
-            pageState == 1
-        ) {
+        if (Object.keys(networkResult).length !== 0) {
             //getting prediction values for all nodes
             fetch("api/getPageRank", {
                 method: "POST",
@@ -387,7 +381,7 @@ export default function Query() {
                 })
                 .catch((error) => console.error("Error:", error));
         }
-    }, [searchParams]);
+    }, [networkResult]);
 
     //Scale node sizes to their degree
     useEffect(() => {
@@ -740,8 +734,15 @@ export default function Query() {
         }
     };
 
+    // when a user selects a node or if the prediction dict changes, set the the currently selected prediction values
     useEffect(() => {
-        if (selectedNode.id != null && predictionDict != null) {
+        if (
+            selectedNode.id != null &&
+            predictionDict != null &&
+            selectedNode.id in predictionDict &&
+            predictionDict[selectedNode.id].value != undefined &&
+            predictionDict[selectedNode.id].rank != undefined
+        ) {
             setPredictionValue({
                 value: predictionDict[selectedNode.id].value,
                 rank: predictionDict[selectedNode.id].rank,
