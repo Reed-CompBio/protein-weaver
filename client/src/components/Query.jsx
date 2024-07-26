@@ -12,6 +12,7 @@ import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import { cytoscapeStyle, layout } from "../assets/CytoscapeConfig";
 import cola from "cytoscape-cola";
+import { cytoscapeTest2 } from "../assets/CytoscapeTestElements";
 
 // component imports
 import QueryError from "./QueryError";
@@ -40,6 +41,9 @@ export default function Query() {
   const cyRef = useRef(cytoscape.Core | undefined);
   const [sidebarNode, setSidebarNode] = useState("");
   const [sourceNode, setSourceNode] = useState("");
+  const [edgeEvidence, setEdgeEvidence] = useState("");
+  const [edgeSource, setEdgeSource] = useState("");
+  const [edgeTarget, setEdgeTarget] = useState("");
   const [goTerm, setGoTerm] = useState("");
   const [hasError, setHasError] = useState(false);
   const [queryCount, setQueryCount] = useState(0);
@@ -804,6 +808,11 @@ export default function Query() {
                           cy.on("tap", "node", (evt) => {
                             getSidePanelData(evt);
                           });
+                          cy.on("tap", "edge", (evt) => {
+                            setEdgeEvidence(evt.target._private.data.evidence)
+                            setEdgeSource(evt.target._private.data.source)
+                            setEdgeTarget(evt.target._private.data.target)
+                          });
                         }}
                       />
                       <Legend // Render legend within Cytoscape visualization
@@ -855,6 +864,9 @@ export default function Query() {
                   <Panel defaultSize={40} minSize={10}>
                     <StatisticsTab
                       networkStatistics={networkStatistics}
+                      edgeEvidence={edgeEvidence}
+                      edgeSource={edgeSource}
+                      edgeTarget={edgeTarget}
                     ></StatisticsTab>
                   </Panel>
                 </PanelGroup>

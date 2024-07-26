@@ -1507,46 +1507,28 @@ select {
   background-color: #828588;
 }
 
-.stats-tab:hover,
-.stats-tab-construction:hover {
-  cursor: pointer;
-  pointer-events: none;
-}
-
 .stats-tab-selected {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-decoration: underline;
   background-color: white;
-}
-
-.stats-tab-selected {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  text-decoration: underline;
-  background-color: white;
-  outline: none;
-}
-
-.stats-tab-selected:hover {
-  cursor: auto;
 }
 
 .stats-title {
   text-align: left;
 }
 
-/* .graph-statistics-container {
+ .graph-statistics-container {
   display: flex;
   margin: auto;
   width: 90%;
   justify-content: center;
-} */
+} 
 
-/* .statistics-list {
+ .statistics-list {
   list-style: none;
   padding-left: 15px;
-} */
+} 
 
 .right-aligned-list {
   list-style: none;
@@ -1609,4 +1591,15 @@ select {
 
 .degree-icon-container:hover {
   display: block;
+}
+
+.edge-container{
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.click-edge-container{
+  display: flex;
+  color:#ca545a;
 }

@@ -57,7 +57,7 @@ export function NetworkParserPath(data, source, go_term) {
         !parsedData.edgeList.includes(endNode + startNode)
       ) {
         let edgeEntry = {
-          data: { source: endNode, target: startNode },
+          data: { source: endNode, target: startNode, evidence: "evidenceTest"},
         };
         parsedData.edgeList.push(startNode + endNode);
         parsedData.edges.push(edgeEntry);
@@ -92,7 +92,7 @@ export function EdgeDataParser(networkData, edgeData) {
       edgeData[i]._fields[0].segments[0].relationship.type != "ProGo"
     ) {
       let edgeEntry = {
-        data: { source: endNode, target: startNode, type: "shared" },
+        data: { source: endNode, target: startNode, type: "shared", evidence: "evidenceTest"},
       };
       networkData.edgeList.push(startNode + endNode);
       networkData.edges.push(edgeEntry);
@@ -163,7 +163,7 @@ export function NetworkParserNode(data, source, k) {
         !parsedData.edgeList.includes(endNode + startNode)
       ) {
         let edgeEntry = {
-          data: { source: endNode, target: startNode },
+          data: { source: endNode, target: startNode, evidence: "evidenceTest"},
         };
         parsedData.edgeList.push(startNode + endNode);
         parsedData.edges.push(edgeEntry);
