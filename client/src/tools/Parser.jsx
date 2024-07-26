@@ -72,27 +72,23 @@ export function NetworkParserPath(data, source, go_term) {
 // tag::EdgeDataParser
 export function EdgeDataParser(networkData, edgeData) {
   //Iterate through al the edges in the induced subgraph
+  let tempEdgeList = [];
+  let tempEdges = [];
   for (let i = 0; i < edgeData.length; i++) {
     let startNode = edgeData[i]._fields[0].start.properties.id;
     let endNode = edgeData[i]._fields[0].end.properties.id;
-    //check for shared edges
-    console.log("looking at edge", startNode + endNode)
-    if (networkData.edgeList.includes(startNode + endNode)) {
-      console.log("found edge")
-    }
-    if (
-      !networkData.edgeList.includes(startNode + endNode) &&
-      !networkData.edgeList.includes(endNode + startNode) &&
-      edgeData[i]._fields[0].segments[0].relationship.type != "ProGo"
+    let relType = edgeData[i]._fields[0].segments[0].relationship.type
+    //Check for shared edges
+    //If the edge already exists in the network data, add the edge and its relationship type to the temp edge list
+    if (networkData.edgeList.includes(endNode + startNode) ||
+      networkData.edgeList.includes(startNode + endNode)
     ) {
       let edgeEntry = {
-        data: { source: endNode, target: startNode, type: "shared" },
-      };
-      networkData.edgeList.push(startNode + endNode);
-      networkData.edges.push(edgeEntry);
+        data: { source: endNode, target: startNode, relType: relType }
+      }
+      tempEdgeList.push(startNode + endNode);
+      tempEdges.push(edgeEntry);
     }
-    //If the edge is a Protein to GO term relationship,
-    //iterate through all the nodes in the nodeList and add the relationship information to the protein
     else if (edgeData[i]._fields[0].segments[0].relationship.type === "ProGo") {
       for (let k = 0; k < networkData.nodes.length; k++) {
         let currentNode = networkData.nodes[k];
@@ -104,7 +100,17 @@ export function EdgeDataParser(networkData, edgeData) {
         }
       }
     }
+    //If an edge is found that was not a part of the inital network data, add it to the temp edge list with the shared tag
+    else {
+      let edgeEntry = {
+        data: { source: endNode, target: startNode, type: "shared", relType: relType },
+      };
+      tempEdgeList.push(startNode + endNode);
+      tempEdges.push(edgeEntry);
+    }
   }
+  networkData.edgeList = tempEdgeList;
+  networkData.edges = tempEdges;
   return networkData;
 }
 export function NetworkParserNode(data, source, k) {

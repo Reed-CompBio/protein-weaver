@@ -207,9 +207,6 @@ export default function Query() {
     }
   }, [dataParsingStatus]);
 
-  useEffect(() => {
-    console.log("network results query", networkResult)
-  }, [networkResult]);
 
 
   // Function for submitting the query
@@ -259,7 +256,6 @@ export default function Query() {
           })
           .then((data) => {
             rawData = data;
-            setNetworkResult(NetworkParserPath(data, query.protein, query.goTerm));
             return NetworkParserPath(data, query.protein, query.goTerm);
           });
       } catch (error) {
@@ -294,7 +290,6 @@ export default function Query() {
           })
           .then((data) => {
             rawData = data;
-            setNetworkResult(NetworkParserNode(data, query.protein, query.k));
             return NetworkParserNode(data, query.protein, query.k);
           });
       } catch (error) {
@@ -331,12 +326,11 @@ export default function Query() {
             }
           })
           .then((edgeData) => {
-            console.log("edge data", edgeData)
             setNetworkResult(EdgeDataParser(network, edgeData));
             setRawData(rawData);
             setDataParsingStatus(true);
             setqQueryComplete(true);
-            return EdgeDataParser(network, edgeData);
+            return networkResult
           });
       } catch (error) {
         console.error("Error getting the network:", error);

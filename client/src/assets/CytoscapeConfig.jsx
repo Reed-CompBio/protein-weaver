@@ -61,7 +61,7 @@ export const cytoscapeStyle = [
     },
   },
   {
-    selector: "edge[tst='shared']",
+    selector: "edge[type='shared']",
     style: {
       width: 2,
       "line-color": "#ACA9A4",
@@ -69,7 +69,7 @@ export const cytoscapeStyle = [
     },
   },
   {
-    selector: "edge[type='Reg']",
+    selector: "edge[relType='Reg']",
     style: {
       width: 2,
       "line-color": "Red",
@@ -77,6 +77,16 @@ export const cytoscapeStyle = [
       'source-arrow-shape': 'triangle',
       'source-arrow-color': "red",
       "line-style": "dashed"
+    },
+  },
+  {
+    selector: "edge[type='shared'][relType='Reg']",
+    style: {
+      width: 2,
+      "line-color": "#994758",
+      "curve-style": "bezier",
+      'source-arrow-shape': 'triangle',
+      'source-arrow-color': "#994758",
     },
   },
   {
