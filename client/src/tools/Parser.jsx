@@ -77,9 +77,9 @@ export function EdgeDataParser(networkData, edgeData) {
   for (let i = 0; i < edgeData.length; i++) {
     let startNode = edgeData[i]._fields[0].start.properties.id;
     let endNode = edgeData[i]._fields[0].end.properties.id;
-    let relType = edgeData[i]._fields[0].segments[0].relationship.type
+    let relType = edgeData[i]._fields[0].segments[0].relationship.type;
     //Check for shared edges
-    //If the edge already exists in the network data, add the edge and its relationship type to the temp edge list
+    //If the edge already exists in the initial network data, add it to the temp edge list
     if (networkData.edgeList.includes(endNode + startNode) ||
       networkData.edgeList.includes(startNode + endNode)
     ) {
@@ -89,6 +89,7 @@ export function EdgeDataParser(networkData, edgeData) {
       tempEdgeList.push(startNode + endNode);
       tempEdges.push(edgeEntry);
     }
+    //If the edge type is ProGo, add the edges relationship properties to the network data
     else if (edgeData[i]._fields[0].segments[0].relationship.type === "ProGo") {
       for (let k = 0; k < networkData.nodes.length; k++) {
         let currentNode = networkData.nodes[k];

@@ -87,6 +87,7 @@ export const cytoscapeStyle = [
       "curve-style": "bezier",
       'source-arrow-shape': 'triangle',
       'source-arrow-color': "#994758",
+      // "width": 4
     },
   },
   {

@@ -142,7 +142,6 @@ router.post("/getProGoStats", jsonParser, async (req, res, next) => {
     const txid = data.txid;
     const PGS = new PGStats(getDriver());
     const edges = await PGS.ProGoStats(GoName, txid);
-    console.log("ProGo Edges: ", edges);
     res.json(edges);
 
   }
@@ -158,7 +157,6 @@ router.post("/Degree", jsonParser, async (req, res, next) => {
     const id = data.id.id;
     const DEG = new Degree(getDriver());
     const degrees = await DEG.getdegree(id);
-    console.log("Degrees: ", degrees);
     res.json(degrees);
   }
   catch (e) {
