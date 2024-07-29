@@ -36,7 +36,7 @@ export default function StaticSummary({
                 `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
             );
         }
-    }, [query.species]);
+    }, [sourceNode.id]);
 
     return (
         <div className="query-result-summary">

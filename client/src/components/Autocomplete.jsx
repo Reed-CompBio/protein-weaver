@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function Autocomplete(props) {
-    const { suggestions, inputName, inputValue, onInputChange, placeholder } =
+    const { className, suggestions, inputName, inputValue, onInputChange, placeholder, autocomplete } =
         props;
     const [active, setActive] = useState(0);
     const [filtered, setFiltered] = useState([]);
@@ -10,12 +10,17 @@ export default function Autocomplete(props) {
 
     // Change input value on input change
     const onChange = (e) => {
-        const inputText = e.currentTarget.value;
-        const newFilteredSuggestions = suggestions.filter((suggestion) =>
-            suggestion.toLowerCase().includes(inputText.toLowerCase())
-        );
+        const inputText = e.currentTarget.value.toLowerCase();
+        const newFilteredSuggestions = suggestions
+            .filter((suggestion) => suggestion.toLowerCase().includes(inputText))
+            .sort((a, b) => {
+                if (a.toLowerCase() === inputText) return -1;
+                if (b.toLowerCase() === inputText) return 1;
+                return 0;
+            });
+
         setActive(0);
-        setFiltered(newFilteredSuggestions);
+        setFiltered(newFilteredSuggestions.slice(0,25));
         setInput(inputText);
         onInputChange({ target: { name: inputName, value: inputText } });
     };
@@ -45,16 +50,7 @@ export default function Autocomplete(props) {
 
     // Change active suggestion on up/down arrow press
     const onKeyDown = (e) => {
-        if (e.keyCode === 13) {
-            // Enter key
-            setActive(0);
-            setFiltered([]);
-            setInput(filtered[active] || input);
-            setIsFocused(false); // Hide autocomplete on Enter key
-            onInputChange({
-                target: { name: inputName, value: filtered[active] || input },
-            });
-        } else if (e.keyCode === 38) {
+        if (e.keyCode === 38) {
             // Up arrow
             setActive(active > 0 ? active - 1 : 0);
         } else if (e.keyCode === 40) {
@@ -70,7 +66,7 @@ export default function Autocomplete(props) {
         if (isFocused && input) {
             if (filtered.length) {
                 return (
-                    <ul className="autocomplete">
+                    <ul className={autocomplete}>
                         {filtered.map((suggestion, index) => {
                             let className = index === active ? "active" : "";
                             return (
@@ -94,7 +90,7 @@ export default function Autocomplete(props) {
 
     // Otherwise, display inputs
     return (
-        <div className="autocomplete-input-container">
+        <div className={className}>
             <input
                 required
                 type="text"

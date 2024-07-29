@@ -1,7 +1,7 @@
 # Load the rvest package for web scraping
 library(rvest)
 library(tidyverse)
-setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/GeneOntology/")
+setwd("~/Desktop/GitHub_Repos/protein-weaver/data/GeneOntology/")
 
 # URL of the webpage to get the list of GO terms that should never be annotated
 url <- 'https://gowiki.tamu.edu/wiki/index.php/Category:GO:gocheck_do_not_manually_annotate'
@@ -25,7 +25,7 @@ write_delim(do_not_annotate, "go_neverAnnotate.txt")
 
 # Join the dataset as a new column
 do_not_annotate <- read_delim("go_neverAnnotate.txt")
-go_terms <- read_delim("go.txt")
+go_terms <- read_delim("go_2024-07-17.txt")
 
 go_terms <- left_join(go_terms, do_not_annotate)
 go_terms["annotated"][is.na(go_terms["annotated"])] <- TRUE
@@ -36,10 +36,10 @@ go_terms <- go_terms %>% mutate(never_annotate = case_when(
 ))
 
 # get the second set of do not annotate
-gocheck_do_not_annotate <- read_delim("gocheck_do_not_annotate.txt")
+gocheck_do_not_annotate <- read_delim("gocheck_do_not_annotate_2024-07-17.txt")
 gocheck_do_not_annotate <- gocheck_do_not_annotate %>% mutate(annotated = FALSE, never_annotate = "true")
-gocheck_do_not_annotate <- subset(gocheck_do_not_annotate, select = -c(subset, relationship, property_value))
+gocheck_do_not_annotate <- subset(gocheck_do_not_annotate, select = -c(subset, relationship, property_value, alt_id, comment, xref))
 
 go_terms <- rbind(go_terms, gocheck_do_not_annotate)
 
-write_tsv(go_terms, "go_2024-03-28.txt")
+write_tsv(go_terms, "go_2024-07-17.txt")

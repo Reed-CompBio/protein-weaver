@@ -15,6 +15,7 @@ This folder contains supplementary scripts to generate and clean the data used i
   - [`RemoveNotQualifier.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R): R script to remove NOT| qualifiers from GO Association data files.
   - [`SubColNames.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R): R script to replace column names from QuickGO data for easy Neo4j import.
   - [`ZebrafishDataMerging.Rmd`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ZebrafishDataMerging.Rmd): R Markdown for merging, filtering, and cleaning zebrafish data from STRING-DB & PSICQUIC.
+  - [`AutomaticDataImport.sh`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/AutomaticDataImport.sh): A bash script that automates the data import in a pre-existing `proteinweaver` Neo4j Docker instance. Each corresponding `.cypher` extension file will have to be updated when datasets are updated.
 
 - **`/data`**: Placeholder for any intermediate or processed data files.
   - [`DanioRerio/zfish_psicquic_results.xml`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/): Results from PSICQUIC database in XML format.

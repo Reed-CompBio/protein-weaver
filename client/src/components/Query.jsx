@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { saveAs } from "file-saver";
 import {
-  NetworkParserPath,
-  EdgeDataParser,
-  NetworkParserNode,
+    NetworkParserPath,
+    EdgeDataParser,
+    NetworkParserNode,
 } from "../tools/Parser";
 
 // cytoscape imports
@@ -26,7 +26,6 @@ import StatisticsTab from "./StatisticsTab";
 // panel imports
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { fetchAvgDegree, getBasicStatistics } from "../tools/Statistics";
-
 
 export default function Query() {
   const [query, setQuery] = useState({
@@ -76,111 +75,113 @@ export default function Query() {
   const [exState, setExState] = useState("")
   cytoscape.use(cola);
 
-  useEffect(() => {
-    if (searchParams.get("species") === "") {
-      setQuery({
-        mode: "path",
-        species: "txid7227",
-        protein: searchParams.get("protein"),
-        goTerm: searchParams.get("goTerm"),
-        k: searchParams.get("k"),
-      });
-      setActiveModeButton("path");
-    } else {
-      setQuery({
-        mode: "path",
-        species: searchParams.get("species"),
-        protein: searchParams.get("protein"),
-        goTerm: searchParams.get("goTerm"),
-        k: searchParams.get("k"),
-      });
-      setActiveModeButton("path");
-    }
-  }, []);
+    useEffect(() => {
+        if (searchParams.get("species") === "") {
+            setQuery({
+                mode: "path",
+                species: "txid7227",
+                protein: searchParams.get("protein"),
+                goTerm: searchParams.get("goTerm"),
+                k: searchParams.get("k"),
+            });
+            setActiveModeButton("path");
+        } else {
+            setQuery({
+                mode: "path",
+                species: searchParams.get("species"),
+                protein: searchParams.get("protein"),
+                goTerm: searchParams.get("goTerm"),
+                k: searchParams.get("k"),
+            });
+            setActiveModeButton("path");
+        }
+    }, []);
 
-  // Get the search params from the URL
-  useEffect(() => {
-    if (
-      searchParams.get("mode") != "" &&
-      searchParams.get("species") != "" &&
-      searchParams.get("protein") != "" &&
-      searchParams.get("goTerm") != "" &&
-      searchParams.get("k") != ""
-    ) {
-      setQuery({
-        mode: searchParams.get("mode"),
-        species: searchParams.get("species"),
-        protein: searchParams.get("protein"),
-        goTerm: searchParams.get("goTerm"),
-        k: searchParams.get("k"),
-      });
-      setActiveModeButton(searchParams.get("mode"));
-    }
-  }, []);
+    // Get the search params from the URL
+    useEffect(() => {
+        if (
+            searchParams.get("mode") != "" &&
+            searchParams.get("species") != "" &&
+            searchParams.get("protein") != "" &&
+            searchParams.get("goTerm") != "" &&
+            searchParams.get("k") != ""
+        ) {
+            setQuery({
+                mode: searchParams.get("mode"),
+                species: searchParams.get("species"),
+                protein: searchParams.get("protein"),
+                goTerm: searchParams.get("goTerm"),
+                k: searchParams.get("k"),
+            });
+            setActiveModeButton(searchParams.get("mode"));
+        }
+    }, []);
 
-  // Open user guide
-  useEffect(() => {
-    if (startGuide != 0) {
-      submitRef.current.click();
-    }
-  }, [startGuide]);
+    // Open user guide
+    useEffect(() => {
+        if (startGuide != 0) {
+            submitRef.current.click();
+        }
+    }, [startGuide]);
 
-  // Get autocomplete options for Proteins
-  useEffect(() => {
-    fetch("/api/getProteinOptions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // You can add any other headers if needed
-      },
-      body: JSON.stringify(query),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const proteinNames = data.map((item) => item.name);
-        const proteinIds = data.map((item) => item.id);
-        const proteinAltNames = data.map((item) => item.alt_name);
-        const proteinMerged = [
-          ...new Set(proteinNames.concat(proteinIds).concat(proteinAltNames)),
-        ].filter((item) => item !== undefined);
-        setProteinOptions(proteinMerged);
-      })
-      .catch((error) => {
-        console.error("Error fetching protein options:", error);
-      });
-  }, [query.species]);
+    // Get autocomplete options for Proteins
+    useEffect(() => {
+        fetch("/api/getProteinOptions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                // You can add any other headers if needed
+            },
+            body: JSON.stringify(query),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                const proteinNames = data.map((item) => item.name);
+                const proteinIds = data.map((item) => item.id);
+                const proteinAltNames = data.map((item) => item.alt_name);
+                const proteinMerged = [
+                    ...new Set(
+                        proteinNames.concat(proteinIds).concat(proteinAltNames)
+                    ),
+                ].filter((item) => item !== undefined);
+                setProteinOptions(proteinMerged);
+            })
+            .catch((error) => {
+                console.error("Error fetching protein options:", error);
+            });
+    }, [query.species]);
 
-  // Get autocomplete options for GO Terms
-  useEffect(() => {
-    fetch("/api/getGoTermOptions")
-      .then((res) => res.json())
-      .then((data) => {
-        const goTermNames = data.map((item) => item.name);
-        const goTermIds = data.map((item) => item.id);
-        const goTermMerged = [...new Set(goTermNames.concat(goTermIds))].filter(
-          (item) => item !== undefined
-        );
-        setGoTermOptions(goTermMerged);
-      })
-      .catch((error) => {
-        console.error("Error fetching GO term options:", error);
-      });
-  }, []);
+    // Get autocomplete options for GO Terms
+    useEffect(() => {
+        fetch("/api/getGoTermOptions")
+            .then((res) => res.json())
+            .then((data) => {
+                const goTermNames = data.map((item) => item.name);
+                const goTermIds = data.map((item) => item.id);
+                const goTermMerged = [
+                    ...new Set(goTermNames.concat(goTermIds)),
+                ].filter((item) => item !== undefined);
+                setGoTermOptions(goTermMerged);
+            })
+            .catch((error) => {
+                console.error("Error fetching GO term options:", error);
+            });
+    }, []);
 
-  // Show results if done loading
-  useEffect(() => {
-    if (dataParsingStatus) {
-      setIsLoading(false);
-    }
-  }, [dataParsingStatus]);
+    // Show results if done loading
+    useEffect(() => {
+        if (dataParsingStatus) {
+            setIsLoading(false);
+        }
+    }, [dataParsingStatus]);
 
-  // need to rerun the graph layout whenever we have a new network result.
-  useEffect(() => {
-    if (pageState == 1) {
-      const cy = cyRef.current;
-      cy.layout(layout).run();
-    }
-  }, [networkResult]);
+    // need to rerun the graph layout whenever we have a new network result.
+    useEffect(() => {
+        if (pageState == 1) {
+            const cy = cyRef.current;
+            cy.layout(layout).run();
+        }
+    }, [networkResult]);
 
   //Once the network parsing has completed, get all the stats information of the subnetwork.
   useEffect(() => {
@@ -209,16 +210,16 @@ export default function Query() {
 
 
 
-  // Function for submitting the query
-  async function handleSubmit(e) {
-    setqQueryComplete(false);
-    setSidebarNode(null);
-    setNetworkResult({});
-    setHasError(false);
-    setQueryCount(queryCount + 1);
-    setIsLoading(true);
-    setDataParsingStatus(false);
-    setErrorMessage("");
+    // Function for submitting the query
+    async function handleSubmit(e) {
+        setqQueryComplete(false);
+        setSidebarNode(null);
+        setNetworkResult({});
+        setHasError(false);
+        setQueryCount(queryCount + 1);
+        setIsLoading(true);
+        setDataParsingStatus(false);
+        setErrorMessage("");
 
     setSearchParams({
       mode: query.mode,
@@ -377,160 +378,159 @@ export default function Query() {
   }, [queryComplete])
 
 
-  // Get descendants for queried GO term
-  useEffect(() => {
-    if (networkResult.goTerm != null) {
-      const requestBody = Object.assign(networkResult, {
-        species: query.species,
-      });
-      fetch("/api/getDescendants", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          const childNames = data
-            .map((item) => item.name)
-            .filter((item) => item !== undefined);
-          setDescendantsOptions(childNames);
-        })
-        .catch((error) => {
-          console.error("Error fetching GO term descendants:", error);
-        });
-    }
-  }, [networkResult.goTerm]);
+    // Get descendants for queried GO term
+    useEffect(() => {
+        if (networkResult.goTerm != null) {
+            const requestBody = Object.assign(networkResult, {
+                species: query.species,
+            });
+            fetch("/api/getDescendants", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    const childNames = data
+                        .map((item) => item.name)
+                        .filter((item) => item !== undefined);
+                    setDescendantsOptions(childNames);
+                })
+                .catch((error) => {
+                    console.error("Error fetching GO term descendants:", error);
+                });
+        }
+    }, [networkResult.goTerm]);
 
-  // Get ancestors for queried GO term
-  useEffect(() => {
-    if (networkResult.goTerm != null) {
-      const requestBody = Object.assign(networkResult, {
-        species: query.species,
-      });
-      fetch("/api/getAncestors", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          const ancestorNames = data
-            .map((item) => item.name)
-            .filter((item) => item !== undefined);
-          setAncestorsOptions(ancestorNames);
-        })
-        .catch((error) => {
-          console.error("Error fetching GO term ancestors:", error);
-        });
-    }
-  }, [networkResult.goTerm]);
+    // Get ancestors for queried GO term
+    useEffect(() => {
+        if (networkResult.goTerm != null) {
+            const requestBody = Object.assign(networkResult, {
+                species: query.species,
+            });
+            fetch("/api/getAncestors", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    const ancestorNames = data
+                        .map((item) => item.name)
+                        .filter((item) => item !== undefined);
+                    setAncestorsOptions(ancestorNames);
+                })
+                .catch((error) => {
+                    console.error("Error fetching GO term ancestors:", error);
+                });
+        }
+    }, [networkResult.goTerm]);
 
-  // Hide/Show induced subgraph edges
-  const handleSharedEdgesToggle = (e) => {
-    setShowSharedEdges(!showSharedEdges);
+    // Hide/Show induced subgraph edges
+    const handleSharedEdgesToggle = (e) => {
+        setShowSharedEdges(!showSharedEdges);
 
-    const cy = cyRef.current;
-    if (cy) {
-      if (showSharedEdges) {
-        cy.style()
-          .selector("edge[type='shared']")
-          .style({
-            visibility: "hidden",
-          })
-          .update();
-      } else {
-        cy.style()
-          .selector("edge[type='shared']")
-          .style({
-            visibility: "visible",
-          })
-          .update();
-      }
-    }
-  };
-
-  // Allow users to change layout
-  const handleLayoutChange = (layoutInput, e) => {
-    const randomLayout = {
-      name: "random",
-      padding: 30,
-      fit: true,
+        const cy = cyRef.current;
+        if (cy) {
+            if (showSharedEdges) {
+                cy.style()
+                    .selector("edge[type='shared']")
+                    .style({
+                        visibility: "hidden",
+                    })
+                    .update();
+            } else {
+                cy.style()
+                    .selector("edge[type='shared']")
+                    .style({
+                        visibility: "visible",
+                    })
+                    .update();
+            }
+        }
     };
 
-    const gridLayout = {
-      name: "grid",
-      padding: 30,
-      fit: true,
-      avoidOverlap: true,
-      avoidOverlapPadding: 10,
+    // Allow users to change layout
+    const handleLayoutChange = (layoutInput, e) => {
+        const randomLayout = {
+            name: "random",
+            padding: 30,
+            fit: true,
+        };
+
+        const gridLayout = {
+            name: "grid",
+            padding: 30,
+            fit: true,
+            avoidOverlap: true,
+            avoidOverlapPadding: 10,
+        };
+
+        const cy = cyRef.current;
+        if (cy) {
+            if (layoutInput === "cola") {
+                cy.layout(layout).run();
+            }
+            if (layoutInput === "random") {
+                cy.layout(randomLayout).run();
+            }
+            if (layoutInput === "grid") {
+                cy.layout(gridLayout).run();
+            }
+        }
     };
 
-    const cy = cyRef.current;
-    if (cy) {
-      if (layoutInput === "cola") {
-        cy.layout(layout).run();
-      }
-      if (layoutInput === "random") {
-        cy.layout(randomLayout).run();
-      }
-      if (layoutInput === "grid") {
-        cy.layout(gridLayout).run();
-      }
-    }
-  };
+    // Allow users to change protein/GO term input
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setQuery((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
 
-  // Allow users to change protein/GO term input
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setQuery((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+    // Allow users to change species value
+    const handleSpeciesChange = (e) => {
+        setQuery((prevData) => ({
+            ...prevData,
+            species: e.target.value,
+        }));
+    };
 
-  // Allow users to change species value
-  const handleSpeciesChange = (e) => {
-    setQuery((prevData) => ({
-      ...prevData,
-      species: e.target.value,
-    }));
-  };
+    // Store GO term value temporarily for new GO term selection when moving through hierarchy
+    const storeGoTermValue = (e) => {
+        setTempGoTermValue(e.target.value);
+    };
 
-  // Store GO term value temporarily for new GO term selection when moving through hierarchy
-  const storeGoTermValue = (e) => {
-    setTempGoTermValue(e.target.value);
-  };
+    // Change GO term value when traversing hierarchy
+    const handleGoTermChange = (e) => {
+        setQuery((prevData) => ({
+            ...prevData,
+            goTerm: tempGoTermValue,
+        }));
+    };
 
-  // Change GO term value when traversing hierarchy
-  const handleGoTermChange = (e) => {
-    setQuery((prevData) => ({
-      ...prevData,
-      goTerm: tempGoTermValue,
-    }));
-  };
+    // Change protein value to the user selected protein
+    const handleSourceNode = (e) => {
+        const newSource = e.target.getAttribute("new-source-node");
 
-  // Change protein value to the user selected protein
-  // MAY NEED TO UPDATE THIS FUNCTION IF IT STILL DOESN'T WORK
-  const handleSourceNode = (e) => {
-    const newSource = e.target.getAttribute("new-source-node");
+        if (newSource) {
+            setQuery((prevData) => ({
+                ...prevData,
+                protein: newSource,
+            }));
+        }
+    };
 
-    if (newSource) {
-      setQuery((prevData) => ({
-        ...prevData,
-        protein: newSource,
-      }));
-    }
-  };
-
-  // Get current node data for summary panel
-  const getSidePanelData = (node) => {
-    let currentNode = node.target.data();
-    setSidebarNode(currentNode);
-  };
+    // Get current node data for summary panel
+    const getSidePanelData = (node) => {
+        let currentNode = node.target.data();
+        setSidebarNode(currentNode);
+    };
 
   // Set example queries in SearchBar
   const getExample = (i) => {
@@ -653,37 +653,41 @@ export default function Query() {
   }, [query.species])
 
 
-  // Allow users to export network as PNG
-  const exportPNG = () => {
-    const cy = cyRef.current;
-    if (cy) {
-      const pngBlob = cy.png({ output: "base64uri", full: true, bg: "white" });
-      saveAs(pngBlob, "graph.png");
-    }
-  };
+    // Allow users to export network as PNG
+    const exportPNG = () => {
+        const cy = cyRef.current;
+        if (cy) {
+            const pngBlob = cy.png({
+                output: "base64uri",
+                full: true,
+                bg: "white",
+            });
+            saveAs(pngBlob, "graph.png");
+        }
+    };
 
-  // Track user interaction with the graph/queries
-  const handleLog = (entry) => {
-    setLogs((logs) => [...logs, entry]);
-  };
+    // Track user interaction with the graph/queries
+    const handleLog = (entry) => {
+        setLogs((logs) => [...logs, entry]);
+    };
 
-  // Show/hide guide
-  const handleGuide = (e) => {
-    e.preventDefault();
-    getExample(1);
-    setStartGuide(startGuide + 1);
-    setGuide({ run: true, steps: guide.steps });
-  };
+    // Show/hide guide
+    const handleGuide = (e) => {
+        e.preventDefault();
+        getExample(1);
+        setStartGuide(startGuide + 1);
+        setGuide({ run: true, steps: guide.steps });
+    };
 
-  // Hide guide when finished
-  const handleJoyrideCallback = (data) => {
-    const { status } = data;
-    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
+    // Hide guide when finished
+    const handleJoyrideCallback = (data) => {
+        const { status } = data;
+        const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
 
-    if (finishedStatuses.includes(status)) {
-      setGuide({ run: false, steps: guide.steps });
-    }
-  };
+        if (finishedStatuses.includes(status)) {
+            setGuide({ run: false, steps: guide.steps });
+        }
+    };
 
   // Allow users to change query mode
   const handleQueryMode = (e) => {
@@ -754,11 +758,11 @@ export default function Query() {
             exState={exState}
           />
 
-          {hasError && <QueryError errorMessage={errorMessage} />}
+                    {hasError && <QueryError errorMessage={errorMessage} />}
 
-          {isLoading && <div className="loader"></div>}
-        </div>
-      )}
+                    {isLoading && <div className="loader"></div>}
+                </div>
+            )}
 
       {pageState == 1 && (
         <div>
@@ -794,7 +798,7 @@ export default function Query() {
               exState={exState}
             />
 
-            {hasError && <QueryError errorMessage={errorMessage} />}
+                        {hasError && <QueryError errorMessage={errorMessage} />}
 
             {isLoading && <div className="loader"></div>}
           </div>

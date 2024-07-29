@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 
 export default function DescendantSelector({
     childrenGoTerms,
-    storeGoTermValue
+    storeGoTermValue,
+    handleInputChangeDescendant,
+    inputValueDescendant,
 }) {
     const [isEmpty, setIsEmpty] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
@@ -20,7 +22,7 @@ export default function DescendantSelector({
         } else {
             setIsEmpty(false);
             // Iterate through the array and create options
-            array.forEach(optionText => {
+            array.forEach((optionText) => {
                 const option = document.createElement("option");
                 option.value = optionText;
                 datalist.appendChild(option);
@@ -33,6 +35,12 @@ export default function DescendantSelector({
         populateDatalistWithOptions(childrenGoTerms);
     }, [childrenGoTerms]);
 
+    const onChange = (e) => {
+        const inputText = e.currentTarget.value;
+        handleInputChangeDescendant(inputText);
+        storeGoTermValue(e);
+    };
+
     return (
         <div className="descendant-input">
             <div className="hierarchy-input-container">
@@ -44,7 +52,11 @@ export default function DescendantSelector({
                         onMouseLeave={() => setShowTooltip(false)}
                     >
                         <FaInfoCircle className="info-icon" />
-                        {showTooltip && <div className="hierarchy-warning">You have reached the most specific GO term.</div>}
+                        {showTooltip && (
+                            <div className="hierarchy-warning">
+                                You have reached the most specific GO term.
+                            </div>
+                        )}
                     </div>
                 )}
                 {/* normal input display */}
@@ -52,11 +64,12 @@ export default function DescendantSelector({
                     list="child-go-terms"
                     id="descendant-selector"
                     name="descendant-selector"
-                    onChange={storeGoTermValue}
-                    placeholder='Child GO Terms'
+                    onChange={onChange}
+                    placeholder="Child GO Terms"
+                    value={inputValueDescendant}
                 />
             </div>
             <datalist id="child-go-terms"></datalist>
         </div>
-    )
+    );
 }
