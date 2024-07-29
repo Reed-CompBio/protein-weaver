@@ -1627,5 +1627,16 @@ select {
 }
 
 .degree-icon-container:hover {
-    display: block;
+  display: block;
+}
+
+.edge-container{
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.click-edge-container{
+  display: flex;
+  color:#ca545a;
 }
