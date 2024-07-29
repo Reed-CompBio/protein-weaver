@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define paths that match your personal environment
-CLIENT=$HOME/Desktop/GitHub_Repos/bio-net-viz/client
-SERVER=$HOME/Desktop/GitHub_Repos/bio-net-viz/server
+CLIENT=$HOME/Desktop/GitHub_Repos/protein-weaver/client
+SERVER=$HOME/Desktop/GitHub_Repos/protein-weaver/server
 
 # Check if the Docker container already exists
 if [ "$(docker ps -aq -f name=proteinweaver)" ]; then
