@@ -39,6 +39,9 @@ export default function Query() {
     const cyRef = useRef(cytoscape.Core | undefined);
     const [sidebarNode, setSidebarNode] = useState("");
     const [sourceNode, setSourceNode] = useState("");
+    const [selectedNode, setSelectedNode] = useState("");
+    const [predictionValue, setPredictionValue] = useState("");
+    const [predictionDict, setPredictionDict] = useState(null);
     const [goTerm, setGoTerm] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
@@ -70,7 +73,7 @@ export default function Query() {
         pathCount: null,
         avgNodeDegree: null,
     });
-    const [queryComplete, setqQueryComplete] = useState(false);
+    const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
     cytoscape.use(cola);
 
@@ -211,7 +214,7 @@ export default function Query() {
 
     // Function for submitting the query
     async function handleSubmit(e) {
-        setqQueryComplete(false);
+        setQueryComplete(false);
         setSidebarNode(null);
         setNetworkResult({});
         setHasError(false);
@@ -219,6 +222,7 @@ export default function Query() {
         setIsLoading(true);
         setDataParsingStatus(false);
         setErrorMessage("");
+        setPredictionValue({ value: "Loading", rank: "Loading" });
 
         // get the k shortest paths for the query
         e.preventDefault();
@@ -332,7 +336,7 @@ export default function Query() {
                         setNetworkResult(EdgeDataParser(network, edgeData));
                         setRawData(rawData);
                         setDataParsingStatus(true);
-                        setqQueryComplete(true);
+                        setQueryComplete(true);
                         return EdgeDataParser(network, edgeData);
                     });
             } catch (error) {
@@ -355,6 +359,29 @@ export default function Query() {
         setIsLoading(false);
         setPageState(1);
     }
+
+    // when we have successfully queried something, we want to get the predicted values for all nodes in the network
+    useEffect(() => {
+        if (Object.keys(networkResult).length !== 0) {
+            //getting prediction values for all nodes
+            fetch("api/getPageRank", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    protein: selectedNode.id,
+                    goTerm: searchParams.get("goTerm"),
+                    species: searchParams.get("species"),
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setPredictionDict(data.prediction_dict);
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+    }, [networkResult]);
 
     //Scale node sizes to their degree
     useEffect(() => {
@@ -510,10 +537,13 @@ export default function Query() {
 
     // Allow users to change species value
     const handleSpeciesChange = (e) => {
-        setQuery((prevData) => ({
-            ...prevData,
+        setQuery({
+            mode: query.mode,
+            protein: "",
+            goTerm: "",
+            k: [],
             species: e.target.value,
-        }));
+        });
     };
 
     // Store GO term value temporarily for new GO term selection when moving through hierarchy
@@ -695,28 +725,30 @@ export default function Query() {
                 mode: "path",
             }));
             setActiveModeButton("path");
-            setSearchParams({
-                mode: "path",
-                species: query.species,
-                protein: query.protein,
-                goTerm: query.goTerm,
-                k: query.k,
-            });
         } else {
             setQuery((prevState) => ({
                 ...prevState,
                 mode: "node",
             }));
             setActiveModeButton("node");
-            setSearchParams({
-                mode: "node",
-                species: query.species,
-                protein: query.protein,
-                goTerm: query.goTerm,
-                k: query.k,
-            });
         }
     };
+
+    // when a user selects a node or if the prediction dict changes, set the the currently selected prediction values
+    useEffect(() => {
+        if (
+            selectedNode.id != null &&
+            predictionDict != null &&
+            selectedNode.id in predictionDict &&
+            predictionDict[selectedNode.id].value != undefined &&
+            predictionDict[selectedNode.id].rank != undefined
+        ) {
+            setPredictionValue({
+                value: predictionDict[selectedNode.id].value,
+                rank: predictionDict[selectedNode.id].rank,
+            });
+        }
+    }, [selectedNode, predictionDict]);
 
     return (
         <div>
@@ -829,6 +861,11 @@ export default function Query() {
                                                             getSidePanelData(
                                                                 evt
                                                             );
+                                                            setSelectedNode(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                            );
                                                         }
                                                     );
                                                 }}
@@ -897,6 +934,9 @@ export default function Query() {
                                                 sourceNode={sourceNode}
                                                 query={query}
                                                 goTerm={goTerm}
+                                                predictionValue={
+                                                    predictionValue
+                                                }
                                             />
                                         </div>
                                     </Panel>
