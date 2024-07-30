@@ -136,11 +136,11 @@ export default function StatisticsTab({ networkStatistics, edgeEvidence, edgeSou
         <TabPanel>
           <h4 className="stats-title" >Edges stats</h4>
           <div className= "edge-container">
-            <div className= "click-edge-container">
+            {/* <div className= "click-edge-container">
             <h4>
               <div>Selected edge: {edgeEvidence}</div>
             </h4>
-            </div>
+            </div> */}
               <div>Source node: {edgeSource}</div>
               <div>Target edge: {edgeTarget}</div>
             </div>
