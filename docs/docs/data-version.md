@@ -29,6 +29,9 @@ This section of the documentation outlines the data sources, processing steps an
 * Removed qualifiers with "NOT" preceding them using [`scripts/RemoveNotQualifier.R](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R)
 * Reduced inferred ProGo edges to 413,704.
 
+### 2024-07-30:
+* Added PubMed identifiers as a property to ProPro edges.
+
 ### Current _D. melanogaster_ Network [Updated 2024-07-17]
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
@@ -79,6 +82,9 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ### 2024-06-24:
 * Remove "self-edges" from PPI data.
 
+### 2024-07-30:
+* [`interactome_txid224308_2024-07-30.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/interactome_txid224308_2024-07-30.txt): Added "link" and "source" properties to edges to link to STRING-DB entries for ProPro interactions.
+
 ### Current _B. subtilis_ Network [Updated 2024-07-17]
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
@@ -126,6 +132,9 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ### 2024-06-24:
 * Remove trailing whitespaces from some names according to `ZebrafishDataMerging.Rmd`.
 * Remove "self-edges" from PPI data.
+
+### 2024-07-30:
+* [`interactome_txid7955_2024-07-30.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/interactome_txid7955_2024-07-30.txt): Added "link" and "source" properties to edges to link to STRING-DB or PubMed entries (if available) for ProPro interactions.
 
 ### Current _D. rerio_ Network [Updated 2024-07-17]
 ```
@@ -234,3 +243,9 @@ Looked up species name and got taxon ID.
     * Removed 5,619 ProGo edges in _D. rerio_.
     * Removed 2,140 GoGo edges.
     * Removed 41,883 edges total.
+
+### 2024-07-30:
+* Added properties to ProPro edges that provide more information about the protein-protein interaction.
+    * _D. melanogaster_: added PubMed IDs.
+    * _B. subtilis_: added links to STRING-DB entries.
+    * _D. rerio_: added PubMed IDs to those available and STRING-DB links to those not.

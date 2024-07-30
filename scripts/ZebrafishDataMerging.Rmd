@@ -1,5 +1,5 @@
 ---
-title: "Zebrafish Data Processing and Mergin"
+title: "Zebrafish Data Processing and Merging"
 author: "Oliver F. Anderson"
 date: "2023-10-27"
 output: html_document
@@ -8,7 +8,6 @@ output: html_document
 **Zebrafish Data Merging and Wrangling Documentation**
 Initialize the work environment.
 ```{r}
-setwd('~/Desktop/neo4j-test/zfish_data/')
 library(tidyverse)
 ```
 
@@ -46,7 +45,7 @@ psicquic_interactorsIDs <- psicquic_interactors %>% select(ID, uniprotId)
 # get interaction data from PsicQuic
 psicquic_interactions <- read_csv("interactions.csv")
 # change names to more readable ones
-colnames(psicquic_interactions) <- c("ID", "InteractorRef1", "InteractorRef2")
+colnames(psicquic_interactions) <- c("ID", "Type", "Experiment", "InteractorRef1", "InteractorRef2")
 
 # first join the IDs for Ref1
 psicquic_interactome <- left_join(psicquic_interactions, psicquic_interactorsIDs, by = c("InteractorRef1" = "ID"), relationship="many-to-many")
@@ -54,25 +53,37 @@ psicquic_interactome <- left_join(psicquic_interactions, psicquic_interactorsIDs
 # then join the IDs for Ref2
 psicquic_interactome <- left_join(psicquic_interactome, psicquic_interactorsIDs, by = c("InteractorRef2" = "ID"), relationship="many-to-many")
 
-colnames(psicquic_interactome) <- c("interactionID", "InteractorRef1", "InteractorRef2", 'uniprotID1', "uniprotID2")
+colnames(psicquic_interactome) <- c("interactionID", "Type", "Experiment", "InteractorRef1", "InteractorRef2", 'uniprotID1', "uniprotID2")
 
 # extract only the necessary information
 psicquic_interactome <- 
   psicquic_interactome %>% 
-  select(uniprotID1, uniprotID2) %>%
+  select(Experiment, uniprotID1, uniprotID2) %>%
   mutate(source = "psicquic")
+
+# import the information about the experiments
+psicquic_experiments <- read_csv("experiments.csv")
+colnames(psicquic_experiments) <- c("ID", "Author", "Database", "link")
+
+# merge datasets together
+psicquic_interactome <- left_join(psicquic_interactome, psicquic_experiments, by = c("Experiment" = "ID"), relationship="many-to-many")
+
+psicquic_interactome <- psicquic_interactome %>%
+  group_by(uniprotID1, uniprotID2, source) %>%
+  slice_min(order_by = link, with_ties = FALSE) %>%
+  ungroup()
 ```
 
 Save the PsicQuic data to a separate file
 ```{r}
-write_csv(psicquic_interactome, "./zfish_psicquic_results.csv")
+write_csv(psicquic_interactome, "./zfish_psicquic_results_2024-07-30.csv")
 ```
 
 
 The next step is to process the data from String-DB.
 ```{r}
 # read the file in
-string_db_interactome <- read_delim("stringdb-zfish-interactome.txt", delim = " ")
+string_db_interactome <- read_delim("7955.protein.physical.links.full.v12.0.txt", delim = " ")
 
 # get only the data from String-DB that has experimental evidence
 string_db_interactome <- string_db_interactome %>% filter(experiments > 0)
@@ -94,17 +105,21 @@ string_db_interactome <- left_join(string_db_interactome, string_db_names, by = 
 string_db_interactome <- left_join(string_db_interactome, string_db_names, by = c("protein2" = "string_protein_id"), relationship = "many-to-many")
 
 # rename the columns to prepare to merge datasets
-colnames(string_db_interactome) <- c("protein1", "protein2", "uniprotID1", "uniprotID2")
+colnames(string_db_interactome) <- c("stringdbID1", "stringdbID2", "uniprotID1", "uniprotID2")
+
+# merge both columns to help with string db URL
+string_db_interactome$link <- paste(string_db_interactome$stringdbID1, string_db_interactome$stringdbID2, sep = "/")
 
 # extract only the relevant information
 string_db_interactome <- 
-  string_db_interactome %>%
-  select(uniprotID1, uniprotID2) %>%
+  string_db_interactome %>% select("uniprotID1", "uniprotID2", "link") %>% 
   mutate(source = "string-db")
 ```
 
 Now, merge the PsicQuic and String-DB interactomes together.
 ```{r}
+psicquic_interactome <- psicquic_interactome %>% select(uniprotID1, uniprotID2, link, source)
+
 zfish_interactome <- rbind(string_db_interactome, psicquic_interactome)
 ```
 
@@ -113,7 +128,7 @@ write_tsv(zfish_interactome, "./temp_zfish_interactome.txt")
 ```
 
 ```{r}
-common_names <- read_tsv("zebrafish_uniprot_mapper.tsv")
+common_names <- read_tsv("zfish_id_mapper.tsv")
 
 common_names <- common_names %>% select(Entry, `Protein names`)
 
@@ -121,7 +136,7 @@ zfish_interactome <- inner_join(zfish_interactome, common_names, by = c("uniprot
 
 zfish_interactome <- inner_join(zfish_interactome, common_names, by = c("uniprotID2" = "Entry"))
 
-colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "source","alt_name1", "alt_name2")
+colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "link",  "source","alt_name1", "alt_name2")
 
 deleted_interactions <- zfish_interactome %>% filter(alt_name1 == "deleted") %>% filter(alt_name2 == "deleted")
 
@@ -133,7 +148,7 @@ zfish_interactome <- zfish_interactome %>% mutate(name1 = str_extract(alt_name1,
 
 
 ```{r}
-write_tsv(zfish_interactome, "./zfish_interactome.txt")
+write_tsv(zfish_interactome, "./interactome_txid7955_2024-07-30.txt")
 ```
 
 ```{r}

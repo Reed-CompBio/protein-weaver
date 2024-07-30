@@ -6,6 +6,13 @@ LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-06-06.txt' AS bs
         MERGE (b:protein {id: bsub.protein_2_locus, name: bsub.protein_2_name, alt_name: bsub.protein_2_alt_name, txid: "txid224308", species: "Bacillus subtilis 168"})
         MERGE (a)-[r:ProPro]-(b)
         } IN TRANSACTIONS OF 100 ROWS;
+LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-07-30.txt' AS bsub
+        FIELDTERMINATOR '\t'
+        CALL {
+            with bsub
+            MATCH (p:protein {id: bsub.protein_1_locus})-[r:ProPro]-(p2:protein {id: bsub.protein_2_locus})
+            SET r.link = bsub.link, r.source = bsub.source
+        } IN TRANSACTIONS OF 1000 ROWS;
 LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
         CALL {
             with bsubgo
@@ -34,3 +41,11 @@ LOAD CSV WITH HEADERS FROM 'file:///annotations_txid224308_2024-06-03.txt' AS bs
             MATCH (p:protein {id: bsubgo.BSU_ID, txid: "txid224308"})-[r:ProGo]-(g:go_term {id: bsubgo.GO_TERM})
             SET r.relationship = bsubgo.QUALIFIER
         } IN TRANSACTIONS OF 1000 ROWS;
+LOAD CSV WITH HEADERS FROM 'file:///bsub-reg-2024-05-14.csv' AS bsub
+		CALL {
+			with bsub
+			MERGE (a:protein {id: bsub.regulator_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
+			MERGE (b:protein {id: bsub.gene_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
+			MERGE (a)-[r:Reg]->(b)
+			SET r.relationship = bsub.mode
+		} IN TRANSACTIONS OF 100 ROWS;

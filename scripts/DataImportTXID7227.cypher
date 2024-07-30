@@ -7,6 +7,13 @@ LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' 
             MERGE (a)-[r:ProPro]-(b)
         } IN TRANSACTIONS OF 100 ROWS;
 MATCH (n:protein {txid: "txid7227"}) SET n.alt_name = n.name;
+LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
+        FIELDTERMINATOR '\t'
+        CALL {
+            with fly
+            MATCH (p:protein {id: fly.FlyBase1})-[r:ProPro]-(p2:protein {id: fly.FlyBase2})
+            SET r.pubmed = fly.PubMedIDs
+        } IN TRANSACTIONS OF 1000 ROWS;
 LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
         FIELDTERMINATOR '\t'
         CALL {

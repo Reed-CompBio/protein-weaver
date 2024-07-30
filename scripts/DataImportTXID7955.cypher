@@ -6,6 +6,13 @@ LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-06-24.txt' AS zfis
             MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, alt_name: zfish.alt_name2, txid: "txid7955", species: "Danio rerio"})
             MERGE (a)-[r:ProPro]-(b)
         } IN TRANSACTIONS OF 100 ROWS;
+LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-07-30.txt' AS zfish
+        FIELDTERMINATOR '\t'
+        CALL {
+            with zfish
+            MATCH (p:protein {id: zfish.uniprotID1})-[r:ProPro]-(p2:protein {id: zfish.uniprotID2})
+            SET r.link = zfish.link, r.source = zfish.source
+        } IN TRANSACTIONS OF 1000 ROWS;
 LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
         FIELDTERMINATOR '\t'
         CALL {
