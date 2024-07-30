@@ -10,9 +10,9 @@ LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-07-30.txt' AS bs
         FIELDTERMINATOR '\t'
         CALL {
             with bsub
-            MATCH (p:protein {id: bsub.protein_1_locus})-[r:ProPro]-(p2:protein {id: bsub.protein_2_locus})
+            MATCH (p:protein {id: bsub.protein_1_locus, txid: "txid224308"})-[r:ProPro]-(p2:protein {id: bsub.protein_2_locus, txid: "txid224308"})
             SET r.link = bsub.link, r.source = bsub.source
-        } IN TRANSACTIONS OF 1000 ROWS;
+        } IN TRANSACTIONS OF 100 ROWS;
 LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
         CALL {
             with bsubgo

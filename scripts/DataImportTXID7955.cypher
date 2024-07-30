@@ -10,9 +10,9 @@ LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-07-30.txt' AS zfis
         FIELDTERMINATOR '\t'
         CALL {
             with zfish
-            MATCH (p:protein {id: zfish.uniprotID1})-[r:ProPro]-(p2:protein {id: zfish.uniprotID2})
+            MATCH (p:protein {id: zfish.uniprotID1, txid: "txid7955"})-[r:ProPro]-(p2:protein {id: zfish.uniprotID2, txid: "txid7955"})
             SET r.link = zfish.link, r.source = zfish.source
-        } IN TRANSACTIONS OF 1000 ROWS;
+        } IN TRANSACTIONS OF 100 ROWS;
 LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
         FIELDTERMINATOR '\t'
         CALL {
