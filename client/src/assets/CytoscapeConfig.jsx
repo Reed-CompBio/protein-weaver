@@ -82,9 +82,9 @@ export const cytoscapeStyle = [
     selector: "edge:selected",
     style: {
       width: 3,
-      "line-color": "#ca545a",
+      "line-color": "#8FAAF5",
     },
-    
+
   },
 ];
 
