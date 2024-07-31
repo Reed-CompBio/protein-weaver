@@ -70,8 +70,7 @@ psicquic_interactome <- left_join(psicquic_interactome, psicquic_experiments, by
 
 psicquic_interactome <- psicquic_interactome %>%
   group_by(uniprotID1, uniprotID2, source) %>%
-  slice_min(order_by = link, with_ties = FALSE) %>%
-  ungroup()
+  summarise(link = paste(link, collapse = ";"), .groups = 'drop')
 ```
 
 Save the PsicQuic data to a separate file
