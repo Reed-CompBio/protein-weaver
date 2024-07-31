@@ -130,6 +130,22 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
+8. Import gene regulatory interactions from FlyBase for _D. melanogaster_.
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7227_2024-07-31.txt' AS dmel_reg
+        FIELDTERMINATOR '\t'
+        CALL {
+                with dmel_reg
+                MERGE (a:protein {id: dmel_reg.Interacting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
+                MERGE (b:protein {id: dmel_reg.Starting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
+                MERGE (a)-[r:Reg]->(b)
+                SET r.relationship = dmel_reg.Interaction_type,
+                a.gene_name = dmel_reg.Interacting_gene_symbol,
+                b.gene_name = dmel_reg.Starting_gene_symbol
+        } IN TRANSACTIONS OF 100 ROWS;
+        ```
+
 ##### _B. subtilis_ imports
 1. Import _B. subtilis_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/file:///bsub_interactome_2024-05-31.txt) with the following command:
 
@@ -207,13 +223,15 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 7. Add regulatory data for _B. subtilis_:
 
         ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///bsub-reg-2024-05-14.csv' AS bsub
+        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid224308_2024-07-31.csv' AS bsub
         CALL {
                 with bsub
                 MERGE (a:protein {id: bsub.regulator_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
                 MERGE (b:protein {id: bsub.gene_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
                 MERGE (a)-[r:Reg]->(b)
-                SET r.relationship = bsub.mode
+                SET r.relationship = bsub.mode,
+                a.gene_name = bsub.regulator_name,
+                b.gene_name = bsub.gene_name
         } IN TRANSACTIONS OF 100 ROWS;
         ```
 
@@ -266,6 +284,22 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
             MATCH (p:protein {id: zfishgo.GENE_PRODUCT_ID, txid: "txid7955"})-[r:ProGo]-(g:go_term {id: zfishgo.GO_TERM})
             SET r.relationship = zfishgo.QUALIFIER
         } IN TRANSACTIONS OF 1000 ROWS;
+        ```
+
+4. Add regulatory data for _D. rerio_:
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7955_2024-07-31.txt' AS drer_reg
+        FIELDTERMINATOR '\t'
+        CALL {
+                with drer_reg
+                MERGE (a:protein {id: drer_reg.UniprotID_TF, txid: "txid7955", species: "Danio rerio"})
+                MERGE (b:protein {id: drer_reg.UniprotID_Target, txid: "txid7955", species: "Danio rerio"})
+                MERGE (a)-[r:Reg]->(b)
+                SET r.pubmed = drer_reg.PubmedID,
+                a.gene_name = drer_reg.Name_TF,
+                b.gene_name = drer_reg.Name_Target
+        } IN TRANSACTIONS OF 100 ROWS;
         ```
 
 ##### Gene Ontology hierarchy imports
@@ -402,7 +436,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 8. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 
         ```cypher
-        CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
+        CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro', 'Reg']);
         CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD   inputRelationships, relationshipsWritten;
         ```
 

@@ -2,7 +2,7 @@
 
 This section of the documentation outlines the data sources, processing steps and versions of the ProteinWeaver web interface.
 
-## *Drosophila melanogaster* Data Sources
+## *Drosophila melanogaster* Data Sources (TXID7227)
 ### 2023-09-29 (BETA):
 #### Interaction data:
 * [`interactome-flybase-collapsed-weighted.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/interactome-flybase-collapsed-weighted.txt) [(Source)](https://github.com/annaritz/fly-interactome/tree/master/interactome/weighted-interactome)
@@ -32,14 +32,18 @@ This section of the documentation outlines the data sources, processing steps an
 ### 2024-07-30:
 * Added PubMed identifiers as a property to ProPro edges.
 
+### 2024-07-31:
+* Added genetic regulatory data [(Source)](https://wiki.flybase.org/wiki/FlyBase:Downloads_Overview#Genetic_interaction_table_.28gene_genetic_interactions_.2A.tsv.29) and processed into [`regulatory_txid7227_2024-07-31.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/regulatory_txid7227_2024-07-31.txt) according to [`SplitRegulatoryColumns7227.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SplitRegulatoryColumns7227.R).
+    * 
+
 ### Current _D. melanogaster_ Network [Updated 2024-07-17]
 ```
-| Proteins | Interactions (ProPro) | Annotations (ProGo) |
-| -------- | --------------------- | :------------------ |
-| 11501    | 233054                | 482391              |
+| Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
+| -------- | --------------------- | :------------------ | ---------------- |
+| 11501    | 233054                | 482391              | 22747            |
 ```
 
-## *Bacillus subtilis* Data Sources
+## *Bacillus subtilis* Data Sources (TXID224308)
 ### 2023-10-18 (BETA):
 #### Interaction data:
 * [`bsub_interactome.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_interactome.csv)
@@ -85,6 +89,10 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ### 2024-07-30:
 * [`interactome_txid224308_2024-07-30.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/interactome_txid224308_2024-07-30.txt): Added "link" and "source" properties to edges to link to STRING-DB entries for ProPro interactions.
 
+### 2024-07-31:
+* Downloaded genetic regulatory data [(Regulations dataset)](https://subtiwiki.uni-goettingen.de/v4/exports) and renamed it [`regulatory_txid224308_2024-07-31.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/regulatory_txid224308_2024-07-31.csv). Imported without further modifications.
+    * 
+
 ### Current _B. subtilis_ Network [Updated 2024-07-17]
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) |
@@ -92,7 +100,7 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 | 1933     | 6441                  | 59510               |
 ```
 
-## *Danio rerio* Data Sources
+## *Danio rerio* Data Sources (TXID7955)
 ### 2024-03-18:
 #### Interaction data:
 * [`zfish_string_db_results.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_string_db_results.csv) merged into [`zfish_interactome_Mar12_2024.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_interactome_Mar12_2024.txt). [(Source)](https://string-db.org/cgi/download?sessionId=bjC4UlI45w0z&species_text=Danio+rerio)
@@ -135,6 +143,10 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 
 ### 2024-07-30:
 * [`interactome_txid7955_2024-07-30.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/interactome_txid7955_2024-07-30.txt): Added "link" and "source" properties to edges to link to STRING-DB or PubMed entries (if available) for ProPro interactions.
+
+### 2024-07-31:
+* Added genetic regulatory data [(Source)](https://tflink.net/download/) and processed into [`regulatory_txid7955_2024-07-31.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/regulatory_txid7955_2024-07-31.txt) according to [`SubColNames.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R).
+    * 
 
 ### Current _D. rerio_ Network [Updated 2024-07-17]
 ```
@@ -246,6 +258,12 @@ Looked up species name and got taxon ID.
 
 ### 2024-07-30:
 * Added properties to ProPro edges that provide more information about the protein-protein interaction.
-    * _D. melanogaster_: added PubMed IDs.
-    * _B. subtilis_: added links to STRING-DB entries.
-    * _D. rerio_: added PubMed IDs to those available and STRING-DB links to those not.
+    * _D. melanogaster_ (TXID7227): added PubMed IDs.
+    * _B. subtilis_ (TXID224308): added links to STRING-DB entries.
+    * _D. rerio_ (TXID7955): added PubMed IDs to those available and STRING-DB links to those not.
+
+### 2024-07-31:
+* Added genetic regulatory interactions for _D. melanogaster_, _B. subtilis_, and _D. rerio_.
+    * _D. melanogaster_ (TXID7227):
+    * _B. subtilis_ (TXID224308):
+    * _D. rerio_ (TXID7955):
