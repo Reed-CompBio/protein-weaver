@@ -78,6 +78,13 @@ export const cytoscapeStyle = [
       height: 30
     },
   },
+  {
+    selector: "edge:selected",
+    style: {
+      width: 3,
+      "line-color": "#8FAAF5",
+    },
+  },
 ];
 
 export const layout = {

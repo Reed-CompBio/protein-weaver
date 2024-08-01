@@ -40,6 +40,9 @@ export default function Query() {
     const [sidebarNode, setSidebarNode] = useState("");
     const [sourceNode, setSourceNode] = useState("");
     const [goTerm, setGoTerm] = useState("");
+    const [edgeEvidence, setEdgeEvidence] = useState("");
+    const [edgeSource, setEdgeSource] = useState("");
+    const [edgeTarget, setEdgeTarget] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
     const submitRef = useRef();
@@ -826,11 +829,13 @@ export default function Query() {
                                                         "tap",
                                                         "node",
                                                         (evt) => {
-                                                            getSidePanelData(
-                                                                evt
-                                                            );
-                                                        }
-                                                    );
+                                                            getSidePanelData(evt);
+                                                        });
+                                                    cy.on("tap", "edge", (evt) => {
+                                                        setEdgeEvidence(evt.target._private.data.evidence)
+                                                        setEdgeSource(evt.target._private.data.evidence)
+                                                        setEdgeTarget(evt.target._private.data.target)
+                                                    });
                                                 }}
                                             />
                                             <Legend // Render legend within Cytoscape visualization
@@ -903,9 +908,10 @@ export default function Query() {
                                     <PanelResizeHandle className="panel-resize-handle" />
                                     <Panel defaultSize={40} minSize={10}>
                                         <StatisticsTab
-                                            networkStatistics={
-                                                networkStatistics
-                                            }
+                                            networkStatistics={networkStatistics}
+                                            edgeEvidence={edgeEvidence}
+                                            edgeSource={edgeSource}
+                                            edgeTarget={edgeTarget}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>
