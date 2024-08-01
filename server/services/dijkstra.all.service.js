@@ -1,30 +1,30 @@
 export default class AllShortestPathsService {
-    /**
-     * @type {neo4j.Driver}
-     */
-    driver
+  /**
+   * @type {neo4j.Driver}
+   */
+  driver
 
-    /**
-     * The constructor expects an instance of the Neo4j Driver, which will be
-     * used to interact with Neo4j.
-     *
-     * @param {neo4j.Driver} driver
-     */
-    constructor(driver) {
-      this.driver = driver
-    }
+  /**
+   * The constructor expects an instance of the Neo4j Driver, which will be
+   * used to interact with Neo4j.
+   *
+   * @param {neo4j.Driver} driver
+   */
+  constructor(driver) {
+    this.driver = driver
+  }
 
-    async getAllShortestPaths (source) {
+  async getAllShortestPaths(source) {
 
-      const session = this.driver.session()
-      const res = await session.executeRead(
-        tx => tx.run(
-          `
+    const session = this.driver.session()
+    const res = await session.executeRead(
+      tx => tx.run(
+        `
           MATCH (source:protein)
           WHERE source.id =~'(?i)' + $source OR source.name =~'(?i)' + $source OR source.alt_name =~'(?i)' + $source
           CALL gds.allShortestPaths.dijkstra.stream('proGoGraph', {
               sourceNode: source,
-              relationshipTypes: ["ProGo", "ProProUndirected"],
+              relationshipTypes: ["ProGo", "ProProUndirected","Reg"],
               nodeLabels: ["protein", "go_term"]
           })
           YIELD index, sourceNode, targetNode, nodeIds, path
@@ -34,17 +34,17 @@ export default class AllShortestPathsService {
               gds.util.asNode(targetNode).id AS targetNodeName,
               nodes(path) as path
           ORDER BY index
-          `,{
-            source: source,
-          }
-        )
+          `, {
+        source: source,
+      }
       )
+    )
 
-      const path = res.records
+    const path = res.records
 
-      await session.close()
+    await session.close()
 
-      return path
-    }
-
+    return path
   }
+
+}

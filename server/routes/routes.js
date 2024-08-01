@@ -17,6 +17,7 @@ import GoFinderService from "../services/go.finder.service.js";
 import AvgDegreeService from "../services/avg.degree.service.js";
 import PGStats from "../services/pro.go.stats.service.js";
 import Degree from "../services/degree.service.js";
+import MotifService from "../services/motif.service.js";
 
 const router = new Router();
 const jsonParser = bodyParser.json();
@@ -141,7 +142,6 @@ router.post("/getProGoStats", jsonParser, async (req, res, next) => {
     const txid = data.txid;
     const PGS = new PGStats(getDriver());
     const edges = await PGS.ProGoStats(GoName, txid);
-    console.log("ProGo Edges: ", edges);
     res.json(edges);
 
   }
@@ -157,8 +157,20 @@ router.post("/Degree", jsonParser, async (req, res, next) => {
     const id = data.id.id;
     const DEG = new Degree(getDriver());
     const degrees = await DEG.getdegree(id);
-    console.log("Degrees: ", degrees);
     res.json(degrees);
+  }
+  catch (e) {
+    next(e);
+  }
+});
+
+router.post("/Motif", jsonParser, async (req, res, next) => {
+  try {
+    const data = req.body;
+    const nodeList = data.nodeList
+    const motif = new MotifService(getDriver());
+    const mCount = await motif.getMotif(nodeList);
+    res.json(mCount);
   }
   catch (e) {
     next(e);
