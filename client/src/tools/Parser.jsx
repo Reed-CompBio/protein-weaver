@@ -1,12 +1,3 @@
-/**
- * Parser for handling API response data from Neo4j's Yen's Shortest Path Algorithm.
- *
- * @param {JSON} data   JSON data containing all the k shortest paths
- * @param {string} source   Protein of Interest
- * @param {string} go_term   GO term of Interest
- * @returns {JSON}
- */
-// tag::NetworkParser
 export function NetworkParserPath(data, source, go_term) {
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
   //Iterate through data where each element is a path
@@ -70,7 +61,6 @@ export function NetworkParserPath(data, source, go_term) {
     ].properties;
   return parsedData;
 }
-
 /**
  * Parser that handles API response data from Neo4j all edges in an induced subgraph query.
  * Adds shared edge information and Protein to GO Term relationship properties
@@ -82,23 +72,24 @@ export function NetworkParserPath(data, source, go_term) {
 // tag::EdgeDataParser
 export function EdgeDataParser(networkData, edgeData) {
   //Iterate through al the edges in the induced subgraph
+  let tempEdgeList = [];
+  let tempEdges = [];
   for (let i = 0; i < edgeData.length; i++) {
     let startNode = edgeData[i]._fields[0].start.properties.id;
     let endNode = edgeData[i]._fields[0].end.properties.id;
-    //check for shared edges
-    if (
-      !networkData.edgeList.includes(startNode + endNode) &&
-      !networkData.edgeList.includes(endNode + startNode) &&
-      edgeData[i]._fields[0].segments[0].relationship.type != "ProGo"
+    let relType = edgeData[i]._fields[0].segments[0].relationship.type;
+    //Check for shared edges
+    //If the edge already exists in the initial network data, add it to the temp edge list
+    if (networkData.edgeList.includes(endNode + startNode) ||
+      networkData.edgeList.includes(startNode + endNode)
     ) {
       let edgeEntry = {
-        data: { source: endNode, target: startNode, type: "shared" },
-      };
-      networkData.edgeList.push(startNode + endNode);
-      networkData.edges.push(edgeEntry);
+        data: { source: endNode, target: startNode, relType: relType }
+      }
+      tempEdgeList.push(startNode + endNode);
+      tempEdges.push(edgeEntry);
     }
-    //If the edge is a Protein to GO term relationship,
-    //iterate through all the nodes in the nodeList and add the relationship information to the protein
+    //If the edge type is ProGo, add the edges relationship properties to the network data
     else if (edgeData[i]._fields[0].segments[0].relationship.type === "ProGo") {
       for (let k = 0; k < networkData.nodes.length; k++) {
         let currentNode = networkData.nodes[k];
@@ -110,10 +101,19 @@ export function EdgeDataParser(networkData, edgeData) {
         }
       }
     }
+    //If an edge is found that was not a part of the inital network data, add it to the temp edge list with the shared tag
+    else {
+      let edgeEntry = {
+        data: { source: endNode, target: startNode, type: "shared", relType: relType },
+      };
+      tempEdgeList.push(startNode + endNode);
+      tempEdges.push(edgeEntry);
+    }
   }
+  networkData.edgeList = tempEdgeList;
+  networkData.edges = tempEdges;
   return networkData;
 }
-
 export function NetworkParserNode(data, source, k) {
   let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
   for (let i = 0; i < Math.min(k, data.length - 1); i++) {

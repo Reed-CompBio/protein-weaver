@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { MdConstruction } from "react-icons/md";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-
+import Motif from "./Motif";
 import iconNode from "/src/assets/icon-node.png";
 import iconPaths from "/src/assets/icon-paths.png";
 import iconEdges from "/src/assets/icon-edges.png";
 import iconDegree from "/src/assets/icon-degree.png";
 
-export default function StatisticsTab({ networkStatistics }) {
+export default function StatisticsTab({ networkStatistics, nodeList }) {
     const [tabIndex, setTabIndex] = useState(0);
 
     return (
@@ -21,13 +21,7 @@ export default function StatisticsTab({ networkStatistics }) {
             >
                 <TabList className="stats-tab-list">
                     <Tab className="stats-tab">Graph</Tab>
-                    <Tab className="stats-tab-construction" disabled={true}>
-                        Nodes
-                        <MdConstruction
-                            data-tooltip-id="construction-tooltip"
-                            className="construction"
-                        />
-                    </Tab>{" "}
+                    <Tab className="stats-tab-construction">Nodes</Tab>{" "}
                     <Tab className="stats-tab-construction" disabled={true}>
                         Edges
                         <MdConstruction
@@ -129,7 +123,10 @@ export default function StatisticsTab({ networkStatistics }) {
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <h4 className="stats-title">Node stats</h4>
+                    <h4 className="stats-title" >Node stats</h4>
+                    <div className="graph-statistics-container">
+                        <Motif nodeList={nodeList} />
+                    </div>
                 </TabPanel>
                 <TabPanel>
                     <h4 className="stats-title">Edges stats</h4>
