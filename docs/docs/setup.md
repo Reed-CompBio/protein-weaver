@@ -531,25 +531,31 @@ Once you have completed the guide, you can use the following query to verify tha
         WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, COUNT(bsubProPro)/2 AS bsubProProCount
         match (drerio1 {txid :"txid7955"}) -[drerioProPro:ProPro]- (drerio2 {txid :"txid7955"})
         WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, COUNT(drerioProPro)/2 AS drerioProProCount
-        match (go1:go_term) -[goGoGo:GoGo]- (go2:go_term)
-        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, COUNT(goGoGo)/2 AS goGoGoCount
+        match (fly1 {txid :"txid7227"}) -[flyReg:Reg]-> (fly2 {txid :"txid7227"})
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, COUNT(flyReg) AS flyRegCount
+        match (bsub1 {txid :"txid224308"}) -[bsubReg:Reg]-> (bsub2 {txid :"txid224308"})
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, COUNT(bsubReg) AS bsubRegCount
+        match (drerio1 {txid :"txid7955"}) -[drerioReg:Reg]-> (drerio2 {txid :"txid7955"})
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, COUNT(drerioReg) AS drerioRegCount
+        match (go1:go_term) -[goGo:GoGo]- (go2:go_term)
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, drerioRegCount, COUNT(goGo)/2 AS goGoCount
         match (fly:protein {txid :"txid7227"}) -[flyProGo:ProGo]- (go)
-        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount, COUNT(flyProGo) AS flyProGoCount
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, drerioRegCount, goGoCount, COUNT(flyProGo) AS flyProGoCount
         match (bsub:protein {txid :"txid224308"}) -[bsubProGo:ProGo]- (go)
-        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount,flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, drerioRegCount, goGoCount, flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
         match (drerio:protein {txid :"txid7955"}) -[drerioProGo:ProGo]- (go)
-        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount,flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
-        RETURN flyCount, flyProProCount, flyProGoCount, bsubCount, bsubProProCount, bsubProGoCount, drerioCount, drerioProProCount, drerioProGoCount, goCount, goGoGoCount
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, drerioRegCount, goGoCount, flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
+        RETURN flyCount, flyProProCount, flyProGoCount, flyRegCount, bsubCount, bsubProProCount, bsubProGoCount, bsubRegCount, drerioCount, drerioProProCount, drerioProGoCount, drerioRegCount, goCount, goGoCount
         ```
 
 You should get the following output:
 
         ```
-        ╒════════╤══════════════╤═════════════╤═════════╤═══════════════╤══════════════╤═══════════╤═════════════════╤════════════════╤═══════╤═══════════╕
-        │flyCount│flyProProCount│flyProGoCount│bsubCount│bsubProProCount│bsubProGoCount│drerioCount│drerioProProCount│drerioProGoCount│goCount│goGoGoCount│
-        ╞════════╪══════════════╪═════════════╪═════════╪═══════════════╪══════════════╪═══════════╪═════════════════╪════════════════╪═══════╪═══════════╡
-        │11501   │233054        │482391       │1933     │6441           │59510         │6438       │45003            │103139          │42231  │66168      │
-        └────────┴──────────────┴─────────────┴─────────┴───────────────┴──────────────┴───────────┴─────────────────┴────────────────┴───────┴───────────┘
+        ╒════════╤══════════════╤═════════════╤═══════════╤═════════╤═══════════════╤══════════════╤════════════╤═══════════╤═════════════════╤════════════════╤══════════════╤═══════╤═════════╕
+        │flyCount│flyProProCount│flyProGoCount│flyRegCount│bsubCount│bsubProProCount│bsubProGoCount│bsubRegCount│drerioCount│drerioProProCount│drerioProGoCount│drerioRegCount│goCount│goGoCount│
+        ╞════════╪══════════════╪═════════════╪═══════════╪═════════╪═══════════════╪══════════════╪════════════╪═══════════╪═════════════════╪════════════════╪══════════════╪═══════╪═════════╡
+        │12823   │233054        │481871       │17530      │3163     │6441           │59468         │5634        │16606      │45003            │103079          │25960         │42092  │66168    │
+        └────────┴──────────────┴─────────────┴───────────┴─────────┴───────────────┴──────────────┴────────────┴───────────┴─────────────────┴────────────────┴──────────────┴───────┴─────────┘
         ```
 
 ## Useful Commands

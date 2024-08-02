@@ -34,13 +34,14 @@ This section of the documentation outlines the data sources, processing steps an
 
 ### 2024-07-31:
 * Added genetic regulatory data [(Source)](https://wiki.flybase.org/wiki/FlyBase:Downloads_Overview#Genetic_interaction_table_.28gene_genetic_interactions_.2A.tsv.29) and processed into [`regulatory_txid7227_2024-07-31.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/regulatory_txid7227_2024-07-31.txt) according to [`SplitRegulatoryColumns7227.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SplitRegulatoryColumns7227.R).
-    * 
+    - Nodes: 1322
+    - Reg Edges: 17530
 
 ### Current _D. melanogaster_ Network [Updated 2024-07-17]
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
 | -------- | --------------------- | :------------------ | ---------------- |
-| 11501    | 233054                | 482391              | 22747            |
+| 12823    | 233054                | 481871              | 17530            |
 ```
 
 ## *Bacillus subtilis* Data Sources (TXID224308)
@@ -91,13 +92,14 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 
 ### 2024-07-31:
 * Downloaded genetic regulatory data [(Regulations dataset)](https://subtiwiki.uni-goettingen.de/v4/exports) and renamed it [`regulatory_txid224308_2024-07-31.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/regulatory_txid224308_2024-07-31.csv). Imported without further modifications.
-    * 
+    - Nodes: 1230
+    - Reg Edges: 5634
 
 ### Current _B. subtilis_ Network [Updated 2024-07-17]
 ```
-| Proteins | Interactions (ProPro) | Annotations (ProGo) |
-| -------- | --------------------- | :------------------ |
-| 1933     | 6441                  | 59510               |
+| Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
+| -------- | --------------------- | :------------------ | ---------------- | 
+| 3163     | 6441                  | 59468               |  5634            |
 ```
 
 ## *Danio rerio* Data Sources (TXID7955)
@@ -146,13 +148,14 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 
 ### 2024-07-31:
 * Added genetic regulatory data [(Source)](https://tflink.net/download/) and processed into [`regulatory_txid7955_2024-07-31.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/regulatory_txid7955_2024-07-31.txt) according to [`SubColNames.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R).
-    * 
+    - Nodes: 10168
+    - Reg Edges: 25960
 
 ### Current _D. rerio_ Network [Updated 2024-07-17]
 ```
-| Proteins | Interactions (ProPro) | Annotations (ProGo) |
-| -------- | --------------------- | :------------------ |
-| 6438     | 45003                 | 103139              |
+| Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
+| -------- | --------------------- | :------------------ | ---------------- |
+| 16606    | 45003                 | 103079              |    25960         |
 ```
 
 ## Gene Ontology Hierarchy Data Sources
@@ -184,7 +187,7 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ```
 | GO Terms | "is_a" Relationships (GoGo) |
 | -------- | :-------------------------- |
-| 42231    | 66168                       |
+| 42092    | 66168                       |
 ```
 
 ### Taxon ID source:
@@ -265,5 +268,11 @@ Looked up species name and got taxon ID.
 ### 2024-07-31:
 * Added genetic regulatory interactions for _D. melanogaster_, _B. subtilis_, and _D. rerio_.
     * _D. melanogaster_ (TXID7227):
+        - Nodes: 1322
+        - Reg Edges: 17530
     * _B. subtilis_ (TXID224308):
+        - Nodes: 1230
+        - Reg Edges: 5634
     * _D. rerio_ (TXID7955):
+        - Nodes: 10168
+        - Reg Edges: 25960
