@@ -8,7 +8,13 @@ import iconPaths from "/src/assets/icon-paths.png";
 import iconEdges from "/src/assets/icon-edges.png";
 import iconDegree from "/src/assets/icon-degree.png";
 
-export default function StatisticsTab({ networkStatistics, edgeEvidence, edgeSource, edgeTarget, edgeTab }) {
+export default function StatisticsTab({
+    networkStatistics,
+    nodeList,
+    edgeEvidence,
+    edgeSource,
+    edgeTarget,
+}) {
     const [tabIndex, setTabIndex] = useState(0);
 
     return (
@@ -22,7 +28,7 @@ export default function StatisticsTab({ networkStatistics, edgeEvidence, edgeSou
                 <TabList className="stats-tab-list">
                     <Tab className="stats-tab">Graph</Tab>
                     <Tab className="stats-tab">Nodes</Tab>{" "}
-                    <Tab className="stats-tab" disabled={true}>Edges</Tab>
+                    <Tab className="stats-tab">Edges</Tab>
                 </TabList>
                 <TabPanel>
                     <h4 className="stats-title">Graph stats</h4>
@@ -117,21 +123,27 @@ export default function StatisticsTab({ networkStatistics, edgeEvidence, edgeSou
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <h4 className="stats-title" >Node stats</h4>
+                    <h4 className="stats-title">Node stats</h4>
                     <div className="graph-statistics-container">
                         <Motif nodeList={nodeList} />
                     </div>
                 </TabPanel>
                 <TabPanel>
                     <h4 className="stats-title">Edges stats</h4>
-                    <div className="edge-container">
+                    <div>
                         {/*<div className= "click-edge-container">
-                        <h4>
-                            <div>Selected edge: {edgeEvidence}</div>
-                        </h4>
-                    </div>*/}
-                        <div>Source node: {edgeSource}</div>
-                        <div>Target edge: {edgeTarget}</div>
+                            <h4>
+                                <div>Selected edge: {edgeEvidence}</div>
+                            </h4>
+                        </div>*/}
+                        {edgeSource ? (
+                            <div className="edge-container">
+                                <div>Source node: {edgeSource}</div>
+                                <div>Target edge: {edgeTarget}</div>
+                            </div>
+                        ) : (
+                            <p>Click an edge to see more information</p>
+                        )}
                     </div>
                 </TabPanel>
             </Tabs>
