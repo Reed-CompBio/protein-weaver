@@ -41,7 +41,7 @@ This section of the documentation outlines the data sources, processing steps an
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
 | -------- | --------------------- | :------------------ | ---------------- |
-| 12823    | 233054                | 481871              | 17530            |
+| 12823    | 233054                | 492331              | 17530            |
 ```
 
 ## *Bacillus subtilis* Data Sources (TXID224308)
@@ -99,7 +99,7 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
 | -------- | --------------------- | :------------------ | ---------------- | 
-| 3163     | 6441                  | 59468               |  5634            |
+| 3163     | 6441                  | 78015               |  5634            |
 ```
 
 ## *Danio rerio* Data Sources (TXID7955)
@@ -155,7 +155,7 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ```
 | Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
 | -------- | --------------------- | :------------------ | ---------------- |
-| 16606    | 45003                 | 103079              |    25960         |
+| 16606    | 45003                 | 133619              |    25960         |
 ```
 
 ## Gene Ontology Hierarchy Data Sources
@@ -268,11 +268,14 @@ Looked up species name and got taxon ID.
 ### 2024-07-31:
 * Added genetic regulatory interactions and sources for _D. melanogaster_, _B. subtilis_, and _D. rerio_.
     * _D. melanogaster_ (TXID7227):
-        - Nodes: 1322
-        - Reg Edges: 17530
+        - Nodes: 1,322
+        - Reg Edges: 17,530
+        - ProGo Edges: 10,460
     * _B. subtilis_ (TXID224308):
-        - Nodes: 1230
-        - Reg Edges: 5634
+        - Nodes: 1,230
+        - Reg Edges: 5,634
+        - ProGo Edges: 18,547
     * _D. rerio_ (TXID7955):
-        - Nodes: 10168
-        - Reg Edges: 25960
+        - Nodes: 10,168
+        - Reg Edges: 25,960
+        - ProGo Edges: 30,540
