@@ -14,6 +14,18 @@ LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' 
             MATCH (p:protein {id: fly.FlyBase1,  txid:"txid7227"})-[r:ProPro]-(p2:protein {id: fly.FlyBase2,  txid:"txid7227"})
             SET r.pubmed = fly.PubMedIDs
         } IN TRANSACTIONS OF 100 ROWS;
+LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7227_2024-07-31.txt' AS dmel_reg
+        FIELDTERMINATOR '\t'
+        CALL {
+                with dmel_reg
+                MERGE (a:protein {id: dmel_reg.Interacting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
+                MERGE (b:protein {id: dmel_reg.Starting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
+                MERGE (a)-[r:Reg]->(b)
+                SET r.relationship = dmel_reg.Interaction_type,
+                r.reference = dmel_reg.Publication_FBrf,
+                a.gene_name = dmel_reg.Interacting_gene_symbol,
+                b.gene_name = dmel_reg.Starting_gene_symbol
+        } IN TRANSACTIONS OF 100 ROWS;
 LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
         FIELDTERMINATOR '\t'
         CALL {
@@ -44,14 +56,3 @@ LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_2024-04-03.tsv' AS dmelgo
             MATCH (p:protein {id: dmelgo.FB_ID, txid: "txid7227"})-[r:ProGo]-(g:go_term {id: dmelgo.GO_TERM})
             SET r.relationship = dmelgo.QUALIFIER
         } IN TRANSACTIONS OF 1000 ROWS;
-LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7227_2024-07-31.txt' AS dmel_reg
-        FIELDTERMINATOR '\t'
-        CALL {
-                with dmel_reg
-                MERGE (a:protein {id: dmel_reg.Interacting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
-                MERGE (b:protein {id: dmel_reg.Starting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
-                MERGE (a)-[r:Reg]->(b)
-                SET r.relationship = dmel_reg.Interaction_type,
-                a.gene_name = dmel_reg.Interacting_gene_symbol,
-                b.gene_name = dmel_reg.Starting_gene_symbol
-        } IN TRANSACTIONS OF 100 ROWS;

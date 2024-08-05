@@ -266,7 +266,7 @@ Looked up species name and got taxon ID.
     * _D. rerio_ (TXID7955): added PubMed IDs to those available and STRING-DB links to those not.
 
 ### 2024-07-31:
-* Added genetic regulatory interactions for _D. melanogaster_, _B. subtilis_, and _D. rerio_.
+* Added genetic regulatory interactions and sources for _D. melanogaster_, _B. subtilis_, and _D. rerio_.
     * _D. melanogaster_ (TXID7227):
         - Nodes: 1322
         - Reg Edges: 17530

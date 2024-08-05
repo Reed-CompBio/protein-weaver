@@ -80,7 +80,24 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-4. Import the first batch of _D. melanogaster_ [GO data from FlyBase](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/gene_association_fb_2024-04-03.tsv) into the database using the following command:
+4. Import gene regulatory interactions from FlyBase for _D. melanogaster_.
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7227_2024-07-31.txt' AS dmel_reg
+        FIELDTERMINATOR '\t'
+        CALL {
+                with dmel_reg
+                MERGE (a:protein {id: dmel_reg.Interacting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
+                MERGE (b:protein {id: dmel_reg.Starting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
+                MERGE (a)-[r:Reg]->(b)
+                SET r.relationship = dmel_reg.Interaction_type,
+                r.link = dmel_reg.Publication_FBrf,
+                a.gene_name = dmel_reg.Interacting_gene_symbol,
+                b.gene_name = dmel_reg.Starting_gene_symbol
+        } IN TRANSACTIONS OF 100 ROWS;
+        ```
+        
+5. Import the first batch of _D. melanogaster_ [GO data from FlyBase](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/gene_association_fb_2024-04-03.tsv) into the database using the following command:
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
@@ -93,7 +110,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-5. Import the relationships qualifiers for the first batch of GO terms and _D. melanogaster_ proteins using the following commands:
+6. Import the relationships qualifiers for the first batch of GO terms and _D. melanogaster_ proteins using the following commands:
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
@@ -105,7 +122,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-6. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/dmel_GO_data_2024-04-03.tsv) for _D. melanogaster_.
+7. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/dmel_GO_data_2024-04-03.tsv) for _D. melanogaster_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_2024-04-03.tsv' AS dmelgo
@@ -118,7 +135,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-7. Set second batch of qualifier properties for _D. melanogaster_.
+8. Set second batch of qualifier properties for _D. melanogaster_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_2024-04-03.tsv' AS dmelgo
@@ -128,22 +145,6 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
             MATCH (p:protein {id: dmelgo.FB_ID, txid: "txid7227"})-[r:ProGo]-(g:go_term {id: dmelgo.GO_TERM})
             SET r.relationship = dmelgo.QUALIFIER
         } IN TRANSACTIONS OF 1000 ROWS;
-        ```
-
-8. Import gene regulatory interactions from FlyBase for _D. melanogaster_.
-
-        ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7227_2024-07-31.txt' AS dmel_reg
-        FIELDTERMINATOR '\t'
-        CALL {
-                with dmel_reg
-                MERGE (a:protein {id: dmel_reg.Interacting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
-                MERGE (b:protein {id: dmel_reg.Starting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
-                MERGE (a)-[r:Reg]->(b)
-                SET r.relationship = dmel_reg.Interaction_type,
-                a.gene_name = dmel_reg.Interacting_gene_symbol,
-                b.gene_name = dmel_reg.Starting_gene_symbol
-        } IN TRANSACTIONS OF 100 ROWS;
         ```
 
 ##### _B. subtilis_ imports
@@ -168,11 +169,29 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         CALL {
             with bsub
             MATCH (p:protein {id: bsub.protein_1_locus})-[r:ProPro]-(p2:protein {id: bsub.protein_2_locus})
-            SET r.link = bsub.link, r.source = bsub.source
+            SET r.link = bsub.link,
+            r.source = bsub.source
         } IN TRANSACTIONS OF 1000 ROWS;        
         ```
 
-3. Add first batch of [GO data from SubtiWiki](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data.csv) to _B. subtilis_ nodes:
+3. Add regulatory data for _B. subtilis_:
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid224308_2024-07-31.txt' AS bsub
+        FIELDTERMINATOR '\t'
+        CALL {
+                with bsub
+                MERGE (a:protein {id: bsub.regulator_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
+                MERGE (b:protein {id: bsub.gene_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
+                MERGE (a)-[r:Reg]->(b)
+                SET r.relationship = bsub.mode,
+                r.link = bsub.link,
+                a.gene_name = bsub.regulator_name,
+                b.gene_name = bsub.gene_name
+        } IN TRANSACTIONS OF 100 ROWS;
+        ```
+        
+4. Add first batch of [GO data from SubtiWiki](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data.csv) to _B. subtilis_ nodes:
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
@@ -184,7 +203,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-4. Set qualifier property from first batch of GO data for _B. subtilis_.
+5. Set qualifier property from first batch of GO data for _B. subtilis_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
@@ -195,7 +214,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-5. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/annotations_txid224308_2024-06-03.txt) for _B. subtilis_.
+6. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/annotations_txid224308_2024-06-03.txt) for _B. subtilis_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///annotations_txid224308_2024-06-03.txt' AS bsubgo
@@ -208,7 +227,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-6. Set qualifier property for second batch of GO data (_B. subtilis_).
+7. Set qualifier property for second batch of GO data (_B. subtilis_).
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///annotations_txid224308_2024-06-03.txt' AS bsubgo
@@ -218,21 +237,6 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
             MATCH (p:protein {id: bsubgo.BSU_ID, txid: "txid224308"})-[r:ProGo]-(g:go_term {id: bsubgo.GO_TERM})
             SET r.relationship = bsubgo.QUALIFIER
         } IN TRANSACTIONS OF 1000 ROWS;
-        ```
-
-7. Add regulatory data for _B. subtilis_:
-
-        ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid224308_2024-07-31.csv' AS bsub
-        CALL {
-                with bsub
-                MERGE (a:protein {id: bsub.regulator_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
-                MERGE (b:protein {id: bsub.gene_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
-                MERGE (a)-[r:Reg]->(b)
-                SET r.relationship = bsub.mode,
-                a.gene_name = bsub.regulator_name,
-                b.gene_name = bsub.gene_name
-        } IN TRANSACTIONS OF 100 ROWS;
         ```
 
 ##### _D. rerio_ imports
@@ -261,7 +265,24 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;        
         ```
 
-2. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_GO_data_2024-04-03.tsv) to _D. rerio_ nodes:
+2. Add regulatory data for _D. rerio_:
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7955_2024-07-31.txt' AS drer_reg
+        FIELDTERMINATOR '\t'
+        CALL {
+                with drer_reg
+                MERGE (a:protein {id: drer_reg.UniprotID_TF, txid: "txid7955", species: "Danio rerio"})
+                MERGE (b:protein {id: drer_reg.UniprotID_Target, txid: "txid7955", species: "Danio rerio"})
+                MERGE (a)-[r:Reg]->(b)
+                SET r.relationship = "regulates",
+                r.pubmed = drer_reg.PubmedID,
+                a.gene_name = drer_reg.Name_TF,
+                b.gene_name = drer_reg.Name_Target
+        } IN TRANSACTIONS OF 100 ROWS;
+        ```
+        
+3. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_GO_data_2024-04-03.tsv) to _D. rerio_ nodes:
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
@@ -274,7 +295,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-3. Set qualifier property for _D. rerio_.
+4. Set qualifier property for _D. rerio_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
@@ -284,22 +305,6 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
             MATCH (p:protein {id: zfishgo.GENE_PRODUCT_ID, txid: "txid7955"})-[r:ProGo]-(g:go_term {id: zfishgo.GO_TERM})
             SET r.relationship = zfishgo.QUALIFIER
         } IN TRANSACTIONS OF 1000 ROWS;
-        ```
-
-4. Add regulatory data for _D. rerio_:
-
-        ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7955_2024-07-31.txt' AS drer_reg
-        FIELDTERMINATOR '\t'
-        CALL {
-                with drer_reg
-                MERGE (a:protein {id: drer_reg.UniprotID_TF, txid: "txid7955", species: "Danio rerio"})
-                MERGE (b:protein {id: drer_reg.UniprotID_Target, txid: "txid7955", species: "Danio rerio"})
-                MERGE (a)-[r:Reg]->(b)
-                SET r.pubmed = drer_reg.PubmedID,
-                a.gene_name = drer_reg.Name_TF,
-                b.gene_name = drer_reg.Name_Target
-        } IN TRANSACTIONS OF 100 ROWS;
         ```
 
 ##### Gene Ontology hierarchy imports
