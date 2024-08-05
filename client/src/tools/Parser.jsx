@@ -81,18 +81,19 @@ export function NetworkParserPath(data, source, go_term) {
  */
 // tag::EdgeDataParser
 export function EdgeDataParser(networkData, edgeData) {
-  //Iterate through al the edges in the induced subgraph
+  //Iterate through all the edges in the induced subgraph
   for (let i = 0; i < edgeData.length; i++) {
     let startNode = edgeData[i]._fields[0].start.properties.id;
     let endNode = edgeData[i]._fields[0].end.properties.id;
-    //check for shared edges
     if (
       !networkData.edgeList.includes(startNode + endNode) &&
       !networkData.edgeList.includes(endNode + startNode) &&
       edgeData[i]._fields[0].segments[0].relationship.type != "ProGo"
     ) {
       let edgeEntry = {
-        data: { source: endNode, target: startNode, type: "shared" },
+        data: {
+          source: endNode, target: startNode, type: "shared"
+        },
       };
       networkData.edgeList.push(startNode + endNode);
       networkData.edges.push(edgeEntry);
@@ -163,7 +164,9 @@ export function NetworkParserNode(data, source, k) {
         !parsedData.edgeList.includes(endNode + startNode)
       ) {
         let edgeEntry = {
-          data: { source: endNode, target: startNode },
+          data: {
+            source: endNode, target: startNode
+          },
         };
         parsedData.edgeList.push(startNode + endNode);
         parsedData.edges.push(edgeEntry);

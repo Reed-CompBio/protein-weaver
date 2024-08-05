@@ -70,7 +70,7 @@ export default function Query() {
         pathCount: null,
         avgNodeDegree: null,
     });
-    const [queryComplete, setqQueryComplete] = useState(false);
+    const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
     cytoscape.use(cola);
 
@@ -211,7 +211,7 @@ export default function Query() {
 
     // Function for submitting the query
     async function handleSubmit(e) {
-        setqQueryComplete(false);
+        setQueryComplete(false);
         setSidebarNode(null);
         setNetworkResult({});
         setHasError(false);
@@ -332,7 +332,7 @@ export default function Query() {
                         setNetworkResult(EdgeDataParser(network, edgeData));
                         setRawData(rawData);
                         setDataParsingStatus(true);
-                        setqQueryComplete(true);
+                        setQueryComplete(true);
                         return EdgeDataParser(network, edgeData);
                     });
             } catch (error) {

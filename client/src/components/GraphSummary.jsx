@@ -18,9 +18,7 @@ export default function GraphSummary({
             } else if (query.species === "txid224308") {
                 setSelectedDbLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${currentNode.id.replace("_", "")}`);
             } else if (query.species === "txid7955") {
-                setSelectedDbLink(
-                    `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`
-                );
+                setSelectedDbLink(`https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`);
             }
         }
     }, [currentNode, query.species]);
