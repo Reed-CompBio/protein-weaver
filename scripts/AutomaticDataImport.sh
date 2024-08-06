@@ -23,6 +23,11 @@ else
         neo4j:latest
 fi
 
+# Wait for Neo4j to start (adjust sleep time as needed)
+echo "Waiting for Neo4j to start..."
+sleep 60
+echo "Neo4j started."
+
 # Execute Cypher query to create constraints within Neo4j database
 echo "Creating constraints.."
 cat ProteinWeaverConstraints.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
