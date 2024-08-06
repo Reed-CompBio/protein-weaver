@@ -87,26 +87,57 @@ export function EdgeDataParser(networkData, edgeData) {
         let startNode = edgeData[i]._fields[0].start.properties.id;
         let endNode = edgeData[i]._fields[0].end.properties.id;
         let relType = edgeData[i]._fields[0].segments[0].relationship.type;
+        let pubmed = edgeData[i]._fields[0].segments[0].relationship.properties.pubmed;
+        let link = edgeData[i]._fields[0].segments[0].relationship.properties.link;
+        let fbRef = edgeData[i]._fields[0].segments[0].relationship.properties.reference;
         //Check for shared edges
         //If the edge already exists in the initial network data, add it to the temp edge list
         if (
             networkData.edgeList.includes(endNode + startNode) ||
             networkData.edgeList.includes(startNode + endNode)
         ) {
-            let edgeEntry = {
-                data: {
-                    source: endNode,
-                    target: startNode,
-                    relType: relType,
-                    evidence: "evidenceTest",
-                },
-            };
-            tempEdgeList.push(startNode + endNode);
-            tempEdges.push(edgeEntry);
+            if (relType === ("ProPro" || "Reg")) {
+                if (pubmed) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: pubmed,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                }
+                else if (link) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: link,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                }
+                else if (fbRef) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: fbRef,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                }
+            }
         }
         //If the edge type is ProGo, add the edges relationship properties to the network data
         else if (
-            edgeData[i]._fields[0].segments[0].relationship.type === "ProGo"
+            relType === "ProGo"
         ) {
             for (let k = 0; k < networkData.nodes.length; k++) {
                 let currentNode = networkData.nodes[k];
@@ -120,17 +151,43 @@ export function EdgeDataParser(networkData, edgeData) {
         }
         //If an edge is found that was not a part of the inital network data, add it to the temp edge list with the shared tag
         else {
-            let edgeEntry = {
-                data: {
-                    source: endNode,
-                    target: startNode,
-                    type: "shared",
-                    relType: relType,
-                    evidence: "evidenceTest",
-                },
-            };
-            tempEdgeList.push(startNode + endNode);
-            tempEdges.push(edgeEntry);
+            if (pubmed) {
+                let edgeEntry = {
+                    data: {
+                        source: endNode,
+                        target: startNode,
+                        type: "shared",
+                        relType: relType,
+                        evidence: pubmed,
+                    },
+                };
+                tempEdgeList.push(startNode + endNode);
+                tempEdges.push(edgeEntry);
+            } else if (link) {
+                let edgeEntry = {
+                    data: {
+                        source: endNode,
+                        target: startNode,
+                        type: "shared",
+                        relType: relType,
+                        evidence: link,
+                    },
+                };
+                tempEdgeList.push(startNode + endNode);
+                tempEdges.push(edgeEntry);
+            } else if (fbRef) {
+                let edgeEntry = {
+                    data: {
+                        source: endNode,
+                        target: startNode,
+                        type: "shared",
+                        relType: relType,
+                        evidence: fbRef,
+                    },
+                };
+                tempEdgeList.push(startNode + endNode);
+                tempEdges.push(edgeEntry);
+            }
         }
     }
     networkData.edgeList = tempEdgeList;

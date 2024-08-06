@@ -17,6 +17,22 @@ export default function StatisticsTab({
 }) {
     const [tabIndex, setTabIndex] = useState(0);
 
+    const getLink = (evidence) => {
+        if (evidence.startsWith("FBrf")) {
+            return [`https://flybase.org/reports/${evidence}.htm`];
+        } else if (evidence.includes("/")) {
+            return [`https://string-db.org/interaction/${evidence}`];
+        } else if (/^\d{1,8}$/.test(evidence)) {
+            return [`https://pubmed.ncbi.nlm.nih.gov/${evidence}`]
+        } else if (evidence.includes(";")) {
+            return evidence.split(";").map(i => `https://pubmed.ncbi.nlm.nih.gov/${i}`);
+        } else {
+            return [];
+        }
+    };
+
+    const edgeLink = getLink(edgeEvidence);
+
     return (
         <div className="statistics-panel-container">
             <Tabs
@@ -131,11 +147,25 @@ export default function StatisticsTab({
                 <TabPanel>
                     <h4 className="stats-title">Edges stats</h4>
                     <div>
-                        {/*<div className= "click-edge-container">
+                        <div className="click-edge-container">
                             <h4>
-                                <div>Selected edge: {edgeEvidence}</div>
+                                <div>
+                                    Selected edge:{" "}
+                                    {edgeLink.length > 0 ? (
+                                        edgeLink.map((link, index) => (
+                                            <span key={index}>
+                                                <a href={link} target="_blank" rel="noopener noreferrer">
+                                                    {edgeEvidence.split(";")[index]}
+                                                </a>
+                                                {index < edgeLink.length - 1 && "; "}
+                                            </span>
+                                        ))
+                                    ) : (
+                                        edgeEvidence
+                                    )}
+                                </div>
                             </h4>
-                        </div>*/}
+                        </div>
                         {edgeSource ? (
                             <div className="edge-container">
                                 <div>Source node: {edgeSource}</div>
