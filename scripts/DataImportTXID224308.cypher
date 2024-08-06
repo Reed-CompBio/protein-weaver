@@ -1,4 +1,4 @@
-LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-06-06.txt' AS bsub
+LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-07-30.txt' AS bsub
         FIELDTERMINATOR '\t'
         CALL {
         with bsub

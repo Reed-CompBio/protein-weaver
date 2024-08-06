@@ -1,4 +1,4 @@
-LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-06-24.txt' AS zfish
+LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-07-30.txt' AS zfish
         FIELDTERMINATOR '\t'
         CALL {
             with zfish
