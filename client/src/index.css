@@ -82,11 +82,11 @@ button:focus-visible {
     padding-left: 12px;
 }
 
-.navbar > ul {
+.navbar>ul {
     list-style-type: none;
 }
 
-.navbar > ul > * {
+.navbar>ul>* {
     margin-left: 10px;
     color: black;
 }
@@ -228,7 +228,7 @@ body {
     width: 125px;
 }
 
-.protein-autocomplete > .active,
+.protein-autocomplete>.active,
 .protein-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -281,7 +281,7 @@ body {
     width: 225px;
 }
 
-.go-term-autocomplete > .active,
+.go-term-autocomplete>.active,
 .go-term-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -366,12 +366,44 @@ select {
     margin-right: 8px;
 }
 
-.example > a {
+.example>a {
     color: white;
     font-weight: bold;
     margin-left: 5px;
     text-decoration: underline;
     cursor: pointer;
+}
+
+a.activated {
+  color: Black;
+  font-weight: bold;
+  margin-left: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a.inactivated {
+  color: white;
+  font-weight: bold;
+  margin-left: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a.activated {
+  color: Black;
+  font-weight: bold;
+  margin-left: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a.inactivated {
+  color: white;
+  font-weight: bold;
+  margin-left: 5px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .guide-button {
@@ -707,7 +739,7 @@ select {
     box-shadow: 0px -0px 10px 5px var(--shadow);
 }
 
-.sidebar > h2,
+.sidebar>h2,
 h3,
 p {
     color: black;
@@ -806,14 +838,14 @@ select {
     align-items: center;
 }
 
-.footer > * {
+.footer>* {
     margin-left: 15px;
     color: black;
     font-family: "Lora", serif;
     font-weight: 600;
 }
 
-.footer > *:hover {
+.footer>*:hover {
     color: var(--home-button-hover);
 }
 
@@ -1019,8 +1051,8 @@ select {
     text-align: center;
 }
 
-.about-body > p,
-.about-body > h3,
+.about-body>p,
+.about-body>h3,
 .about-body-text {
     color: white;
     text-align: justify;
@@ -1031,25 +1063,25 @@ select {
     color: white;
 }
 
-.about-body > ul {
+.about-body>ul {
     list-style-type: disc;
 }
 
-.about-body > p > a,
-.about-list > li > a,
+.about-body>p>a,
+.about-list>li>a,
 .about-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.about-body > p > a:hover,
-.about-body > p > ul > li > a:hover,
+.about-body>p>a:hover,
+.about-body>p>ul>li>a:hover,
 .about-body-link:hover {
     color: var(--text-hover);
 }
 
-.about-list > li > a:hover {
+.about-list>li>a:hover {
     color: var(--text-hover);
 }
 
@@ -1073,8 +1105,8 @@ select {
     text-align: center;
 }
 
-.faq-body > p,
-.faq-body > h3,
+.faq-body>p,
+.faq-body>h3,
 .faq-body-text {
     color: white;
     text-align: justify;
@@ -1085,25 +1117,25 @@ select {
     color: white;
 }
 
-.faq-body > ul {
+.faq-body>ul {
     list-style-type: disc;
 }
 
-.faq-body > p > a,
-.faq-list > li > a,
+.faq-body>p>a,
+.faq-list>li>a,
 .faq-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.faq-body > p > a:hover,
-.faq-body > p > ul > li > a:hover,
+.faq-body>p>a:hover,
+.faq-body>p>ul>li>a:hover,
 .faq-body-link:hover {
     color: var(--text-hover);
 }
 
-.faq-list > li > a:hover {
+.faq-list>li>a:hover {
     color: var(--text-hover);
 }
 
@@ -1127,8 +1159,8 @@ select {
     text-align: center;
 }
 
-.tos-body > p,
-.tos-body > h3,
+.tos-body>p,
+.tos-body>h3,
 .tos-body-text {
     color: white;
     text-align: justify;
@@ -1139,25 +1171,25 @@ select {
     color: white;
 }
 
-.tos-body > ul {
+.tos-body>ul {
     list-style-type: disc;
 }
 
-.tos-body > p > a,
-.tos-list > li > a,
+.tos-body>p>a,
+.tos-list>li>a,
 .tos-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.tos-body > p > a:hover,
-.tos-body > p > ul > li > a:hover,
+.tos-body>p>a:hover,
+.tos-body>p>ul>li>a:hover,
 .tos-body-link:hover {
     color: var(--text-hover);
 }
 
-.tos-list > li > a:hover {
+.tos-list>li>a:hover {
     color: var(--text-hover);
 }
 
@@ -1469,26 +1501,31 @@ select {
 .summary-panel-container::-webkit-scrollbar,
 .statistics-panel-container::-webkit-scrollbar,
 .graph-exploration-panel-container::-webkit-scrollbar {
-    width: 5px; /* Width of the scrollbar */
+    width: 5px;
+    /* Width of the scrollbar */
 }
 
 .summary-panel-container::-webkit-scrollbar-track,
 .statistics-panel-container::-webkit-scrollbar-track,
 .graph-exploration-panel-container::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color of the scrollbar track */
+    background: #f1f1f1;
+    /* Color of the scrollbar track */
 }
 
 .summary-panel-container::-webkit-scrollbar-thumb,
 .statistics-panel-container::-webkit-scrollbar-thumb,
 .graph-exploration-panel-container::-webkit-scrollbar-thumb {
-    background: var(--reed-red); /* Color of the scrollbar thumb */
-    border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+    background: var(--reed-red);
+    /* Color of the scrollbar thumb */
+    border-radius: 6px;
+    /* Rounded corners of the scrollbar thumb */
 }
 
 .summary-panel-container::-webkit-scrollbar-thumb:hover,
 .statistics-panel-container::-webkit-scrollbar-thumb:hover,
 .graph-exploration-panel-container::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color of the scrollbar thumb when hovered */
+    background: #555;
+    /* Color of the scrollbar thumb when hovered */
 }
 
 .legend-max {
@@ -1529,6 +1566,8 @@ select {
     background-color: #828588;
 }
 
+
+
 .stats-tab-selected {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -1541,30 +1580,39 @@ select {
 }
 
 .scrollable-content {
-    max-height: 100%; /* Set a fixed height to enable scrolling */
-    overflow-y: scroll; /* Make the content scrollable */
-    direction: rtl; /* Set the direction to right-to-left to move the scrollbar to the left */
+    max-height: 100%;
+    /* Set a fixed height to enable scrolling */
+    overflow-y: scroll;
+    /* Make the content scrollable */
+    direction: rtl;
+    /* Set the direction to right-to-left to move the scrollbar to the left */
 }
 
 .scrollable-content * {
-    direction: ltr; /* Reset the text direction to left-to-right for the content */
+    direction: ltr;
+    /* Reset the text direction to left-to-right for the content */
 }
 
 .scrollable-content::-webkit-scrollbar {
-    width: 12px; /* Width of the scrollbar */
+    width: 12px;
+    /* Width of the scrollbar */
 }
 
 .scrollable-content::-webkit-scrollbar-track {
-    background: var(--reed-red); /* Color of the scrollbar track */
+    background: var(--reed-red);
+    /* Color of the scrollbar track */
 }
 
 .scrollable-content::-webkit-scrollbar-thumb {
-    background: var(re); /* Color of the scrollbar thumb */
-    border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+    background: var(re);
+    /* Color of the scrollbar thumb */
+    border-radius: 6px;
+    /* Rounded corners of the scrollbar thumb */
 }
 
 .scrollable-content::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color of the scrollbar thumb when hovered */
+    background: #555;
+    /* Color of the scrollbar thumb when hovered */
 }
 
 .right-aligned-list {
@@ -1628,4 +1676,15 @@ select {
 
 .degree-icon-container:hover {
     display: block;
+}
+
+.edge-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.click-edge-container {
+    display: flex;
+    color: #8FAAF5
 }

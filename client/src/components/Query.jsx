@@ -40,6 +40,9 @@ export default function Query() {
     const [sidebarNode, setSidebarNode] = useState("");
     const [sourceNode, setSourceNode] = useState("");
     const [goTerm, setGoTerm] = useState("");
+    const [edgeEvidence, setEdgeEvidence] = useState("");
+    const [edgeSource, setEdgeSource] = useState("");
+    const [edgeTarget, setEdgeTarget] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
     const submitRef = useRef();
@@ -72,6 +75,7 @@ export default function Query() {
     });
     const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
+    const [exState, setExState] = useState("");
     cytoscape.use(cola);
 
     useEffect(() => {
@@ -219,6 +223,9 @@ export default function Query() {
         setIsLoading(true);
         setDataParsingStatus(false);
         setErrorMessage("");
+        setEdgeEvidence("");
+        setEdgeSource("");
+        setEdgeTarget("");
 
         // get the k shortest paths for the query
         e.preventDefault();
@@ -307,7 +314,6 @@ export default function Query() {
             nodeList.nodeList.push(network.goTerm.id);
             setSourceNode(network.nodes[0].data);
             setGoTerm(network.goTerm);
-
             let edgeData = null;
             try {
                 edgeData = await fetch("/api/getEdgeData", {
@@ -340,10 +346,8 @@ export default function Query() {
                 setHasError(true);
                 setPageState(0);
                 setIsLoading(false);
-
                 return;
             }
-
             setSearchParams({
                 mode: query.mode,
                 species: query.species,
@@ -366,7 +370,6 @@ export default function Query() {
                 for (let i = 0; i < nodeLst.length; i++) {
                     proteinDegree[nodeLst[i].data.id] = nodeLst[i].data.degree;
                 }
-
                 let values = Object.values(proteinDegree);
                 var pdMax = Math.max(...values),
                     pdMin = Math.min(...values);
@@ -510,10 +513,13 @@ export default function Query() {
 
     // Allow users to change species value
     const handleSpeciesChange = (e) => {
-        setQuery((prevData) => ({
-            ...prevData,
+        setQuery({
+            mode: query.mode,
+            protein: "",
+            goTerm: "",
+            k: [],
             species: e.target.value,
-        }));
+        });
     };
 
     // Store GO term value temporarily for new GO term selection when moving through hierarchy
@@ -560,6 +566,7 @@ export default function Query() {
                         k: "4",
                     });
                     setActiveModeButton("path");
+                    setExState(String(i));
                     break;
                 case 2:
                     setQuery({
@@ -570,6 +577,7 @@ export default function Query() {
                         k: "7",
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
                 case 3:
                     setQuery({
@@ -580,6 +588,7 @@ export default function Query() {
                         k: "3",
                     });
                     setActiveModeButton("path");
+                    setExState(String(i));
                     break;
             }
         } else if (query.species == "txid7955") {
@@ -593,6 +602,7 @@ export default function Query() {
                         k: "4",
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
                 case 2:
                     setQuery({
@@ -603,6 +613,7 @@ export default function Query() {
                         k: "4",
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
                 case 3:
                     setQuery({
@@ -613,6 +624,7 @@ export default function Query() {
                         k: "7",
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
             }
         } else if (query.species == "txid224308") {
@@ -626,6 +638,7 @@ export default function Query() {
                         k: "7",
                     });
                     setActiveModeButton("path");
+                    setExState(String(i));
                     break;
                 case 2:
                     setQuery({
@@ -636,6 +649,7 @@ export default function Query() {
                         k: "6",
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
                 case 3:
                     setQuery({
@@ -646,10 +660,16 @@ export default function Query() {
                         k: "10",
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
             }
         }
     };
+
+    //Resets highlighted example when switching species
+    useEffect(() => {
+        setExState("");
+    }, [query.species]);
 
     // Allow users to export network as PNG
     const exportPNG = () => {
@@ -751,8 +771,8 @@ export default function Query() {
                         handleSpeciesChange={handleSpeciesChange}
                         handleQueryMode={handleQueryMode}
                         activeModeButton={activeModeButton}
+                        exState={exState}
                     />
-
                     {hasError && <QueryError errorMessage={errorMessage} />}
 
                     {isLoading && <div className="loader"></div>}
@@ -790,6 +810,7 @@ export default function Query() {
                             handleSpeciesChange={handleSpeciesChange}
                             handleQueryMode={handleQueryMode}
                             activeModeButton={activeModeButton}
+                            exState={exState}
                         />
 
                         {hasError && <QueryError errorMessage={errorMessage} />}
@@ -828,6 +849,28 @@ export default function Query() {
                                                         (evt) => {
                                                             getSidePanelData(
                                                                 evt
+                                                            );
+                                                        }
+                                                    );
+                                                    cy.on(
+                                                        "tap",
+                                                        "edge",
+                                                        (evt) => {
+                                                            setEdgeEvidence(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .evidence
+                                                            );
+                                                            setEdgeSource(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data.source
+                                                            );
+                                                            setEdgeTarget(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data.target
                                                             );
                                                         }
                                                     );
@@ -906,6 +949,10 @@ export default function Query() {
                                             networkStatistics={
                                                 networkStatistics
                                             }
+                                            nodeList={networkResult.nodeList}
+                                            edgeEvidence={edgeEvidence}
+                                            edgeSource={edgeSource}
+                                            edgeTarget={edgeTarget}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>

@@ -69,6 +69,28 @@ export const cytoscapeStyle = [
     },
   },
   {
+    selector: "edge[relType='Reg']",
+    style: {
+      width: 2,
+      "line-color": "Red",
+      "curve-style": "bezier",
+      'source-arrow-shape': 'triangle',
+      'source-arrow-color': "red",
+      "line-style": "dashed"
+    },
+  },
+  {
+    selector: "edge[type='shared'][relType='Reg']",
+    style: {
+      width: 2,
+      "line-color": "#994758",
+      "curve-style": "bezier",
+      'source-arrow-shape': 'triangle',
+      'source-arrow-color': "#994758",
+      // "width": 4
+    },
+  },
+  {
     selector: "node:selected",
     style: {
       "border-width": "3px",
@@ -76,6 +98,13 @@ export const cytoscapeStyle = [
       "border-opacity": "0.5",
       width: 30,
       height: 30
+    },
+  },
+  {
+    selector: "edge:selected",
+    style: {
+      width: 3,
+      "line-color": "#8FAAF5",
     },
   },
 ];
