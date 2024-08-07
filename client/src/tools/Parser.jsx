@@ -58,8 +58,7 @@ export function NetworkParserPath(data, source, go_term) {
                 let edgeEntry = {
                     data: {
                         source: endNode,
-                        target: startNode,
-                        evidence: "evidenceTest",
+                        target: startNode
                     },
                 };
                 parsedData.edgeList.push(startNode + endNode);
@@ -100,7 +99,7 @@ export function EdgeDataParser(networkData, edgeData) {
             networkData.edgeList.includes(endNode + startNode) ||
             networkData.edgeList.includes(startNode + endNode)
         ) {
-            if (relType === ("ProPro" || "Reg")) {
+            if (relType === "ProPro" || relType === "Reg") {
                 if (pubmed) {
                     let edgeEntry = {
                         data: {
