@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { MdConstruction } from "react-icons/md";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -16,6 +16,25 @@ export default function StatisticsTab({
     edgeTarget,
 }) {
     const [tabIndex, setTabIndex] = useState(0);
+    const [interactionDatabase, setInteractionDatabase] = useState("");
+
+    useEffect(() => {
+        getDatabase(edgeEvidence);
+    }, [edgeEvidence]);
+
+    const getDatabase = (evidence) => {
+        if (evidence.startsWith("FBrf")) {
+            setInteractionDatabase("FlyBase");
+        } else if (evidence.includes("/")) {
+            setInteractionDatabase("STRING");
+        } else if (/^\d{1,8}$/.test(evidence)) {
+            setInteractionDatabase("PMID");
+        } else if (evidence.includes(";")) {
+            setInteractionDatabase("PMID");
+        } else {
+            setInteractionDatabase("");
+        }
+    }
 
     const getLink = (evidence) => {
         if (evidence.startsWith("FBrf")) {
@@ -157,6 +176,7 @@ export default function StatisticsTab({
                                                 <a href={link} target="_blank" rel="noopener noreferrer">
                                                     {edgeEvidence.split(";")[index]}
                                                 </a>
+                                                {` (${interactionDatabase})`}
                                                 {index < edgeLink.length - 1 && "; "}
                                             </span>
                                         ))
