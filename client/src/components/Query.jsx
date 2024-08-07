@@ -339,7 +339,7 @@ export default function Query() {
                         setRawData(rawData);
                         setDataParsingStatus(true);
                         setQueryComplete(true);
-                        return networkResult;
+                        return EdgeDataParser(network, edgeData);
                     });
             } catch (error) {
                 console.error("Error getting the network:", error);
