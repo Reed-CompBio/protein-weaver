@@ -375,35 +375,35 @@ select {
 }
 
 a.activated {
-  color: Black;
-  font-weight: bold;
-  margin-left: 5px;
-  text-decoration: underline;
-  cursor: pointer;
+    color: Black;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 a.inactivated {
-  color: white;
-  font-weight: bold;
-  margin-left: 5px;
-  text-decoration: underline;
-  cursor: pointer;
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 a.activated {
-  color: Black;
-  font-weight: bold;
-  margin-left: 5px;
-  text-decoration: underline;
-  cursor: pointer;
+    color: Black;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 a.inactivated {
-  color: white;
-  font-weight: bold;
-  margin-left: 5px;
-  text-decoration: underline;
-  cursor: pointer;
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .guide-button {
@@ -965,13 +965,13 @@ select {
     align-items: center;
 }
 
-.intermediate-dot-align {
+/* .intermediate-dot-align {
     width: 525px;
     display: inline-flex;
     align-items: center;
     margin-top: -5px;
     margin-bottom: 5px;
-}
+} */
 
 .key-align {
     display: flex;
@@ -1015,7 +1015,12 @@ select {
     height: 15px;
     width: 15px;
     display: inline-block;
-    margin-top: none;
+}
+
+.node-size {
+    height: 15px;
+    width: 20px;
+    display: inline-block;
 }
 
 .loader {

@@ -7,6 +7,7 @@ import { IconContext } from "react-icons";
 import { PiGraph } from "react-icons/pi";
 import { TbGridDots } from "react-icons/tb";
 import { TbArrowsRandom } from "react-icons/tb";
+import nodeSize from "/src/assets/node-size.svg";
 
 export default function Legend({
   handleSharedEdgesToggle,
@@ -23,6 +24,12 @@ export default function Legend({
             <p className="legend-text">&nbsp;&nbsp;Source node</p>
           </div>
           <div className="dot-align">
+            <div className="intermediate-symbol"></div>
+            <p className="legend-text">
+              &nbsp;&nbsp;On path from GO protein to source node
+            </p>
+          </div>
+          <div className="dot-align">
             <div className="go-protein-symbol"></div>
             <p className="legend-text">&nbsp;&nbsp;GO protein</p>
           </div>
@@ -33,9 +40,9 @@ export default function Legend({
             </p>
           </div>
           <div className="dot-align">
-            <div className="intermediate-symbol"></div>
+            <img src={nodeSize} className="node-size" />
             <p className="legend-text">
-              &nbsp;&nbsp;On path from GO protein to source node
+              &nbsp;&nbsp;Increasing node degree
             </p>
           </div>
         </div>
