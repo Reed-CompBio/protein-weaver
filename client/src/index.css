@@ -936,6 +936,19 @@ select {
     align-items: center;
 }
 
+.shared-edge-toggle {
+    display: inline-flex;
+}
+
+.checkbox {
+    margin-left: 2px;
+    text-align: center;
+    cursor: pointer;
+    pointer-events: auto;
+    display: inline-flex;
+    /* This makes the div non-interactive */
+}
+
 .black-line {
     background-color: black;
     border: none;
@@ -954,6 +967,64 @@ select {
     margin-bottom: 3px;
 }
 
+.red-dashed-arrow {
+    background-color: transparent;
+    /* Set background to transparent */
+    border: none;
+    height: 0;
+    /* Height set to 0 for the line */
+    width: 28px;
+    display: inline-block;
+    position: relative;
+    border-top: 3px dashed red;
+    margin-bottom: 3px;
+    margin-right: 2px;
+}
+
+.red-dashed-arrow::after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    /* Adjust this value to position the arrowhead */
+    right: -2px;
+    /* Adjust this value to position the arrowhead */
+    border-top: 6px solid transparent;
+    /* Change this value for arrowhead size */
+    border-bottom: 6px solid transparent;
+    /* Change this value for arrowhead size */
+    border-left: 6px solid red;
+    /* Match the color of the arrow body */
+}
+
+.pink-dashed-arrow {
+    background-color: transparent;
+    /* Set background to transparent */
+    border: none;
+    height: 0;
+    /* Height set to 0 for the line */
+    width: 28px;
+    display: inline-block;
+    position: relative;
+    border-top: 3px dashed #994758;
+    margin-bottom: 3px;
+    margin-right: 2px;
+}
+
+.pink-dashed-arrow::after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    /* Adjust this value to position the arrowhead */
+    right: -2px;
+    /* Adjust this value to position the arrowhead */
+    border-top: 6px solid transparent;
+    /* Change this value for arrowhead size */
+    border-bottom: 6px solid transparent;
+    /* Change this value for arrowhead size */
+    border-left: 6px solid #994758;
+    /* Match the color of the arrow body */
+}
+
 .line-align {
     width: 525px;
     display: inline-block;
@@ -964,14 +1035,6 @@ select {
     display: inline-flex;
     align-items: center;
 }
-
-/* .intermediate-dot-align {
-    width: 525px;
-    display: inline-flex;
-    align-items: center;
-    margin-top: -5px;
-    margin-bottom: 5px;
-} */
 
 .key-align {
     display: flex;
@@ -1284,14 +1347,6 @@ select {
 .induced-subgraph-image {
     margin-left: 50px;
     height: 180px;
-}
-
-.checkbox {
-    margin-left: 10px;
-    margin-top: 5px;
-    cursor: pointer;
-    pointer-events: auto;
-    /* This makes the div non-interactive */
 }
 
 .info-icon {

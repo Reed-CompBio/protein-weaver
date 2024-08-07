@@ -51,11 +51,22 @@ export default function Legend({
           <h3>Edge Types</h3>
           <div className="line-align">
             <div className="black-line"></div>
-            <p className="legend-text">&nbsp;&nbsp;Exists in shortest path</p>
+            <p className="legend-text">&nbsp;&nbsp;Physical interaction on shortest path</p>
           </div>
           <div className="line-align">
             <div className="grey-line"></div>
-            <p className="legend-text">&nbsp;&nbsp;Induced subgraph</p>
+            <p className="legend-text">&nbsp;&nbsp;Physical interaction in induced subgraph</p>
+          </div>
+          <div className="line-align">
+            <div className="red-dashed-arrow"></div>
+            <p className="legend-text">&nbsp;&nbsp;Regulatory interaction on shortest path</p>
+          </div>
+          <div className="line-align">
+            <div className="pink-dashed-arrow"></div>
+            <p className="legend-text">&nbsp;&nbsp;Regulatory interaction in induced subgraph</p>
+          </div>
+          <div className="line-align">
+            <h4 className="shared-edge-toggle">Toggle Induced Edges</h4>
             <IconContext.Provider
               value={{
                 className: "checkbox",
@@ -111,6 +122,6 @@ export default function Legend({
           </IconContext.Provider>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
