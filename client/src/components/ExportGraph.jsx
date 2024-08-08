@@ -32,11 +32,9 @@ export default function ExportGraph({ log, exportPNG }) {
   return (
     // display the download text
     <div className="exports-container">
-      <h5>Export logs or PNG of current network:</h5>
       <a className="export" onClick={exportToJson}>
         Export Log to JSON
       </a>
-      <br />
       <a className="export" onClick={exportPNG}>
         Export Graph to PNG
       </a>
