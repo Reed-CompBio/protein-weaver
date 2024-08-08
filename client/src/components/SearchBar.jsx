@@ -63,7 +63,7 @@ export default function SearchBar({
               required
             />
             <select
-              style={{ width: "180px" }}
+              className="species-input-container" // User input for species
               name="species" // User input for species
               value={query.species}
               onChange={handleSpeciesChange}

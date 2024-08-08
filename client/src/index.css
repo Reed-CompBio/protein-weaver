@@ -136,7 +136,7 @@ body {
     width: 100%;
 }
 
-/* SearchBar */
+/* CSS for SearchBar.jsx */
 .search-bar-container {
     position: absolute;
     left: 0;
@@ -173,6 +173,109 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+}
+
+.k-input {
+    margin-top: 1px;
+    width: 40px;
+    height: 24px;
+    min-height: 24px;
+    text-align: center;
+}
+
+.species-input-container {
+    margin-top: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 40px;
+    border-radius: 5px;
+    width: 180px;
+}
+
+.example {
+    padding-left: 16px;
+    margin-left: 10px;
+    margin-right: 16px;
+    font-size: 15px;
+    display: inline-flex;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+.example i {
+    margin-right: 8px;
+}
+
+.example>a {
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.activated {
+    color: Black;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.inactivated {
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.activated {
+    color: Black;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.inactivated {
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.guide-button {
+    padding: 2.5px;
+    margin-top: 24px;
+    margin-right: 12px;
+    margin-left: auto;
+    margin-bottom: auto;
+    font-size: 15px;
+    border: 2px solid white;
+    background-color: white;
+    cursor: pointer;
+    color: #000;
+    z-index: 999;
+}
+
+.search-button {
+    margin-top: 1px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-right: 16px;
+    height: 40px;
+    width: 80px;
+    word-wrap: nowrap;
+    background: #000;
+    color: #fff;
+    border: 1px solid black;
+    border-radius: 5px;
+    order: 4;
+    flex: 0 1 auto;
+    text-align: center;
 }
 
 /* Autocomplete */
@@ -298,14 +401,6 @@ body {
     max-height: 90px;
 }
 
-.k-input {
-    margin-top: 1px;
-    width: 40px;
-    height: 24px;
-    min-height: 24px;
-    text-align: center;
-}
-
 input {
     position: relative;
     min-width: 20px;
@@ -334,93 +429,7 @@ select {
     align-self: auto;
 }
 
-.search-button {
-    margin-top: 1px;
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-right: 16px;
-    height: 40px;
-    width: 80px;
-    word-wrap: nowrap;
-    background: #000;
-    color: #fff;
-    border: 1px solid black;
-    border-radius: 5px;
-    order: 4;
-    flex: 0 1 auto;
-    text-align: center;
-}
-
-.example {
-    padding-left: 16px;
-    margin-left: 10px;
-    margin-right: 16px;
-    font-size: 15px;
-    display: inline-flex;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-}
-
-.example i {
-    margin-right: 8px;
-}
-
-.example>a {
-    color: white;
-    font-weight: bold;
-    margin-left: 5px;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-a.activated {
-    color: Black;
-    font-weight: bold;
-    margin-left: 5px;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-a.inactivated {
-    color: white;
-    font-weight: bold;
-    margin-left: 5px;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-a.activated {
-    color: Black;
-    font-weight: bold;
-    margin-left: 5px;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-a.inactivated {
-    color: white;
-    font-weight: bold;
-    margin-left: 5px;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.guide-button {
-    padding: 2.5px;
-    margin-top: 24px;
-    margin-right: 12px;
-    margin-left: auto;
-    margin-bottom: auto;
-    font-size: 15px;
-    border: 2px solid white;
-    background-color: white;
-    cursor: pointer;
-    color: #000;
-    z-index: 999;
-}
-
-/* Graph Exploration */
+/* CSS for GraphExploration.jsx */
 .graph-exploration {
     display: flex;
     flex-wrap: wrap;
@@ -567,6 +576,7 @@ a.inactivated {
     cursor: auto;
 }
 
+/* CSS for ExportGraph.jsx */
 .exports-container {
     text-align: center;
     margin-top: 8px;
@@ -586,36 +596,11 @@ a.inactivated {
     color: var(--reed-red);
 }
 
-.search {
-    flex: 2 1 auto;
-}
-
-.date-from {
-    flex: 1 1 auto;
-}
-
-.date-to {
-    flex: 1 1 auto;
-}
-
+/* CytoscapeComponent Query.jsx */
 .cytoscape-graph {
     height: 100%;
     width: 100%;
     padding-left: 50px;
-}
-
-.search-box-align {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-
-.sidebar-align {
-    display: flex;
-    justify-content: center;
-    width: 1080px;
-    align-self: center;
 }
 
 /* Graph Summary Component */
@@ -651,6 +636,11 @@ a.inactivated {
 
 .sidebar-button-block {
     display: block;
+}
+
+/* CSS for NodeTab.jsx */
+.database-link {
+    font-size: small;
 }
 
 .red-sidebar-link {
@@ -703,59 +693,18 @@ a.inactivated {
     background-color: var(--graph-tan-hover);
 }
 
-.protein-selection-suggestion {
-    margin-left: 16px;
-    margin-top: 16px;
-    margin-bottom: 0;
-}
-
 .protein-summary {
     margin-left: 16px;
     display: flex;
     flex-direction: column;
 }
 
-.database-link {
-    font-size: small;
-}
-
-.go-protein-summary {
-    margin-left: 16px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* .go-qualifier {
-  display: flex;
-  flex-direction: row;
-} */
-
 .go-protein-disclaimer {
     font-weight: bold;
     font-size: x-small;
 }
 
-.sidebar {
-    width: 250px;
-    height: 480px;
-    background-color: var(--light-background);
-    border: 2px solid var(--light-background);
-    border-radius: 0;
-    padding: 10px;
-    margin-left: 2px;
-    margin-top: 5px;
-    overflow-y: scroll;
-    box-shadow: 0px -0px 10px 5px var(--shadow);
-}
-
-.sidebar>h2,
-h3,
-p {
-    color: black;
-    word-wrap: break-word;
-}
-
-/* Query Error */
+/* CSS for QueryError.jsx */
 .query-error {
     position: relative;
     margin: auto;
@@ -796,29 +745,7 @@ p {
     width: 100px;
 }
 
-.center-buttons {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.go-description {
-    overflow: auto;
-    text-overflow: ellipsis;
-    height: 120px;
-    flex-wrap: break-word;
-}
-
-select {
-    margin-top: 1px;
-    margin-left: 10px;
-    margin-right: 10px;
-    height: 40px;
-    border-radius: 5px;
-}
-
+/* CSS for Footer.jsx */
 .footer-container {
     position: relative;
     bottom: 0;
@@ -856,6 +783,7 @@ select {
     align-items: center;
 }
 
+/* CSS for GoDefinition.jsx */
 .icon {
     color: white;
     margin-right: 0.5em;
@@ -902,6 +830,7 @@ select {
     cursor: pointer;
 }
 
+/* CSS for Legend.jsx */
 .legend {
     width: 1045px;
     height: 300px;
@@ -934,6 +863,19 @@ select {
     align-items: center;
 }
 
+.legend-max {
+    padding-left: 10px;
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    font-size: 10px;
+    pointer-events: none;
+    /* This makes the div non-interactive */
+}
+
 .shared-edge-toggle {
     display: inline-flex;
 }
@@ -944,7 +886,7 @@ select {
     cursor: pointer;
     pointer-events: auto;
     display: inline-flex;
-    /* This makes the div non-interactive */
+    /* This makes the div interactive */
 }
 
 .black-line {
@@ -1084,6 +1026,7 @@ select {
     display: inline-block;
 }
 
+/* CSS for loading icon after query submission */
 .loader {
     border: 16px solid #f3f3f3;
     /* Light grey */
@@ -1097,6 +1040,7 @@ select {
     margin: auto;
 }
 
+/* CSS for AboutPage.jsx */
 .about-body {
     background-color: var(--reed-red);
     width: 1000px;
@@ -1151,60 +1095,7 @@ select {
     color: var(--text-hover);
 }
 
-.faq-body {
-    background-color: var(--reed-red);
-    width: 1000px;
-    margin: auto;
-    margin-top: 50px;
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-bottom: 25px;
-    padding-top: 5px;
-    border-radius: 10px;
-    color: white;
-    box-shadow: 0px -0px 10px 5px var(--shadow);
-}
-
-.faq-title {
-    padding-bottom: 5px;
-    border-bottom: 3px solid white;
-    text-align: center;
-}
-
-.faq-body>p,
-.faq-body>h3,
-.faq-body-text {
-    color: white;
-    text-align: justify;
-}
-
-.faq-body-text-heading {
-    text-align: left;
-    color: white;
-}
-
-.faq-body>ul {
-    list-style-type: disc;
-}
-
-.faq-body>p>a,
-.faq-list>li>a,
-.faq-body-link {
-    color: white;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.faq-body>p>a:hover,
-.faq-body>p>ul>li>a:hover,
-.faq-body-link:hover {
-    color: var(--text-hover);
-}
-
-.faq-list>li>a:hover {
-    color: var(--text-hover);
-}
-
+/* CSS for TOSPage.jsx */
 .tos-body {
     background-color: var(--reed-red);
     width: 1000px;
@@ -1259,6 +1150,7 @@ select {
     color: var(--text-hover);
 }
 
+/* CSS and icons for App.jsx page */
 .home-body {
     background-color: var(--reed-red);
     width: 1000px;
@@ -1328,6 +1220,61 @@ select {
     color: var(--text-hover);
 }
 
+/* CSS for images on FAQPage.jsx */
+.faq-body {
+    background-color: var(--reed-red);
+    width: 1000px;
+    margin: auto;
+    margin-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-top: 5px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0px -0px 10px 5px var(--shadow);
+}
+
+.faq-title {
+    padding-bottom: 5px;
+    border-bottom: 3px solid white;
+    text-align: center;
+}
+
+.faq-body>p,
+.faq-body>h3,
+.faq-body-text {
+    color: white;
+    text-align: justify;
+}
+
+.faq-body-text-heading {
+    text-align: left;
+    color: white;
+}
+
+.faq-body>ul {
+    list-style-type: disc;
+}
+
+.faq-body>p>a,
+.faq-list>li>a,
+.faq-body-link {
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.faq-body>p>a:hover,
+.faq-body>p>ul>li>a:hover,
+.faq-body-link:hover {
+    color: var(--text-hover);
+}
+
+.faq-list>li>a:hover {
+    color: var(--text-hover);
+}
+
 .faq-image-container {
     display: flex;
 }
@@ -1347,6 +1294,7 @@ select {
     height: 180px;
 }
 
+/* CSS for GO term hierarchy exploration, warns users with info icon when at end GO term */
 .info-icon {
     position: absolute;
     left: -20px;
@@ -1377,6 +1325,7 @@ select {
     display: block;
 }
 
+/* CSS for warning for GO terms that should never be annotated */
 .never-annotate-container {
     position: relative;
 }
@@ -1408,6 +1357,7 @@ select {
     display: block;
 }
 
+/* GraphExploration.jsx change graph layout */
 .change-layout-header {
     width: 525px;
     display: inline-block;
@@ -1512,6 +1462,7 @@ select {
     }
 }
 
+/* Create Panels in Query.jsx */
 .panel-container {
     margin-top: 82px;
     width: 100%;
@@ -1556,6 +1507,44 @@ select {
     width: 100%;
 }
 
+/* StatisticsTab.jsx */
+.stats-tab-list {
+    list-style-type: none;
+    /* Remove bullets */
+    padding: 0;
+    /* Remove padding */
+    margin: 0;
+    /* Remove margins */
+    display: flex;
+    cursor: pointer;
+}
+
+.stats-tab {
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    background-color: #828588;
+}
+
+.stats-tab-construction {
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    background-color: #828588;
+}
+
+.stats-tab-selected {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-decoration: underline;
+    background-color: white;
+}
+
+.stats-title {
+    text-align: left;
+}
+
+/* makes tabs and panels scrollable */
 .summary-panel-container,
 .statistics-panel-container,
 .graph-exploration-panel-container {
@@ -1594,57 +1583,6 @@ select {
     /* Color of the scrollbar thumb when hovered */
 }
 
-.legend-max {
-    padding-left: 10px;
-    width: 10%;
-    height: 10%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    font-size: 10px;
-    pointer-events: none;
-    /* This makes the div non-interactive */
-}
-
-.stats-tab-list {
-    list-style-type: none;
-    /* Remove bullets */
-    padding: 0;
-    /* Remove padding */
-    margin: 0;
-    /* Remove margins */
-    display: flex;
-    cursor: pointer;
-}
-
-.stats-tab {
-    width: 100%;
-    padding: 5px;
-    text-align: center;
-    background-color: #828588;
-}
-
-.stats-tab-construction {
-    width: 100%;
-    padding: 5px;
-    text-align: center;
-    background-color: #828588;
-}
-
-
-
-.stats-tab-selected {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    text-decoration: underline;
-    background-color: white;
-}
-
-.stats-title {
-    text-align: left;
-}
-
 .scrollable-content {
     max-height: 100%;
     /* Set a fixed height to enable scrolling */
@@ -1681,11 +1619,24 @@ select {
     /* Color of the scrollbar thumb when hovered */
 }
 
-.right-aligned-list {
-    list-style: none;
-    text-align: right;
+/* MotifTab.jsx */
+.motif-stats-container {
+    margin-left: 30px;
+    margin-top: 20px;
 }
 
+/* EdgeTab.jsx */
+.edge-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.click-edge-container {
+    display: flex;
+}
+
+/* GraphStats.jsx */
 .graph-stats-container {
     margin-left: 30px;
     margin-top: 20px;
@@ -1747,15 +1698,4 @@ select {
 
 .degree-icon-container:hover {
     display: block;
-}
-
-.edge-container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 30px;
-}
-
-.click-edge-container {
-    display: flex;
-    color: #8FAAF5
 }

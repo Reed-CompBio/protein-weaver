@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // create component
-export default function Motif({ nodeList }) {
+export default function MotifTab({ nodeList }) {
     // create empty object to store query results
     const [MotifCount, setMotifCount] = useState([]);
     useEffect(() => {
@@ -31,9 +31,7 @@ export default function Motif({ nodeList }) {
     }, []);
 
     return (
-        <div>
-            <br />
-            <b>Motif Counts:</b>
+        <div className="motif-stats-container">
             <p>
                 Protein clique: {MotifCount[0]} <br /><br />
                 Interacting transcription factors that coregulate a third gene: {MotifCount[1]} <br /><br />

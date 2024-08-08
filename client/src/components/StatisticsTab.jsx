@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // import { MdConstruction } from "react-icons/md";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import Motif from "./Motif";
+import MotifTab from "./MotifTab";
 import NodeTab from "./NodeTab";
 import EdgeTab from "./EdgeTab";
 
@@ -38,7 +38,7 @@ export default function StatisticsTab({
                     />
                 </TabPanel>
                 <TabPanel>
-                    <h4 className="stats-title">Edges stats</h4>
+                    <h4 className="stats-title">Edge stats</h4>
                     <EdgeTab
                         edgeEvidence={edgeEvidence}
                         edgeSource={edgeSource}
@@ -47,9 +47,8 @@ export default function StatisticsTab({
                     />
                 </TabPanel>
                 <TabPanel>
-                    <div className="graph-statistics-container">
-                        <Motif nodeList={nodeList} />
-                    </div>
+                    <h4 className="stats-title">Motif counts</h4>
+                    <MotifTab nodeList={nodeList} />
                 </TabPanel>
             </Tabs>
             <ReactTooltip

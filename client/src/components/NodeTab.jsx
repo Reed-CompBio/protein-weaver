@@ -66,7 +66,7 @@ export default function NodeTab({
         currentNode.type === "go_source"
     ) {
         return (
-            <div className="go-protein-summary">
+            <div className="protein-summary">
                 <h5>Selected protein: {currentNode.label}
                     <Degree id={currentNode.id} />
                 </h5>
