@@ -3,13 +3,16 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // import { MdConstruction } from "react-icons/md";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import Motif from "./Motif";
+import NodeTab from "./NodeTab";
 
 export default function StatisticsTab({
     nodeList,
     edgeEvidence,
     edgeSource,
     edgeTarget,
-    edgeType
+    edgeType,
+    currentNode,
+    query,
 }) {
     const [tabIndex, setTabIndex] = useState(0);
     const [interactionDatabase, setInteractionDatabase] = useState("");
@@ -63,6 +66,10 @@ export default function StatisticsTab({
                 </TabList>
                 <TabPanel>
                     <h4 className="stats-title">Node stats</h4>
+                    <NodeTab
+                        currentNode={currentNode}
+                        query={query}
+                    />
                 </TabPanel>
                 <TabPanel>
                     <h4 className="stats-title">Edges stats</h4>

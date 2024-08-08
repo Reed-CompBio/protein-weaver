@@ -10,7 +10,7 @@ export default function GraphStats({
 }) {
     return (
         <div>
-            <h4 className="stats-title">Network Statistics:</h4>
+            <h5 className="stats-title">Network statistics:</h5>
             <div className="graph-stats-container">
                 <div className="align-graph-stats">
                     <div className="img-text-container">

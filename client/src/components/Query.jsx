@@ -959,6 +959,8 @@ export default function Query() {
                                             edgeSource={edgeSource}
                                             edgeTarget={edgeTarget}
                                             edgeType={edgeType}
+                                            currentNode={sidebarNode}
+                                            query={query}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>
