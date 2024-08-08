@@ -1410,6 +1410,10 @@ select {
     display: block;
 }
 
+.change-layout-header {
+    width: 525px;
+}
+
 .change-layout {
     cursor: pointer;
     margin: 2px;

@@ -86,7 +86,7 @@ export default function Legend({
             </IconContext.Provider>
           </div>
         </div>
-        <h3>Change Graph Layout:</h3>
+        <h3 className="change-layout-header">Change Graph Layout:</h3>
         <div className="align-change-layout">
           <IconContext.Provider
             value={{
