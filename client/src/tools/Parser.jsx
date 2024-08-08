@@ -255,7 +255,6 @@ export function NetworkParserNode(data, source, k) {
                     data: {
                         source: endNode,
                         target: startNode,
-                        evidence: "evidenceTest",
                     },
                 };
                 parsedData.edgeList.push(startNode + endNode);

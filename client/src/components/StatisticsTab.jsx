@@ -9,6 +9,7 @@ export default function StatisticsTab({
     edgeEvidence,
     edgeSource,
     edgeTarget,
+    edgeType
 }) {
     const [tabIndex, setTabIndex] = useState(0);
     const [interactionDatabase, setInteractionDatabase] = useState("");
@@ -90,6 +91,7 @@ export default function StatisticsTab({
                             <div className="edge-container">
                                 <div>Source node: {edgeSource}</div>
                                 <div>Target edge: {edgeTarget}</div>
+                                <div>Edge type: {edgeType}</div>
                             </div>
                         ) : (
                             <p>Click an edge to see more information</p>

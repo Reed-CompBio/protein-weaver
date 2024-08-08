@@ -43,6 +43,7 @@ export default function Query() {
     const [edgeEvidence, setEdgeEvidence] = useState("");
     const [edgeSource, setEdgeSource] = useState("");
     const [edgeTarget, setEdgeTarget] = useState("");
+    const [edgeType, setEdgeType] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
     const submitRef = useRef();
@@ -226,6 +227,7 @@ export default function Query() {
         setEdgeEvidence("");
         setEdgeSource("");
         setEdgeTarget("");
+        setEdgeType("");
 
         // get the k shortest paths for the query
         e.preventDefault();
@@ -865,12 +867,20 @@ export default function Query() {
                                                             setEdgeSource(
                                                                 evt.target
                                                                     ._private
-                                                                    .data.source
+                                                                    .data
+                                                                    .source
                                                             );
                                                             setEdgeTarget(
                                                                 evt.target
                                                                     ._private
-                                                                    .data.target
+                                                                    .data
+                                                                    .target
+                                                            );
+                                                            setEdgeType(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .relType
                                                             );
                                                         }
                                                     );
@@ -948,6 +958,7 @@ export default function Query() {
                                             edgeEvidence={edgeEvidence}
                                             edgeSource={edgeSource}
                                             edgeTarget={edgeTarget}
+                                            edgeType={edgeType}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>
