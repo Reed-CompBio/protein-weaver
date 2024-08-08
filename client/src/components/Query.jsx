@@ -883,9 +883,6 @@ export default function Query() {
                                                 showSharedEdges={
                                                     showSharedEdges
                                                 }
-                                                handleLayoutChange={
-                                                    handleLayoutChange
-                                                }
                                             />
                                         </div>
                                     </Panel>
@@ -898,16 +895,11 @@ export default function Query() {
                                         <div className="graph-exploration-panel-container">
                                             <GraphExploration // Render graph exploration panel
                                                 currentNode={sidebarNode}
-                                                query={query}
                                                 handleSourceNode={
                                                     handleSourceNode
                                                 }
+                                                handleLayoutChange={handleLayoutChange}
                                                 handleSubmit={handleSubmit}
-                                                exportPNG={exportPNG}
-                                                searchExecuted={searchParams}
-                                                queryCount={queryCount}
-                                                logs={logs}
-                                                handleLog={handleLog}
                                                 parentGoTerms={ancestorsOptions}
                                                 childrenGoTerms={
                                                     descendantsOptions
@@ -940,15 +932,18 @@ export default function Query() {
                                                 sourceNode={sourceNode}
                                                 query={query}
                                                 goTerm={goTerm}
+                                                exportPNG={exportPNG}
+                                                searchExecuted={searchParams}
+                                                queryCount={queryCount}
+                                                logs={logs}
+                                                handleLog={handleLog}
+                                                networkStatistics={networkStatistics}
                                             />
                                         </div>
                                     </Panel>
                                     <PanelResizeHandle className="panel-resize-handle" />
                                     <Panel defaultSize={40} minSize={10}>
                                         <StatisticsTab
-                                            networkStatistics={
-                                                networkStatistics
-                                            }
                                             nodeList={networkResult.nodeList}
                                             edgeEvidence={edgeEvidence}
                                             edgeSource={edgeSource}

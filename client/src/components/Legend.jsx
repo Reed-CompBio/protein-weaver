@@ -4,15 +4,11 @@ import {
   MdOutlineCheckBoxOutlineBlank,
 } from "react-icons/md";
 import { IconContext } from "react-icons";
-import { PiGraph } from "react-icons/pi";
-import { TbGridDots } from "react-icons/tb";
-import { TbArrowsRandom } from "react-icons/tb";
 import nodeSize from "/src/assets/node-size.svg";
 
 export default function Legend({
   handleSharedEdgesToggle,
   showSharedEdges,
-  handleLayoutChange,
 }) {
   return (
     <div>
@@ -85,41 +81,6 @@ export default function Legend({
               )}
             </IconContext.Provider>
           </div>
-        </div>
-        <h3 className="change-layout-header">Change Graph Layout:</h3>
-        <div className="align-change-layout">
-          <IconContext.Provider
-            value={{
-              className: "change-layout",
-              color: "black",
-              size: "2em",
-            }}
-          >
-            <div className="layout-tooltip">
-              <PiGraph
-                className="layout-icon"
-                onClick={(e) => handleLayoutChange("cola", e)}
-                aria-label="default"
-              />
-              <span className="tooltiptext">Cola</span>
-            </div>
-            <div className="layout-tooltip">
-              <TbArrowsRandom
-                className="layout-icon"
-                onClick={(e) => handleLayoutChange("random", e)}
-                aria-label="random"
-              />
-              <span className="tooltiptext">Random</span>
-            </div>
-            <div className="layout-tooltip">
-              <TbGridDots
-                className="layout-icon"
-                onClick={(e) => handleLayoutChange("grid", e)}
-                aria-label="grid"
-              />
-              <span className="tooltiptext">Grid</span>
-            </div>
-          </IconContext.Provider>
         </div>
       </div>
     </div >

@@ -1412,6 +1412,9 @@ select {
 
 .change-layout-header {
     width: 525px;
+    display: inline-block;
+    margin-left: 24px;
+    margin-right: none;
 }
 
 .change-layout {
@@ -1422,6 +1425,7 @@ select {
 .align-change-layout {
     align-items: center;
     justify-content: center;
+    display: inline-flex;
 }
 
 /* Tooltip container */
@@ -1689,6 +1693,10 @@ select {
     margin-top: 20px;
 }
 
+.align-graph-stats {
+    display: inline-flex;
+}
+
 .node-icon-container {
     display: flex;
     flex-direction: column;
@@ -1700,6 +1708,7 @@ select {
 .img-text-container {
     display: flex;
     margin-top: 20px;
+    margin-right: 20px;
 }
 
 .node-icon-container:hover {

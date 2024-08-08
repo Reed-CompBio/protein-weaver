@@ -1,13 +1,23 @@
 import { React, useState, useEffect } from "react";
 import GoDefinition from "./GoDefinition";
+import ExportGraph from "./ExportGraph";
+import GraphStats from "./GraphStats";
 import { PiWarningBold } from "react-icons/pi";
 import PGStats from "./ProGoStats";
 
 export default function StaticSummary({
+    currentNode,
     sourceNode,
     query,
-    goTerm
+    goTerm,
+    exportPNG,
+    searchExecuted,
+    queryCount,
+    logs,
+    handleLog,
+    networkStatistics
 }) {
+    const [proteinCount, setProteinCount] = useState(0);
     const [sourceNodeLink, setSourceNodeLink] = useState("");
     const [neverAnnotateWarning, setNeverAnnotateWarning] = useState(false);
     const [showNeverAnnotate, setShowNeverAnnotate] = useState(false);
@@ -38,9 +48,34 @@ export default function StaticSummary({
         }
     }, [sourceNode.id]);
 
+    // Keep track of the proteins in the query
+    useEffect(() => {
+        if (currentNode) {
+            const logKey = `protein${proteinCount + 1}`;
+            const newProtein = {
+                protein: currentNode,
+                timestamp: new Date().toISOString(),
+            };
+            setProteinCount(proteinCount + 1);
+            handleLog(newProtein);
+        }
+    }, [currentNode]);
+
+    // Keep track of the queries
+    useEffect(() => {
+        if (query) {
+            const logKey = `query${queryCount}`;
+            const newQuery = {
+                query: query,
+                timestamp: new Date().toISOString(),
+            };
+            handleLog(newQuery);
+        }
+    }, [searchExecuted]);
+
     return (
         <div className="query-result-summary">
-            <h4 className="graph-summary-title">Network Summary</h4>
+            <h4 className="graph-summary-title">Query Results</h4>
             <h5>Ontology links:</h5>
             <div className="query-result-container">
                 <div className="query-result-link-container">
@@ -82,6 +117,10 @@ export default function StaticSummary({
                 <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
                 <PGStats name={goTerm.name} txid={query.species} />
             </GoDefinition>
+            <GraphStats
+                networkStatistics={networkStatistics}
+            />
+            <ExportGraph log={logs} exportPNG={exportPNG} />
         </div>
     )
 }

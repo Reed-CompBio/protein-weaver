@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ExportLogJSON({ log }) {
+export default function ExportGraph({ log, exportPNG }) {
   // Function to download the file as JSON
   const downloadFile = ({ data, fileName, fileType }) => {
     // Create a blob with the data we want to download as a file
@@ -31,9 +31,14 @@ export default function ExportLogJSON({ log }) {
 
   return (
     // display the download text
-    <div>
+    <div className="exports-container">
+      <h5>Export logs or PNG of current network:</h5>
       <a className="export" onClick={exportToJson}>
         Export Log to JSON
+      </a>
+      <br />
+      <a className="export" onClick={exportPNG}>
+        Export Graph to PNG
       </a>
     </div>
   );

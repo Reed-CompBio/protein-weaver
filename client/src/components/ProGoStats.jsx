@@ -30,7 +30,7 @@ export default function PGStats({ name, txid }) {
 
     return (
         <div>
-            &nbsp;&nbsp;&nbsp;Species Specific GO Term Annotations: {count}
+            &nbsp;&nbsp;&nbsp;Number of Proteins Annotated to GO Term [{txid}]: {count}
         </div>
     )
 }

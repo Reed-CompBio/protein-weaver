@@ -6,7 +6,13 @@ export default function GraphSummary({
     currentNode,
     sourceNode,
     query,
-    goTerm
+    goTerm,
+    exportPNG,
+    searchExecuted,
+    queryCount,
+    logs,
+    handleLog,
+    networkStatistics
 }) {
     const [selectedDbLink, setSelectedDbLink] = useState("");
 
@@ -28,9 +34,16 @@ export default function GraphSummary({
         return (
             <div>
                 <StaticSummary // This part of the graph summary never changes
+                    currentNode={currentNode}
                     sourceNode={sourceNode}
                     query={query}
                     goTerm={goTerm}
+                    exportPNG={exportPNG}
+                    searchExecuted={searchExecuted}
+                    queryCount={queryCount}
+                    logs={logs}
+                    handleLog={handleLog}
+                    networkStatistics={networkStatistics}
                 />
                 <h5 className="protein-selection-suggestion">Select a protein to learn more...</h5>
             </div>
@@ -40,9 +53,16 @@ export default function GraphSummary({
         return (
             <div>
                 <StaticSummary
+                    currentNode={currentNode}
                     sourceNode={sourceNode}
                     query={query}
                     goTerm={goTerm}
+                    exportPNG={exportPNG}
+                    searchExecuted={searchExecuted}
+                    queryCount={queryCount}
+                    logs={logs}
+                    handleLog={handleLog}
+                    networkStatistics={networkStatistics}
                 />
                 <div className="protein-summary">
                     <h5>Selected protein: {currentNode.label}
@@ -66,9 +86,16 @@ export default function GraphSummary({
         return (
             <div>
                 <StaticSummary
+                    currentNode={currentNode}
                     sourceNode={sourceNode}
                     query={query}
                     goTerm={goTerm}
+                    exportPNG={exportPNG}
+                    searchExecuted={searchExecuted}
+                    queryCount={queryCount}
+                    logs={logs}
+                    handleLog={handleLog}
+                    networkStatistics={networkStatistics}
                 />
                 <div className="protein-summary">
                     <h5>Selected protein: {currentNode.label}
@@ -95,9 +122,16 @@ export default function GraphSummary({
         return (
             <div>
                 <StaticSummary
+                    currentNode={currentNode}
                     sourceNode={sourceNode}
                     query={query}
                     goTerm={goTerm}
+                    exportPNG={exportPNG}
+                    searchExecuted={searchExecuted}
+                    queryCount={queryCount}
+                    logs={logs}
+                    handleLog={handleLog}
+                    networkStatistics={networkStatistics}
                 />
                 <div className="go-protein-summary">
                     <h5>Selected protein: {currentNode.label}
