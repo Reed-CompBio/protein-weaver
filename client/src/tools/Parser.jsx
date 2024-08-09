@@ -237,13 +237,13 @@ export function NetworkParserNode(data, k) {
                 },
             };
             if (
-                nodeId.toUpperCase() == sourceId.toUpperCase() &&
-                j == currentPath.length - 2
+                nodeId.toUpperCase() === sourceId.toUpperCase() &&
+                j == currentPath.length - 1
             ) {
                 nodeEntry.data.type = "go_source";
-            } else if (nodeId.toUpperCase() == sourceId.toUpperCase()) {
+            } else if (nodeId.toUpperCase() === sourceId.toUpperCase()) {
                 nodeEntry.data.type = "source";
-            } else if (j == currentPath.length - 2) {
+            } else if (j == currentPath.length - 1) {
                 nodeEntry.data.type = "go_protein";
             } else {
                 nodeEntry.data.type = "intermediate";
