@@ -32,14 +32,14 @@ export default function StatisticsTab({
                     <Tab className="stats-tab">Motifs</Tab>
                 </TabList>
                 <TabPanel>
-                    <h4 className="stats-title">Node stats</h4>
+                    <h4 className="stats-title">Node Stats</h4>
                     <NodeTab
                         currentNode={currentNode}
                         query={query}
                     />
                 </TabPanel>
                 <TabPanel>
-                    <h4 className="stats-title">Edge stats</h4>
+                    <h4 className="stats-title">Edge Stats</h4>
                     <EdgeTab
                         edgeEvidence={edgeEvidence}
                         edgeSource={edgeSource}
@@ -49,7 +49,7 @@ export default function StatisticsTab({
                     />
                 </TabPanel>
                 <TabPanel>
-                    <h4 className="stats-title">Motif counts</h4>
+                    <h4 className="stats-title">Motif Counts</h4>
                     <MotifTab nodeList={nodeList} />
                 </TabPanel>
             </Tabs>
