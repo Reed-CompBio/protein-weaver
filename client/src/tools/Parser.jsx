@@ -13,10 +13,10 @@ export function NetworkParserPath(data) {
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
             if (currentPath[j].properties.name != null) {
                 nodeName = currentPath[j].properties.name;
-            } else if (currentPath[j].properties.alt_name != null) {
-                nodeName = currentPath[j].properties.alt_name;
             } else if (currentPath[j].properties.gene_name != null) {
                 nodeName = currentPath[j].properties.gene_name;
+            } else if (currentPath[j].properties.alt_name != null) {
+                nodeName = currentPath[j].properties.alt_name;
             } else {
                 nodeName = currentPath[j].properties.id;
             }
@@ -216,10 +216,10 @@ export function NetworkParserNode(data, k) {
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
             if (currentPath[j].properties.name != null) {
                 nodeName = currentPath[j].properties.name;
-            } else if (currentPath[j].properties.alt_name != null) {
-                nodeName = currentPath[j].properties.alt_name;
             } else if (currentPath[j].properties.gene_name != null) {
                 nodeName = currentPath[j].properties.gene_name;
+            } else if (currentPath[j].properties.alt_name != null) {
+                nodeName = currentPath[j].properties.alt_name;
             } else {
                 nodeName = currentPath[j].properties.id;
             }
