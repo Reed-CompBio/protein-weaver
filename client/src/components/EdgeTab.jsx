@@ -5,6 +5,7 @@ export default function EdgeTab({
     edgeSource,
     edgeTarget,
     edgeType,
+    regType,
 }) {
     const [interactionDatabase, setInteractionDatabase] = useState("");
 
@@ -69,6 +70,7 @@ export default function EdgeTab({
                     <div>Source node: {edgeSource}</div>
                     <div>Target edge: {edgeTarget}</div>
                     <div>Edge type: {edgeType}</div>
+                    <div>Regulation mode: {regType}</div>
                 </div>
             ) : (
                 <p>Click an edge to see more information</p>

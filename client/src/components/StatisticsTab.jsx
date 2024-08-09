@@ -12,6 +12,7 @@ export default function StatisticsTab({
     edgeSource,
     edgeTarget,
     edgeType,
+    regType,
     currentNode,
     query,
 }) {
@@ -44,6 +45,7 @@ export default function StatisticsTab({
                         edgeSource={edgeSource}
                         edgeTarget={edgeTarget}
                         edgeType={edgeType}
+                        regType={regType}
                     />
                 </TabPanel>
                 <TabPanel>

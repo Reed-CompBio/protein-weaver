@@ -44,6 +44,7 @@ export default function Query() {
     const [edgeSource, setEdgeSource] = useState("");
     const [edgeTarget, setEdgeTarget] = useState("");
     const [edgeType, setEdgeType] = useState("");
+    const [regType, setRegType] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
     const submitRef = useRef();
@@ -228,6 +229,7 @@ export default function Query() {
         setEdgeSource("");
         setEdgeTarget("");
         setEdgeType("");
+        setRegType("");
 
         // get the k shortest paths for the query
         e.preventDefault();
@@ -341,6 +343,7 @@ export default function Query() {
                         setRawData(rawData);
                         setDataParsingStatus(true);
                         setQueryComplete(true);
+                        console.log(edgeData)
                         return networkResult;
                     });
             } catch (error) {
@@ -882,6 +885,12 @@ export default function Query() {
                                                                     .data
                                                                     .relType
                                                             );
+                                                            setRegType(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .regType
+                                                            );
                                                         }
                                                     );
                                                 }}
@@ -959,6 +968,7 @@ export default function Query() {
                                             edgeSource={edgeSource}
                                             edgeTarget={edgeTarget}
                                             edgeType={edgeType}
+                                            regType={regType}
                                             currentNode={sidebarNode}
                                             query={query}
                                         ></StatisticsTab>
