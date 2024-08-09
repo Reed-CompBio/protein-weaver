@@ -1,6 +1,7 @@
 import { React, useEffect } from "react";
 import Autocomplete from "./Autocomplete";
 import Modetooltip from "./ModeTooltip";
+import CheckboxComponent from "./CheckboxComponent";
 
 export default function SearchBar({
   handleSubmit,
@@ -14,7 +15,9 @@ export default function SearchBar({
   handleSpeciesChange,
   handleQueryMode,
   activeModeButton,
-  exState
+  exState,
+  checkboxes,
+  setCheckboxes
 }) {
   let spName = ""
   if (query.species == "txid224308") {
@@ -62,6 +65,7 @@ export default function SearchBar({
               onChange={handleInputChange}
               required
             />
+            <CheckboxComponent checkboxes={checkboxes} setCheckboxes={setCheckboxes}></CheckboxComponent>
             <select
               className="species-input-container" // User input for species
               name="species" // User input for species

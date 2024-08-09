@@ -77,6 +77,10 @@ export default function Query() {
     const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
     const [exState, setExState] = useState("");
+    const [checkboxes, setCheckboxes] = useState({
+        checkbox1: false,
+        checkbox2: false,
+    });
     cytoscape.use(cola);
 
     useEffect(() => {
@@ -774,6 +778,8 @@ export default function Query() {
                         handleQueryMode={handleQueryMode}
                         activeModeButton={activeModeButton}
                         exState={exState}
+                        checkboxes={checkboxes}
+                        setCheckboxes={setCheckboxes}
                     />
                     {hasError && <QueryError errorMessage={errorMessage} />}
 
@@ -813,6 +819,8 @@ export default function Query() {
                             handleQueryMode={handleQueryMode}
                             activeModeButton={activeModeButton}
                             exState={exState}
+                            checkboxes={checkboxes}
+                            setCheckboxes={setCheckboxes}
                         />
 
                         {hasError && <QueryError errorMessage={errorMessage} />}
