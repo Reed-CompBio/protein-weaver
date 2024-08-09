@@ -43,38 +43,74 @@ export default function EdgeTab({
 
     const edgeLink = getLink(edgeEvidence);
 
-    return (
-        <div>
-            <div className="click-edge-container">
-                <h4>
-                    <div>
-                        Selected edge:{" "}
-                        {edgeLink.length > 0 ? (
-                            edgeLink.map((link, index) => (
-                                <span key={index}>
-                                    <a href={link} target="_blank" rel="noopener noreferrer">
-                                        {edgeEvidence.split(";")[index]}
-                                    </a>
-                                    {` (${interactionDatabase})`}
-                                    {index < edgeLink.length - 1 && "; "}
-                                </span>
-                            ))
-                        ) : (
-                            edgeEvidence
-                        )}
-                    </div>
-                </h4>
-            </div>
-            {edgeSource ? (
-                <div className="edge-container">
-                    <div>Source node: {edgeSource}</div>
-                    <div>Target edge: {edgeTarget}</div>
-                    <div>Edge type: {edgeType}</div>
-                    <div>Regulation mode: {regType}</div>
+    if (edgeType === "Reg") {
+        return (
+            <div>
+                <div className="click-edge-container">
+                    <h4>
+                        <div>
+                            Selected edge:{" "}
+                            {edgeLink.length > 0 ? (
+                                edgeLink.map((link, index) => (
+                                    <span key={index}>
+                                        <a href={link} target="_blank" rel="noopener noreferrer">
+                                            {edgeEvidence.split(";")[index]}
+                                        </a>
+                                        {` (${interactionDatabase})`}
+                                        {index < edgeLink.length - 1 && "; "}
+                                    </span>
+                                ))
+                            ) : (
+                                edgeEvidence
+                            )}
+                        </div>
+                    </h4>
                 </div>
-            ) : (
-                <p>Click an edge to see more information</p>
-            )}
-        </div>
-    )
+                {edgeSource ? (
+                    <div className="edge-container">
+                        <div>Source node: {edgeSource}</div>
+                        <div>Target edge: {edgeTarget}</div>
+                        <div>Edge type: {edgeType}</div>
+                        <div>Regulation mode: {regType}</div>
+                    </div>
+                ) : (
+                    <p>Click an edge to see more information</p>
+                )}
+            </div>
+        )
+    } else if (edgeType === "ProPro") {
+        return (
+            <div>
+                <div className="click-edge-container">
+                    <h4>
+                        <div>
+                            Selected edge:{" "}
+                            {edgeLink.length > 0 ? (
+                                edgeLink.map((link, index) => (
+                                    <span key={index}>
+                                        <a href={link} target="_blank" rel="noopener noreferrer">
+                                            {edgeEvidence.split(";")[index]}
+                                        </a>
+                                        {` (${interactionDatabase})`}
+                                        {index < edgeLink.length - 1 && "; "}
+                                    </span>
+                                ))
+                            ) : (
+                                edgeEvidence
+                            )}
+                        </div>
+                    </h4>
+                </div>
+                {edgeSource ? (
+                    <div className="edge-container">
+                        <div>Source node: {edgeSource}</div>
+                        <div>Target edge: {edgeTarget}</div>
+                        <div>Edge type: {edgeType}</div>
+                    </div>
+                ) : (
+                    <p>Click an edge to see more information</p>
+                )}
+            </div>
+        )
+    }
 }

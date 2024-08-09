@@ -343,7 +343,6 @@ export default function Query() {
                         setRawData(rawData);
                         setDataParsingStatus(true);
                         setQueryComplete(true);
-                        console.log(edgeData)
                         return networkResult;
                     });
             } catch (error) {

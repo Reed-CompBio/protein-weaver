@@ -197,42 +197,88 @@ export function EdgeDataParser(networkData, edgeData) {
         }
         //If an edge is found that was not a part of the inital network data, add it to the temp edge list with the shared tag
         else {
-            if (pubmed) {
-                let edgeEntry = {
-                    data: {
-                        source: endNode,
-                        target: startNode,
-                        type: "shared",
-                        relType: relType,
-                        evidence: pubmed,
-                    },
-                };
-                tempEdgeList.push(startNode + endNode);
-                tempEdges.push(edgeEntry);
-            } else if (link) {
-                let edgeEntry = {
-                    data: {
-                        source: endNode,
-                        target: startNode,
-                        type: "shared",
-                        relType: relType,
-                        evidence: link,
-                    },
-                };
-                tempEdgeList.push(startNode + endNode);
-                tempEdges.push(edgeEntry);
-            } else if (fbRef) {
-                let edgeEntry = {
-                    data: {
-                        source: endNode,
-                        target: startNode,
-                        type: "shared",
-                        relType: relType,
-                        evidence: fbRef,
-                    },
-                };
-                tempEdgeList.push(startNode + endNode);
-                tempEdges.push(edgeEntry);
+            if (relType === "ProPro") {
+                if (pubmed) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: pubmed,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                }
+                else if (link) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: link,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                }
+                else if (fbRef) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: fbRef,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                }
+            }
+            if (relType === "Reg") {
+                let regType = edgeData[i]._fields[0].segments[0].relationship.properties.relationship;
+                if (pubmed) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            type: "shared",
+                            evidence: pubmed,
+                            regType: regType,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                }
+                else if (link) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            type: "shared",
+                            evidence: link,
+                            regType: regType,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                }
+                else if (fbRef) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            type: "shared",
+                            evidence: fbRef,
+                            regType: regType,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                }
             }
         }
     }
