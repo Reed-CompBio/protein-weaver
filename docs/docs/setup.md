@@ -68,7 +68,36 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         MATCH (n:protein {txid: "txid7227"}) SET n.alt_name = n.name;
         ```
 
-3. Import the first batch of _D. melanogaster_ [GO data from FlyBase](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/gene_association_fb_2024-04-03.tsv) into the database using the following command:
+3. Set Pubmed identifiers as property on ProPro edges.
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
+        FIELDTERMINATOR '\t'
+        CALL {
+            with fly
+            MATCH (p:protein {id: fly.FlyBase1})-[r:ProPro]-(p2:protein {id: fly.FlyBase2})
+            SET r.pubmed = fly.PubMedIDs
+        } IN TRANSACTIONS OF 1000 ROWS;
+        ```
+
+4. Import gene regulatory interactions from FlyBase for _D. melanogaster_.
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7227_2024-07-31.txt' AS dmel_reg
+        FIELDTERMINATOR '\t'
+        CALL {
+                with dmel_reg
+                MERGE (a:protein {id: dmel_reg.Interacting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
+                MERGE (b:protein {id: dmel_reg.Starting_gene_FBgn, txid: "txid7227", species: "Drosophila melanogaster"})
+                MERGE (a)-[r:Reg]->(b)
+                SET r.relationship = dmel_reg.Interaction_type,
+                r.link = dmel_reg.Publication_FBrf,
+                a.gene_name = dmel_reg.Interacting_gene_symbol,
+                b.gene_name = dmel_reg.Starting_gene_symbol
+        } IN TRANSACTIONS OF 100 ROWS;
+        ```
+        
+5. Import the first batch of _D. melanogaster_ [GO data from FlyBase](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/gene_association_fb_2024-04-03.tsv) into the database using the following command:
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
@@ -81,7 +110,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-4. Import the relationships qualifiers for the first batch of GO terms and _D. melanogaster_ proteins using the following commands:
+6. Import the relationships qualifiers for the first batch of GO terms and _D. melanogaster_ proteins using the following commands:
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///gene_association_fb_2024-04-03.tsv' AS flygo
@@ -93,7 +122,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-5. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/dmel_GO_data_2024-04-03.tsv) for _D. melanogaster_.
+7. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/dmel_GO_data_2024-04-03.tsv) for _D. melanogaster_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_2024-04-03.tsv' AS dmelgo
@@ -106,7 +135,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-6. Set second batch of qualifier properties for _D. melanogaster_.
+8. Set second batch of qualifier properties for _D. melanogaster_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///dmel_GO_data_2024-04-03.tsv' AS dmelgo
@@ -122,7 +151,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 1. Import _B. subtilis_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/file:///bsub_interactome_2024-05-31.txt) with the following command:
 
         ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-06-06.txt' AS bsub
+        :auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-07-30.txt' AS bsub
         FIELDTERMINATOR '\t'
         CALL {
         with bsub
@@ -132,7 +161,37 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 100 ROWS;
         ```
 
-2. Add first batch of [GO data from SubtiWiki](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data.csv) to _B. subtilis_ nodes:
+2. Add property to edges that links to STRING-DB entrance for interaction.
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid224308_2024-07-30.txt' AS bsub
+        FIELDTERMINATOR '\t'
+        CALL {
+            with bsub
+            MATCH (p:protein {id: bsub.protein_1_locus})-[r:ProPro]-(p2:protein {id: bsub.protein_2_locus})
+            SET r.link = bsub.link,
+            r.source = bsub.source
+        } IN TRANSACTIONS OF 1000 ROWS;        
+        ```
+
+3. Add regulatory data for _B. subtilis_:
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid224308_2024-07-31.txt' AS bsub
+        FIELDTERMINATOR '\t'
+        CALL {
+                with bsub
+                MERGE (a:protein {id: bsub.regulator_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
+                MERGE (b:protein {id: bsub.gene_locus, txid: "txid224308", species: "Bacillus subtilis 168"})
+                MERGE (a)-[r:Reg]->(b)
+                SET r.relationship = bsub.mode,
+                r.link = bsub.link,
+                a.gene_name = bsub.regulator_name,
+                b.gene_name = bsub.gene_name
+        } IN TRANSACTIONS OF 100 ROWS;
+        ```
+        
+4. Add first batch of [GO data from SubtiWiki](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/bsub_GO_data.csv) to _B. subtilis_ nodes:
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
@@ -144,7 +203,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-3. Set qualifier property from first batch of GO data for _B. subtilis_.
+5. Set qualifier property from first batch of GO data for _B. subtilis_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///bsub_GO_data.csv' AS bsubgo
@@ -155,7 +214,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-4. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/annotations_txid224308_2024-06-03.txt) for _B. subtilis_.
+6. Import more [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/annotations_txid224308_2024-06-03.txt) for _B. subtilis_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///annotations_txid224308_2024-06-03.txt' AS bsubgo
@@ -168,7 +227,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-5. Set qualifier property for second batch of GO data (_B. subtilis_).
+7. Set qualifier property for second batch of GO data (_B. subtilis_).
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///annotations_txid224308_2024-06-03.txt' AS bsubgo
@@ -184,7 +243,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 1. Import _D. rerio_ [protein interactome](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/interactome_txid7955_2024-06-24.txt) with the following command:
 
         ```cypher
-        :auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-06-24.txt' AS zfish
+        :auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-07-30.txt' AS zfish
         FIELDTERMINATOR '\t'
         CALL {
             with zfish
@@ -194,7 +253,36 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 100 ROWS;
         ```
 
-2. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_GO_data_2024-04-03.tsv) to _D. rerio_ nodes:
+2. Add property to edges that links to STRING-DB entrance for interaction.
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-07-30.txt' AS zfish
+        FIELDTERMINATOR '\t'
+        CALL {
+            with zfish
+            MATCH (p:protein {id: zfish.uniprotID1})-[r:ProPro]-(p2:protein {id: zfish.uniprotID2})
+            SET r.link = zfish.link, r.source = zfish.source
+        } IN TRANSACTIONS OF 1000 ROWS;        
+        ```
+
+2. Add regulatory data for _D. rerio_:
+
+        ```cypher
+        :auto LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7955_2024-07-31.txt' AS drer_reg
+        FIELDTERMINATOR '\t'
+        CALL {
+                with drer_reg
+                MERGE (a:protein {id: drer_reg.UniprotID_TF, txid: "txid7955", species: "Danio rerio"})
+                MERGE (b:protein {id: drer_reg.UniprotID_Target, txid: "txid7955", species: "Danio rerio"})
+                MERGE (a)-[r:Reg]->(b)
+                SET r.relationship = "regulates",
+                r.pubmed = drer_reg.PubmedID,
+                a.gene_name = drer_reg.Name_TF,
+                b.gene_name = drer_reg.Name_Target
+        } IN TRANSACTIONS OF 100 ROWS;
+        ```
+        
+3. Add [GO data](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/Import/zfish_GO_data_2024-04-03.tsv) to _D. rerio_ nodes:
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
@@ -207,7 +295,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
         } IN TRANSACTIONS OF 1000 ROWS;
         ```
 
-3. Set qualifier property for _D. rerio_.
+4. Set qualifier property for _D. rerio_.
 
         ```cypher
         :auto LOAD CSV WITH HEADERS FROM 'file:///zfish_GO_data_2024-04-03.tsv' AS zfishgo
@@ -353,7 +441,7 @@ ProteinWeaver uses a Dockerized version of Neo4j as the database. [Follow these 
 8. The last step is calling a graph projection for pathfinding algorithms. We also have to change the ProPro edges to be undirected for the pathfinding algorithms in order to be more biologically accurate for protein-protein interaction networks.
 
         ```cypher
-        CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro']);
+        CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro', 'Reg']);
         CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD   inputRelationships, relationshipsWritten;
         ```
 
@@ -448,25 +536,31 @@ Once you have completed the guide, you can use the following query to verify tha
         WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, COUNT(bsubProPro)/2 AS bsubProProCount
         match (drerio1 {txid :"txid7955"}) -[drerioProPro:ProPro]- (drerio2 {txid :"txid7955"})
         WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, COUNT(drerioProPro)/2 AS drerioProProCount
-        match (go1:go_term) -[goGoGo:GoGo]- (go2:go_term)
-        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, COUNT(goGoGo)/2 AS goGoGoCount
+        match (fly1 {txid :"txid7227"}) -[flyReg:Reg]-> (fly2 {txid :"txid7227"})
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, COUNT(flyReg) AS flyRegCount
+        match (bsub1 {txid :"txid224308"}) -[bsubReg:Reg]-> (bsub2 {txid :"txid224308"})
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, COUNT(bsubReg) AS bsubRegCount
+        match (drerio1 {txid :"txid7955"}) -[drerioReg:Reg]-> (drerio2 {txid :"txid7955"})
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, COUNT(drerioReg) AS drerioRegCount
+        match (go1:go_term) -[goGo:GoGo]- (go2:go_term)
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, drerioRegCount, COUNT(goGo)/2 AS goGoCount
         match (fly:protein {txid :"txid7227"}) -[flyProGo:ProGo]- (go)
-        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount, COUNT(flyProGo) AS flyProGoCount
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, drerioRegCount, goGoCount, COUNT(flyProGo) AS flyProGoCount
         match (bsub:protein {txid :"txid224308"}) -[bsubProGo:ProGo]- (go)
-        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount,flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, drerioRegCount, goGoCount, flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
         match (drerio:protein {txid :"txid7955"}) -[drerioProGo:ProGo]- (go)
-        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, goGoGoCount,flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
-        RETURN flyCount, flyProProCount, flyProGoCount, bsubCount, bsubProProCount, bsubProGoCount, drerioCount, drerioProProCount, drerioProGoCount, goCount, goGoGoCount
+        WITH flyCount, bsubCount, drerioCount, goCount, flyProProCount, bsubProProCount, drerioProProCount, flyRegCount, bsubRegCount, drerioRegCount, goGoCount, flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
+        RETURN flyCount, flyProProCount, flyProGoCount, flyRegCount, bsubCount, bsubProProCount, bsubProGoCount, bsubRegCount, drerioCount, drerioProProCount, drerioProGoCount, drerioRegCount, goCount, goGoCount
         ```
 
 You should get the following output:
 
         ```
-        ╒════════╤══════════════╤═════════════╤═════════╤═══════════════╤══════════════╤═══════════╤═════════════════╤════════════════╤═══════╤═══════════╕
-        │flyCount│flyProProCount│flyProGoCount│bsubCount│bsubProProCount│bsubProGoCount│drerioCount│drerioProProCount│drerioProGoCount│goCount│goGoGoCount│
-        ╞════════╪══════════════╪═════════════╪═════════╪═══════════════╪══════════════╪═══════════╪═════════════════╪════════════════╪═══════╪═══════════╡
-        │11501   │233054        │482391       │1933     │6441           │59510         │6438       │45003            │103139          │42231  │66168      │
-        └────────┴──────────────┴─────────────┴─────────┴───────────────┴──────────────┴───────────┴─────────────────┴────────────────┴───────┴───────────┘
+        ╒════════╤══════════════╤═════════════╤═══════════╤═════════╤═══════════════╤══════════════╤════════════╤═══════════╤═════════════════╤════════════════╤══════════════╤═══════╤═════════╕
+        │flyCount│flyProProCount│flyProGoCount│flyRegCount│bsubCount│bsubProProCount│bsubProGoCount│bsubRegCount│drerioCount│drerioProProCount│drerioProGoCount│drerioRegCount│goCount│goGoCount│
+        ╞════════╪══════════════╪═════════════╪═══════════╪═════════╪═══════════════╪══════════════╪════════════╪═══════════╪═════════════════╪════════════════╪══════════════╪═══════╪═════════╡
+        │12823   │233054        │492331       │17530      │3163     │6441           │78015         │5634        │16606      │45003            │133619          │25960         │42092  │66168    │
+        └────────┴──────────────┴─────────────┴───────────┴─────────┴───────────────┴──────────────┴────────────┴───────────┴─────────────────┴────────────────┴──────────────┴───────┴─────────┘
         ```
 
 ## Useful Commands

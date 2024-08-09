@@ -1,24 +1,21 @@
 import { React, useState, useEffect } from "react";
-import ExportLogJSON from "./ExportLogJSON";
 import AncestorSelector from "./AncestorSelector";
 import DescendantSelector from "./DescendantSelector";
+import { PiGraph } from "react-icons/pi";
+import { TbGridDots } from "react-icons/tb";
+import { TbArrowsRandom } from "react-icons/tb";
+import { IconContext } from "react-icons";
 
 export default function GraphExploration({
     currentNode,
-    query,
     handleSourceNode,
     handleSubmit,
-    exportPNG,
-    searchExecuted,
-    queryCount,
-    logs,
-    handleLog,
     parentGoTerms,
     childrenGoTerms,
     storeGoTermValue,
     handleGoTermChange,
+    handleLayoutChange
 }) {
-    const [proteinCount, setProteinCount] = useState(0);
     const [inputValueAncestor, setInputValueAncestor] = useState("");
     const [inputValueDescendant, setInputValueDescendant] = useState("");
     const [goButtonClassname, setGoButtonClassname] = useState(
@@ -27,31 +24,6 @@ export default function GraphExploration({
     const [sourceNodeButton, setSourceNodeButton] = useState(
         "new-source-disabled"
     );
-
-    // Keep track of the proteins in the query
-    useEffect(() => {
-        if (currentNode) {
-            const logKey = `protein${proteinCount + 1}`;
-            const newProtein = {
-                protein: currentNode,
-                timestamp: new Date().toISOString(),
-            };
-            setProteinCount(proteinCount + 1);
-            handleLog(newProtein);
-        }
-    }, [currentNode]);
-
-    // Keep track of the queries
-    useEffect(() => {
-        if (query) {
-            const logKey = `query${queryCount}`;
-            const newQuery = {
-                query: query,
-                timestamp: new Date().toISOString(),
-            };
-            handleLog(newQuery);
-        }
-    }, [searchExecuted]);
 
     const handleInputChangeAncestor = (value) => {
         setInputValueAncestor(value);
@@ -129,7 +101,7 @@ export default function GraphExploration({
                 </div>
                 {/* GO Term Selection */}
                 <div className="go-container">
-                    <h5>Change queried GO Term:</h5>
+                    <h5>Change GO Term:</h5>
                     <div className="go-selector-container">
                         <AncestorSelector
                             parentGoTerms={parentGoTerms}
@@ -167,12 +139,40 @@ export default function GraphExploration({
                 </div>
             </div>
             {/* Export Logs/PNG */}
-            <div className="exports-container">
-                <h5>Export logs or PNG of current network:</h5>
-                <ExportLogJSON log={logs} />
-                <a className="export" onClick={exportPNG}>
-                    Export Graph to PNG
-                </a>
+            <h5 className="change-layout-header">Rearrange graph layout:</h5>
+            <div className="align-change-layout">
+                <IconContext.Provider
+                    value={{
+                        className: "change-layout",
+                        color: "black",
+                        size: "2em",
+                    }}
+                >
+                    <div className="layout-tooltip">
+                        <PiGraph
+                            className="layout-icon"
+                            onClick={(e) => handleLayoutChange("cola", e)}
+                            aria-label="default"
+                        />
+                        <span className="tooltiptext">Cola</span>
+                    </div>
+                    <div className="layout-tooltip">
+                        <TbGridDots
+                            className="layout-icon"
+                            onClick={(e) => handleLayoutChange("grid", e)}
+                            aria-label="grid"
+                        />
+                        <span className="tooltiptext">Grid</span>
+                    </div>
+                    <div className="layout-tooltip">
+                        <TbArrowsRandom
+                            className="layout-icon"
+                            onClick={(e) => handleLayoutChange("random", e)}
+                            aria-label="random"
+                        />
+                        <span className="tooltiptext">Random</span>
+                    </div>
+                </IconContext.Provider>
             </div>
         </div>
     );

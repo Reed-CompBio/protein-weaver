@@ -2,7 +2,7 @@
 
 This section of the documentation outlines the data sources, processing steps and versions of the ProteinWeaver web interface.
 
-## *Drosophila melanogaster* Data Sources
+## *Drosophila melanogaster* Data Sources (TXID7227)
 ### 2023-09-29 (BETA):
 #### Interaction data:
 * [`interactome-flybase-collapsed-weighted.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/interactome-flybase-collapsed-weighted.txt) [(Source)](https://github.com/annaritz/fly-interactome/tree/master/interactome/weighted-interactome)
@@ -29,14 +29,22 @@ This section of the documentation outlines the data sources, processing steps an
 * Removed qualifiers with "NOT" preceding them using [`scripts/RemoveNotQualifier.R](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R)
 * Reduced inferred ProGo edges to 413,704.
 
+### 2024-07-30:
+* Added PubMed identifiers as a property to ProPro edges.
+
+### 2024-07-31:
+* Added genetic regulatory data [(Source)](https://wiki.flybase.org/wiki/FlyBase:Downloads_Overview#Genetic_interaction_table_.28gene_genetic_interactions_.2A.tsv.29) and processed into [`regulatory_txid7227_2024-07-31.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/regulatory_txid7227_2024-07-31.txt) according to [`SplitRegulatoryColumns7227.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SplitRegulatoryColumns7227.R).
+    - Nodes: 1322
+    - Reg Edges: 17530
+
 ### Current _D. melanogaster_ Network [Updated 2024-07-17]
 ```
-| Proteins | Interactions (ProPro) | Annotations (ProGo) |
-| -------- | --------------------- | :------------------ |
-| 11501    | 233054                | 482391              |
+| Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
+| -------- | --------------------- | :------------------ | ---------------- |
+| 12823    | 233054                | 492331              | 17530            |
 ```
 
-## *Bacillus subtilis* Data Sources
+## *Bacillus subtilis* Data Sources (TXID224308)
 ### 2023-10-18 (BETA):
 #### Interaction data:
 * [`bsub_interactome.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/bsub_interactome.csv)
@@ -79,14 +87,22 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ### 2024-06-24:
 * Remove "self-edges" from PPI data.
 
+### 2024-07-30:
+* [`interactome_txid224308_2024-07-30.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/interactome_txid224308_2024-07-30.txt): Added "link" and "source" properties to edges to link to STRING-DB entries for ProPro interactions.
+
+### 2024-07-31:
+* Downloaded genetic regulatory data [(Regulations dataset)](https://subtiwiki.uni-goettingen.de/v4/exports) and renamed it [`regulatory_txid224308_2024-07-31.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/regulatory_txid224308_2024-07-31.csv). Imported without further modifications.
+    - Nodes: 1230
+    - Reg Edges: 5634
+
 ### Current _B. subtilis_ Network [Updated 2024-07-17]
 ```
-| Proteins | Interactions (ProPro) | Annotations (ProGo) |
-| -------- | --------------------- | :------------------ |
-| 1933     | 6441                  | 59510               |
+| Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
+| -------- | --------------------- | :------------------ | ---------------- | 
+| 3163     | 6441                  | 78015               |  5634            |
 ```
 
-## *Danio rerio* Data Sources
+## *Danio rerio* Data Sources (TXID7955)
 ### 2024-03-18:
 #### Interaction data:
 * [`zfish_string_db_results.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_string_db_results.csv) merged into [`zfish_interactome_Mar12_2024.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_interactome_Mar12_2024.txt). [(Source)](https://string-db.org/cgi/download?sessionId=bjC4UlI45w0z&species_text=Danio+rerio)
@@ -127,11 +143,19 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 * Remove trailing whitespaces from some names according to `ZebrafishDataMerging.Rmd`.
 * Remove "self-edges" from PPI data.
 
+### 2024-07-30:
+* [`interactome_txid7955_2024-07-30.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/interactome_txid7955_2024-07-30.txt): Added "link" and "source" properties to edges to link to STRING-DB or PubMed entries (if available) for ProPro interactions.
+
+### 2024-07-31:
+* Added genetic regulatory data [(Source)](https://tflink.net/download/) and processed into [`regulatory_txid7955_2024-07-31.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/regulatory_txid7955_2024-07-31.txt) according to [`SubColNames.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R).
+    - Nodes: 10168
+    - Reg Edges: 25960
+
 ### Current _D. rerio_ Network [Updated 2024-07-17]
 ```
-| Proteins | Interactions (ProPro) | Annotations (ProGo) |
-| -------- | --------------------- | :------------------ |
-| 6438     | 45003                 | 103139              |
+| Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
+| -------- | --------------------- | :------------------ | ---------------- |
+| 16606    | 45003                 | 133619              |    25960         |
 ```
 
 ## Gene Ontology Hierarchy Data Sources
@@ -163,7 +187,7 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ```
 | GO Terms | "is_a" Relationships (GoGo) |
 | -------- | :-------------------------- |
-| 42231    | 66168                       |
+| 42092    | 66168                       |
 ```
 
 ### Taxon ID source:
@@ -234,3 +258,24 @@ Looked up species name and got taxon ID.
     * Removed 5,619 ProGo edges in _D. rerio_.
     * Removed 2,140 GoGo edges.
     * Removed 41,883 edges total.
+
+### 2024-07-30:
+* Added properties to ProPro edges that provide more information about the protein-protein interaction.
+    * _D. melanogaster_ (TXID7227): added PubMed IDs.
+    * _B. subtilis_ (TXID224308): added links to STRING-DB entries.
+    * _D. rerio_ (TXID7955): added PubMed IDs to those available and STRING-DB links to those not.
+
+### 2024-07-31:
+* Added genetic regulatory interactions and sources for _D. melanogaster_, _B. subtilis_, and _D. rerio_.
+    * _D. melanogaster_ (TXID7227):
+        - Nodes: 1,322
+        - Reg Edges: 17,530
+        - ProGo Edges: 10,460
+    * _B. subtilis_ (TXID224308):
+        - Nodes: 1,230
+        - Reg Edges: 5,634
+        - ProGo Edges: 18,547
+    * _D. rerio_ (TXID7955):
+        - Nodes: 10,168
+        - Reg Edges: 25,960
+        - ProGo Edges: 30,540

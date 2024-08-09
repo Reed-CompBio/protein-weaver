@@ -1,0 +1,6603 @@
+[
+  {
+    "ID": "777",
+    "Type": "physical association",
+    "Experiment": "778",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "779",
+    "Type": "physical association",
+    "Experiment": "780",
+    "Participants": [
+      {
+        "InteractorRef": "9"
+      },
+      {
+        "InteractorRef": "9"
+      }
+    ]
+  },
+  {
+    "ID": "781",
+    "Type": "physical association",
+    "Experiment": "782",
+    "Participants": [
+      {
+        "InteractorRef": "17"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "783",
+    "Type": "physical association",
+    "Experiment": "784",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "785",
+    "Type": "physical association",
+    "Experiment": "786",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "25"
+      }
+    ]
+  },
+  {
+    "ID": "787",
+    "Type": "physical association",
+    "Experiment": "788",
+    "Participants": [
+      {
+        "InteractorRef": "17"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "789",
+    "Type": "physical association",
+    "Experiment": "790",
+    "Participants": [
+      {
+        "InteractorRef": "9"
+      },
+      {
+        "InteractorRef": "17"
+      }
+    ]
+  },
+  {
+    "ID": "791",
+    "Type": "physical association",
+    "Experiment": "792",
+    "Participants": [
+      {
+        "InteractorRef": "57"
+      },
+      {
+        "InteractorRef": "58"
+      }
+    ]
+  },
+  {
+    "ID": "793",
+    "Type": "physical association",
+    "Experiment": "794",
+    "Participants": [
+      {
+        "InteractorRef": "65"
+      },
+      {
+        "InteractorRef": "66"
+      }
+    ]
+  },
+  {
+    "ID": "795",
+    "Type": "physical association",
+    "Experiment": "796",
+    "Participants": [
+      {
+        "InteractorRef": "57"
+      },
+      {
+        "InteractorRef": "74"
+      }
+    ]
+  },
+  {
+    "ID": "797",
+    "Type": "physical association",
+    "Experiment": "798",
+    "Participants": [
+      {
+        "InteractorRef": "17"
+      },
+      {
+        "InteractorRef": "17"
+      }
+    ]
+  },
+  {
+    "ID": "799",
+    "Type": "physical association",
+    "Experiment": "800",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "25"
+      }
+    ]
+  },
+  {
+    "ID": "801",
+    "Type": "physical association",
+    "Experiment": "802",
+    "Participants": [
+      {
+        "InteractorRef": "65"
+      },
+      {
+        "InteractorRef": "65"
+      }
+    ]
+  },
+  {
+    "ID": "803",
+    "Type": "physical association",
+    "Experiment": "804",
+    "Participants": [
+      {
+        "InteractorRef": "57"
+      },
+      {
+        "InteractorRef": "74"
+      }
+    ]
+  },
+  {
+    "ID": "805",
+    "Type": "physical association",
+    "Experiment": "806",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "807",
+    "Type": "physical association",
+    "Experiment": "808",
+    "Participants": [
+      {
+        "InteractorRef": "9"
+      },
+      {
+        "InteractorRef": "17"
+      }
+    ]
+  },
+  {
+    "ID": "809",
+    "Type": "physical association",
+    "Experiment": "810",
+    "Participants": [
+      {
+        "InteractorRef": "129"
+      },
+      {
+        "InteractorRef": "130"
+      }
+    ]
+  },
+  {
+    "ID": "811",
+    "Type": "physical association",
+    "Experiment": "812",
+    "Participants": [
+      {
+        "InteractorRef": "137"
+      },
+      {
+        "InteractorRef": "129"
+      }
+    ]
+  },
+  {
+    "ID": "813",
+    "Type": "physical association",
+    "Experiment": "814",
+    "Participants": [
+      {
+        "InteractorRef": "17"
+      },
+      {
+        "InteractorRef": "25"
+      }
+    ]
+  },
+  {
+    "ID": "815",
+    "Type": "physical association",
+    "Experiment": "816",
+    "Participants": [
+      {
+        "InteractorRef": "17"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "817",
+    "Type": "physical association",
+    "Experiment": "818",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "25"
+      }
+    ]
+  },
+  {
+    "ID": "819",
+    "Type": "physical association",
+    "Experiment": "820",
+    "Participants": [
+      {
+        "InteractorRef": "130"
+      },
+      {
+        "InteractorRef": "9"
+      }
+    ]
+  },
+  {
+    "ID": "821",
+    "Type": "physical association",
+    "Experiment": "822",
+    "Participants": [
+      {
+        "InteractorRef": "177"
+      },
+      {
+        "InteractorRef": "177"
+      }
+    ]
+  },
+  {
+    "ID": "823",
+    "Type": "physical association",
+    "Experiment": "824",
+    "Participants": [
+      {
+        "InteractorRef": "137"
+      },
+      {
+        "InteractorRef": "129"
+      }
+    ]
+  },
+  {
+    "ID": "825",
+    "Type": "physical association",
+    "Experiment": "826",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "65"
+      }
+    ]
+  },
+  {
+    "ID": "827",
+    "Type": "physical association",
+    "Experiment": "828",
+    "Participants": [
+      {
+        "InteractorRef": "130"
+      },
+      {
+        "InteractorRef": "129"
+      }
+    ]
+  },
+  {
+    "ID": "829",
+    "Type": "physical association",
+    "Experiment": "830",
+    "Participants": [
+      {
+        "InteractorRef": "209"
+      },
+      {
+        "InteractorRef": "210"
+      }
+    ]
+  },
+  {
+    "ID": "831",
+    "Type": "physical association",
+    "Experiment": "832",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "833",
+    "Type": "physical association",
+    "Experiment": "834",
+    "Participants": [
+      {
+        "InteractorRef": "17"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "835",
+    "Type": "physical association",
+    "Experiment": "836",
+    "Participants": [
+      {
+        "InteractorRef": "137"
+      },
+      {
+        "InteractorRef": "130"
+      }
+    ]
+  },
+  {
+    "ID": "837",
+    "Type": "physical association",
+    "Experiment": "838",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "839",
+    "Type": "physical association",
+    "Experiment": "840",
+    "Participants": [
+      {
+        "InteractorRef": "130"
+      },
+      {
+        "InteractorRef": "9"
+      }
+    ]
+  },
+  {
+    "ID": "841",
+    "Type": "physical association",
+    "Experiment": "842",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "137"
+      }
+    ]
+  },
+  {
+    "ID": "843",
+    "Type": "physical association",
+    "Experiment": "844",
+    "Participants": [
+      {
+        "InteractorRef": "129"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "845",
+    "Type": "physical association",
+    "Experiment": "846",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "847",
+    "Type": "physical association",
+    "Experiment": "848",
+    "Participants": [
+      {
+        "InteractorRef": "281"
+      },
+      {
+        "InteractorRef": "281"
+      }
+    ]
+  },
+  {
+    "ID": "849",
+    "Type": "physical association",
+    "Experiment": "850",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "193"
+      }
+    ]
+  },
+  {
+    "ID": "851",
+    "Type": "physical association",
+    "Experiment": "852",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "853",
+    "Type": "physical association",
+    "Experiment": "854",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "129"
+      }
+    ]
+  },
+  {
+    "ID": "855",
+    "Type": "physical association",
+    "Experiment": "856",
+    "Participants": [
+      {
+        "InteractorRef": "313"
+      },
+      {
+        "InteractorRef": "313"
+      }
+    ]
+  },
+  {
+    "ID": "857",
+    "Type": "physical association",
+    "Experiment": "858",
+    "Participants": [
+      {
+        "InteractorRef": "74"
+      },
+      {
+        "InteractorRef": "74"
+      }
+    ]
+  },
+  {
+    "ID": "859",
+    "Type": "physical association",
+    "Experiment": "860",
+    "Participants": [
+      {
+        "InteractorRef": "137"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "861",
+    "Type": "physical association",
+    "Experiment": "862",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "17"
+      }
+    ]
+  },
+  {
+    "ID": "863",
+    "Type": "physical association",
+    "Experiment": "864",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "865",
+    "Type": "physical association",
+    "Experiment": "866",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "867",
+    "Type": "physical association",
+    "Experiment": "868",
+    "Participants": [
+      {
+        "InteractorRef": "210"
+      },
+      {
+        "InteractorRef": "210"
+      }
+    ]
+  },
+  {
+    "ID": "869",
+    "Type": "physical association",
+    "Experiment": "870",
+    "Participants": [
+      {
+        "InteractorRef": "9"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "871",
+    "Type": "physical association",
+    "Experiment": "872",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "873",
+    "Type": "physical association",
+    "Experiment": "874",
+    "Participants": [
+      {
+        "InteractorRef": "9"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "875",
+    "Type": "physical association",
+    "Experiment": "876",
+    "Participants": [
+      {
+        "InteractorRef": "130"
+      },
+      {
+        "InteractorRef": "137"
+      }
+    ]
+  },
+  {
+    "ID": "877",
+    "Type": "physical association",
+    "Experiment": "878",
+    "Participants": [
+      {
+        "InteractorRef": "401"
+      },
+      {
+        "InteractorRef": "401"
+      }
+    ]
+  },
+  {
+    "ID": "879",
+    "Type": "physical association",
+    "Experiment": "880",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "66"
+      }
+    ]
+  },
+  {
+    "ID": "881",
+    "Type": "physical association",
+    "Experiment": "882",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "25"
+      }
+    ]
+  },
+  {
+    "ID": "883",
+    "Type": "physical association",
+    "Experiment": "884",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "885",
+    "Type": "physical association",
+    "Experiment": "886",
+    "Participants": [
+      {
+        "InteractorRef": "66"
+      },
+      {
+        "InteractorRef": "193"
+      }
+    ]
+  },
+  {
+    "ID": "887",
+    "Type": "physical association",
+    "Experiment": "888",
+    "Participants": [
+      {
+        "InteractorRef": "441"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "889",
+    "Type": "physical association",
+    "Experiment": "890",
+    "Participants": [
+      {
+        "InteractorRef": "9"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "891",
+    "Type": "physical association",
+    "Experiment": "892",
+    "Participants": [
+      {
+        "InteractorRef": "65"
+      },
+      {
+        "InteractorRef": "193"
+      }
+    ]
+  },
+  {
+    "ID": "893",
+    "Type": "physical association",
+    "Experiment": "894",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "9"
+      }
+    ]
+  },
+  {
+    "ID": "895",
+    "Type": "physical association",
+    "Experiment": "896",
+    "Participants": [
+      {
+        "InteractorRef": "441"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "897",
+    "Type": "physical association",
+    "Experiment": "898",
+    "Participants": [
+      {
+        "InteractorRef": "481"
+      },
+      {
+        "InteractorRef": "481"
+      }
+    ]
+  },
+  {
+    "ID": "899",
+    "Type": "physical association",
+    "Experiment": "900",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "129"
+      }
+    ]
+  },
+  {
+    "ID": "901",
+    "Type": "physical association",
+    "Experiment": "902",
+    "Participants": [
+      {
+        "InteractorRef": "497"
+      },
+      {
+        "InteractorRef": "498"
+      }
+    ]
+  },
+  {
+    "ID": "903",
+    "Type": "physical association",
+    "Experiment": "904",
+    "Participants": [
+      {
+        "InteractorRef": "497"
+      },
+      {
+        "InteractorRef": "498"
+      }
+    ]
+  },
+  {
+    "ID": "905",
+    "Type": "physical association",
+    "Experiment": "906",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "25"
+      }
+    ]
+  },
+  {
+    "ID": "907",
+    "Type": "physical association",
+    "Experiment": "908",
+    "Participants": [
+      {
+        "InteractorRef": "58"
+      },
+      {
+        "InteractorRef": "57"
+      }
+    ]
+  },
+  {
+    "ID": "909",
+    "Type": "physical association",
+    "Experiment": "910",
+    "Participants": [
+      {
+        "InteractorRef": "66"
+      },
+      {
+        "InteractorRef": "65"
+      }
+    ]
+  },
+  {
+    "ID": "911",
+    "Type": "physical association",
+    "Experiment": "912",
+    "Participants": [
+      {
+        "InteractorRef": "210"
+      },
+      {
+        "InteractorRef": "210"
+      }
+    ]
+  },
+  {
+    "ID": "913",
+    "Type": "physical association",
+    "Experiment": "914",
+    "Participants": [
+      {
+        "InteractorRef": "313"
+      },
+      {
+        "InteractorRef": "313"
+      }
+    ]
+  },
+  {
+    "ID": "915",
+    "Type": "physical association",
+    "Experiment": "916",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "193"
+      }
+    ]
+  },
+  {
+    "ID": "917",
+    "Type": "physical association",
+    "Experiment": "918",
+    "Participants": [
+      {
+        "InteractorRef": "498"
+      },
+      {
+        "InteractorRef": "497"
+      }
+    ]
+  },
+  {
+    "ID": "919",
+    "Type": "physical association",
+    "Experiment": "920",
+    "Participants": [
+      {
+        "InteractorRef": "74"
+      },
+      {
+        "InteractorRef": "57"
+      }
+    ]
+  },
+  {
+    "ID": "921",
+    "Type": "physical association",
+    "Experiment": "922",
+    "Participants": [
+      {
+        "InteractorRef": "57"
+      },
+      {
+        "InteractorRef": "58"
+      }
+    ]
+  },
+  {
+    "ID": "923",
+    "Type": "physical association",
+    "Experiment": "924",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "441"
+      }
+    ]
+  },
+  {
+    "ID": "925",
+    "Type": "physical association",
+    "Experiment": "926",
+    "Participants": [
+      {
+        "InteractorRef": "66"
+      },
+      {
+        "InteractorRef": "193"
+      }
+    ]
+  },
+  {
+    "ID": "927",
+    "Type": "physical association",
+    "Experiment": "928",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "65"
+      }
+    ]
+  },
+  {
+    "ID": "929",
+    "Type": "physical association",
+    "Experiment": "930",
+    "Participants": [
+      {
+        "InteractorRef": "66"
+      },
+      {
+        "InteractorRef": "65"
+      }
+    ]
+  },
+  {
+    "ID": "931",
+    "Type": "physical association",
+    "Experiment": "932",
+    "Participants": [
+      {
+        "InteractorRef": "481"
+      },
+      {
+        "InteractorRef": "481"
+      }
+    ]
+  },
+  {
+    "ID": "933",
+    "Type": "physical association",
+    "Experiment": "934",
+    "Participants": [
+      {
+        "InteractorRef": "74"
+      },
+      {
+        "InteractorRef": "74"
+      }
+    ]
+  },
+  {
+    "ID": "935",
+    "Type": "physical association",
+    "Experiment": "936",
+    "Participants": [
+      {
+        "InteractorRef": "281"
+      },
+      {
+        "InteractorRef": "281"
+      }
+    ]
+  },
+  {
+    "ID": "937",
+    "Type": "physical association",
+    "Experiment": "938",
+    "Participants": [
+      {
+        "InteractorRef": "401"
+      },
+      {
+        "InteractorRef": "401"
+      }
+    ]
+  },
+  {
+    "ID": "939",
+    "Type": "physical association",
+    "Experiment": "940",
+    "Participants": [
+      {
+        "InteractorRef": "498"
+      },
+      {
+        "InteractorRef": "497"
+      }
+    ]
+  },
+  {
+    "ID": "941",
+    "Type": "physical association",
+    "Experiment": "942",
+    "Participants": [
+      {
+        "InteractorRef": "57"
+      },
+      {
+        "InteractorRef": "74"
+      }
+    ]
+  },
+  {
+    "ID": "943",
+    "Type": "physical association",
+    "Experiment": "944",
+    "Participants": [
+      {
+        "InteractorRef": "58"
+      },
+      {
+        "InteractorRef": "57"
+      }
+    ]
+  },
+  {
+    "ID": "945",
+    "Type": "physical association",
+    "Experiment": "946",
+    "Participants": [
+      {
+        "InteractorRef": "66"
+      },
+      {
+        "InteractorRef": "193"
+      }
+    ]
+  },
+  {
+    "ID": "947",
+    "Type": "physical association",
+    "Experiment": "948",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "949",
+    "Type": "physical association",
+    "Experiment": "950",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "951",
+    "Type": "physical association",
+    "Experiment": "952",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "129"
+      }
+    ]
+  },
+  {
+    "ID": "953",
+    "Type": "physical association",
+    "Experiment": "954",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "955",
+    "Type": "physical association",
+    "Experiment": "956",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "957",
+    "Type": "direct interaction",
+    "Experiment": "958",
+    "Participants": [
+      {
+        "InteractorRef": "717"
+      },
+      {
+        "InteractorRef": "718"
+      }
+    ]
+  },
+  {
+    "ID": "959",
+    "Type": "direct interaction",
+    "Experiment": "960",
+    "Participants": [
+      {
+        "InteractorRef": "718"
+      },
+      {
+        "InteractorRef": "724"
+      }
+    ]
+  },
+  {
+    "ID": "961",
+    "Type": "colocalization",
+    "Experiment": "962",
+    "Participants": [
+      {
+        "InteractorRef": "717"
+      },
+      {
+        "InteractorRef": "718"
+      }
+    ]
+  },
+  {
+    "ID": "963",
+    "Type": "physical association",
+    "Experiment": "964",
+    "Participants": [
+      {
+        "InteractorRef": "735"
+      },
+      {
+        "InteractorRef": "735"
+      }
+    ]
+  },
+  {
+    "ID": "965",
+    "Type": "physical association",
+    "Experiment": "966",
+    "Participants": [
+      {
+        "InteractorRef": "741"
+      },
+      {
+        "InteractorRef": "741"
+      }
+    ]
+  },
+  {
+    "ID": "967",
+    "Type": "physical association",
+    "Experiment": "968",
+    "Participants": [
+      {
+        "InteractorRef": "747"
+      },
+      {
+        "InteractorRef": "748"
+      }
+    ]
+  },
+  {
+    "ID": "969",
+    "Type": "physical association",
+    "Experiment": "970",
+    "Participants": [
+      {
+        "InteractorRef": "753"
+      },
+      {
+        "InteractorRef": "735"
+      }
+    ]
+  },
+  {
+    "ID": "971",
+    "Type": "physical association",
+    "Experiment": "972",
+    "Participants": [
+      {
+        "InteractorRef": "759"
+      },
+      {
+        "InteractorRef": "760"
+      }
+    ]
+  },
+  {
+    "ID": "973",
+    "Type": "physical association",
+    "Experiment": "974",
+    "Participants": [
+      {
+        "InteractorRef": "765"
+      },
+      {
+        "InteractorRef": "766"
+      }
+    ]
+  },
+  {
+    "ID": "975",
+    "Type": "physical association",
+    "Experiment": "976",
+    "Participants": [
+      {
+        "InteractorRef": "759"
+      },
+      {
+        "InteractorRef": "772"
+      }
+    ]
+  },
+  {
+    "ID": "601",
+    "Type": "physical association",
+    "Experiment": "602",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "603",
+    "Type": "physical association",
+    "Experiment": "604",
+    "Participants": [
+      {
+        "InteractorRef": "7"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "605",
+    "Type": "physical association",
+    "Experiment": "606",
+    "Participants": [
+      {
+        "InteractorRef": "7"
+      },
+      {
+        "InteractorRef": "14"
+      }
+    ]
+  },
+  {
+    "ID": "607",
+    "Type": "physical association",
+    "Experiment": "608",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "20"
+      }
+    ]
+  },
+  {
+    "ID": "609",
+    "Type": "physical association",
+    "Experiment": "610",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "611",
+    "Type": "physical association",
+    "Experiment": "612",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "613",
+    "Type": "physical association",
+    "Experiment": "614",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "615",
+    "Type": "physical association",
+    "Experiment": "616",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "44"
+      }
+    ]
+  },
+  {
+    "ID": "617",
+    "Type": "physical association",
+    "Experiment": "618",
+    "Participants": [
+      {
+        "InteractorRef": "49"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "619",
+    "Type": "physical association",
+    "Experiment": "620",
+    "Participants": [
+      {
+        "InteractorRef": "55"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "621",
+    "Type": "physical association",
+    "Experiment": "622",
+    "Participants": [
+      {
+        "InteractorRef": "61"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "623",
+    "Type": "physical association",
+    "Experiment": "624",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "68"
+      }
+    ]
+  },
+  {
+    "ID": "625",
+    "Type": "physical association",
+    "Experiment": "626",
+    "Participants": [
+      {
+        "InteractorRef": "73"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "627",
+    "Type": "physical association",
+    "Experiment": "628",
+    "Participants": [
+      {
+        "InteractorRef": "79"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "629",
+    "Type": "physical association",
+    "Experiment": "630",
+    "Participants": [
+      {
+        "InteractorRef": "85"
+      },
+      {
+        "InteractorRef": "31"
+      }
+    ]
+  },
+  {
+    "ID": "631",
+    "Type": "physical association",
+    "Experiment": "632",
+    "Participants": [
+      {
+        "InteractorRef": "91"
+      },
+      {
+        "InteractorRef": "61"
+      }
+    ]
+  },
+  {
+    "ID": "633",
+    "Type": "physical association",
+    "Experiment": "634",
+    "Participants": [
+      {
+        "InteractorRef": "91"
+      },
+      {
+        "InteractorRef": "73"
+      }
+    ]
+  },
+  {
+    "ID": "635",
+    "Type": "physical association",
+    "Experiment": "636",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "91"
+      }
+    ]
+  },
+  {
+    "ID": "637",
+    "Type": "physical association",
+    "Experiment": "638",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "110"
+      }
+    ]
+  },
+  {
+    "ID": "639",
+    "Type": "physical association",
+    "Experiment": "640",
+    "Participants": [
+      {
+        "InteractorRef": "110"
+      },
+      {
+        "InteractorRef": "61"
+      }
+    ]
+  },
+  {
+    "ID": "641",
+    "Type": "physical association",
+    "Experiment": "642",
+    "Participants": [
+      {
+        "InteractorRef": "121"
+      },
+      {
+        "InteractorRef": "61"
+      }
+    ]
+  },
+  {
+    "ID": "643",
+    "Type": "physical association",
+    "Experiment": "644",
+    "Participants": [
+      {
+        "InteractorRef": "121"
+      },
+      {
+        "InteractorRef": "73"
+      }
+    ]
+  },
+  {
+    "ID": "645",
+    "Type": "physical association",
+    "Experiment": "646",
+    "Participants": [
+      {
+        "InteractorRef": "79"
+      },
+      {
+        "InteractorRef": "55"
+      }
+    ]
+  },
+  {
+    "ID": "647",
+    "Type": "physical association",
+    "Experiment": "648",
+    "Participants": [
+      {
+        "InteractorRef": "79"
+      },
+      {
+        "InteractorRef": "140"
+      }
+    ]
+  },
+  {
+    "ID": "649",
+    "Type": "physical association",
+    "Experiment": "650",
+    "Participants": [
+      {
+        "InteractorRef": "140"
+      },
+      {
+        "InteractorRef": "68"
+      }
+    ]
+  },
+  {
+    "ID": "651",
+    "Type": "physical association",
+    "Experiment": "652",
+    "Participants": [
+      {
+        "InteractorRef": "55"
+      },
+      {
+        "InteractorRef": "152"
+      }
+    ]
+  },
+  {
+    "ID": "653",
+    "Type": "physical association",
+    "Experiment": "654",
+    "Participants": [
+      {
+        "InteractorRef": "140"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "655",
+    "Type": "physical association",
+    "Experiment": "656",
+    "Participants": [
+      {
+        "InteractorRef": "163"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "657",
+    "Type": "physical association",
+    "Experiment": "658",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "170"
+      }
+    ]
+  },
+  {
+    "ID": "659",
+    "Type": "physical association",
+    "Experiment": "660",
+    "Participants": [
+      {
+        "InteractorRef": "175"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "661",
+    "Type": "physical association",
+    "Experiment": "662",
+    "Participants": [
+      {
+        "InteractorRef": "181"
+      },
+      {
+        "InteractorRef": "44"
+      }
+    ]
+  },
+  {
+    "ID": "663",
+    "Type": "physical association",
+    "Experiment": "664",
+    "Participants": [
+      {
+        "InteractorRef": "181"
+      },
+      {
+        "InteractorRef": "188"
+      }
+    ]
+  },
+  {
+    "ID": "665",
+    "Type": "physical association",
+    "Experiment": "666",
+    "Participants": [
+      {
+        "InteractorRef": "110"
+      },
+      {
+        "InteractorRef": "68"
+      }
+    ]
+  },
+  {
+    "ID": "667",
+    "Type": "physical association",
+    "Experiment": "668",
+    "Participants": [
+      {
+        "InteractorRef": "199"
+      },
+      {
+        "InteractorRef": "200"
+      }
+    ]
+  },
+  {
+    "ID": "669",
+    "Type": "physical association",
+    "Experiment": "670",
+    "Participants": [
+      {
+        "InteractorRef": "205"
+      },
+      {
+        "InteractorRef": "199"
+      }
+    ]
+  },
+  {
+    "ID": "671",
+    "Type": "physical association",
+    "Experiment": "672",
+    "Participants": [
+      {
+        "InteractorRef": "175"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "673",
+    "Type": "physical association",
+    "Experiment": "674",
+    "Participants": [
+      {
+        "InteractorRef": "217"
+      },
+      {
+        "InteractorRef": "218"
+      }
+    ]
+  },
+  {
+    "ID": "675",
+    "Type": "physical association",
+    "Experiment": "676",
+    "Participants": [
+      {
+        "InteractorRef": "223"
+      },
+      {
+        "InteractorRef": "224"
+      }
+    ]
+  },
+  {
+    "ID": "677",
+    "Type": "physical association",
+    "Experiment": "678",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "49"
+      }
+    ]
+  },
+  {
+    "ID": "679",
+    "Type": "physical association",
+    "Experiment": "680",
+    "Participants": [
+      {
+        "InteractorRef": "163"
+      },
+      {
+        "InteractorRef": "49"
+      }
+    ]
+  },
+  {
+    "ID": "681",
+    "Type": "physical association",
+    "Experiment": "682",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "683",
+    "Type": "physical association",
+    "Experiment": "684",
+    "Participants": [
+      {
+        "InteractorRef": "7"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "685",
+    "Type": "physical association",
+    "Experiment": "686",
+    "Participants": [
+      {
+        "InteractorRef": "14"
+      },
+      {
+        "InteractorRef": "7"
+      }
+    ]
+  },
+  {
+    "ID": "687",
+    "Type": "physical association",
+    "Experiment": "688",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "20"
+      }
+    ]
+  },
+  {
+    "ID": "689",
+    "Type": "physical association",
+    "Experiment": "690",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "25"
+      }
+    ]
+  },
+  {
+    "ID": "691",
+    "Type": "physical association",
+    "Experiment": "692",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "693",
+    "Type": "physical association",
+    "Experiment": "694",
+    "Participants": [
+      {
+        "InteractorRef": "32"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "695",
+    "Type": "physical association",
+    "Experiment": "696",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "44"
+      }
+    ]
+  },
+  {
+    "ID": "697",
+    "Type": "physical association",
+    "Experiment": "698",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "49"
+      }
+    ]
+  },
+  {
+    "ID": "699",
+    "Type": "physical association",
+    "Experiment": "700",
+    "Participants": [
+      {
+        "InteractorRef": "55"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "701",
+    "Type": "physical association",
+    "Experiment": "702",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "61"
+      }
+    ]
+  },
+  {
+    "ID": "703",
+    "Type": "physical association",
+    "Experiment": "704",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "68"
+      }
+    ]
+  },
+  {
+    "ID": "705",
+    "Type": "physical association",
+    "Experiment": "706",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "73"
+      }
+    ]
+  },
+  {
+    "ID": "707",
+    "Type": "physical association",
+    "Experiment": "708",
+    "Participants": [
+      {
+        "InteractorRef": "79"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "709",
+    "Type": "physical association",
+    "Experiment": "710",
+    "Participants": [
+      {
+        "InteractorRef": "85"
+      },
+      {
+        "InteractorRef": "31"
+      }
+    ]
+  },
+  {
+    "ID": "711",
+    "Type": "physical association",
+    "Experiment": "712",
+    "Participants": [
+      {
+        "InteractorRef": "91"
+      },
+      {
+        "InteractorRef": "61"
+      }
+    ]
+  },
+  {
+    "ID": "713",
+    "Type": "physical association",
+    "Experiment": "714",
+    "Participants": [
+      {
+        "InteractorRef": "91"
+      },
+      {
+        "InteractorRef": "73"
+      }
+    ]
+  },
+  {
+    "ID": "715",
+    "Type": "physical association",
+    "Experiment": "716",
+    "Participants": [
+      {
+        "InteractorRef": "91"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "717",
+    "Type": "physical association",
+    "Experiment": "718",
+    "Participants": [
+      {
+        "InteractorRef": "110"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "719",
+    "Type": "physical association",
+    "Experiment": "720",
+    "Participants": [
+      {
+        "InteractorRef": "61"
+      },
+      {
+        "InteractorRef": "110"
+      }
+    ]
+  },
+  {
+    "ID": "721",
+    "Type": "physical association",
+    "Experiment": "722",
+    "Participants": [
+      {
+        "InteractorRef": "121"
+      },
+      {
+        "InteractorRef": "61"
+      }
+    ]
+  },
+  {
+    "ID": "723",
+    "Type": "physical association",
+    "Experiment": "724",
+    "Participants": [
+      {
+        "InteractorRef": "73"
+      },
+      {
+        "InteractorRef": "121"
+      }
+    ]
+  },
+  {
+    "ID": "725",
+    "Type": "physical association",
+    "Experiment": "726",
+    "Participants": [
+      {
+        "InteractorRef": "55"
+      },
+      {
+        "InteractorRef": "79"
+      }
+    ]
+  },
+  {
+    "ID": "727",
+    "Type": "physical association",
+    "Experiment": "728",
+    "Participants": [
+      {
+        "InteractorRef": "140"
+      },
+      {
+        "InteractorRef": "68"
+      }
+    ]
+  },
+  {
+    "ID": "729",
+    "Type": "physical association",
+    "Experiment": "730",
+    "Participants": [
+      {
+        "InteractorRef": "79"
+      },
+      {
+        "InteractorRef": "140"
+      }
+    ]
+  },
+  {
+    "ID": "731",
+    "Type": "physical association",
+    "Experiment": "732",
+    "Participants": [
+      {
+        "InteractorRef": "152"
+      },
+      {
+        "InteractorRef": "55"
+      }
+    ]
+  },
+  {
+    "ID": "733",
+    "Type": "physical association",
+    "Experiment": "734",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "140"
+      }
+    ]
+  },
+  {
+    "ID": "735",
+    "Type": "physical association",
+    "Experiment": "736",
+    "Participants": [
+      {
+        "InteractorRef": "163"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "737",
+    "Type": "physical association",
+    "Experiment": "738",
+    "Participants": [
+      {
+        "InteractorRef": "170"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "739",
+    "Type": "physical association",
+    "Experiment": "740",
+    "Participants": [
+      {
+        "InteractorRef": "175"
+      },
+      {
+        "InteractorRef": "37"
+      }
+    ]
+  },
+  {
+    "ID": "741",
+    "Type": "physical association",
+    "Experiment": "742",
+    "Participants": [
+      {
+        "InteractorRef": "181"
+      },
+      {
+        "InteractorRef": "44"
+      }
+    ]
+  },
+  {
+    "ID": "743",
+    "Type": "physical association",
+    "Experiment": "744",
+    "Participants": [
+      {
+        "InteractorRef": "188"
+      },
+      {
+        "InteractorRef": "181"
+      }
+    ]
+  },
+  {
+    "ID": "745",
+    "Type": "physical association",
+    "Experiment": "746",
+    "Participants": [
+      {
+        "InteractorRef": "68"
+      },
+      {
+        "InteractorRef": "110"
+      }
+    ]
+  },
+  {
+    "ID": "747",
+    "Type": "physical association",
+    "Experiment": "748",
+    "Participants": [
+      {
+        "InteractorRef": "199"
+      },
+      {
+        "InteractorRef": "200"
+      }
+    ]
+  },
+  {
+    "ID": "749",
+    "Type": "physical association",
+    "Experiment": "750",
+    "Participants": [
+      {
+        "InteractorRef": "205"
+      },
+      {
+        "InteractorRef": "199"
+      }
+    ]
+  },
+  {
+    "ID": "751",
+    "Type": "physical association",
+    "Experiment": "752",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "175"
+      }
+    ]
+  },
+  {
+    "ID": "753",
+    "Type": "physical association",
+    "Experiment": "754",
+    "Participants": [
+      {
+        "InteractorRef": "121"
+      },
+      {
+        "InteractorRef": "121"
+      }
+    ]
+  },
+  {
+    "ID": "755",
+    "Type": "physical association",
+    "Experiment": "756",
+    "Participants": [
+      {
+        "InteractorRef": "463"
+      },
+      {
+        "InteractorRef": "463"
+      }
+    ]
+  },
+  {
+    "ID": "757",
+    "Type": "physical association",
+    "Experiment": "758",
+    "Participants": [
+      {
+        "InteractorRef": "469"
+      },
+      {
+        "InteractorRef": "469"
+      }
+    ]
+  },
+  {
+    "ID": "759",
+    "Type": "physical association",
+    "Experiment": "760",
+    "Participants": [
+      {
+        "InteractorRef": "475"
+      },
+      {
+        "InteractorRef": "475"
+      }
+    ]
+  },
+  {
+    "ID": "761",
+    "Type": "physical association",
+    "Experiment": "762",
+    "Participants": [
+      {
+        "InteractorRef": "481"
+      },
+      {
+        "InteractorRef": "481"
+      }
+    ]
+  },
+  {
+    "ID": "763",
+    "Type": "physical association",
+    "Experiment": "764",
+    "Participants": [
+      {
+        "InteractorRef": "487"
+      },
+      {
+        "InteractorRef": "487"
+      }
+    ]
+  },
+  {
+    "ID": "765",
+    "Type": "physical association",
+    "Experiment": "766",
+    "Participants": [
+      {
+        "InteractorRef": "217"
+      },
+      {
+        "InteractorRef": "494"
+      }
+    ]
+  },
+  {
+    "ID": "767",
+    "Type": "physical association",
+    "Experiment": "768",
+    "Participants": [
+      {
+        "InteractorRef": "494"
+      },
+      {
+        "InteractorRef": "218"
+      }
+    ]
+  },
+  {
+    "ID": "769",
+    "Type": "physical association",
+    "Experiment": "770",
+    "Participants": [
+      {
+        "InteractorRef": "505"
+      },
+      {
+        "InteractorRef": "217"
+      }
+    ]
+  },
+  {
+    "ID": "771",
+    "Type": "physical association",
+    "Experiment": "772",
+    "Participants": [
+      {
+        "InteractorRef": "218"
+      },
+      {
+        "InteractorRef": "505"
+      }
+    ]
+  },
+  {
+    "ID": "773",
+    "Type": "physical association",
+    "Experiment": "774",
+    "Participants": [
+      {
+        "InteractorRef": "223"
+      },
+      {
+        "InteractorRef": "518"
+      }
+    ]
+  },
+  {
+    "ID": "775",
+    "Type": "physical association",
+    "Experiment": "776",
+    "Participants": [
+      {
+        "InteractorRef": "523"
+      },
+      {
+        "InteractorRef": "524"
+      }
+    ]
+  },
+  {
+    "ID": "777",
+    "Type": "physical association",
+    "Experiment": "778",
+    "Participants": [
+      {
+        "InteractorRef": "529"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "779",
+    "Type": "physical association",
+    "Experiment": "780",
+    "Participants": [
+      {
+        "InteractorRef": "535"
+      },
+      {
+        "InteractorRef": "31"
+      }
+    ]
+  },
+  {
+    "ID": "781",
+    "Type": "physical association",
+    "Experiment": "782",
+    "Participants": [
+      {
+        "InteractorRef": "541"
+      },
+      {
+        "InteractorRef": "542"
+      }
+    ]
+  },
+  {
+    "ID": "783",
+    "Type": "physical association",
+    "Experiment": "784",
+    "Participants": [
+      {
+        "InteractorRef": "200"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "785",
+    "Type": "physical association",
+    "Experiment": "786",
+    "Participants": [
+      {
+        "InteractorRef": "200"
+      },
+      {
+        "InteractorRef": "49"
+      }
+    ]
+  },
+  {
+    "ID": "787",
+    "Type": "physical association",
+    "Experiment": "788",
+    "Participants": [
+      {
+        "InteractorRef": "559"
+      },
+      {
+        "InteractorRef": "200"
+      }
+    ]
+  },
+  {
+    "ID": "789",
+    "Type": "physical association",
+    "Experiment": "790",
+    "Participants": [
+      {
+        "InteractorRef": "565"
+      },
+      {
+        "InteractorRef": "205"
+      }
+    ]
+  },
+  {
+    "ID": "791",
+    "Type": "physical association",
+    "Experiment": "792",
+    "Participants": [
+      {
+        "InteractorRef": "524"
+      },
+      {
+        "InteractorRef": "49"
+      }
+    ]
+  },
+  {
+    "ID": "793",
+    "Type": "physical association",
+    "Experiment": "794",
+    "Participants": [
+      {
+        "InteractorRef": "565"
+      },
+      {
+        "InteractorRef": "578"
+      }
+    ]
+  },
+  {
+    "ID": "795",
+    "Type": "physical association",
+    "Experiment": "796",
+    "Participants": [
+      {
+        "InteractorRef": "188"
+      },
+      {
+        "InteractorRef": "584"
+      }
+    ]
+  },
+  {
+    "ID": "797",
+    "Type": "physical association",
+    "Experiment": "798",
+    "Participants": [
+      {
+        "InteractorRef": "49"
+      },
+      {
+        "InteractorRef": "578"
+      }
+    ]
+  },
+  {
+    "ID": "799",
+    "Type": "physical association",
+    "Experiment": "800",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "188"
+      }
+    ]
+  },
+  {
+    "ID": "600",
+    "Type": "physical association",
+    "Experiment": "601",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "602",
+    "Type": "physical association",
+    "Experiment": "603",
+    "Participants": [
+      {
+        "InteractorRef": "2"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "604",
+    "Type": "physical association",
+    "Experiment": "605",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "14"
+      }
+    ]
+  },
+  {
+    "ID": "606",
+    "Type": "physical association",
+    "Experiment": "607",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "20"
+      }
+    ]
+  },
+  {
+    "ID": "608",
+    "Type": "physical association",
+    "Experiment": "609",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "19"
+      }
+    ]
+  },
+  {
+    "ID": "610",
+    "Type": "physical association",
+    "Experiment": "611",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "612",
+    "Type": "physical association",
+    "Experiment": "613",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "19"
+      }
+    ]
+  },
+  {
+    "ID": "614",
+    "Type": "physical association",
+    "Experiment": "615",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "44"
+      }
+    ]
+  },
+  {
+    "ID": "616",
+    "Type": "physical association",
+    "Experiment": "617",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "50"
+      }
+    ]
+  },
+  {
+    "ID": "618",
+    "Type": "physical association",
+    "Experiment": "619",
+    "Participants": [
+      {
+        "InteractorRef": "55"
+      },
+      {
+        "InteractorRef": "56"
+      }
+    ]
+  },
+  {
+    "ID": "620",
+    "Type": "physical association",
+    "Experiment": "621",
+    "Participants": [
+      {
+        "InteractorRef": "56"
+      },
+      {
+        "InteractorRef": "62"
+      }
+    ]
+  },
+  {
+    "ID": "622",
+    "Type": "physical association",
+    "Experiment": "623",
+    "Participants": [
+      {
+        "InteractorRef": "67"
+      },
+      {
+        "InteractorRef": "62"
+      }
+    ]
+  },
+  {
+    "ID": "624",
+    "Type": "physical association",
+    "Experiment": "625",
+    "Participants": [
+      {
+        "InteractorRef": "73"
+      },
+      {
+        "InteractorRef": "74"
+      }
+    ]
+  },
+  {
+    "ID": "626",
+    "Type": "physical association",
+    "Experiment": "627",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "80"
+      }
+    ]
+  },
+  {
+    "ID": "628",
+    "Type": "physical association",
+    "Experiment": "629",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "86"
+      }
+    ]
+  },
+  {
+    "ID": "630",
+    "Type": "physical association",
+    "Experiment": "631",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "92"
+      }
+    ]
+  },
+  {
+    "ID": "632",
+    "Type": "physical association",
+    "Experiment": "633",
+    "Participants": [
+      {
+        "InteractorRef": "97"
+      },
+      {
+        "InteractorRef": "98"
+      }
+    ]
+  },
+  {
+    "ID": "634",
+    "Type": "physical association",
+    "Experiment": "635",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "98"
+      }
+    ]
+  },
+  {
+    "ID": "636",
+    "Type": "physical association",
+    "Experiment": "637",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "50"
+      }
+    ]
+  },
+  {
+    "ID": "638",
+    "Type": "physical association",
+    "Experiment": "639",
+    "Participants": [
+      {
+        "InteractorRef": "73"
+      },
+      {
+        "InteractorRef": "31"
+      }
+    ]
+  },
+  {
+    "ID": "640",
+    "Type": "physical association",
+    "Experiment": "641",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "73"
+      }
+    ]
+  },
+  {
+    "ID": "642",
+    "Type": "physical association",
+    "Experiment": "643",
+    "Participants": [
+      {
+        "InteractorRef": "127"
+      },
+      {
+        "InteractorRef": "73"
+      }
+    ]
+  },
+  {
+    "ID": "644",
+    "Type": "physical association",
+    "Experiment": "645",
+    "Participants": [
+      {
+        "InteractorRef": "97"
+      },
+      {
+        "InteractorRef": "14"
+      }
+    ]
+  },
+  {
+    "ID": "646",
+    "Type": "physical association",
+    "Experiment": "647",
+    "Participants": [
+      {
+        "InteractorRef": "139"
+      },
+      {
+        "InteractorRef": "14"
+      }
+    ]
+  },
+  {
+    "ID": "648",
+    "Type": "physical association",
+    "Experiment": "649",
+    "Participants": [
+      {
+        "InteractorRef": "14"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "650",
+    "Type": "physical association",
+    "Experiment": "651",
+    "Participants": [
+      {
+        "InteractorRef": "127"
+      },
+      {
+        "InteractorRef": "14"
+      }
+    ]
+  },
+  {
+    "ID": "652",
+    "Type": "physical association",
+    "Experiment": "653",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "654",
+    "Type": "physical association",
+    "Experiment": "655",
+    "Participants": [
+      {
+        "InteractorRef": "127"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "656",
+    "Type": "physical association",
+    "Experiment": "657",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "170"
+      }
+    ]
+  },
+  {
+    "ID": "658",
+    "Type": "physical association",
+    "Experiment": "659",
+    "Participants": [
+      {
+        "InteractorRef": "175"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "660",
+    "Type": "physical association",
+    "Experiment": "661",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "92"
+      }
+    ]
+  },
+  {
+    "ID": "662",
+    "Type": "physical association",
+    "Experiment": "663",
+    "Participants": [
+      {
+        "InteractorRef": "92"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "664",
+    "Type": "physical association",
+    "Experiment": "665",
+    "Participants": [
+      {
+        "InteractorRef": "127"
+      },
+      {
+        "InteractorRef": "92"
+      }
+    ]
+  },
+  {
+    "ID": "666",
+    "Type": "physical association",
+    "Experiment": "667",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "668",
+    "Type": "physical association",
+    "Experiment": "669",
+    "Participants": [
+      {
+        "InteractorRef": "127"
+      },
+      {
+        "InteractorRef": "98"
+      }
+    ]
+  },
+  {
+    "ID": "670",
+    "Type": "physical association",
+    "Experiment": "671",
+    "Participants": [
+      {
+        "InteractorRef": "73"
+      },
+      {
+        "InteractorRef": "212"
+      }
+    ]
+  },
+  {
+    "ID": "672",
+    "Type": "physical association",
+    "Experiment": "673",
+    "Participants": [
+      {
+        "InteractorRef": "20"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "674",
+    "Type": "physical association",
+    "Experiment": "675",
+    "Participants": [
+      {
+        "InteractorRef": "139"
+      },
+      {
+        "InteractorRef": "20"
+      }
+    ]
+  },
+  {
+    "ID": "676",
+    "Type": "physical association",
+    "Experiment": "677",
+    "Participants": [
+      {
+        "InteractorRef": "127"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "678",
+    "Type": "physical association",
+    "Experiment": "679",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "31"
+      }
+    ]
+  },
+  {
+    "ID": "680",
+    "Type": "physical association",
+    "Experiment": "681",
+    "Participants": [
+      {
+        "InteractorRef": "44"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "682",
+    "Type": "physical association",
+    "Experiment": "683",
+    "Participants": [
+      {
+        "InteractorRef": "44"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "684",
+    "Type": "physical association",
+    "Experiment": "685",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "14"
+      }
+    ]
+  },
+  {
+    "ID": "686",
+    "Type": "physical association",
+    "Experiment": "687",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "20"
+      }
+    ]
+  },
+  {
+    "ID": "688",
+    "Type": "physical association",
+    "Experiment": "689",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "19"
+      }
+    ]
+  },
+  {
+    "ID": "690",
+    "Type": "physical association",
+    "Experiment": "691",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "19"
+      }
+    ]
+  },
+  {
+    "ID": "692",
+    "Type": "physical association",
+    "Experiment": "693",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "694",
+    "Type": "physical association",
+    "Experiment": "695",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "44"
+      }
+    ]
+  },
+  {
+    "ID": "696",
+    "Type": "physical association",
+    "Experiment": "697",
+    "Participants": [
+      {
+        "InteractorRef": "50"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "698",
+    "Type": "physical association",
+    "Experiment": "699",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "700",
+    "Type": "physical association",
+    "Experiment": "701",
+    "Participants": [
+      {
+        "InteractorRef": "98"
+      },
+      {
+        "InteractorRef": "127"
+      }
+    ]
+  },
+  {
+    "ID": "702",
+    "Type": "physical association",
+    "Experiment": "703",
+    "Participants": [
+      {
+        "InteractorRef": "212"
+      },
+      {
+        "InteractorRef": "73"
+      }
+    ]
+  },
+  {
+    "ID": "704",
+    "Type": "physical association",
+    "Experiment": "705",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "20"
+      }
+    ]
+  },
+  {
+    "ID": "706",
+    "Type": "physical association",
+    "Experiment": "707",
+    "Participants": [
+      {
+        "InteractorRef": "139"
+      },
+      {
+        "InteractorRef": "20"
+      }
+    ]
+  },
+  {
+    "ID": "708",
+    "Type": "physical association",
+    "Experiment": "709",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "127"
+      }
+    ]
+  },
+  {
+    "ID": "710",
+    "Type": "physical association",
+    "Experiment": "711",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "712",
+    "Type": "physical association",
+    "Experiment": "713",
+    "Participants": [
+      {
+        "InteractorRef": "44"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "714",
+    "Type": "physical association",
+    "Experiment": "715",
+    "Participants": [
+      {
+        "InteractorRef": "44"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "716",
+    "Type": "physical association",
+    "Experiment": "717",
+    "Participants": [
+      {
+        "InteractorRef": "92"
+      },
+      {
+        "InteractorRef": "92"
+      }
+    ]
+  },
+  {
+    "ID": "718",
+    "Type": "physical association",
+    "Experiment": "719",
+    "Participants": [
+      {
+        "InteractorRef": "355"
+      },
+      {
+        "InteractorRef": "355"
+      }
+    ]
+  },
+  {
+    "ID": "720",
+    "Type": "physical association",
+    "Experiment": "721",
+    "Participants": [
+      {
+        "InteractorRef": "175"
+      },
+      {
+        "InteractorRef": "175"
+      }
+    ]
+  },
+  {
+    "ID": "722",
+    "Type": "physical association",
+    "Experiment": "723",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "724",
+    "Type": "physical association",
+    "Experiment": "725",
+    "Participants": [
+      {
+        "InteractorRef": "373"
+      },
+      {
+        "InteractorRef": "373"
+      }
+    ]
+  },
+  {
+    "ID": "726",
+    "Type": "physical association",
+    "Experiment": "727",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "728",
+    "Type": "physical association",
+    "Experiment": "729",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "730",
+    "Type": "physical association",
+    "Experiment": "731",
+    "Participants": [
+      {
+        "InteractorRef": "391"
+      },
+      {
+        "InteractorRef": "392"
+      }
+    ]
+  },
+  {
+    "ID": "732",
+    "Type": "physical association",
+    "Experiment": "733",
+    "Participants": [
+      {
+        "InteractorRef": "397"
+      },
+      {
+        "InteractorRef": "398"
+      }
+    ]
+  },
+  {
+    "ID": "734",
+    "Type": "physical association",
+    "Experiment": "735",
+    "Participants": [
+      {
+        "InteractorRef": "398"
+      },
+      {
+        "InteractorRef": "373"
+      }
+    ]
+  },
+  {
+    "ID": "736",
+    "Type": "physical association",
+    "Experiment": "737",
+    "Participants": [
+      {
+        "InteractorRef": "409"
+      },
+      {
+        "InteractorRef": "410"
+      }
+    ]
+  },
+  {
+    "ID": "738",
+    "Type": "physical association",
+    "Experiment": "739",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "175"
+      }
+    ]
+  },
+  {
+    "ID": "740",
+    "Type": "physical association",
+    "Experiment": "741",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "742",
+    "Type": "physical association",
+    "Experiment": "743",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "744",
+    "Type": "physical association",
+    "Experiment": "745",
+    "Participants": [
+      {
+        "InteractorRef": "398"
+      },
+      {
+        "InteractorRef": "92"
+      }
+    ]
+  },
+  {
+    "ID": "746",
+    "Type": "physical association",
+    "Experiment": "747",
+    "Participants": [
+      {
+        "InteractorRef": "409"
+      },
+      {
+        "InteractorRef": "398"
+      }
+    ]
+  },
+  {
+    "ID": "748",
+    "Type": "physical association",
+    "Experiment": "749",
+    "Participants": [
+      {
+        "InteractorRef": "445"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "750",
+    "Type": "physical association",
+    "Experiment": "751",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "752",
+    "Type": "physical association",
+    "Experiment": "753",
+    "Participants": [
+      {
+        "InteractorRef": "457"
+      },
+      {
+        "InteractorRef": "170"
+      }
+    ]
+  },
+  {
+    "ID": "754",
+    "Type": "physical association",
+    "Experiment": "755",
+    "Participants": [
+      {
+        "InteractorRef": "97"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "756",
+    "Type": "physical association",
+    "Experiment": "757",
+    "Participants": [
+      {
+        "InteractorRef": "139"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "758",
+    "Type": "physical association",
+    "Experiment": "759",
+    "Participants": [
+      {
+        "InteractorRef": "391"
+      },
+      {
+        "InteractorRef": "392"
+      }
+    ]
+  },
+  {
+    "ID": "760",
+    "Type": "physical association",
+    "Experiment": "761",
+    "Participants": [
+      {
+        "InteractorRef": "398"
+      },
+      {
+        "InteractorRef": "397"
+      }
+    ]
+  },
+  {
+    "ID": "762",
+    "Type": "physical association",
+    "Experiment": "763",
+    "Participants": [
+      {
+        "InteractorRef": "398"
+      },
+      {
+        "InteractorRef": "373"
+      }
+    ]
+  },
+  {
+    "ID": "764",
+    "Type": "physical association",
+    "Experiment": "765",
+    "Participants": [
+      {
+        "InteractorRef": "409"
+      },
+      {
+        "InteractorRef": "494"
+      }
+    ]
+  },
+  {
+    "ID": "766",
+    "Type": "physical association",
+    "Experiment": "767",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "175"
+      }
+    ]
+  },
+  {
+    "ID": "768",
+    "Type": "physical association",
+    "Experiment": "769",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "770",
+    "Type": "physical association",
+    "Experiment": "771",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "772",
+    "Type": "physical association",
+    "Experiment": "773",
+    "Participants": [
+      {
+        "InteractorRef": "398"
+      },
+      {
+        "InteractorRef": "92"
+      }
+    ]
+  },
+  {
+    "ID": "774",
+    "Type": "physical association",
+    "Experiment": "775",
+    "Participants": [
+      {
+        "InteractorRef": "409"
+      },
+      {
+        "InteractorRef": "398"
+      }
+    ]
+  },
+  {
+    "ID": "776",
+    "Type": "physical association",
+    "Experiment": "777",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "778",
+    "Type": "physical association",
+    "Experiment": "779",
+    "Participants": [
+      {
+        "InteractorRef": "445"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "780",
+    "Type": "physical association",
+    "Experiment": "781",
+    "Participants": [
+      {
+        "InteractorRef": "457"
+      },
+      {
+        "InteractorRef": "170"
+      }
+    ]
+  },
+  {
+    "ID": "782",
+    "Type": "physical association",
+    "Experiment": "783",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "139"
+      }
+    ]
+  },
+  {
+    "ID": "784",
+    "Type": "physical association",
+    "Experiment": "785",
+    "Participants": [
+      {
+        "InteractorRef": "97"
+      },
+      {
+        "InteractorRef": "13"
+      }
+    ]
+  },
+  {
+    "ID": "786",
+    "Type": "physical association",
+    "Experiment": "787",
+    "Participants": [
+      {
+        "InteractorRef": "559"
+      },
+      {
+        "InteractorRef": "560"
+      }
+    ]
+  },
+  {
+    "ID": "788",
+    "Type": "physical association",
+    "Experiment": "789",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "97"
+      }
+    ]
+  },
+  {
+    "ID": "790",
+    "Type": "physical association",
+    "Experiment": "791",
+    "Participants": [
+      {
+        "InteractorRef": "559"
+      },
+      {
+        "InteractorRef": "572"
+      }
+    ]
+  },
+  {
+    "ID": "792",
+    "Type": "physical association",
+    "Experiment": "793",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "97"
+      }
+    ]
+  },
+  {
+    "ID": "794",
+    "Type": "physical association",
+    "Experiment": "795",
+    "Participants": [
+      {
+        "InteractorRef": "582"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "796",
+    "Type": "physical association",
+    "Experiment": "797",
+    "Participants": [
+      {
+        "InteractorRef": "355"
+      },
+      {
+        "InteractorRef": "391"
+      }
+    ]
+  },
+  {
+    "ID": "798",
+    "Type": "physical association",
+    "Experiment": "799",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "175"
+      }
+    ]
+  },
+  {
+    "ID": "834",
+    "Type": "physical association",
+    "Experiment": "835",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "836",
+    "Type": "physical association",
+    "Experiment": "837",
+    "Participants": [
+      {
+        "InteractorRef": "7"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "838",
+    "Type": "physical association",
+    "Experiment": "839",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "840",
+    "Type": "physical association",
+    "Experiment": "841",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "20"
+      }
+    ]
+  },
+  {
+    "ID": "842",
+    "Type": "physical association",
+    "Experiment": "843",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "844",
+    "Type": "physical association",
+    "Experiment": "845",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "846",
+    "Type": "physical association",
+    "Experiment": "847",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "848",
+    "Type": "physical association",
+    "Experiment": "849",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "850",
+    "Type": "physical association",
+    "Experiment": "851",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "50"
+      }
+    ]
+  },
+  {
+    "ID": "852",
+    "Type": "physical association",
+    "Experiment": "853",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "854",
+    "Type": "physical association",
+    "Experiment": "855",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "856",
+    "Type": "physical association",
+    "Experiment": "857",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "7"
+      }
+    ]
+  },
+  {
+    "ID": "858",
+    "Type": "physical association",
+    "Experiment": "859",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "25"
+      }
+    ]
+  },
+  {
+    "ID": "860",
+    "Type": "physical association",
+    "Experiment": "861",
+    "Participants": [
+      {
+        "InteractorRef": "37"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "862",
+    "Type": "physical association",
+    "Experiment": "863",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "864",
+    "Type": "physical association",
+    "Experiment": "865",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "50"
+      }
+    ]
+  },
+  {
+    "ID": "866",
+    "Type": "physical association",
+    "Experiment": "867",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "25"
+      }
+    ]
+  },
+  {
+    "ID": "868",
+    "Type": "direct interaction",
+    "Experiment": "869",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "104"
+      }
+    ]
+  },
+  {
+    "ID": "870",
+    "Type": "direct interaction",
+    "Experiment": "871",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "109"
+      }
+    ]
+  },
+  {
+    "ID": "872",
+    "Type": "direct interaction",
+    "Experiment": "873",
+    "Participants": [
+      {
+        "InteractorRef": "26"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "874",
+    "Type": "colocalization",
+    "Experiment": "875",
+    "Participants": [
+      {
+        "InteractorRef": "118"
+      },
+      {
+        "InteractorRef": "119"
+      }
+    ]
+  },
+  {
+    "ID": "876",
+    "Type": "physical association",
+    "Experiment": "877",
+    "Participants": [
+      {
+        "InteractorRef": "126"
+      },
+      {
+        "InteractorRef": "127"
+      }
+    ]
+  },
+  {
+    "ID": "878",
+    "Type": "physical association",
+    "Experiment": "879",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "134"
+      }
+    ]
+  },
+  {
+    "ID": "880",
+    "Type": "physical association",
+    "Experiment": "881",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "109"
+      }
+    ]
+  },
+  {
+    "ID": "882",
+    "Type": "physical association",
+    "Experiment": "883",
+    "Participants": [
+      {
+        "InteractorRef": "7"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "884",
+    "Type": "physical association",
+    "Experiment": "885",
+    "Participants": [
+      {
+        "InteractorRef": "154"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "886",
+    "Type": "physical association",
+    "Experiment": "887",
+    "Participants": [
+      {
+        "InteractorRef": "8"
+      },
+      {
+        "InteractorRef": "50"
+      }
+    ]
+  },
+  {
+    "ID": "888",
+    "Type": "physical association",
+    "Experiment": "889",
+    "Participants": [
+      {
+        "InteractorRef": "13"
+      },
+      {
+        "InteractorRef": "8"
+      }
+    ]
+  },
+  {
+    "ID": "890",
+    "Type": "physical association",
+    "Experiment": "891",
+    "Participants": [
+      {
+        "InteractorRef": "25"
+      },
+      {
+        "InteractorRef": "26"
+      }
+    ]
+  },
+  {
+    "ID": "892",
+    "Type": "direct interaction",
+    "Experiment": "893",
+    "Participants": [
+      {
+        "InteractorRef": "182"
+      },
+      {
+        "InteractorRef": "182"
+      }
+    ]
+  },
+  {
+    "ID": "894",
+    "Type": "direct interaction",
+    "Experiment": "895",
+    "Participants": [
+      {
+        "InteractorRef": "182"
+      },
+      {
+        "InteractorRef": "182"
+      }
+    ]
+  },
+  {
+    "ID": "896",
+    "Type": "colocalization",
+    "Experiment": "897",
+    "Participants": [
+      {
+        "InteractorRef": "190"
+      },
+      {
+        "InteractorRef": "191"
+      }
+    ]
+  },
+  {
+    "ID": "898",
+    "Type": "physical association",
+    "Experiment": "899",
+    "Participants": [
+      {
+        "InteractorRef": "196"
+      },
+      {
+        "InteractorRef": "197"
+      }
+    ]
+  },
+  {
+    "ID": "900",
+    "Type": "physical association",
+    "Experiment": "901",
+    "Participants": [
+      {
+        "InteractorRef": "206"
+      },
+      {
+        "InteractorRef": "207"
+      }
+    ]
+  },
+  {
+    "ID": "902",
+    "Type": "physical association",
+    "Experiment": "903",
+    "Participants": [
+      {
+        "InteractorRef": "196"
+      },
+      {
+        "InteractorRef": "197"
+      }
+    ]
+  },
+  {
+    "ID": "904",
+    "Type": "physical association",
+    "Experiment": "905",
+    "Participants": [
+      {
+        "InteractorRef": "225"
+      },
+      {
+        "InteractorRef": "196"
+      }
+    ]
+  },
+  {
+    "ID": "906",
+    "Type": "physical association",
+    "Experiment": "907",
+    "Participants": [
+      {
+        "InteractorRef": "235"
+      },
+      {
+        "InteractorRef": "236"
+      }
+    ]
+  },
+  {
+    "ID": "908",
+    "Type": "physical association",
+    "Experiment": "909",
+    "Participants": [
+      {
+        "InteractorRef": "244"
+      },
+      {
+        "InteractorRef": "235"
+      }
+    ]
+  },
+  {
+    "ID": "910",
+    "Type": "physical association",
+    "Experiment": "911",
+    "Participants": [
+      {
+        "InteractorRef": "235"
+      },
+      {
+        "InteractorRef": "254"
+      }
+    ]
+  },
+  {
+    "ID": "912",
+    "Type": "physical association",
+    "Experiment": "913",
+    "Participants": [
+      {
+        "InteractorRef": "236"
+      },
+      {
+        "InteractorRef": "263"
+      }
+    ]
+  },
+  {
+    "ID": "914",
+    "Type": "physical association",
+    "Experiment": "915",
+    "Participants": [
+      {
+        "InteractorRef": "263"
+      },
+      {
+        "InteractorRef": "244"
+      }
+    ]
+  },
+  {
+    "ID": "916",
+    "Type": "physical association",
+    "Experiment": "917",
+    "Participants": [
+      {
+        "InteractorRef": "254"
+      },
+      {
+        "InteractorRef": "263"
+      }
+    ]
+  },
+  {
+    "ID": "918",
+    "Type": "physical association",
+    "Experiment": "919",
+    "Participants": [
+      {
+        "InteractorRef": "263"
+      },
+      {
+        "InteractorRef": "290"
+      }
+    ]
+  },
+  {
+    "ID": "920",
+    "Type": "physical association",
+    "Experiment": "921",
+    "Participants": [
+      {
+        "InteractorRef": "236"
+      },
+      {
+        "InteractorRef": "300"
+      }
+    ]
+  },
+  {
+    "ID": "922",
+    "Type": "physical association",
+    "Experiment": "923",
+    "Participants": [
+      {
+        "InteractorRef": "244"
+      },
+      {
+        "InteractorRef": "300"
+      }
+    ]
+  },
+  {
+    "ID": "924",
+    "Type": "physical association",
+    "Experiment": "925",
+    "Participants": [
+      {
+        "InteractorRef": "300"
+      },
+      {
+        "InteractorRef": "254"
+      }
+    ]
+  },
+  {
+    "ID": "926",
+    "Type": "physical association",
+    "Experiment": "927",
+    "Participants": [
+      {
+        "InteractorRef": "236"
+      },
+      {
+        "InteractorRef": "327"
+      }
+    ]
+  },
+  {
+    "ID": "928",
+    "Type": "physical association",
+    "Experiment": "929",
+    "Participants": [
+      {
+        "InteractorRef": "327"
+      },
+      {
+        "InteractorRef": "336"
+      }
+    ]
+  },
+  {
+    "ID": "930",
+    "Type": "physical association",
+    "Experiment": "931",
+    "Participants": [
+      {
+        "InteractorRef": "244"
+      },
+      {
+        "InteractorRef": "327"
+      }
+    ]
+  },
+  {
+    "ID": "932",
+    "Type": "physical association",
+    "Experiment": "933",
+    "Participants": [
+      {
+        "InteractorRef": "206"
+      },
+      {
+        "InteractorRef": "191"
+      }
+    ]
+  },
+  {
+    "ID": "934",
+    "Type": "physical association",
+    "Experiment": "935",
+    "Participants": [
+      {
+        "InteractorRef": "362"
+      },
+      {
+        "InteractorRef": "206"
+      }
+    ]
+  },
+  {
+    "ID": "936",
+    "Type": "physical association",
+    "Experiment": "937",
+    "Participants": [
+      {
+        "InteractorRef": "190"
+      },
+      {
+        "InteractorRef": "191"
+      }
+    ]
+  },
+  {
+    "ID": "938",
+    "Type": "physical association",
+    "Experiment": "939",
+    "Participants": [
+      {
+        "InteractorRef": "382"
+      },
+      {
+        "InteractorRef": "190"
+      }
+    ]
+  },
+  {
+    "ID": "940",
+    "Type": "physical association",
+    "Experiment": "941",
+    "Participants": [
+      {
+        "InteractorRef": "190"
+      },
+      {
+        "InteractorRef": "362"
+      }
+    ]
+  },
+  {
+    "ID": "942",
+    "Type": "physical association",
+    "Experiment": "943",
+    "Participants": [
+      {
+        "InteractorRef": "191"
+      },
+      {
+        "InteractorRef": "401"
+      }
+    ]
+  },
+  {
+    "ID": "944",
+    "Type": "physical association",
+    "Experiment": "945",
+    "Participants": [
+      {
+        "InteractorRef": "362"
+      },
+      {
+        "InteractorRef": "401"
+      }
+    ]
+  },
+  {
+    "ID": "946",
+    "Type": "physical association",
+    "Experiment": "947",
+    "Participants": [
+      {
+        "InteractorRef": "206"
+      },
+      {
+        "InteractorRef": "191"
+      }
+    ]
+  },
+  {
+    "ID": "948",
+    "Type": "physical association",
+    "Experiment": "949",
+    "Participants": [
+      {
+        "InteractorRef": "191"
+      },
+      {
+        "InteractorRef": "191"
+      }
+    ]
+  },
+  {
+    "ID": "950",
+    "Type": "physical association",
+    "Experiment": "951",
+    "Participants": [
+      {
+        "InteractorRef": "191"
+      },
+      {
+        "InteractorRef": "439"
+      }
+    ]
+  },
+  {
+    "ID": "952",
+    "Type": "physical association",
+    "Experiment": "953",
+    "Participants": [
+      {
+        "InteractorRef": "191"
+      },
+      {
+        "InteractorRef": "362"
+      }
+    ]
+  },
+  {
+    "ID": "954",
+    "Type": "physical association",
+    "Experiment": "955",
+    "Participants": [
+      {
+        "InteractorRef": "191"
+      },
+      {
+        "InteractorRef": "190"
+      }
+    ]
+  },
+  {
+    "ID": "956",
+    "Type": "physical association",
+    "Experiment": "957",
+    "Participants": [
+      {
+        "InteractorRef": "401"
+      },
+      {
+        "InteractorRef": "191"
+      }
+    ]
+  },
+  {
+    "ID": "958",
+    "Type": "physical association",
+    "Experiment": "959",
+    "Participants": [
+      {
+        "InteractorRef": "191"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "960",
+    "Type": "physical association",
+    "Experiment": "961",
+    "Participants": [
+      {
+        "InteractorRef": "439"
+      },
+      {
+        "InteractorRef": "362"
+      }
+    ]
+  },
+  {
+    "ID": "962",
+    "Type": "physical association",
+    "Experiment": "963",
+    "Participants": [
+      {
+        "InteractorRef": "362"
+      },
+      {
+        "InteractorRef": "401"
+      }
+    ]
+  },
+  {
+    "ID": "964",
+    "Type": "physical association",
+    "Experiment": "965",
+    "Participants": [
+      {
+        "InteractorRef": "191"
+      },
+      {
+        "InteractorRef": "362"
+      }
+    ]
+  },
+  {
+    "ID": "966",
+    "Type": "physical association",
+    "Experiment": "967",
+    "Participants": [
+      {
+        "InteractorRef": "362"
+      },
+      {
+        "InteractorRef": "362"
+      }
+    ]
+  },
+  {
+    "ID": "968",
+    "Type": "physical association",
+    "Experiment": "969",
+    "Participants": [
+      {
+        "InteractorRef": "362"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "970",
+    "Type": "physical association",
+    "Experiment": "971",
+    "Participants": [
+      {
+        "InteractorRef": "206"
+      },
+      {
+        "InteractorRef": "362"
+      }
+    ]
+  },
+  {
+    "ID": "972",
+    "Type": "physical association",
+    "Experiment": "973",
+    "Participants": [
+      {
+        "InteractorRef": "362"
+      },
+      {
+        "InteractorRef": "190"
+      }
+    ]
+  },
+  {
+    "ID": "974",
+    "Type": "physical association",
+    "Experiment": "975",
+    "Participants": [
+      {
+        "InteractorRef": "190"
+      },
+      {
+        "InteractorRef": "382"
+      }
+    ]
+  },
+  {
+    "ID": "976",
+    "Type": "physical association",
+    "Experiment": "977",
+    "Participants": [
+      {
+        "InteractorRef": "439"
+      },
+      {
+        "InteractorRef": "191"
+      }
+    ]
+  },
+  {
+    "ID": "978",
+    "Type": "physical association",
+    "Experiment": "979",
+    "Participants": [
+      {
+        "InteractorRef": "439"
+      },
+      {
+        "InteractorRef": "382"
+      }
+    ]
+  },
+  {
+    "ID": "980",
+    "Type": "physical association",
+    "Experiment": "981",
+    "Participants": [
+      {
+        "InteractorRef": "439"
+      },
+      {
+        "InteractorRef": "362"
+      }
+    ]
+  },
+  {
+    "ID": "982",
+    "Type": "physical association",
+    "Experiment": "983",
+    "Participants": [
+      {
+        "InteractorRef": "362"
+      },
+      {
+        "InteractorRef": "103"
+      }
+    ]
+  },
+  {
+    "ID": "984",
+    "Type": "physical association",
+    "Experiment": "985",
+    "Participants": [
+      {
+        "InteractorRef": "103"
+      },
+      {
+        "InteractorRef": "191"
+      }
+    ]
+  },
+  {
+    "ID": "986",
+    "Type": "physical association",
+    "Experiment": "987",
+    "Participants": [
+      {
+        "InteractorRef": "604"
+      },
+      {
+        "InteractorRef": "605"
+      }
+    ]
+  },
+  {
+    "ID": "988",
+    "Type": "physical association",
+    "Experiment": "989",
+    "Participants": [
+      {
+        "InteractorRef": "604"
+      },
+      {
+        "InteractorRef": "615"
+      }
+    ]
+  },
+  {
+    "ID": "990",
+    "Type": "physical association",
+    "Experiment": "991",
+    "Participants": [
+      {
+        "InteractorRef": "604"
+      },
+      {
+        "InteractorRef": "625"
+      }
+    ]
+  },
+  {
+    "ID": "992",
+    "Type": "physical association",
+    "Experiment": "993",
+    "Participants": [
+      {
+        "InteractorRef": "634"
+      },
+      {
+        "InteractorRef": "635"
+      }
+    ]
+  },
+  {
+    "ID": "994",
+    "Type": "physical association",
+    "Experiment": "995",
+    "Participants": [
+      {
+        "InteractorRef": "645"
+      },
+      {
+        "InteractorRef": "635"
+      }
+    ]
+  },
+  {
+    "ID": "996",
+    "Type": "physical association",
+    "Experiment": "997",
+    "Participants": [
+      {
+        "InteractorRef": "635"
+      },
+      {
+        "InteractorRef": "634"
+      }
+    ]
+  },
+  {
+    "ID": "998",
+    "Type": "physical association",
+    "Experiment": "999",
+    "Participants": [
+      {
+        "InteractorRef": "667"
+      },
+      {
+        "InteractorRef": "668"
+      }
+    ]
+  },
+  {
+    "ID": "1000",
+    "Type": "physical association",
+    "Experiment": "1001",
+    "Participants": [
+      {
+        "InteractorRef": "676"
+      },
+      {
+        "InteractorRef": "677"
+      }
+    ]
+  },
+  {
+    "ID": "1002",
+    "Type": "physical association",
+    "Experiment": "1003",
+    "Participants": [
+      {
+        "InteractorRef": "685"
+      },
+      {
+        "InteractorRef": "677"
+      }
+    ]
+  },
+  {
+    "ID": "1004",
+    "Type": "physical association",
+    "Experiment": "1005",
+    "Participants": [
+      {
+        "InteractorRef": "694"
+      },
+      {
+        "InteractorRef": "694"
+      }
+    ]
+  },
+  {
+    "ID": "1006",
+    "Type": "physical association",
+    "Experiment": "1007",
+    "Participants": [
+      {
+        "InteractorRef": "290"
+      },
+      {
+        "InteractorRef": "704"
+      }
+    ]
+  },
+  {
+    "ID": "1008",
+    "Type": "physical association",
+    "Experiment": "1009",
+    "Participants": [
+      {
+        "InteractorRef": "713"
+      },
+      {
+        "InteractorRef": "290"
+      }
+    ]
+  },
+  {
+    "ID": "1010",
+    "Type": "physical association",
+    "Experiment": "1011",
+    "Participants": [
+      {
+        "InteractorRef": "290"
+      },
+      {
+        "InteractorRef": "724"
+      }
+    ]
+  },
+  {
+    "ID": "1012",
+    "Type": "physical association",
+    "Experiment": "1013",
+    "Participants": [
+      {
+        "InteractorRef": "733"
+      },
+      {
+        "InteractorRef": "290"
+      }
+    ]
+  },
+  {
+    "ID": "1014",
+    "Type": "physical association",
+    "Experiment": "1015",
+    "Participants": [
+      {
+        "InteractorRef": "196"
+      },
+      {
+        "InteractorRef": "225"
+      }
+    ]
+  },
+  {
+    "ID": "1016",
+    "Type": "physical association",
+    "Experiment": "1017",
+    "Participants": [
+      {
+        "InteractorRef": "327"
+      },
+      {
+        "InteractorRef": "754"
+      }
+    ]
+  },
+  {
+    "ID": "1018",
+    "Type": "physical association",
+    "Experiment": "1019",
+    "Participants": [
+      {
+        "InteractorRef": "254"
+      },
+      {
+        "InteractorRef": "327"
+      }
+    ]
+  },
+  {
+    "ID": "1020",
+    "Type": "physical association",
+    "Experiment": "1021",
+    "Participants": [
+      {
+        "InteractorRef": "236"
+      },
+      {
+        "InteractorRef": "772"
+      }
+    ]
+  },
+  {
+    "ID": "1022",
+    "Type": "physical association",
+    "Experiment": "1023",
+    "Participants": [
+      {
+        "InteractorRef": "772"
+      },
+      {
+        "InteractorRef": "336"
+      }
+    ]
+  },
+  {
+    "ID": "1024",
+    "Type": "physical association",
+    "Experiment": "1025",
+    "Participants": [
+      {
+        "InteractorRef": "772"
+      },
+      {
+        "InteractorRef": "254"
+      }
+    ]
+  },
+  {
+    "ID": "1026",
+    "Type": "physical association",
+    "Experiment": "1027",
+    "Participants": [
+      {
+        "InteractorRef": "236"
+      },
+      {
+        "InteractorRef": "235"
+      }
+    ]
+  },
+  {
+    "ID": "1028",
+    "Type": "physical association",
+    "Experiment": "1029",
+    "Participants": [
+      {
+        "InteractorRef": "236"
+      },
+      {
+        "InteractorRef": "327"
+      }
+    ]
+  },
+  {
+    "ID": "1030",
+    "Type": "physical association",
+    "Experiment": "1031",
+    "Participants": [
+      {
+        "InteractorRef": "263"
+      },
+      {
+        "InteractorRef": "236"
+      }
+    ]
+  },
+  {
+    "ID": "1032",
+    "Type": "physical association",
+    "Experiment": "1033",
+    "Participants": [
+      {
+        "InteractorRef": "236"
+      },
+      {
+        "InteractorRef": "826"
+      }
+    ]
+  },
+  {
+    "ID": "828",
+    "Type": "physical association",
+    "Experiment": "829",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "830",
+    "Type": "physical association",
+    "Experiment": "831",
+    "Participants": [
+      {
+        "InteractorRef": "10"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "832",
+    "Type": "physical association",
+    "Experiment": "833",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "834",
+    "Type": "physical association",
+    "Experiment": "835",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "29"
+      }
+    ]
+  },
+  {
+    "ID": "836",
+    "Type": "physical association",
+    "Experiment": "837",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "10"
+      }
+    ]
+  },
+  {
+    "ID": "838",
+    "Type": "physical association",
+    "Experiment": "839",
+    "Participants": [
+      {
+        "InteractorRef": "46"
+      },
+      {
+        "InteractorRef": "19"
+      }
+    ]
+  },
+  {
+    "ID": "840",
+    "Type": "physical association",
+    "Experiment": "841",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "56"
+      }
+    ]
+  },
+  {
+    "ID": "842",
+    "Type": "physical association",
+    "Experiment": "843",
+    "Participants": [
+      {
+        "InteractorRef": "19"
+      },
+      {
+        "InteractorRef": "65"
+      }
+    ]
+  },
+  {
+    "ID": "844",
+    "Type": "physical association",
+    "Experiment": "845",
+    "Participants": [
+      {
+        "InteractorRef": "73"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "846",
+    "Type": "physical association",
+    "Experiment": "847",
+    "Participants": [
+      {
+        "InteractorRef": "29"
+      },
+      {
+        "InteractorRef": "73"
+      }
+    ]
+  },
+  {
+    "ID": "848",
+    "Type": "physical association",
+    "Experiment": "849",
+    "Participants": [
+      {
+        "InteractorRef": "73"
+      },
+      {
+        "InteractorRef": "46"
+      }
+    ]
+  },
+  {
+    "ID": "850",
+    "Type": "physical association",
+    "Experiment": "851",
+    "Participants": [
+      {
+        "InteractorRef": "73"
+      },
+      {
+        "InteractorRef": "65"
+      }
+    ]
+  },
+  {
+    "ID": "852",
+    "Type": "physical association",
+    "Experiment": "853",
+    "Participants": [
+      {
+        "InteractorRef": "56"
+      },
+      {
+        "InteractorRef": "73"
+      }
+    ]
+  },
+  {
+    "ID": "854",
+    "Type": "physical association",
+    "Experiment": "855",
+    "Participants": [
+      {
+        "InteractorRef": "118"
+      },
+      {
+        "InteractorRef": "29"
+      }
+    ]
+  },
+  {
+    "ID": "856",
+    "Type": "physical association",
+    "Experiment": "857",
+    "Participants": [
+      {
+        "InteractorRef": "118"
+      },
+      {
+        "InteractorRef": "10"
+      }
+    ]
+  },
+  {
+    "ID": "858",
+    "Type": "physical association",
+    "Experiment": "859",
+    "Participants": [
+      {
+        "InteractorRef": "136"
+      },
+      {
+        "InteractorRef": "29"
+      }
+    ]
+  },
+  {
+    "ID": "860",
+    "Type": "physical association",
+    "Experiment": "861",
+    "Participants": [
+      {
+        "InteractorRef": "145"
+      },
+      {
+        "InteractorRef": "29"
+      }
+    ]
+  },
+  {
+    "ID": "862",
+    "Type": "physical association",
+    "Experiment": "863",
+    "Participants": [
+      {
+        "InteractorRef": "145"
+      },
+      {
+        "InteractorRef": "10"
+      }
+    ]
+  },
+  {
+    "ID": "864",
+    "Type": "physical association",
+    "Experiment": "865",
+    "Participants": [
+      {
+        "InteractorRef": "163"
+      },
+      {
+        "InteractorRef": "164"
+      }
+    ]
+  },
+  {
+    "ID": "866",
+    "Type": "physical association",
+    "Experiment": "867",
+    "Participants": [
+      {
+        "InteractorRef": "172"
+      },
+      {
+        "InteractorRef": "173"
+      }
+    ]
+  },
+  {
+    "ID": "868",
+    "Type": "physical association",
+    "Experiment": "869",
+    "Participants": [
+      {
+        "InteractorRef": "182"
+      },
+      {
+        "InteractorRef": "183"
+      }
+    ]
+  },
+  {
+    "ID": "870",
+    "Type": "physical association",
+    "Experiment": "871",
+    "Participants": [
+      {
+        "InteractorRef": "192"
+      },
+      {
+        "InteractorRef": "193"
+      }
+    ]
+  },
+  {
+    "ID": "872",
+    "Type": "physical association",
+    "Experiment": "873",
+    "Participants": [
+      {
+        "InteractorRef": "202"
+      },
+      {
+        "InteractorRef": "203"
+      }
+    ]
+  },
+  {
+    "ID": "874",
+    "Type": "physical association",
+    "Experiment": "875",
+    "Participants": [
+      {
+        "InteractorRef": "212"
+      },
+      {
+        "InteractorRef": "213"
+      }
+    ]
+  },
+  {
+    "ID": "876",
+    "Type": "physical association",
+    "Experiment": "877",
+    "Participants": [
+      {
+        "InteractorRef": "221"
+      },
+      {
+        "InteractorRef": "222"
+      }
+    ]
+  },
+  {
+    "ID": "878",
+    "Type": "physical association",
+    "Experiment": "879",
+    "Participants": [
+      {
+        "InteractorRef": "231"
+      },
+      {
+        "InteractorRef": "232"
+      }
+    ]
+  },
+  {
+    "ID": "880",
+    "Type": "physical association",
+    "Experiment": "881",
+    "Participants": [
+      {
+        "InteractorRef": "232"
+      },
+      {
+        "InteractorRef": "241"
+      }
+    ]
+  },
+  {
+    "ID": "882",
+    "Type": "physical association",
+    "Experiment": "883",
+    "Participants": [
+      {
+        "InteractorRef": "232"
+      },
+      {
+        "InteractorRef": "231"
+      }
+    ]
+  },
+  {
+    "ID": "884",
+    "Type": "physical association",
+    "Experiment": "885",
+    "Participants": [
+      {
+        "InteractorRef": "241"
+      },
+      {
+        "InteractorRef": "231"
+      }
+    ]
+  },
+  {
+    "ID": "886",
+    "Type": "physical association",
+    "Experiment": "887",
+    "Participants": [
+      {
+        "InteractorRef": "231"
+      },
+      {
+        "InteractorRef": "173"
+      }
+    ]
+  },
+  {
+    "ID": "888",
+    "Type": "physical association",
+    "Experiment": "889",
+    "Participants": [
+      {
+        "InteractorRef": "173"
+      },
+      {
+        "InteractorRef": "278"
+      }
+    ]
+  },
+  {
+    "ID": "890",
+    "Type": "physical association",
+    "Experiment": "891",
+    "Participants": [
+      {
+        "InteractorRef": "287"
+      },
+      {
+        "InteractorRef": "288"
+      }
+    ]
+  },
+  {
+    "ID": "892",
+    "Type": "physical association",
+    "Experiment": "893",
+    "Participants": [
+      {
+        "InteractorRef": "296"
+      },
+      {
+        "InteractorRef": "287"
+      }
+    ]
+  },
+  {
+    "ID": "894",
+    "Type": "physical association",
+    "Experiment": "895",
+    "Participants": [
+      {
+        "InteractorRef": "305"
+      },
+      {
+        "InteractorRef": "182"
+      }
+    ]
+  },
+  {
+    "ID": "896",
+    "Type": "physical association",
+    "Experiment": "897",
+    "Participants": [
+      {
+        "InteractorRef": "315"
+      },
+      {
+        "InteractorRef": "182"
+      }
+    ]
+  },
+  {
+    "ID": "898",
+    "Type": "physical association",
+    "Experiment": "899",
+    "Participants": [
+      {
+        "InteractorRef": "183"
+      },
+      {
+        "InteractorRef": "182"
+      }
+    ]
+  },
+  {
+    "ID": "900",
+    "Type": "physical association",
+    "Experiment": "901",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "336"
+      }
+    ]
+  },
+  {
+    "ID": "902",
+    "Type": "physical association",
+    "Experiment": "903",
+    "Participants": [
+      {
+        "InteractorRef": "344"
+      },
+      {
+        "InteractorRef": "336"
+      }
+    ]
+  },
+  {
+    "ID": "904",
+    "Type": "physical association",
+    "Experiment": "905",
+    "Participants": [
+      {
+        "InteractorRef": "353"
+      },
+      {
+        "InteractorRef": "353"
+      }
+    ]
+  },
+  {
+    "ID": "906",
+    "Type": "physical association",
+    "Experiment": "907",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "363"
+      }
+    ]
+  },
+  {
+    "ID": "908",
+    "Type": "physical association",
+    "Experiment": "909",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "372"
+      }
+    ]
+  },
+  {
+    "ID": "910",
+    "Type": "physical association",
+    "Experiment": "911",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "192"
+      }
+    ]
+  },
+  {
+    "ID": "912",
+    "Type": "physical association",
+    "Experiment": "913",
+    "Participants": [
+      {
+        "InteractorRef": "241"
+      },
+      {
+        "InteractorRef": "232"
+      }
+    ]
+  },
+  {
+    "ID": "914",
+    "Type": "physical association",
+    "Experiment": "915",
+    "Participants": [
+      {
+        "InteractorRef": "231"
+      },
+      {
+        "InteractorRef": "241"
+      }
+    ]
+  },
+  {
+    "ID": "916",
+    "Type": "physical association",
+    "Experiment": "917",
+    "Participants": [
+      {
+        "InteractorRef": "173"
+      },
+      {
+        "InteractorRef": "241"
+      }
+    ]
+  },
+  {
+    "ID": "918",
+    "Type": "physical association",
+    "Experiment": "919",
+    "Participants": [
+      {
+        "InteractorRef": "418"
+      },
+      {
+        "InteractorRef": "419"
+      }
+    ]
+  },
+  {
+    "ID": "920",
+    "Type": "physical association",
+    "Experiment": "921",
+    "Participants": [
+      {
+        "InteractorRef": "428"
+      },
+      {
+        "InteractorRef": "419"
+      }
+    ]
+  },
+  {
+    "ID": "922",
+    "Type": "physical association",
+    "Experiment": "923",
+    "Participants": [
+      {
+        "InteractorRef": "419"
+      },
+      {
+        "InteractorRef": "439"
+      }
+    ]
+  },
+  {
+    "ID": "924",
+    "Type": "physical association",
+    "Experiment": "925",
+    "Participants": [
+      {
+        "InteractorRef": "182"
+      },
+      {
+        "InteractorRef": "315"
+      }
+    ]
+  },
+  {
+    "ID": "926",
+    "Type": "physical association",
+    "Experiment": "927",
+    "Participants": [
+      {
+        "InteractorRef": "305"
+      },
+      {
+        "InteractorRef": "182"
+      }
+    ]
+  },
+  {
+    "ID": "928",
+    "Type": "physical association",
+    "Experiment": "929",
+    "Participants": [
+      {
+        "InteractorRef": "468"
+      },
+      {
+        "InteractorRef": "305"
+      }
+    ]
+  },
+  {
+    "ID": "930",
+    "Type": "physical association",
+    "Experiment": "931",
+    "Participants": [
+      {
+        "InteractorRef": "477"
+      },
+      {
+        "InteractorRef": "203"
+      }
+    ]
+  },
+  {
+    "ID": "932",
+    "Type": "physical association",
+    "Experiment": "933",
+    "Participants": [
+      {
+        "InteractorRef": "231"
+      },
+      {
+        "InteractorRef": "488"
+      }
+    ]
+  },
+  {
+    "ID": "934",
+    "Type": "physical association",
+    "Experiment": "935",
+    "Participants": [
+      {
+        "InteractorRef": "164"
+      },
+      {
+        "InteractorRef": "163"
+      }
+    ]
+  },
+  {
+    "ID": "936",
+    "Type": "physical association",
+    "Experiment": "937",
+    "Participants": [
+      {
+        "InteractorRef": "212"
+      },
+      {
+        "InteractorRef": "213"
+      }
+    ]
+  },
+  {
+    "ID": "938",
+    "Type": "physical association",
+    "Experiment": "939",
+    "Participants": [
+      {
+        "InteractorRef": "514"
+      },
+      {
+        "InteractorRef": "193"
+      }
+    ]
+  },
+  {
+    "ID": "940",
+    "Type": "physical association",
+    "Experiment": "941",
+    "Participants": [
+      {
+        "InteractorRef": "523"
+      },
+      {
+        "InteractorRef": "514"
+      }
+    ]
+  },
+  {
+    "ID": "942",
+    "Type": "physical association",
+    "Experiment": "943",
+    "Participants": [
+      {
+        "InteractorRef": "532"
+      },
+      {
+        "InteractorRef": "2"
+      }
+    ]
+  },
+  {
+    "ID": "944",
+    "Type": "physical association",
+    "Experiment": "945",
+    "Participants": [
+      {
+        "InteractorRef": "419"
+      },
+      {
+        "InteractorRef": "372"
+      }
+    ]
+  },
+  {
+    "ID": "946",
+    "Type": "physical association",
+    "Experiment": "947",
+    "Participants": [
+      {
+        "InteractorRef": "193"
+      },
+      {
+        "InteractorRef": "372"
+      }
+    ]
+  },
+  {
+    "ID": "948",
+    "Type": "physical association",
+    "Experiment": "949",
+    "Participants": [
+      {
+        "InteractorRef": "477"
+      },
+      {
+        "InteractorRef": "203"
+      }
+    ]
+  },
+  {
+    "ID": "950",
+    "Type": "physical association",
+    "Experiment": "951",
+    "Participants": [
+      {
+        "InteractorRef": "203"
+      },
+      {
+        "InteractorRef": "202"
+      }
+    ]
+  },
+  {
+    "ID": "952",
+    "Type": "physical association",
+    "Experiment": "953",
+    "Participants": [
+      {
+        "InteractorRef": "580"
+      },
+      {
+        "InteractorRef": "581"
+      }
+    ]
+  },
+  {
+    "ID": "954",
+    "Type": "phosphorylation reaction",
+    "Experiment": "955",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "587"
+      }
+    ]
+  },
+  {
+    "ID": "956",
+    "Type": "phosphorylation reaction",
+    "Experiment": "957",
+    "Participants": [
+      {
+        "InteractorRef": "598"
+      },
+      {
+        "InteractorRef": "587"
+      }
+    ]
+  },
+  {
+    "ID": "958",
+    "Type": "phosphorylation reaction",
+    "Experiment": "959",
+    "Participants": [
+      {
+        "InteractorRef": "607"
+      },
+      {
+        "InteractorRef": "587"
+      }
+    ]
+  },
+  {
+    "ID": "960",
+    "Type": "phosphorylation reaction",
+    "Experiment": "961",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "598"
+      }
+    ]
+  },
+  {
+    "ID": "962",
+    "Type": "phosphorylation reaction",
+    "Experiment": "963",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "607"
+      }
+    ]
+  },
+  {
+    "ID": "964",
+    "Type": "phosphorylation reaction",
+    "Experiment": "965",
+    "Participants": [
+      {
+        "InteractorRef": "607"
+      },
+      {
+        "InteractorRef": "587"
+      }
+    ]
+  },
+  {
+    "ID": "966",
+    "Type": "phosphorylation reaction",
+    "Experiment": "967",
+    "Participants": [
+      {
+        "InteractorRef": "607"
+      },
+      {
+        "InteractorRef": "587"
+      }
+    ]
+  },
+  {
+    "ID": "968",
+    "Type": "phosphorylation reaction",
+    "Experiment": "969",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "598"
+      }
+    ]
+  },
+  {
+    "ID": "970",
+    "Type": "association",
+    "Experiment": "971",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "598"
+      }
+    ]
+  },
+  {
+    "ID": "972",
+    "Type": "association",
+    "Experiment": "973",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "607"
+      }
+    ]
+  },
+  {
+    "ID": "974",
+    "Type": "physical association",
+    "Experiment": "975",
+    "Participants": [
+      {
+        "InteractorRef": "607"
+      },
+      {
+        "InteractorRef": "587"
+      }
+    ]
+  },
+  {
+    "ID": "976",
+    "Type": "phosphorylation reaction",
+    "Experiment": "977",
+    "Participants": [
+      {
+        "InteractorRef": "607"
+      },
+      {
+        "InteractorRef": "587"
+      }
+    ]
+  },
+  {
+    "ID": "978",
+    "Type": "phosphorylation reaction",
+    "Experiment": "979",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "598"
+      }
+    ]
+  },
+  {
+    "ID": "980",
+    "Type": "proximity",
+    "Experiment": "981",
+    "Participants": [
+      {
+        "InteractorRef": "691"
+      },
+      {
+        "InteractorRef": "692"
+      }
+    ]
+  },
+  {
+    "ID": "982",
+    "Type": "proximity",
+    "Experiment": "983",
+    "Participants": [
+      {
+        "InteractorRef": "692"
+      },
+      {
+        "InteractorRef": "696"
+      }
+    ]
+  },
+  {
+    "ID": "984",
+    "Type": "proximity",
+    "Experiment": "985",
+    "Participants": [
+      {
+        "InteractorRef": "699"
+      },
+      {
+        "InteractorRef": "692"
+      }
+    ]
+  },
+  {
+    "ID": "986",
+    "Type": "proximity",
+    "Experiment": "987",
+    "Participants": [
+      {
+        "InteractorRef": "703"
+      },
+      {
+        "InteractorRef": "704"
+      }
+    ]
+  },
+  {
+    "ID": "988",
+    "Type": "proximity",
+    "Experiment": "989",
+    "Participants": [
+      {
+        "InteractorRef": "704"
+      },
+      {
+        "InteractorRef": "708"
+      }
+    ]
+  },
+  {
+    "ID": "990",
+    "Type": "proximity",
+    "Experiment": "991",
+    "Participants": [
+      {
+        "InteractorRef": "711"
+      },
+      {
+        "InteractorRef": "708"
+      }
+    ]
+  },
+  {
+    "ID": "992",
+    "Type": "proximity",
+    "Experiment": "993",
+    "Participants": [
+      {
+        "InteractorRef": "715"
+      },
+      {
+        "InteractorRef": "711"
+      }
+    ]
+  },
+  {
+    "ID": "994",
+    "Type": "proximity",
+    "Experiment": "995",
+    "Participants": [
+      {
+        "InteractorRef": "703"
+      },
+      {
+        "InteractorRef": "711"
+      }
+    ]
+  },
+  {
+    "ID": "996",
+    "Type": "proximity",
+    "Experiment": "997",
+    "Participants": [
+      {
+        "InteractorRef": "711"
+      },
+      {
+        "InteractorRef": "704"
+      }
+    ]
+  },
+  {
+    "ID": "998",
+    "Type": "proximity",
+    "Experiment": "999",
+    "Participants": [
+      {
+        "InteractorRef": "708"
+      },
+      {
+        "InteractorRef": "703"
+      }
+    ]
+  },
+  {
+    "ID": "1000",
+    "Type": "colocalization",
+    "Experiment": "1001",
+    "Participants": [
+      {
+        "InteractorRef": "703"
+      },
+      {
+        "InteractorRef": "711"
+      }
+    ]
+  },
+  {
+    "ID": "1002",
+    "Type": "colocalization",
+    "Experiment": "1003",
+    "Participants": [
+      {
+        "InteractorRef": "703"
+      },
+      {
+        "InteractorRef": "704"
+      }
+    ]
+  },
+  {
+    "ID": "1004",
+    "Type": "colocalization",
+    "Experiment": "1005",
+    "Participants": [
+      {
+        "InteractorRef": "703"
+      },
+      {
+        "InteractorRef": "708"
+      }
+    ]
+  },
+  {
+    "ID": "1006",
+    "Type": "colocalization",
+    "Experiment": "1007",
+    "Participants": [
+      {
+        "InteractorRef": "704"
+      },
+      {
+        "InteractorRef": "703"
+      }
+    ]
+  },
+  {
+    "ID": "1008",
+    "Type": "colocalization",
+    "Experiment": "1009",
+    "Participants": [
+      {
+        "InteractorRef": "704"
+      },
+      {
+        "InteractorRef": "703"
+      }
+    ]
+  },
+  {
+    "ID": "1010",
+    "Type": "physical association",
+    "Experiment": "1011",
+    "Participants": [
+      {
+        "InteractorRef": "704"
+      },
+      {
+        "InteractorRef": "703"
+      }
+    ]
+  },
+  {
+    "ID": "1012",
+    "Type": "colocalization",
+    "Experiment": "1013",
+    "Participants": [
+      {
+        "InteractorRef": "767"
+      },
+      {
+        "InteractorRef": "768"
+      }
+    ]
+  },
+  {
+    "ID": "1014",
+    "Type": "direct interaction",
+    "Experiment": "1015",
+    "Participants": [
+      {
+        "InteractorRef": "772"
+      },
+      {
+        "InteractorRef": "773"
+      }
+    ]
+  },
+  {
+    "ID": "1016",
+    "Type": "physical association",
+    "Experiment": "1017",
+    "Participants": [
+      {
+        "InteractorRef": "779"
+      },
+      {
+        "InteractorRef": "772"
+      }
+    ]
+  },
+  {
+    "ID": "1018",
+    "Type": "physical association",
+    "Experiment": "1019",
+    "Participants": [
+      {
+        "InteractorRef": "363"
+      },
+      {
+        "InteractorRef": "786"
+      }
+    ]
+  },
+  {
+    "ID": "1020",
+    "Type": "physical association",
+    "Experiment": "1021",
+    "Participants": [
+      {
+        "InteractorRef": "794"
+      },
+      {
+        "InteractorRef": "795"
+      }
+    ]
+  },
+  {
+    "ID": "1022",
+    "Type": "phosphorylation reaction",
+    "Experiment": "1023",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "805"
+      }
+    ]
+  },
+  {
+    "ID": "1024",
+    "Type": "phosphorylation reaction",
+    "Experiment": "1025",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "812"
+      }
+    ]
+  },
+  {
+    "ID": "1026",
+    "Type": "phosphorylation reaction",
+    "Experiment": "1027",
+    "Participants": [
+      {
+        "InteractorRef": "587"
+      },
+      {
+        "InteractorRef": "805"
+      }
+    ]
+  },
+  {
+    "ID": "48",
+    "Type": "phosphorylation reaction",
+    "Experiment": "49",
+    "Participants": [
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "50",
+    "Type": "phosphorylation reaction",
+    "Experiment": "51",
+    "Participants": [
+      {
+        "InteractorRef": "7"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "52",
+    "Type": "phosphorylation reaction",
+    "Experiment": "53",
+    "Participants": [
+      {
+        "InteractorRef": "7"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "54",
+    "Type": "phosphorylation reaction",
+    "Experiment": "55",
+    "Participants": [
+      {
+        "InteractorRef": "23"
+      },
+      {
+        "InteractorRef": "1"
+      }
+    ]
+  },
+  {
+    "ID": "56",
+    "Type": "direct interaction",
+    "Experiment": "57",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "58",
+    "Type": "direct interaction",
+    "Experiment": "59",
+    "Participants": [
+      {
+        "InteractorRef": "35"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "60",
+    "Type": "association",
+    "Experiment": "61",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  },
+  {
+    "ID": "62",
+    "Type": "physical association",
+    "Experiment": "63",
+    "Participants": [
+      {
+        "InteractorRef": "31"
+      },
+      {
+        "InteractorRef": "32"
+      }
+    ]
+  }
+]

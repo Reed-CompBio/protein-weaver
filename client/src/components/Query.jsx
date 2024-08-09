@@ -43,6 +43,7 @@ export default function Query() {
     const [edgeEvidence, setEdgeEvidence] = useState("");
     const [edgeSource, setEdgeSource] = useState("");
     const [edgeTarget, setEdgeTarget] = useState("");
+    const [edgeType, setEdgeType] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
     const submitRef = useRef();
@@ -73,7 +74,7 @@ export default function Query() {
         pathCount: null,
         avgNodeDegree: null,
     });
-    const [queryComplete, setqQueryComplete] = useState(false);
+    const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
     const [exState, setExState] = useState("");
     cytoscape.use(cola);
@@ -215,7 +216,7 @@ export default function Query() {
 
     // Function for submitting the query
     async function handleSubmit(e) {
-        setqQueryComplete(false);
+        setQueryComplete(false);
         setSidebarNode(null);
         setNetworkResult({});
         setHasError(false);
@@ -226,6 +227,7 @@ export default function Query() {
         setEdgeEvidence("");
         setEdgeSource("");
         setEdgeTarget("");
+        setEdgeType("");
 
         // get the k shortest paths for the query
         e.preventDefault();
@@ -338,7 +340,7 @@ export default function Query() {
                         setNetworkResult(EdgeDataParser(network, edgeData));
                         setRawData(rawData);
                         setDataParsingStatus(true);
-                        setqQueryComplete(true);
+                        setQueryComplete(true);
                         return networkResult;
                     });
             } catch (error) {
@@ -865,12 +867,20 @@ export default function Query() {
                                                             setEdgeSource(
                                                                 evt.target
                                                                     ._private
-                                                                    .data.source
+                                                                    .data
+                                                                    .source
                                                             );
                                                             setEdgeTarget(
                                                                 evt.target
                                                                     ._private
-                                                                    .data.target
+                                                                    .data
+                                                                    .target
+                                                            );
+                                                            setEdgeType(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .relType
                                                             );
                                                         }
                                                     );
@@ -882,9 +892,6 @@ export default function Query() {
                                                 }
                                                 showSharedEdges={
                                                     showSharedEdges
-                                                }
-                                                handleLayoutChange={
-                                                    handleLayoutChange
                                                 }
                                             />
                                         </div>
@@ -898,16 +905,11 @@ export default function Query() {
                                         <div className="graph-exploration-panel-container">
                                             <GraphExploration // Render graph exploration panel
                                                 currentNode={sidebarNode}
-                                                query={query}
                                                 handleSourceNode={
                                                     handleSourceNode
                                                 }
+                                                handleLayoutChange={handleLayoutChange}
                                                 handleSubmit={handleSubmit}
-                                                exportPNG={exportPNG}
-                                                searchExecuted={searchParams}
-                                                queryCount={queryCount}
-                                                logs={logs}
-                                                handleLog={handleLog}
                                                 parentGoTerms={ancestorsOptions}
                                                 childrenGoTerms={
                                                     descendantsOptions
@@ -940,19 +942,25 @@ export default function Query() {
                                                 sourceNode={sourceNode}
                                                 query={query}
                                                 goTerm={goTerm}
+                                                exportPNG={exportPNG}
+                                                searchExecuted={searchParams}
+                                                queryCount={queryCount}
+                                                logs={logs}
+                                                handleLog={handleLog}
+                                                networkStatistics={networkStatistics}
                                             />
                                         </div>
                                     </Panel>
                                     <PanelResizeHandle className="panel-resize-handle" />
                                     <Panel defaultSize={40} minSize={10}>
                                         <StatisticsTab
-                                            networkStatistics={
-                                                networkStatistics
-                                            }
                                             nodeList={networkResult.nodeList}
                                             edgeEvidence={edgeEvidence}
                                             edgeSource={edgeSource}
                                             edgeTarget={edgeTarget}
+                                            edgeType={edgeType}
+                                            currentNode={sidebarNode}
+                                            query={query}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>

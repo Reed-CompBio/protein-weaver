@@ -1,8 +1,8 @@
-var parseString = require('xml2js').parseString;
-var fs = require('fs');
+const parseString = require('xml2js').parseString;
+const fs = require('fs');
 
 // Read the XML content from the file
-var xml = fs.readFileSync('./zfish_psicquic_results.xml', { encoding: 'utf8' });
+const xml = fs.readFileSync('./zfish_psicquic_results.xml', { encoding: 'utf8' });
 
 const results = [];
 
@@ -98,23 +98,23 @@ parseString(xml, function (err, result) {
                 // Create an object to store the relevant data for this interaction
                 const interactionData = {
                     ID: interaction.$.id,
-                    // Include other properties you want to save here
+                    Type: interactionType.names[0].shortLabel[0],
+                    Experiment: experimentList.experimentRef[0],
                     Participants: participants.map(participant => ({
-                        InteractorRef: participant.interactorRef,
-                        // Include other participant properties you want to save here
+                        InteractorRef: participant.interactorRef[0],
                     })),
                 };
 
                 results.push(interactionData);
             });
-
-            // Convert the results array to a JSON string
-            const jsonResult = JSON.stringify(results, null, 2);
-
-            // Write the JSON string to a file
-            fs.writeFileSync('interactions.json', jsonResult);
-
-            console.log('Data saved to interactions.json');
         });
+
+        // Convert the results array to a JSON string
+        const jsonResult = JSON.stringify(results, null, 2);
+
+        // Write the JSON string to a file
+        fs.writeFileSync('interactions.json', jsonResult);
+
+        console.log('Data saved to interactions.json');
     }
 });

@@ -1,134 +1,126 @@
 import { React, useState, useEffect } from "react";
-import StaticSummary from "./StaticSummary";
-import Degree from "./Degree";
+import GoDefinition from "./GoDefinition";
+import ExportGraph from "./ExportGraph";
+import GraphStats from "./GraphStats";
+import { PiWarningBold } from "react-icons/pi";
+import PGStats from "./ProGoStats";
 
 export default function GraphSummary({
     currentNode,
     sourceNode,
     query,
-    goTerm
+    goTerm,
+    exportPNG,
+    searchExecuted,
+    queryCount,
+    logs,
+    handleLog,
+    networkStatistics
 }) {
-    const [selectedDbLink, setSelectedDbLink] = useState("");
+    const [proteinCount, setProteinCount] = useState(0);
+    const [sourceNodeLink, setSourceNodeLink] = useState("");
+    const [neverAnnotateWarning, setNeverAnnotateWarning] = useState(false);
+    const [showNeverAnnotate, setShowNeverAnnotate] = useState(false);
 
-    // Change the Database link based on species and selected protein
+    // Create a warning if GO term is blacklisted
+    useEffect(() => {
+        if (goTerm.never_annotate === "true") {
+            setNeverAnnotateWarning(true);
+        } else if (goTerm.never_annotate === "false") {
+            setNeverAnnotateWarning(false);
+        }
+    }, [goTerm.never_annotate]);
+
+    // Change the link for queried protein when species changes
+    useEffect(() => {
+        if (query.species === "txid7227") {
+            setSourceNodeLink(
+                `https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`
+            );
+        } else if (query.species === "txid224308") {
+            setSourceNodeLink(
+                `https://bsubcyc.org/gene?orgid=BSUB&id=${sourceNode.id.replace('_', '')}#tab=GO`
+            );
+        } else if (query.species === "txid7955") {
+            setSourceNodeLink(
+                `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
+            );
+        }
+    }, [sourceNode.id]);
+
+    // Keep track of the proteins in the query
     useEffect(() => {
         if (currentNode) {
-            if (query.species === "txid7227") {
-                setSelectedDbLink(`https://flybase.org/reports/${currentNode.id}`);
-            } else if (query.species === "txid224308") {
-                setSelectedDbLink(`https://bsubcyc.org/gene?orgid=BSUB&id=${currentNode.id.replace("_", "")}`);
-            } else if (query.species === "txid7955") {
-                setSelectedDbLink(
-                    `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`
-                );
-            }
+            const logKey = `protein${proteinCount + 1}`;
+            const newProtein = {
+                protein: currentNode,
+                timestamp: new Date().toISOString(),
+            };
+            setProteinCount(proteinCount + 1);
+            handleLog(newProtein);
         }
-    }, [currentNode, query.species]);
+    }, [currentNode]);
 
-    if (!currentNode) {
-        // Dynamically render the summary based on the selected node
-        return (
-            <div>
-                <StaticSummary // This part of the graph summary never changes
-                    sourceNode={sourceNode}
-                    query={query}
-                    goTerm={goTerm}
-                />
-                <h5 className="protein-selection-suggestion">Select a protein to learn more...</h5>
-            </div>
-        );
+    // Keep track of the queries
+    useEffect(() => {
+        if (query) {
+            const logKey = `query${queryCount}`;
+            const newQuery = {
+                query: query,
+                timestamp: new Date().toISOString(),
+            };
+            handleLog(newQuery);
+        }
+    }, [searchExecuted]);
 
-    } else if (currentNode.type === "intermediate") {
-        return (
-            <div>
-                <StaticSummary
-                    sourceNode={sourceNode}
-                    query={query}
-                    goTerm={goTerm}
-                />
-                <div className="protein-summary">
-                    <h5>Selected protein: {currentNode.label}
-                        <Degree id={currentNode.id} />
-                    </h5>
-                    <p className="database-link">
-                        Database link:&nbsp;
-                        <a
-                            className="tan-sidebar-link"
-                            href={selectedDbLink}
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            {currentNode.id}
-                        </a>
-                    </p>
-                </div>
-            </div>
-        );
-    } else if (currentNode.type === "source") {
-        return (
-            <div>
-                <StaticSummary
-                    sourceNode={sourceNode}
-                    query={query}
-                    goTerm={goTerm}
-                />
-                <div className="protein-summary">
-                    <h5>Selected protein: {currentNode.label}
-                        <Degree id={currentNode.id} />
-                    </h5>
-                    <p className="database-link">
-                        Database link:&nbsp;
-                        <a
-                            className="red-sidebar-link"
-                            href={selectedDbLink}
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            {currentNode.id}
-                        </a>
-                    </p>
-                </div>
-            </div>
-        );
-    } else if (
-        currentNode.type === "go_protein" ||
-        currentNode.type === "go_source"
-    ) {
-        return (
-            <div>
-                <StaticSummary
-                    sourceNode={sourceNode}
-                    query={query}
-                    goTerm={goTerm}
-                />
-                <div className="go-protein-summary">
-                    <h5>Selected protein: {currentNode.label}
-                        <Degree id={currentNode.id} />
-                    </h5>
-                    <p className="database-link">
-                        Database link:&nbsp;
-                        <a
-                            className="blue-sidebar-link"
-                            href={selectedDbLink}
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            {currentNode.id}
-                        </a>
-                    </p>
-                    <p className="go-protein-disclaimer">*This protein is annotated to the queried GO term with:</p>
-                    <p
-                        style={{
-                            fontWeight:
-                                currentNode.go_protein === "inferred_from_descendant"
-                                    ? "bold"
-                                    : "normal",
-                        }}
+    return (
+        <div className="query-result-summary">
+            <h4 className="graph-summary-title">Query Results</h4>
+            <h5>Ontology links:</h5>
+            <div className="query-result-container">
+                <div className="query-result-link-container">
+                    <a
+                        className="red-sidebar-link sidebar-button-block"
+                        href={sourceNodeLink}
+                        target="_blank"
+                        rel="noopener"
                     >
-                        {currentNode.go_protein}
-                    </p>
+                        {sourceNode.label}
+                    </a>
+                </div>
+                <div className="query-result-link-container">
+                    <a
+                        className="blue-sidebar-link sidebar-button-block"
+                        href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        {goTerm.name}
+                    </a>
+                    {neverAnnotateWarning && (
+                        <div
+                            className="never-annotate-container"
+                            onMouseEnter={() => setShowNeverAnnotate(true)}
+                            onMouseLeave={() => setShowNeverAnnotate(false)}
+                        >
+                            <PiWarningBold className="never-annotate-icon" />
+                            {showNeverAnnotate && (
+                                <div className="never-annotate-warning">
+                                    This term should not be used for direct annotation.
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
-        );
-    };
-};
+            <GoDefinition open>
+                <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
+                <PGStats name={goTerm.name} txid={query.species} />
+            </GoDefinition>
+            <GraphStats
+                networkStatistics={networkStatistics}
+            />
+            <ExportGraph log={logs} exportPNG={exportPNG} />
+        </div>
+    )
+}
