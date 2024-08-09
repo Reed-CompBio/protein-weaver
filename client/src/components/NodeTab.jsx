@@ -32,12 +32,16 @@ export default function NodeTab({
 
     return (
         <div className="protein-summary">
-            <h5>
-                Selected protein: {currentNode.label}
+            <h5 className="node-tab-text">
+                Selected Protein: {currentNode.label}
                 <Degree id={currentNode.id} />
             </h5>
-            <p className="database-link">
-                Database link:&nbsp;
+            {(currentNode.alt_name && (currentNode.alt_name != currentNode.label)) &&
+                <h5 className="node-tab-text">Alternate Name(s): {currentNode.alt_name}</h5>}
+            {(currentNode.gene_name && (currentNode.gene_name != currentNode.label)) &&
+                <h5 className="node-tab-text">Gene Name: {currentNode.gene_name}</h5>}
+            <h5 className="database-link">
+                Database Link:&nbsp;
                 <a
                     className={linkClassMap[currentNode.type] || ""}
                     href={selectedDbLink}
@@ -46,13 +50,13 @@ export default function NodeTab({
                 >
                     {currentNode.id}
                 </a>
-            </p>
+            </h5>
             {(currentNode.type === "go_protein" || currentNode.type === "go_source") && (
                 <>
                     <p className="go-protein-disclaimer">
                         *This protein is annotated to the queried GO term with:
                     </p>
-                    <p
+                    <h5
                         style={{
                             fontWeight:
                                 currentNode.go_protein === "inferred_from_descendant"
@@ -61,7 +65,7 @@ export default function NodeTab({
                         }}
                     >
                         {currentNode.go_protein}
-                    </p>
+                    </h5>
                 </>
             )}
         </div>

@@ -639,6 +639,10 @@ select {
 }
 
 /* CSS for NodeTab.jsx */
+.node-tab-text {
+    margin-bottom: none;
+}
+
 .database-link {
     font-size: small;
 }

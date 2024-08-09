@@ -1,4 +1,4 @@
-export function NetworkParserPath(data, source, go_term) {
+export function NetworkParserPath(data, source) {
     let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
     //Iterate through data where each element is a path
     for (let i = 0; i < data.length; i++) {
@@ -6,14 +6,16 @@ export function NetworkParserPath(data, source, go_term) {
         let startNode = null;
         let endNode = null;
         for (let j = 0; j < currentPath.length - 1; j++) {
-            let nodeName = null;
+            let nodeName = currentPath[j].properties.name;
             let nodeId = currentPath[j].properties.id;
             let nodeAltName = currentPath[j].properties.alt_name;
+            let nodeGeneName = currentPath[j].properties.gene_name;
+            let physicalDegree = currentPath[j].properties.degree.low;
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
-            if (currentPath[j].properties.name != null) {
-                nodeName = currentPath[j].properties.name;
+            if (nodeName) {
+                nodeName = nodeName;
             } else {
-                nodeName = currentPath[j].properties.gene_name;
+                nodeName = nodeGeneName;
             }
             //Add each node in a path, and label them accordingly (source, go_protein, or intermediate)
             //Keep track of all the nodes in nodeList
@@ -21,7 +23,9 @@ export function NetworkParserPath(data, source, go_term) {
                 data: {
                     id: nodeId,
                     label: nodeName,
-                    degree: currentPath[j].properties.degree.low,
+                    degree: physicalDegree,
+                    alt_name: nodeAltName,
+                    gene_name: nodeGeneName,
                 },
             };
             if (
@@ -293,20 +297,24 @@ export function NetworkParserNode(data, source, k) {
         for (let j = 0; j < currentPath.length; j++) {
             //Add each node in a path, and label them accordingly (source, go_protein, or intermediate)
             //Keep track of all the nodes in nodeList
-            let nodeName = null;
+            let nodeName = currentPath[j].properties.name;
             let nodeId = currentPath[j].properties.id;
             let nodeAltName = currentPath[j].properties.alt_name;
+            let nodeGeneName = currentPath[j].properties.gene_name;
+            let physicalDegree = currentPath[j].properties.degree.low;
             //If the edge already exists in the initial network data, add it to the temp edge list\
-            if (currentPath[j].properties.name != null) {
-                nodeName = currentPath[j].properties.name;
+            if (nodeName) {
+                nodeName = nodeName;
             } else {
-                nodeName = currentPath[j].properties.gene_name;
+                nodeName = nodeGeneName;
             }
             let nodeEntry = {
                 data: {
                     id: nodeId,
                     label: nodeName,
-                    degree: currentPath[j].properties.degree.low,
+                    degree: physicalDegree,
+                    alt_name: nodeAltName,
+                    gene_name: nodeGeneName,
                 },
             };
             if (
@@ -353,4 +361,4 @@ export function NetworkParserNode(data, source, k) {
     }
     parsedData.goTerm = data[data.length - 1][0]._fields[0].properties;
     return parsedData;
-}
+};
