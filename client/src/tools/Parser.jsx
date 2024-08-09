@@ -1,20 +1,31 @@
-export function NetworkParserPath(data, source, go_term) {
+export function NetworkParserPath(data) {
     let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
     //Iterate through data where each element is a path
     for (let i = 0; i < data.length; i++) {
         let currentPath = data[i]._fields[4];
         let startNode = null;
         let endNode = null;
+        let sourceId = null;
         for (let j = 0; j < currentPath.length - 1; j++) {
             let nodeName = null;
             let nodeId = currentPath[j].properties.id;
-            let nodeAltName = currentPath[j].properties.alt_name;
+
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
             if (currentPath[j].properties.name != null) {
                 nodeName = currentPath[j].properties.name;
-            } else {
+            } else if (currentPath[j].properties.gene_name != null) {
                 nodeName = currentPath[j].properties.gene_name;
+            } else if (currentPath[j].properties.alt_name != null) {
+                nodeName = currentPath[j].properties.alt_name;
+            } else {
+                nodeName = currentPath[j].properties.id;
             }
+
+            // source protein is always the first element
+            if (j == 0) {
+                sourceId = currentPath[j].properties.id;
+            }
+
             //Add each node in a path, and label them accordingly (source, go_protein, or intermediate)
             //Keep track of all the nodes in nodeList
             let nodeEntry = {
@@ -25,17 +36,11 @@ export function NetworkParserPath(data, source, go_term) {
                 },
             };
             if (
-                (nodeName.toUpperCase() === source.toUpperCase() ||
-                    nodeId.toUpperCase() === source.toUpperCase() ||
-                    nodeAltName.toUpperCase() === source.toUpperCase()) &&
+                nodeId.toUpperCase() == sourceId.toUpperCase() &&
                 j == currentPath.length - 2
             ) {
                 nodeEntry.data.type = "go_source";
-            } else if (
-                nodeName.toUpperCase() === source.toUpperCase() ||
-                nodeId.toUpperCase() === source.toUpperCase() ||
-                nodeAltName.toUpperCase() === source.toUpperCase()
-            ) {
+            } else if (nodeId.toUpperCase() == sourceId.toUpperCase()) {
                 nodeEntry.data.type = "source";
             } else if (j == currentPath.length - 2) {
                 nodeEntry.data.type = "go_protein";
@@ -58,7 +63,7 @@ export function NetworkParserPath(data, source, go_term) {
                 let edgeEntry = {
                     data: {
                         source: endNode,
-                        target: startNode
+                        target: startNode,
                     },
                 };
                 parsedData.edgeList.push(startNode + endNode);
@@ -83,16 +88,19 @@ export function NetworkParserPath(data, source, go_term) {
 // tag::EdgeDataParser
 export function EdgeDataParser(networkData, edgeData) {
     //Iterate through al the edges in the induced subgraph
-    // console.log(edgeData)
     let tempEdgeList = [];
     let tempEdges = [];
     for (let i = 0; i < edgeData.length; i++) {
         let startNode = edgeData[i]._fields[0].start.properties.id;
         let endNode = edgeData[i]._fields[0].end.properties.id;
         let relType = edgeData[i]._fields[0].segments[0].relationship.type;
-        let pubmed = edgeData[i]._fields[0].segments[0].relationship.properties.pubmed;
-        let link = edgeData[i]._fields[0].segments[0].relationship.properties.link;
-        let fbRef = edgeData[i]._fields[0].segments[0].relationship.properties.reference;
+        let pubmed =
+            edgeData[i]._fields[0].segments[0].relationship.properties.pubmed;
+        let link =
+            edgeData[i]._fields[0].segments[0].relationship.properties.link;
+        let fbRef =
+            edgeData[i]._fields[0].segments[0].relationship.properties
+                .reference;
         //Check for shared edges
         //If the edge already exists in the initial network data, add it to the temp edge list
         if (
@@ -111,8 +119,7 @@ export function EdgeDataParser(networkData, edgeData) {
                     };
                     tempEdgeList.push(startNode + endNode);
                     tempEdges.push(edgeEntry);
-                }
-                else if (link) {
+                } else if (link) {
                     let edgeEntry = {
                         data: {
                             source: endNode,
@@ -123,8 +130,7 @@ export function EdgeDataParser(networkData, edgeData) {
                     };
                     tempEdgeList.push(startNode + endNode);
                     tempEdges.push(edgeEntry);
-                }
-                else if (fbRef) {
+                } else if (fbRef) {
                     let edgeEntry = {
                         data: {
                             source: endNode,
@@ -139,9 +145,7 @@ export function EdgeDataParser(networkData, edgeData) {
             }
         }
         //If the edge type is ProGo, add the edges relationship properties to the network data
-        else if (
-            relType === "ProGo"
-        ) {
+        else if (relType === "ProGo") {
             for (let k = 0; k < networkData.nodes.length; k++) {
                 let currentNode = networkData.nodes[k];
                 if (currentNode.data.id === startNode) {
@@ -197,22 +201,34 @@ export function EdgeDataParser(networkData, edgeData) {
     networkData.edges = tempEdges;
     return networkData;
 }
-export function NetworkParserNode(data, source, k) {
+export function NetworkParserNode(data, k) {
     let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
     for (let i = 0; i < Math.min(k, data.length - 1); i++) {
         let currentPath = data[i];
+        let sourceId = null;
         for (let j = 0; j < currentPath.length; j++) {
             //Add each node in a path, and label them accordingly (source, go_protein, or intermediate)
             //Keep track of all the nodes in nodeList
+            //If the edge already exists in the initial network data, add it to the temp edge list\
             let nodeName = null;
             let nodeId = currentPath[j].properties.id;
-            let nodeAltName = currentPath[j].properties.alt_name;
-            //If the edge already exists in the initial network data, add it to the temp edge list\
+
+            // handles the case where name param doesnt exist. representing node that only has regulatory interactions
             if (currentPath[j].properties.name != null) {
                 nodeName = currentPath[j].properties.name;
-            } else {
+            } else if (currentPath[j].properties.gene_name != null) {
                 nodeName = currentPath[j].properties.gene_name;
+            } else if (currentPath[j].properties.alt_name != null) {
+                nodeName = currentPath[j].properties.alt_name;
+            } else {
+                nodeName = currentPath[j].properties.id;
             }
+
+            // source protein is always the first element
+            if (j == 0) {
+                sourceId = currentPath[j].properties.id;
+            }
+
             let nodeEntry = {
                 data: {
                     id: nodeId,
@@ -221,15 +237,11 @@ export function NetworkParserNode(data, source, k) {
                 },
             };
             if (
-                (nodeId.toUpperCase() === source.toUpperCase()) &&
+                nodeId.toUpperCase() === sourceId.toUpperCase() &&
                 j == currentPath.length - 1
             ) {
                 nodeEntry.data.type = "go_source";
-            } else if (
-                nodeName.toUpperCase() === source.toUpperCase() ||
-                nodeId.toUpperCase() === source.toUpperCase() ||
-                nodeAltName.toUpperCase() === source.toUpperCase()
-            ) {
+            } else if (nodeId.toUpperCase() === sourceId.toUpperCase()) {
                 nodeEntry.data.type = "source";
             } else if (j == currentPath.length - 1) {
                 nodeEntry.data.type = "go_protein";
@@ -264,4 +276,4 @@ export function NetworkParserNode(data, source, k) {
     }
     parsedData.goTerm = data[data.length - 1][0]._fields[0].properties;
     return parsedData;
-}
+};
