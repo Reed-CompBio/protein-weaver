@@ -276,4 +276,4 @@ export function NetworkParserNode(data, k) {
     }
     parsedData.goTerm = data[data.length - 1][0]._fields[0].properties;
     return parsedData;
-}
+};
