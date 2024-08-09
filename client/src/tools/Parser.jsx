@@ -318,7 +318,11 @@ export function NetworkParserNode(data, source, k) {
                 },
             };
             if (
-                (nodeId.toUpperCase() === source.toUpperCase()) &&
+                (
+                    nodeName.toUpperCase() === source.toUpperCase() ||
+                    nodeId.toUpperCase() === source.toUpperCase() ||
+                    nodeAltName.toUpperCase() === source.toUpperCase()
+                ) &&
                 j == currentPath.length - 1
             ) {
                 nodeEntry.data.type = "go_source";
