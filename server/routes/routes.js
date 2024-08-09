@@ -249,7 +249,7 @@ router.post("/getQueryByPath", jsonParser, async (req, res, next) => {
       }
     }
   } catch (error) {
-    console.error("Error in /getQuery:", error);
+    console.error("Error in /getQueryByPath:", error);
     res.status(500).json({ error: "Internal server error." });
   }
 });
