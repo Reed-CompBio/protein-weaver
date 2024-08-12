@@ -1,5 +1,6 @@
 export function NetworkParserPath(data) {
     let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
+    // console.log(data)
     //Iterate through data where each element is a path
     for (let i = 0; i < data.length; i++) {
         let currentPath = data[i]._fields[4];
@@ -66,8 +67,12 @@ export function NetworkParserPath(data) {
                         target: startNode,
                     },
                 };
+                // console.log(i, "Adding an edge")
+                // console.log(edgeEntry)
                 parsedData.edgeList.push(startNode + endNode);
                 parsedData.edges.push(edgeEntry);
+                console.log(parsedData.edges)
+
             }
         }
     }
@@ -75,6 +80,8 @@ export function NetworkParserPath(data) {
         data[0]._fields[data[0]._fields.length - 1][
             data[0]._fields[data[0]._fields.length - 1].length - 1
         ].properties;
+    console.log(parsedData)
+
     return parsedData;
 }
 /**

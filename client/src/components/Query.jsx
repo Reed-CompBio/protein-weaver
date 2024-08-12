@@ -306,6 +306,7 @@ export default function Query() {
                 return;
             }
         }
+        console.log(network)
         // get induced subgraph
         if (network != null) {
             let nodeList = { nodeList: network.nodeList };
@@ -419,6 +420,10 @@ export default function Query() {
                 });
         }
     }, [networkResult.goTerm]);
+
+    useEffect(() => {
+        // console.log(networkResult)
+    }, [networkResult]);
 
     // Get ancestors for queried GO term
     useEffect(() => {

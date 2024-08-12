@@ -71,6 +71,9 @@ export default function SearchBar({
               <option value="txid224308">B. subtilis (224308)</option>
               <option value="txid7227">D. melanogaster (7227)</option>
               <option value="txid7955">D. rerio (7955)</option>
+              <option value="txid559292">S. cerevisiae (559292)</option>
+              <option value="txid6239">C. elegans (6239)</option>
+
             </select>
             <button type="submit" className="search-button" ref={submitRef}>
               Search
