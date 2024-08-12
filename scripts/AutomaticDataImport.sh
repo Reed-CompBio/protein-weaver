@@ -1,9 +1,44 @@
 #!/bin/bash
 
-# Check if the Docker container already exists
+# Function to display usage
+usage() {
+    echo "Usage: $0 [-a | -s txid1,txid2,...]"
+    echo "  -a       Import all species and data (default)"
+    echo "  -s       Import specific species using comma-separated TXIDs (e.g. 7227,7955)"
+    exit 1
+}
+
+# Parse command-line arguments
+IMPORT_ALL=true
+SPECIFIC_TXIDS=""
+
+while getopts ":as:" opt; do
+    case $opt in
+        a)
+            IMPORT_ALL=true
+            ;;
+        s)
+            IMPORT_ALL=false
+            SPECIFIC_TXIDS=$OPTARG
+            ;;
+        \?)
+            usage
+            ;;
+    esac
+done
+
+# Check if Docker container already exists
 if [ "$(docker ps -aq -f name=proteinweaver)" ]; then
-    echo "Container 'proteinweaver' already exists. Starting the container..."
-    docker start proteinweaver
+    if [ "$(docker ps -q -f name=proteinweaver)" ]; then
+        echo "Container 'proteinweaver' is already running."
+    else
+        echo "Container 'proteinweaver' exists but is not running. Starting the container..."
+        docker start proteinweaver
+        # Wait for Neo4j to start (adjust sleep time as needed)
+		echo "Waiting for Neo4j to start..."
+		sleep 90
+		echo "Neo4j started."
+    fi
 else
     echo "Container 'proteinweaver' does not exist. Creating and starting a new container..."
     docker run \
@@ -21,54 +56,50 @@ else
         -e NEO4J_PLUGINS='["graph-data-science"]' \
         -e NEO4JLABS_PLUGINS=\[\"apoc\"\] \
         neo4j:latest
+    # Wait for Neo4j to start (adjust sleep time as needed)
+	echo "Waiting for Neo4j to start..."
+	sleep 60
+	echo "Neo4j started."
+	
+	# Create constraints
+	echo "Creating constraints.."
+	cat ProteinWeaverConstraints.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
+	echo "Constraints created."
 fi
 
-# Wait for Neo4j to start (adjust sleep time as needed)
-echo "Waiting for Neo4j to start..."
-sleep 60
-echo "Neo4j started."
 
-# Execute Cypher query to create constraints within Neo4j database
-echo "Creating constraints.."
-cat ProteinWeaverConstraints.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
-echo "Constraints created."
+# Function to import data by TXID
+import_data_by_txid() {
+    local txid=$1
+    echo "Importing TXID: $txid..."
+    cat DataImportTXID${txid}.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
+    echo "TXID: $txid imported"
+}
 
-# Execute Cypher query to import D. melanogaster data within Neo4j database
-echo "Importing TXID: 7227..."
-cat DataImportTXID7227.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
-echo "TXID: 7227 imported"
+# Import data based on the provided options
+if [ "$IMPORT_ALL" = true ]; then
+    import_data_by_txid 7227
+    import_data_by_txid 224308
+    import_data_by_txid 7955
+    import_data_by_txid 6239
+    import_data_by_txid 559292
+else
+    IFS=',' read -ra TXID_ARRAY <<< "$SPECIFIC_TXIDS"
+    for txid in "${TXID_ARRAY[@]}"; do
+        import_data_by_txid $txid
+    done
+fi
 
-# Execute Cypher query to import B. subtilis data within Neo4j database
-echo "Importing TXID: 224308..."
-cat DataImportTXID224308.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
-echo "TXID: 224308 imported"
-
-# Execute Cypher query to import D. rerio data within Neo4j database
-echo "Importing TXID: 7955..."
-cat DataImportTXID7955.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
-echo "TXID: 7955 imported"
-
-# Execute Cypher query to import C. elegans data within Neo4j database
-echo "Importing TXID: 6239..."
-cat DataImportTXID6239.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
-echo "TXID: 6239 imported"
-
-# Execute Cypher query to import S. cerevisiae data within Neo4j database
-echo "Importing TXID: 559292..."
-cat DataImportTXID559292.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
-echo "TXID: 559292 imported"
-
-# Execute Cypher query to import D. rerio data within Neo4j database
 echo "Importing GO hierarchy..."
 cat DataImportGO.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
 echo "GO hierarchy imported."
 
-# Execute Cypher query to propagate ancestral edges, remove self ProPro edges, and add node degree within Neo4j database
+# Propagate ancestral edges
 echo "Propagating ancestral edges..."
 cat AncestralEdges.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
-echo "Edges propogated."
+echo "Edges propagated."
 
-# Execute Cypher query to call graph projection within Neo4j database
+# Call graph projection
 echo "Calling graph projection..."
 cat CallGraphProjection.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
 echo "Projection created."
