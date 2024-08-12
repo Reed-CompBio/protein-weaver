@@ -48,6 +48,16 @@ echo "Importing TXID: 7955..."
 cat DataImportTXID7955.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
 echo "TXID: 7955 imported"
 
+# Execute Cypher query to import C. elegans data within Neo4j database
+echo "Importing TXID: 6239..."
+cat DataImportTXID6239.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
+echo "TXID: 6239 imported"
+
+# Execute Cypher query to import S. cerevisiae data within Neo4j database
+echo "Importing TXID: 559292..."
+cat DataImportTXID559292.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
+echo "TXID: 559292 imported"
+
 # Execute Cypher query to import D. rerio data within Neo4j database
 echo "Importing GO hierarchy..."
 cat DataImportGO.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
