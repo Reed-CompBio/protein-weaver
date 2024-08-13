@@ -71,7 +71,7 @@ export function NetworkParserPath(data) {
                 // console.log(edgeEntry)
                 parsedData.edgeList.push(startNode + endNode);
                 parsedData.edges.push(edgeEntry);
-                console.log(parsedData.edges)
+                // console.log(parsedData.edges)
 
             }
         }
@@ -94,6 +94,8 @@ export function NetworkParserPath(data) {
  */
 // tag::EdgeDataParser
 export function EdgeDataParser(networkData, edgeData) {
+    // console.log(networkData)
+    // console.log(edgeData)
     //Iterate through al the edges in the induced subgraph
     let tempEdgeList = [];
     let tempEdges = [];
@@ -144,6 +146,17 @@ export function EdgeDataParser(networkData, edgeData) {
                             target: startNode,
                             relType: relType,
                             evidence: fbRef,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                } else {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: "No Evidence",
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -201,9 +214,22 @@ export function EdgeDataParser(networkData, edgeData) {
                 };
                 tempEdgeList.push(startNode + endNode);
                 tempEdges.push(edgeEntry);
+            }else {
+                let edgeEntry = {
+                    data: {
+                        source: endNode,
+                        target: startNode,
+                        relType: relType,
+                        type: "shared",
+                        evidence: "No Evidence",
+                    },
+                };
+                tempEdgeList.push(startNode + endNode);
+                tempEdges.push(edgeEntry);
             }
         }
     }
+    console.log(tempEdgeList)
     networkData.edgeList = tempEdgeList;
     networkData.edges = tempEdges;
     return networkData;

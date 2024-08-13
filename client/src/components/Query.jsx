@@ -306,13 +306,17 @@ export default function Query() {
                 return;
             }
         }
-        console.log(network)
+        // setNetworkResult(network);
+        // console.log(network);
         // get induced subgraph
-        if (network != null) {
-            let nodeList = { nodeList: network.nodeList };
-            nodeList.nodeList.push(network.goTerm.id);
-            setSourceNode(network.nodes[0].data);
-            setGoTerm(network.goTerm);
+        let tempNetwork = JSON.parse(JSON.stringify(network));
+        if (tempNetwork != null) {
+            console.log(tempNetwork);
+            console.log(tempNetwork.edgeList);
+            let nodeList = { nodeList: tempNetwork.nodeList };
+            nodeList.nodeList.push(tempNetwork.goTerm.id);
+            setSourceNode(tempNetwork.nodes[0].data);
+            setGoTerm(tempNetwork.goTerm);
             let edgeData = null;
             try {
                 edgeData = await fetch("/api/getEdgeData", {
@@ -333,12 +337,16 @@ export default function Query() {
                             );
                         }
                     })
-                    .then((edgeData) => {
-                        setNetworkResult(EdgeDataParser(network, edgeData));
-                        setRawData(rawData);
-                        setDataParsingStatus(true);
-                        setQueryComplete(true);
-                        return networkResult;
+                    .then((data) => {
+                        // console.log(tempNetwork)
+                        console.log(data);
+                        // console.log(EdgeDataParser(tempNetwork, data))
+                        // setNetworkResult(EdgeDataParser(network, edgeData));
+                        // setRawData(rawData);
+                        // setDataParsingStatus(true);
+                        // setQueryComplete(true);
+                        // return EdgeDataParser(network, data);
+                        return EdgeDataParser(tempNetwork, data);
                     });
             } catch (error) {
                 console.error("Error getting the network:", error);
@@ -347,6 +355,8 @@ export default function Query() {
                 setIsLoading(false);
                 return;
             }
+            setNetworkResult(edgeData);
+            // console.log(edgeData)
             setSearchParams({
                 mode: query.mode,
                 species: query.species,
@@ -422,7 +432,9 @@ export default function Query() {
     }, [networkResult.goTerm]);
 
     useEffect(() => {
-        // console.log(networkResult)
+        if (networkResult != {}) {
+            // console.log(networkResult);
+        }
     }, [networkResult]);
 
     // Get ancestors for queried GO term
