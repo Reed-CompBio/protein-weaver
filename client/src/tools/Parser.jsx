@@ -21,7 +21,7 @@ export function NetworkParserPath(data) {
             } else if (nodeAltName != null) {
                 nodeName = nodeAltName;
             } else {
-                nodeName = currentPath[j].properties.id;
+                nodeName = nodeId;
             }
 
             // source protein is always the first element
@@ -317,7 +317,7 @@ export function NetworkParserNode(data, k) {
             } else if (nodeAltName != null) {
                 nodeName = nodeAltName;
             } else {
-                nodeName = currentPath[j].properties.id;
+                nodeName = nodeId;
             }
 
             // source protein is always the first element
