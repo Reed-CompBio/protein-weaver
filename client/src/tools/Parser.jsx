@@ -9,14 +9,17 @@ export function NetworkParserPath(data) {
         for (let j = 0; j < currentPath.length - 1; j++) {
             let nodeName = currentPath[j].properties.name;
             let nodeId = currentPath[j].properties.id;
+            let nodeAltName = currentPath[j].properties.alt_name;
+            let nodeGeneName = currentPath[j].properties.gene_name;
+            let physicalDegree = currentPath[j].properties.degree.low;
 
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
-            if (currentPath[j].properties.name != null) {
-                nodeName = currentPath[j].properties.name;
-            } else if (currentPath[j].properties.gene_name != null) {
-                nodeName = currentPath[j].properties.gene_name;
-            } else if (currentPath[j].properties.alt_name != null) {
-                nodeName = currentPath[j].properties.alt_name;
+            if (nodeName != null) {
+                nodeName = nodeName;
+            } else if (nodeGeneName != null) {
+                nodeName = nodeGeneName;
+            } else if (nodeAltName != null) {
+                nodeName = nodeAltName;
             } else {
                 nodeName = currentPath[j].properties.id;
             }
@@ -302,14 +305,17 @@ export function NetworkParserNode(data, k) {
             //If the edge already exists in the initial network data, add it to the temp edge list\
             let nodeName = null;
             let nodeId = currentPath[j].properties.id;
+            let nodeAltName = currentPath[j].properties.alt_name;
+            let nodeGeneName = currentPath[j].properties.gene_name;
+            let physicalDegree = currentPath[j].properties.degree.low;
 
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
-            if (currentPath[j].properties.name != null) {
-                nodeName = currentPath[j].properties.name;
-            } else if (currentPath[j].properties.gene_name != null) {
-                nodeName = currentPath[j].properties.gene_name;
-            } else if (currentPath[j].properties.alt_name != null) {
-                nodeName = currentPath[j].properties.alt_name;
+            if (nodeName != null) {
+                nodeName = nodeName;
+            } else if (nodeGeneName != null) {
+                nodeName = nodeGeneName;
+            } else if (nodeAltName != null) {
+                nodeName = nodeAltName;
             } else {
                 nodeName = currentPath[j].properties.id;
             }
