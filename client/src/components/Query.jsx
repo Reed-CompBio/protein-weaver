@@ -237,7 +237,7 @@ export default function Query() {
         let rawData = null;
         if (query.mode == "path") {
             try {
-                network = await fetch("/api/getQuery", {
+                network = await fetch("/api/getQueryByPath", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -261,11 +261,7 @@ export default function Query() {
                     })
                     .then((data) => {
                         rawData = data;
-                        return NetworkParserPath(
-                            data,
-                            query.protein,
-                            query.goTerm
-                        );
+                        return NetworkParserPath(data);
                     });
             } catch (error) {
                 console.error("Error getting the network:", error.message);
@@ -301,7 +297,7 @@ export default function Query() {
                     })
                     .then((data) => {
                         rawData = data;
-                        return NetworkParserNode(data, query.protein, query.k);
+                        return NetworkParserNode(data, query.k);
                     });
             } catch (error) {
                 console.error("Error getting the network:", error.message);
@@ -869,14 +865,12 @@ export default function Query() {
                                                             setEdgeSource(
                                                                 evt.target
                                                                     ._private
-                                                                    .data
-                                                                    .source
+                                                                    .data.source
                                                             );
                                                             setEdgeTarget(
                                                                 evt.target
                                                                     ._private
-                                                                    .data
-                                                                    .target
+                                                                    .data.target
                                                             );
                                                             setEdgeType(
                                                                 evt.target
@@ -916,7 +910,9 @@ export default function Query() {
                                                 handleSourceNode={
                                                     handleSourceNode
                                                 }
-                                                handleLayoutChange={handleLayoutChange}
+                                                handleLayoutChange={
+                                                    handleLayoutChange
+                                                }
                                                 handleSubmit={handleSubmit}
                                                 parentGoTerms={ancestorsOptions}
                                                 childrenGoTerms={
@@ -955,7 +951,9 @@ export default function Query() {
                                                 queryCount={queryCount}
                                                 logs={logs}
                                                 handleLog={handleLog}
-                                                networkStatistics={networkStatistics}
+                                                networkStatistics={
+                                                    networkStatistics
+                                                }
                                             />
                                         </div>
                                     </Panel>
