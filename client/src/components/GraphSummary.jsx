@@ -3,7 +3,7 @@ import GoDefinition from "./GoDefinition";
 import ExportGraph from "./ExportGraph";
 import GraphStats from "./GraphStats";
 import { PiWarningBold } from "react-icons/pi";
-import PGStats from "./ProGoStats";
+import ProGoStats from "./ProGoStats";
 
 export default function GraphSummary({
     currentNode,
@@ -21,6 +21,7 @@ export default function GraphSummary({
     const [sourceNodeLink, setSourceNodeLink] = useState("");
     const [neverAnnotateWarning, setNeverAnnotateWarning] = useState(false);
     const [showNeverAnnotate, setShowNeverAnnotate] = useState(false);
+    const [txid, setTxid] = useState("");
 
     // Create a warning if GO term is blacklisted
     useEffect(() => {
@@ -47,6 +48,11 @@ export default function GraphSummary({
             );
         }
     }, [sourceNode.id]);
+
+    // Change species ID for graph statistics after search execution
+    useEffect(() => {
+        setTxid(query.species);
+    }, [searchExecuted]);
 
     // Keep track of the proteins in the query
     useEffect(() => {
@@ -115,7 +121,7 @@ export default function GraphSummary({
             </div>
             <GoDefinition open>
                 <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
-                <PGStats name={goTerm.name} txid={query.species} />
+                <ProGoStats name={goTerm.name} txid={txid} species={query.species} />
             </GoDefinition>
             <GraphStats
                 networkStatistics={networkStatistics}
