@@ -31,9 +31,9 @@ export default function GraphExploration({
                     handleGoTermChange={handleGoTermChange}
                     handleSubmit={handleSubmit}
                 />
+                {/* Change Graph Layout */}
+                <ChangeLayout handleLayoutChange={handleLayoutChange} />
             </div>
-            {/* Change Graph Layout */}
-            <ChangeLayout handleLayoutChange={handleLayoutChange} />
         </div>
     );
 }

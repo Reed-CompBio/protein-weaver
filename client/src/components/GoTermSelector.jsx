@@ -17,11 +17,16 @@ export default function GoTermSelector({
     const handleInputChangeAncestor = (value) => {
         setInputValueAncestor(value);
     };
-
     const handleInputChangeDescendant = (value) => {
         setInputValueDescendant(value);
     };
+    const handleNewGoButton = () => {
+        setInputValueAncestor("");
+        setInputValueDescendant("");
+        handleGoTermChange();
+    };
 
+    // disable button if no go term is entered
     useEffect(() => {
         if (inputValueAncestor == "" && inputValueDescendant == "") {
             setGoButtonClassname("new-go-term-button-disabled");
@@ -30,6 +35,7 @@ export default function GoTermSelector({
         }
     }, [inputValueAncestor, inputValueDescendant]);
 
+    // clear input fields when switching between ancestor and descendant
     useEffect(() => {
         if (inputValueAncestor != "") {
             setInputValueDescendant("");
@@ -45,12 +51,6 @@ export default function GoTermSelector({
             setInputValueDescendant("");
         }
     }, [inputValueDescendant]);
-
-    const handleNewGoButton = () => {
-        setInputValueAncestor("");
-        setInputValueDescendant("");
-        handleGoTermChange();
-    };
 
     return (
         <div>

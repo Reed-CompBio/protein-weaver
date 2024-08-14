@@ -6,7 +6,7 @@ import { IconContext } from "react-icons";
 export default function ChangeLayout({ handleLayoutChange }) {
     return (
         <div>
-            <h5 className="change-layout-header">Rearrange graph layout:</h5>
+            <h5 className="change-layout-header">Change Graph Layout:</h5>
             <div className="align-change-layout">
                 <IconContext.Provider
                     value={{
