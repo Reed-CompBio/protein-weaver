@@ -306,13 +306,9 @@ export default function Query() {
                 return;
             }
         }
-        // setNetworkResult(network);
-        // console.log(network);
         // get induced subgraph
         let tempNetwork = JSON.parse(JSON.stringify(network));
         if (tempNetwork != null) {
-            console.log(tempNetwork);
-            console.log(tempNetwork.edgeList);
             let nodeList = { nodeList: tempNetwork.nodeList };
             nodeList.nodeList.push(tempNetwork.goTerm.id);
             setSourceNode(tempNetwork.nodes[0].data);
@@ -338,14 +334,10 @@ export default function Query() {
                         }
                     })
                     .then((data) => {
-                        // console.log(tempNetwork)
-                        console.log(data);
-                        // console.log(EdgeDataParser(tempNetwork, data))
-                        // setNetworkResult(EdgeDataParser(network, edgeData));
-                        // setRawData(rawData);
-                        // setDataParsingStatus(true);
-                        // setQueryComplete(true);
-                        // return EdgeDataParser(network, data);
+                        setNetworkResult(EdgeDataParser(tempNetwork, data));
+                        setRawData(rawData);
+                        setDataParsingStatus(true);
+                        setQueryComplete(true);
                         return EdgeDataParser(tempNetwork, data);
                     });
             } catch (error) {
@@ -672,6 +664,78 @@ export default function Query() {
                         species: "txid224308",
                         protein: "OppC",
                         goTerm: "sporulation",
+                        k: "10",
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
+        } else if (query.species == "txid559292") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "node",
+                        species: "txid559292",
+                        protein: "P32657",
+                        goTerm: "DNA binding",
+                        k: "10",
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "path",
+                        species: "txid559292",
+                        protein: "p43639",
+                        goTerm: "membrane-bounded organelle",
+                        k: "10",
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid559292",
+                        protein: "p03069",
+                        goTerm: "cellular macromolecule localization",
+                        k: "10",
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
+        } else if (query.species == "txid6239") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "path",
+                        species: "txid6239",
+                        protein: "rnt-1",
+                        goTerm: "negative regulation of stem cell differentiation",
+                        k: "7",
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "node",
+                        species: "txid6239",
+                        protein: "gck-3",
+                        goTerm: "hyperosmotic response",
+                        k: "10",
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid6239",
+                        protein: "tac-1",
+                        goTerm: "cytoskeleton organization",
                         k: "10",
                     });
                     setActiveModeButton("node");

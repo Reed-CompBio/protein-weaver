@@ -1,6 +1,5 @@
 export function NetworkParserPath(data) {
     let parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
-    // console.log(data)
     //Iterate through data where each element is a path
     for (let i = 0; i < data.length; i++) {
         let currentPath = data[i]._fields[4];
@@ -67,12 +66,8 @@ export function NetworkParserPath(data) {
                         target: startNode,
                     },
                 };
-                // console.log(i, "Adding an edge")
-                // console.log(edgeEntry)
                 parsedData.edgeList.push(startNode + endNode);
                 parsedData.edges.push(edgeEntry);
-                // console.log(parsedData.edges)
-
             }
         }
     }
@@ -80,8 +75,6 @@ export function NetworkParserPath(data) {
         data[0]._fields[data[0]._fields.length - 1][
             data[0]._fields[data[0]._fields.length - 1].length - 1
         ].properties;
-    console.log(parsedData)
-
     return parsedData;
 }
 /**
@@ -94,8 +87,6 @@ export function NetworkParserPath(data) {
  */
 // tag::EdgeDataParser
 export function EdgeDataParser(networkData, edgeData) {
-    // console.log(networkData)
-    // console.log(edgeData)
     //Iterate through al the edges in the induced subgraph
     let tempEdgeList = [];
     let tempEdges = [];
@@ -214,7 +205,7 @@ export function EdgeDataParser(networkData, edgeData) {
                 };
                 tempEdgeList.push(startNode + endNode);
                 tempEdges.push(edgeEntry);
-            }else {
+            } else {
                 let edgeEntry = {
                     data: {
                         source: endNode,
@@ -229,7 +220,6 @@ export function EdgeDataParser(networkData, edgeData) {
             }
         }
     }
-    console.log(tempEdgeList)
     networkData.edgeList = tempEdgeList;
     networkData.edges = tempEdges;
     return networkData;
@@ -309,4 +299,4 @@ export function NetworkParserNode(data, k) {
     }
     parsedData.goTerm = data[data.length - 1][0]._fields[0].properties;
     return parsedData;
-};
+}
