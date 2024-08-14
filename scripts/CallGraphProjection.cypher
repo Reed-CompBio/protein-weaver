@@ -1,2 +1,3 @@
+CALL gds.graph.exists('proGoGraph') YIELD exists WITH exists WHERE exists CALL gds.graph.drop('proGoGraph') YIELD graphName RETURN graphName;
 CALL gds.graph.project('proGoGraph',['go_term', 'protein'],['ProGo', 'ProPro', 'Reg']);
 CALL gds.graph.relationships.toUndirected( 'proGoGraph', {relationshipType: 'ProPro', mutateRelationshipType: 'ProProUndirected'} ) YIELD inputRelationships, relationshipsWritten;
