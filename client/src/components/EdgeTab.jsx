@@ -6,6 +6,7 @@ export default function EdgeTab({
     edgeTarget,
     edgeType,
     regType,
+    dataSource,
 }) {
     const [interactionDatabase, setInteractionDatabase] = useState("");
 
@@ -67,6 +68,7 @@ export default function EdgeTab({
             </div>
             {edgeSource ? (
                 <div className="edge-container">
+                    {dataSource && <div>Interaction evidence: {dataSource}</div>}
                     <div>Source node: {edgeSource}</div>
                     <div>Target edge: {edgeTarget}</div>
                     <div>Edge type: {edgeType}</div>

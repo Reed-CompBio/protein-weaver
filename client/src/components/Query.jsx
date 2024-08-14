@@ -45,6 +45,7 @@ export default function Query() {
     const [edgeTarget, setEdgeTarget] = useState("");
     const [edgeType, setEdgeType] = useState("");
     const [regType, setRegType] = useState("");
+    const [dataSource, setDataSource] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
     const submitRef = useRef();
@@ -885,6 +886,12 @@ export default function Query() {
                                                                     .data
                                                                     .regType
                                                             );
+                                                            setDataSource(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .dataSource
+                                                            );
                                                         }
                                                     );
                                                 }}
@@ -967,6 +974,7 @@ export default function Query() {
                                             edgeTarget={edgeTarget}
                                             edgeType={edgeType}
                                             regType={regType}
+                                            dataSource={dataSource}
                                             currentNode={sidebarNode}
                                             query={query}
                                         ></StatisticsTab>

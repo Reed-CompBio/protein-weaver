@@ -106,6 +106,8 @@ export function EdgeDataParser(networkData, edgeData) {
         let fbRef =
             edgeData[i]._fields[0].segments[0].relationship.properties
                 .reference;
+        let dataSource = edgeData[i]._fields[0].segments[0].relationship.properties
+            .source
         //Check for shared edges
         //If the edge already exists in the initial network data, add it to the temp edge list
         if (
@@ -120,6 +122,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             target: startNode,
                             relType: relType,
                             evidence: pubmed,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -131,6 +134,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             target: startNode,
                             relType: relType,
                             evidence: link,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -142,6 +146,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             target: startNode,
                             relType: relType,
                             evidence: fbRef,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -158,6 +163,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             relType: relType,
                             evidence: pubmed,
                             regType: regType,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -171,6 +177,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             relType: relType,
                             evidence: link,
                             regType: regType,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -184,6 +191,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             relType: relType,
                             evidence: fbRef,
                             regType: regType,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -213,6 +221,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             target: startNode,
                             relType: relType,
                             evidence: pubmed,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -225,6 +234,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             target: startNode,
                             relType: relType,
                             evidence: link,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -237,6 +247,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             target: startNode,
                             relType: relType,
                             evidence: fbRef,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -254,6 +265,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             type: "shared",
                             evidence: pubmed,
                             regType: regType,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -268,6 +280,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             type: "shared",
                             evidence: link,
                             regType: regType,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -282,6 +295,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             type: "shared",
                             evidence: fbRef,
                             regType: regType,
+                            dataSource: dataSource,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
