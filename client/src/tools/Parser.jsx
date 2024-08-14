@@ -159,6 +159,18 @@ export function EdgeDataParser(networkData, edgeData) {
                     };
                     tempEdgeList.push(startNode + endNode);
                     tempEdges.push(edgeEntry);
+                } else {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: "No Evidence",
+                            dataSource: dataSource,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
                 }
             }
             if (relType === "Reg") {
