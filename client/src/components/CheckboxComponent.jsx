@@ -1,46 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function CheckboxComponent({checkboxes, setCheckboxes}) {
+function CheckboxComponent({ relationshipType, setRelationshipType }) {
     // const [checkboxes, setCheckboxes] = useState({
     //     checkbox1: false,
     //     checkbox2: false,
     // });
     const [formValid, setFormValid] = useState(true);
 
+    useEffect(() => {
+        console.log(relationshipType);
+    }, [relationshipType]);
+
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
 
-        setCheckboxes({
-            ...checkboxes,
+        setRelationshipType({
+            ...relationshipType,
             [name]: checked,
         });
 
         // Check if the form is valid
-        setFormValid(checked || checkboxes.checkbox1 || checkboxes.checkbox2);
+        setFormValid(checked || relationshipType.ppi || relationshipType.regulatory);
     };
-
 
     return (
         <div>
             <label>
                 <input
                     type="checkbox"
-                    name="checkbox1"
-                    checked={checkboxes.checkbox1}
+                    name="ppi"
+                    checked={relationshipType.ppi}
                     onChange={handleCheckboxChange}
-                    required={!checkboxes.checkbox2}
+                    required={!relationshipType.regulatory}
                 />
-                Checkbox 1
+                Protein Protein Interaction
             </label>
             <label>
                 <input
                     type="checkbox"
-                    name="checkbox2"
-                    checked={checkboxes.checkbox2}
+                    name="regulatory"
+                    checked={relationshipType.regulatory}
                     onChange={handleCheckboxChange}
-                    required={!checkboxes.checkbox1}
+                    required={!relationshipType.ppi}
                 />
-                Checkbox 2
+                Regulatory Interaction
             </label>
         </div>
     );

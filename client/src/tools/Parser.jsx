@@ -58,7 +58,7 @@ export function NetworkParserPath(data, source, go_term) {
                 let edgeEntry = {
                     data: {
                         source: endNode,
-                        target: startNode
+                        target: startNode,
                     },
                 };
                 parsedData.edgeList.push(startNode + endNode);
@@ -81,7 +81,8 @@ export function NetworkParserPath(data, source, go_term) {
  * @returns {JSON}
  */
 // tag::EdgeDataParser
-export function EdgeDataParser(networkData, edgeData) {
+export function EdgeDataParser(networkData, edgeData, relationshipType) {
+    console.log(relationshipType);
     //Iterate through al the edges in the induced subgraph
     // console.log(edgeData)
     let tempEdgeList = [];
@@ -90,16 +91,20 @@ export function EdgeDataParser(networkData, edgeData) {
         let startNode = edgeData[i]._fields[0].start.properties.id;
         let endNode = edgeData[i]._fields[0].end.properties.id;
         let relType = edgeData[i]._fields[0].segments[0].relationship.type;
-        let pubmed = edgeData[i]._fields[0].segments[0].relationship.properties.pubmed;
-        let link = edgeData[i]._fields[0].segments[0].relationship.properties.link;
-        let fbRef = edgeData[i]._fields[0].segments[0].relationship.properties.reference;
+        let pubmed =
+            edgeData[i]._fields[0].segments[0].relationship.properties.pubmed;
+        let link =
+            edgeData[i]._fields[0].segments[0].relationship.properties.link;
+        let fbRef =
+            edgeData[i]._fields[0].segments[0].relationship.properties
+                .reference;
         //Check for shared edges
         //If the edge already exists in the initial network data, add it to the temp edge list
         if (
             networkData.edgeList.includes(endNode + startNode) ||
             networkData.edgeList.includes(startNode + endNode)
         ) {
-            if (relType === "ProPro" || relType === "Reg") {
+            if (relType === "ProPro" && relationshipType.ppi) {
                 if (pubmed) {
                     let edgeEntry = {
                         data: {
@@ -111,8 +116,7 @@ export function EdgeDataParser(networkData, edgeData) {
                     };
                     tempEdgeList.push(startNode + endNode);
                     tempEdges.push(edgeEntry);
-                }
-                else if (link) {
+                } else if (link) {
                     let edgeEntry = {
                         data: {
                             source: endNode,
@@ -123,8 +127,42 @@ export function EdgeDataParser(networkData, edgeData) {
                     };
                     tempEdgeList.push(startNode + endNode);
                     tempEdges.push(edgeEntry);
+                } else if (fbRef) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: fbRef,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
                 }
-                else if (fbRef) {
+            } else if (relType === "Reg" && relationshipType.regulatory) {
+                if (pubmed) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: pubmed,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                } else if (link) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: link,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                } else if (fbRef) {
                     let edgeEntry = {
                         data: {
                             source: endNode,
@@ -139,9 +177,7 @@ export function EdgeDataParser(networkData, edgeData) {
             }
         }
         //If the edge type is ProGo, add the edges relationship properties to the network data
-        else if (
-            relType === "ProGo"
-        ) {
+        else if (relType === "ProGo") {
             for (let k = 0; k < networkData.nodes.length; k++) {
                 let currentNode = networkData.nodes[k];
                 if (currentNode.data.id === startNode) {
@@ -221,7 +257,7 @@ export function NetworkParserNode(data, source, k) {
                 },
             };
             if (
-                (nodeId.toUpperCase() === source.toUpperCase()) &&
+                nodeId.toUpperCase() === source.toUpperCase() &&
                 j == currentPath.length - 1
             ) {
                 nodeEntry.data.type = "go_source";

@@ -184,11 +184,15 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
   const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
   const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
+  const relationshipType = {ppi: data.ppi, regulatory: data.regulatory}
+
 
   console.log("Species:", species);
   console.log("Protein:", protein);
   console.log("GO Term:", goTerm);
   console.log("k:", k);
+  console.log("relationshipType:", relationshipType);
+
 
   try {
     const proteinFinderService = new ProteinFinderService(getDriver());
@@ -226,12 +230,21 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
             });
         } else {
           //DO this to all GOterm
+          let relType = ["ProGo"]
+          if (relationshipType.ppi){
+            relType.push("ProProUndirected")
+          }
+          if (relationshipType.regulatory){
+            relType.push("Reg")
+          }
+
           const queryService = new QueryService(getDriver());
           const queryResult = await queryService.getQuery(
             species,
             protein,
             goTerm,
-            k
+            k,
+            relType
           );
 
           if (queryResult.length === 0) {
@@ -260,11 +273,14 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
   const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
   const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
+  const relationshipType = data.relationshipType
 
   console.log("Species:", species);
   console.log("Protein:", protein);
   console.log("GO Term:", goTerm);
   console.log("k:", k);
+  console.log("relationshipType:", relationshipType);
+
   console.log("getQueryByNode");
 
   try {

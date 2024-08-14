@@ -77,9 +77,9 @@ export default function Query() {
     const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
     const [exState, setExState] = useState("");
-    const [checkboxes, setCheckboxes] = useState({
-        checkbox1: false,
-        checkbox2: false,
+    const [relationshipType, setRelationshipType] = useState({
+        ppi: false,
+        regulatory: false,
     });
     cytoscape.use(cola);
 
@@ -239,12 +239,14 @@ export default function Query() {
         let rawData = null;
         if (query.mode == "path") {
             try {
+                const requestBody = Object.assign(query, relationshipType);
+
                 network = await fetch("/api/getQuery", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(query),
+                    body: JSON.stringify(requestBody),
                 })
                     .then((response) => {
                         if (response.ok) {
@@ -341,7 +343,7 @@ export default function Query() {
                         }
                     })
                     .then((edgeData) => {
-                        setNetworkResult(EdgeDataParser(network, edgeData));
+                        setNetworkResult(EdgeDataParser(network, edgeData, relationshipType));
                         setRawData(rawData);
                         setDataParsingStatus(true);
                         setQueryComplete(true);
@@ -778,8 +780,8 @@ export default function Query() {
                         handleQueryMode={handleQueryMode}
                         activeModeButton={activeModeButton}
                         exState={exState}
-                        checkboxes={checkboxes}
-                        setCheckboxes={setCheckboxes}
+                        relationshipType={relationshipType}
+                        setRelationshipType={setRelationshipType}
                     />
                     {hasError && <QueryError errorMessage={errorMessage} />}
 
@@ -819,8 +821,8 @@ export default function Query() {
                             handleQueryMode={handleQueryMode}
                             activeModeButton={activeModeButton}
                             exState={exState}
-                            checkboxes={checkboxes}
-                            setCheckboxes={setCheckboxes}
+                            relationshipType={relationshipType}
+                            setRelationshipType={setRelationshipType}
                         />
 
                         {hasError && <QueryError errorMessage={errorMessage} />}
