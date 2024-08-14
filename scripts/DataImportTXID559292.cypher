@@ -2,8 +2,8 @@ LOAD CSV WITH HEADERS FROM 'file:///yeast_ppi-2024-08-08.tsv' AS yeast
 	FIELDTERMINATOR '\t'
 	CALL {
 		with yeast
-		MERGE (a:protein {id: yeast.uniprot_id, name: yeast.synonym1, alt_name: synonym1, txid: "txid559292", species: "Saccharomyces cerevisiae"})
-		MERGE (b:protein {id: yeast.uniprot_id2, name: yeast.synonym2, alt_name: synonym2, txid: "txid559292", species: "Saccharomyces cerevisiae"})
+		MERGE (a:protein {id: yeast.uniprot_id, name: yeast.synonym1, alt_name: yeast.synonym1, txid: "txid559292", species: "Saccharomyces cerevisiae"})
+		MERGE (b:protein {id: yeast.uniprot_id2, name: yeast.synonym2, alt_name: yeast.synonym2, txid: "txid559292", species: "Saccharomyces cerevisiae"})
 		MERGE (a)-[r:ProPro]-(b)
 	} IN TRANSACTIONS OF 100 ROWS;
 LOAD CSV WITH HEADERS FROM 'file:///yeast_ppi-2024-08-08.tsv' AS yeast
