@@ -334,7 +334,6 @@ export default function Query() {
                         }
                     })
                     .then((data) => {
-                        setNetworkResult(EdgeDataParser(tempNetwork, data));
                         setRawData(rawData);
                         setDataParsingStatus(true);
                         setQueryComplete(true);
@@ -348,7 +347,6 @@ export default function Query() {
                 return;
             }
             setNetworkResult(edgeData);
-            // console.log(edgeData)
             setSearchParams({
                 mode: query.mode,
                 species: query.species,
