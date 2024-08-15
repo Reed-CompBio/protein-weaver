@@ -1261,7 +1261,7 @@ select {
     min-height: 50px;
     min-width: 96px;
     word-wrap: nowrap;
-    background: var(--light-background);
+    background: var(--graph-tan);
     color: black;
     border: 2px solid black;
     border-radius: 5px;
@@ -1371,7 +1371,7 @@ select {
     min-height: 50px;
     min-width: 200px;
     word-wrap: nowrap;
-    background: var(--light-background);
+    background: var(--graph-tan);
     color: black;
     border: 2px solid black;
     border-radius: 5px;

@@ -15,11 +15,11 @@ export function NetworkParserPath(data) {
             let physicalDegree = currentPath[j].properties.degree.low;
 
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
-            if (nodeName != null) {
-                nodeName = nodeName;
-            } else if (nodeGeneName != null) {
-                nodeName = nodeGeneName;
-            } else if (nodeAltName != null) {
+            if (nodeName !== null) {
+                nodeName = nodeName === "-" ? nodeId : nodeName;
+            } else if (nodeGeneName !== null) {
+                nodeName = nodeGeneName === "-" ? nodeId : nodeGeneName;
+            } else if (nodeAltName !== null) {
                 nodeName = nodeAltName;
             } else {
                 nodeName = nodeId;
@@ -379,22 +379,23 @@ export function NetworkParserNode(data, k) {
             //Add each node in a path, and label them accordingly (source, go_protein, or intermediate)
             //Keep track of all the nodes in nodeList
             //If the edge already exists in the initial network data, add it to the temp edge list\
-            let nodeName = null;
+            let nodeName = currentPath[j].properties.name;
             let nodeId = currentPath[j].properties.id;
             let nodeAltName = currentPath[j].properties.alt_name;
             let nodeGeneName = currentPath[j].properties.gene_name;
             let physicalDegree = currentPath[j].properties.degree.low;
 
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
-            if (nodeName != null) {
-                nodeName = nodeName;
-            } else if (nodeGeneName != null) {
-                nodeName = nodeGeneName;
-            } else if (nodeAltName != null) {
+            if (nodeName !== null) {
+                nodeName = nodeName === "-" ? nodeId : nodeName;
+            } else if (nodeGeneName !== null) {
+                nodeName = nodeGeneName === "-" ? nodeId : nodeGeneName;
+            } else if (nodeAltName !== null) {
                 nodeName = nodeAltName;
             } else {
                 nodeName = nodeId;
             }
+
 
             // source protein is always the first element
             if (j == 0) {
