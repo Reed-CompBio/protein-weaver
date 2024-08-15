@@ -1284,6 +1284,7 @@ select {
     border-radius: 5px;
     text-align: center;
     cursor: auto;
+    pointer-events: none;
 }
 
 /* CSS for AncestorSelector.jsx, DescendantSelector.jsx, GoTermSelector.jsx */
@@ -1392,7 +1393,7 @@ select {
     border: 2px solid var(--light-background);
     border-radius: 5px;
     text-align: center;
-    cursor: auto;
+    pointer-events: none;
 }
 
 /* ChangeLayout.jsx */
