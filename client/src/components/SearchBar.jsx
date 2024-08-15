@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 import Autocomplete from "./Autocomplete";
-import Modetooltip from "./ModeTooltip";
+import ModeTooltip from "./ModeTooltip";
 
 export default function SearchBar({
     handleSubmit,
@@ -76,11 +76,15 @@ export default function SearchBar({
                             <option value="txid7227">
                                 D. melanogaster (7227)
                             </option>
-                            <option value="txid7955">D. rerio (7955)</option>
+                            <option value="txid7955">
+                                D. rerio (7955)
+                            </option>
                             <option value="txid559292">
                                 S. cerevisiae (559292)
                             </option>
-                            <option value="txid6239">C. elegans (6239)</option>
+                            <option value="txid6239">
+                                C. elegans (6239)
+                            </option>
                         </select>
                         <button
                             type="submit"
@@ -118,36 +122,41 @@ export default function SearchBar({
                     onClick={handleQueryMode}
                     value="Nodes"
                 />
-                <Modetooltip></Modetooltip>
+                <ModeTooltip />
+            </div>
 
-                {/* user examples */}
-                <h4 className="example">
-                    {spName} Examples:
-                    <a
-                        onClick={() => getExample(1)}
-                        className={
-                            exState === "1" ? "activated" : "inactivated"
-                        }
-                    >
-                        #1
-                    </a>{" "}
-                    <a
-                        onClick={() => getExample(2)}
-                        className={
-                            exState === "2" ? "activated" : "inactivated"
-                        }
-                    >
-                        #2
-                    </a>{" "}
-                    <a
-                        onClick={() => getExample(3)}
-                        className={
-                            exState === "3" ? "activated" : "inactivated"
-                        }
-                    >
-                        #3
-                    </a>
-                </h4>
+            {/* user examples */}
+            <div className="example">
+                <i>{spName}</i>
+                <div className="align-examples-below">
+                    <h4>Examples:</h4>
+                    <div className="align-examples">
+                        <a
+                            onClick={() => getExample(1)}
+                            className={
+                                exState === "1" ? "activated" : "inactivated"
+                            }
+                        >
+                            #1
+                        </a>{" "}
+                        <a
+                            onClick={() => getExample(2)}
+                            className={
+                                exState === "2" ? "activated" : "inactivated"
+                            }
+                        >
+                            #2
+                        </a>{" "}
+                        <a
+                            onClick={() => getExample(3)}
+                            className={
+                                exState === "3" ? "activated" : "inactivated"
+                            }
+                        >
+                            #3
+                        </a>
+                    </div>
+                </div>
             </div>
 
             {/* user guide */}

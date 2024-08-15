@@ -193,24 +193,45 @@ body {
 }
 
 .example {
-    padding-left: 16px;
-    margin-left: 10px;
-    margin-right: 16px;
-    font-size: 15px;
+    align-items: center;
+    margin-left: 16px;
     display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.align-examples-below {
+    margin-top: 0;
+    margin-bottom: 0;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.align-examples {
+    margin-top: 0;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.example h4 {
+    margin: 0px;
+    font-size: 15px;
     text-align: center;
     color: white;
     font-weight: bold;
+    width: 100px;
 }
 
 .example i {
-    margin-right: 8px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-flex;
 }
 
 .example>a {
     color: white;
     font-weight: bold;
-    margin-left: 5px;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -1435,6 +1456,7 @@ select {
     margin-top: 0;
     display: flex;
     align-items: center;
+
 }
 
 .active-button {
