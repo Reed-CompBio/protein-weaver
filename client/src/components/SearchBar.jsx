@@ -36,58 +36,71 @@ export default function SearchBar({
             <form method="post" onSubmit={handleSubmit}>
                 <div className="search-container">
                     <div className="search-input-wrapper">
-                        <Autocomplete
-                            className="protein-input-container"
-                            suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
-                            inputName="protein"
-                            inputValue={query.protein}
-                            onInputChange={handleInputChange}
-                            placeholder="Protein"
-                            autocomplete="protein-autocomplete"
-                        />
-                        <div className="shrink-go-input">
+                        <div className="search-input-header">
+                            <label htmlFor="protein-input-container">Protein</label>
                             <Autocomplete
-                                className="go-term-input-container"
-                                suggestions={goTermOptions} // Pass the go term suggestions to the Autocomplete component
-                                inputName="goTerm"
-                                inputValue={query.goTerm}
+                                className="protein-input-container"
+                                suggestions={proteinOptions} // Pass the protein suggestions to the Autocomplete component
+                                inputName="protein"
+                                inputValue={query.protein}
                                 onInputChange={handleInputChange}
-                                placeholder="Gene Ontology Term"
-                                autocomplete="go-term-autocomplete"
+                                placeholder="Protein"
+                                autocomplete="protein-autocomplete"
                             />
                         </div>
-                        <input
-                            className="k-input" // User input for k
-                            type="number"
-                            min="0"
-                            name="k"
-                            placeholder="k"
-                            value={query.k}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <select
-                            className="species-input-container" // User input for species
-                            name="species" // User input for species
-                            value={query.species}
-                            onChange={handleSpeciesChange}
-                        >
-                            <option value="txid224308">
-                                B. subtilis (224308)
-                            </option>
-                            <option value="txid7227">
-                                D. melanogaster (7227)
-                            </option>
-                            <option value="txid7955">
-                                D. rerio (7955)
-                            </option>
-                            <option value="txid559292">
-                                S. cerevisiae (559292)
-                            </option>
-                            <option value="txid6239">
-                                C. elegans (6239)
-                            </option>
-                        </select>
+                        <div className="search-input-header">
+                            <label htmlFor="go-term-input-container">GO Term</label>
+                            <div className="shrink-go-input">
+                                <Autocomplete
+                                    className="go-term-input-container"
+                                    suggestions={goTermOptions} // Pass the go term suggestions to the Autocomplete component
+                                    inputName="goTerm"
+                                    inputValue={query.goTerm}
+                                    onInputChange={handleInputChange}
+                                    placeholder="Gene Ontology Term"
+                                    autocomplete="go-term-autocomplete"
+                                />
+                            </div>
+                        </div>
+                        <div className="search-input-header">
+                            <label htmlFor="k-input"><i>k</i></label>
+                            <input
+                                className="k-input" // User input for k
+                                type="number"
+                                min="0"
+                                name="k"
+                                placeholder="k"
+                                value={query.k}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div className="search-input-header">
+                            <label className="species-header"
+                                htmlFor="species-input-container">Organism (TXID)</label>
+                            <select
+                                className="species-input-container" // User input for species
+                                name="species" // User input for species
+                                value={query.species}
+                                onChange={handleSpeciesChange}
+                            >
+                                <option value="txid224308">
+                                    B. subtilis (224308)
+                                </option>
+                                <option value="txid7227">
+                                    D. melanogaster (7227)
+                                </option>
+                                <option value="txid7955">
+                                    D. rerio (7955)
+                                </option>
+                                <option value="txid559292">
+                                    S. cerevisiae (559292)
+                                </option>
+                                <option value="txid6239">
+                                    C. elegans (6239)
+                                </option>
+                            </select>
+                        </div>
                         <button
                             type="submit"
                             className="search-button"
