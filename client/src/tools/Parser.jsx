@@ -81,8 +81,7 @@ export function NetworkParserPath(data, source, go_term) {
  * @returns {JSON}
  */
 // tag::EdgeDataParser
-export function EdgeDataParser(networkData, edgeData, relationshipType) {
-    console.log(relationshipType);
+export function EdgeDataParser(networkData, edgeData, ppi, regulatory) {
     //Iterate through al the edges in the induced subgraph
     // console.log(edgeData)
     let tempEdgeList = [];
@@ -104,7 +103,7 @@ export function EdgeDataParser(networkData, edgeData, relationshipType) {
             networkData.edgeList.includes(endNode + startNode) ||
             networkData.edgeList.includes(startNode + endNode)
         ) {
-            if (relType === "ProPro" && relationshipType.ppi) {
+            if (relType === "ProPro" && ppi) {
                 if (pubmed) {
                     let edgeEntry = {
                         data: {
@@ -139,7 +138,7 @@ export function EdgeDataParser(networkData, edgeData, relationshipType) {
                     tempEdgeList.push(startNode + endNode);
                     tempEdges.push(edgeEntry);
                 }
-            } else if (relType === "Reg" && relationshipType.regulatory) {
+            } else if (relType === "Reg" && regulatory) {
                 if (pubmed) {
                     let edgeEntry = {
                         data: {

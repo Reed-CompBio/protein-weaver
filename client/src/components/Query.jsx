@@ -34,6 +34,8 @@ export default function Query() {
         protein: "",
         goTerm: "",
         k: [],
+        ppi: false,
+        regulatory: false,
     });
     const [networkResult, setNetworkResult] = useState({});
     const cyRef = useRef(cytoscape.Core | undefined);
@@ -62,6 +64,8 @@ export default function Query() {
         protein: "",
         goTerm: "",
         k: "",
+        ppi: "",
+        regulatory: "",
     });
     const [guide, setGuide] = useState(guideConfig);
     const [activeModeButton, setActiveModeButton] = useState("");
@@ -77,15 +81,16 @@ export default function Query() {
     const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
     const [exState, setExState] = useState("");
-    const [relationshipType, setRelationshipType] = useState({
-        ppi: false,
-        regulatory: false,
-    });
     const [formValid, setFormValid] = useState(true);
 
     cytoscape.use(cola);
 
     useEffect(() => {
+        const currentPPI = searchParams.get("ppi");
+        const currentRegulatory = searchParams.get("regulatory");
+
+        const ppiBoolean = currentPPI === "true";
+        const regulatoryBoolean = currentRegulatory === "true";
         if (searchParams.get("species") === "") {
             setQuery({
                 mode: "path",
@@ -93,6 +98,8 @@ export default function Query() {
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
+                ppi: ppiBoolean,
+                regulatory: regulatoryBoolean,
             });
             setActiveModeButton("path");
         } else {
@@ -102,6 +109,8 @@ export default function Query() {
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
+                ppi: ppiBoolean,
+                regulatory: regulatoryBoolean,
             });
             setActiveModeButton("path");
         }
@@ -109,12 +118,19 @@ export default function Query() {
 
     // Get the search params from the URL
     useEffect(() => {
+        const currentPPI = searchParams.get("ppi");
+        const currentRegulatory = searchParams.get("regulatory");
+
+        const ppiBoolean = currentPPI === "true";
+        const regulatoryBoolean = currentRegulatory === "true";
         if (
             searchParams.get("mode") != "" &&
             searchParams.get("species") != "" &&
             searchParams.get("protein") != "" &&
             searchParams.get("goTerm") != "" &&
-            searchParams.get("k") != ""
+            searchParams.get("k") != "" &&
+            searchParams.get("ppi") != "" &&
+            searchParams.get("reg") != ""
         ) {
             setQuery({
                 mode: searchParams.get("mode"),
@@ -122,6 +138,8 @@ export default function Query() {
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
+                ppi: ppiBoolean,
+                regulatory: regulatoryBoolean,
             });
             setActiveModeButton(searchParams.get("mode"));
         }
@@ -193,6 +211,7 @@ export default function Query() {
         }
     }, [networkResult]);
 
+
     //Once the network parsing has completed, get all the stats information of the subnetwork.
     useEffect(() => {
         if (dataParsingStatus) {
@@ -220,20 +239,18 @@ export default function Query() {
         }
     }, [dataParsingStatus]);
 
-    useEffect(() => {
-        console.log(relationshipType);
-    }, [relationshipType]);
-
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
 
-        setRelationshipType({
-            ...relationshipType,
+        setQuery((prevData) => ({
+            ...prevData,
             [name]: checked,
-        });
+        }));
 
         // Check if the form is valid
-        setFormValid(checked || relationshipType.ppi || relationshipType.regulatory);
+        setFormValid(
+            checked || query.ppi || query.regulatory
+        );
     };
 
     // Function for submitting the query
@@ -257,7 +274,7 @@ export default function Query() {
         let rawData = null;
         if (query.mode == "path") {
             try {
-                const requestBody = Object.assign(query, relationshipType);
+                const requestBody = Object.assign(query);
 
                 network = await fetch("/api/getQuery", {
                     method: "POST",
@@ -361,7 +378,9 @@ export default function Query() {
                         }
                     })
                     .then((edgeData) => {
-                        setNetworkResult(EdgeDataParser(network, edgeData, relationshipType));
+                        setNetworkResult(
+                            EdgeDataParser(network, edgeData, query.ppi, query.regulatory)
+                        );
                         setRawData(rawData);
                         setDataParsingStatus(true);
                         setQueryComplete(true);
@@ -380,6 +399,8 @@ export default function Query() {
                 protein: network.nodes[0].data.id,
                 goTerm: network.goTerm.id,
                 k: query.k,
+                ppi: query.ppi,
+                regulatory: query.regulatory,
             });
         }
         setIsLoading(false);
@@ -747,6 +768,8 @@ export default function Query() {
                 protein: query.protein,
                 goTerm: query.goTerm,
                 k: query.k,
+                ppi: query.ppi,
+                regulatory: query.regulatory,
             });
         } else {
             setQuery((prevState) => ({
@@ -760,6 +783,8 @@ export default function Query() {
                 protein: query.protein,
                 goTerm: query.goTerm,
                 k: query.k,
+                ppi: query.ppi,
+                regulatory: query.regulatory,
             });
         }
     };
@@ -798,8 +823,6 @@ export default function Query() {
                         handleQueryMode={handleQueryMode}
                         activeModeButton={activeModeButton}
                         exState={exState}
-                        relationshipType={relationshipType}
-                        setRelationshipType={setRelationshipType}
                         handleCheckboxChange={handleCheckboxChange}
                     />
                     {hasError && <QueryError errorMessage={errorMessage} />}
@@ -840,8 +863,6 @@ export default function Query() {
                             handleQueryMode={handleQueryMode}
                             activeModeButton={activeModeButton}
                             exState={exState}
-                            relationshipType={relationshipType}
-                            setRelationshipType={setRelationshipType}
                             handleCheckboxChange={handleCheckboxChange}
                         />
 
@@ -897,14 +918,12 @@ export default function Query() {
                                                             setEdgeSource(
                                                                 evt.target
                                                                     ._private
-                                                                    .data
-                                                                    .source
+                                                                    .data.source
                                                             );
                                                             setEdgeTarget(
                                                                 evt.target
                                                                     ._private
-                                                                    .data
-                                                                    .target
+                                                                    .data.target
                                                             );
                                                             setEdgeType(
                                                                 evt.target
@@ -938,7 +957,9 @@ export default function Query() {
                                                 handleSourceNode={
                                                     handleSourceNode
                                                 }
-                                                handleLayoutChange={handleLayoutChange}
+                                                handleLayoutChange={
+                                                    handleLayoutChange
+                                                }
                                                 handleSubmit={handleSubmit}
                                                 parentGoTerms={ancestorsOptions}
                                                 childrenGoTerms={
@@ -977,7 +998,9 @@ export default function Query() {
                                                 queryCount={queryCount}
                                                 logs={logs}
                                                 handleLog={handleLog}
-                                                networkStatistics={networkStatistics}
+                                                networkStatistics={
+                                                    networkStatistics
+                                                }
                                             />
                                         </div>
                                     </Panel>

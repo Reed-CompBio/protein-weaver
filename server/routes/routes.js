@@ -184,15 +184,13 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
   const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
   const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
-  const relationshipType = {ppi: data.ppi, regulatory: data.regulatory}
-
+  const ppi = data.ppi
+  const regulatory = data.regulatory
 
   console.log("Species:", species);
   console.log("Protein:", protein);
   console.log("GO Term:", goTerm);
   console.log("k:", k);
-  console.log("relationshipType:", relationshipType);
-
 
   try {
     const proteinFinderService = new ProteinFinderService(getDriver());
@@ -231,10 +229,10 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
         } else {
           //DO this to all GOterm
           let relType = ["ProGo"]
-          if (relationshipType.ppi){
+          if (ppi){
             relType.push("ProProUndirected")
           }
-          if (relationshipType.regulatory){
+          if (regulatory){
             relType.push("Reg")
           }
 
@@ -273,13 +271,13 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
   const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
   const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
-  const relationshipType = data.relationshipType
+  const ppi = data.ppi
+  const regulatory = data.regulatory
 
   console.log("Species:", species);
   console.log("Protein:", protein);
   console.log("GO Term:", goTerm);
   console.log("k:", k);
-  console.log("relationshipType:", relationshipType);
 
   console.log("getQueryByNode");
 
@@ -316,11 +314,18 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
               error: "No direct proteins connected to GO term for this species",
             });
         } else {
+          let relType = ["ProGo"]
+          if (ppi){
+            relType.push("ProProUndirected")
+          }
+          if (regulatory){
+            relType.push("Reg")
+          }
           const allShortestPathsService = new AllShortestPathsService(
             getDriver()
           );
           var allPaths = await allShortestPathsService.getAllShortestPaths(
-            protein
+            protein, relType
           );
           let neighborFound = 0;
           var paths = [];

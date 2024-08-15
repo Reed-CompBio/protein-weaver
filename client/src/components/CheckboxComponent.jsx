@@ -1,37 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-function CheckboxComponent({ relationshipType, setRelationshipType, handleCheckboxChange }) {
-    // const [checkboxes, setCheckboxes] = useState({
-    //     checkbox1: false,
-    //     checkbox2: false,
-    // });
-    // const [formValid, setFormValid] = useState(true);
-
-    // useEffect(() => {
-    //     console.log(relationshipType);
-    // }, [relationshipType]);
-
-    // const handleCheckboxChange = (event) => {
-    //     const { name, checked } = event.target;
-
-    //     setRelationshipType({
-    //         ...relationshipType,
-    //         [name]: checked,
-    //     });
-
-    //     // Check if the form is valid
-    //     setFormValid(checked || relationshipType.ppi || relationshipType.regulatory);
-    // };
-
+function CheckboxComponent({ handleCheckboxChange, query }) {
     return (
         <div>
             <label>
                 <input
                     type="checkbox"
                     name="ppi"
-                    checked={relationshipType.ppi}
+                    checked={query.ppi}
                     onChange={handleCheckboxChange}
-                    required={!relationshipType.regulatory}
+                    required={!query.regulatory}
                 />
                 Protein Protein Interaction
             </label>
@@ -39,9 +17,9 @@ function CheckboxComponent({ relationshipType, setRelationshipType, handleCheckb
                 <input
                     type="checkbox"
                     name="regulatory"
-                    checked={relationshipType.regulatory}
+                    checked={query.regulatory}
                     onChange={handleCheckboxChange}
-                    required={!relationshipType.ppi}
+                    required={!query.ppi}
                 />
                 Regulatory Interaction
             </label>

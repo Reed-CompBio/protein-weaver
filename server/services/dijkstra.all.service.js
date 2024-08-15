@@ -14,7 +14,7 @@ export default class AllShortestPathsService {
     this.driver = driver
   }
 
-  async getAllShortestPaths(source) {
+  async getAllShortestPaths(source, relType) {
 
     const session = this.driver.session()
     const res = await session.executeRead(
@@ -24,7 +24,7 @@ export default class AllShortestPathsService {
           WHERE source.id =~'(?i)' + $source OR source.name =~'(?i)' + $source OR source.alt_name =~'(?i)' + $source
           CALL gds.allShortestPaths.dijkstra.stream('proGoGraph', {
               sourceNode: source,
-              relationshipTypes: ["ProGo", "ProProUndirected","Reg"],
+              relationshipTypes: toStringList($relType),
               nodeLabels: ["protein", "go_term"]
           })
           YIELD index, sourceNode, targetNode, nodeIds, path
@@ -36,6 +36,8 @@ export default class AllShortestPathsService {
           ORDER BY index
           `, {
         source: source,
+        relType, relType
+
       }
       )
     )
