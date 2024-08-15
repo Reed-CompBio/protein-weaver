@@ -484,6 +484,9 @@ select {
 }
 
 .query-result-link-container {
+    position: relative;
+    display: flex;
+    align-items: center;
     margin: auto;
 }
 
@@ -1153,30 +1156,38 @@ select {
 
 /* CSS for warning for GO terms that should never be annotated */
 .never-annotate-container {
-    position: relative;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
 }
 
 .never-annotate-icon {
     position: absolute;
-    top: -50px;
-    left: 80px;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
     color: var(--graph-blue);
     /* Adjust this value as needed */
 }
 
 .never-annotate-warning {
     position: absolute;
-    top: -35px;
-    left: 60px;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
     /* Adjust this value as needed */
     background-color: rgba(0, 0, 0, 0.75);
     color: #fff;
     padding: 5px;
     border-radius: 5px;
     font-size: 10px;
-    z-index: 1;
+    z-index: -1;
     display: none;
     text-align: center;
+    width: 80px;
 }
 
 .never-annotate-container:hover .never-annotate-warning {

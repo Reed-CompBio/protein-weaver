@@ -94,14 +94,6 @@ export default function GraphSummary({
                     </a>
                 </div>
                 <div className="query-result-link-container">
-                    <a
-                        className="blue-sidebar-link sidebar-button-block"
-                        href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        {goTerm.name}
-                    </a>
                     {neverAnnotateWarning && (
                         <div
                             className="never-annotate-container"
@@ -116,6 +108,14 @@ export default function GraphSummary({
                             )}
                         </div>
                     )}
+                    <a
+                        className="blue-sidebar-link sidebar-button-block"
+                        href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        {goTerm.name}
+                    </a>
                 </div>
             </div>
             <GoDefinition open>
