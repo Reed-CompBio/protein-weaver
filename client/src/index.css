@@ -1225,7 +1225,6 @@ select {
 
 .new-source {
     margin-top: 0;
-    margin-left: 16px;
     margin-bottom: 16px;
     min-height: 50px;
     min-width: 96px;
@@ -1243,7 +1242,6 @@ select {
 
 .new-source-disabled {
     margin-top: 0;
-    margin-left: 16px;
     margin-bottom: 16px;
     min-height: 50px;
     min-width: 96px;
