@@ -81,6 +81,8 @@ export default function Query() {
         ppi: false,
         regulatory: false,
     });
+    const [formValid, setFormValid] = useState(true);
+
     cytoscape.use(cola);
 
     useEffect(() => {
@@ -217,6 +219,22 @@ export default function Query() {
             getAvgDegree();
         }
     }, [dataParsingStatus]);
+
+    useEffect(() => {
+        console.log(relationshipType);
+    }, [relationshipType]);
+
+    const handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+
+        setRelationshipType({
+            ...relationshipType,
+            [name]: checked,
+        });
+
+        // Check if the form is valid
+        setFormValid(checked || relationshipType.ppi || relationshipType.regulatory);
+    };
 
     // Function for submitting the query
     async function handleSubmit(e) {
@@ -782,6 +800,7 @@ export default function Query() {
                         exState={exState}
                         relationshipType={relationshipType}
                         setRelationshipType={setRelationshipType}
+                        handleCheckboxChange={handleCheckboxChange}
                     />
                     {hasError && <QueryError errorMessage={errorMessage} />}
 
@@ -823,6 +842,7 @@ export default function Query() {
                             exState={exState}
                             relationshipType={relationshipType}
                             setRelationshipType={setRelationshipType}
+                            handleCheckboxChange={handleCheckboxChange}
                         />
 
                         {hasError && <QueryError errorMessage={errorMessage} />}

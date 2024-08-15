@@ -17,7 +17,8 @@ export default function SearchBar({
   activeModeButton,
   exState,
   relationshipType,
-  setRelationshipType
+  setRelationshipType,
+  handleCheckboxChange
 }) {
   let spName = ""
   if (query.species == "txid224308") {
@@ -65,7 +66,7 @@ export default function SearchBar({
               onChange={handleInputChange}
               required
             />
-            <CheckboxComponent relationshipType={relationshipType} setRelationshipType={setRelationshipType}></CheckboxComponent>
+            <CheckboxComponent relationshipType={relationshipType} setRelationshipType={setRelationshipType} handleCheckboxChange={handleCheckboxChange}></CheckboxComponent>
             <select
               className="species-input-container" // User input for species
               name="species" // User input for species
