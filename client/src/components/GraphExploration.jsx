@@ -32,7 +32,9 @@ export default function GraphExploration({
                     handleSubmit={handleSubmit}
                 />
                 {/* Change Graph Layout */}
-                <ChangeLayout handleLayoutChange={handleLayoutChange} />
+                <ChangeLayout
+                    handleLayoutChange={handleLayoutChange}
+                />
             </div>
         </div>
     );

@@ -429,153 +429,6 @@ select {
     align-self: auto;
 }
 
-/* CSS for GraphExploration.jsx */
-.graph-exploration {
-    display: flex;
-    flex-wrap: wrap;
-    max-height: 180px;
-}
-
-.graph-exploration-title,
-.stats-title {
-    margin-left: 16px;
-    margin-top: 16px;
-    margin-bottom: 0;
-}
-
-.align-graph-exploration {
-    display: flex;
-}
-
-.new-source {
-    margin-top: 0;
-    margin-left: 16px;
-    margin-bottom: 16px;
-    min-height: 50px;
-    min-width: 96px;
-    word-wrap: nowrap;
-    background: #000;
-    color: #fff;
-    border: 2px solid var(--light-background);
-    border-radius: 5px;
-    text-align: center;
-}
-
-.new-source-disabled {
-    margin-top: 0;
-    margin-left: 16px;
-    margin-bottom: 16px;
-    min-height: 50px;
-    min-width: 96px;
-    word-wrap: nowrap;
-    background: #888888;
-    color: #fff;
-    border: 2px solid var(--light-background);
-    border-radius: 5px;
-    text-align: center;
-    cursor: auto;
-}
-
-.new-source-container {
-    padding-left: 24px;
-    flex: 1;
-    max-height: 90px;
-    margin-left: auto;
-    margin-right: auto;
-    /* max-width: 240px; */
-}
-
-.new-source-container h5 {
-    margin-bottom: 8px;
-    margin-top: 8px;
-}
-
-.go-container {
-    margin-left: auto;
-    margin-right: auto;
-    flex: 1;
-    max-height: 100px;
-    /* max-width: 900px; */
-}
-
-.go-container h5 {
-    margin-bottom: 8px;
-    margin-top: 8px;
-}
-
-.new-go-form {
-    display: inline-block;
-}
-
-.go-selector-container {
-    margin-left: 24px;
-    margin-right: 36px;
-    display: flex;
-}
-
-.ancestor-input {
-    width: 120px;
-    margin-right: 48px;
-}
-
-.ancestor-input input {
-    width: 120px;
-}
-
-.ancestor-input label {
-    font-size: small;
-    color: black !important;
-}
-
-.descendant-input {
-    width: 120px;
-}
-
-.descendant-input input {
-    width: 120px;
-}
-
-.descendant-input label {
-    font-size: small;
-    color: black !important;
-    margin-top: 0px;
-}
-
-.align-selectors {
-    display: flex;
-}
-
-.hierarchy-input-container {
-    position: relative;
-}
-
-.new-go-term-button {
-    display: inline-block;
-    margin-left: 36px;
-    min-height: 50px;
-    min-width: 200px;
-    word-wrap: nowrap;
-    background: #000;
-    color: #fff;
-    border: 2px solid var(--light-background);
-    border-radius: 5px;
-    text-align: center;
-}
-
-.new-go-term-button-disabled {
-    display: inline-block;
-    margin-left: 36px;
-    min-height: 50px;
-    min-width: 200px;
-    word-wrap: nowrap;
-    background: #888888;
-    color: #fff;
-    border: 2px solid var(--light-background);
-    border-radius: 5px;
-    text-align: center;
-    cursor: auto;
-}
-
 /* CSS for ExportGraph.jsx */
 .exports-container {
     text-align: center;
@@ -1298,37 +1151,6 @@ select {
     height: 180px;
 }
 
-/* CSS for GO term hierarchy exploration, warns users with info icon when at end GO term */
-.info-icon {
-    position: absolute;
-    left: -20px;
-    top: 50%;
-    transform: translateY(50%);
-    color: grey;
-}
-
-.hierarchy-warning {
-    position: absolute;
-    top: calc(100% + 5px);
-    left: 0;
-    background-color: rgb(0, 0, 0, 0.75);
-    color: #fff;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 10px;
-    z-index: 1;
-    display: none;
-    text-align: center;
-}
-
-.info-icon-container {
-    position: relative;
-}
-
-.info-icon-container:hover .hierarchy-warning {
-    display: block;
-}
-
 /* CSS for warning for GO terms that should never be annotated */
 .never-annotate-container {
     position: relative;
@@ -1361,12 +1183,198 @@ select {
     display: block;
 }
 
-/* GraphExploration.jsx change graph layout */
-.change-layout-header {
-    width: 525px;
+/* CSS for GraphExploration.jsx */
+.graph-exploration {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 180px;
+    justify-content: center;
+    text-align: center;
+}
+
+.graph-exploration-title,
+.stats-title {
+    margin-left: 16px;
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+.graph-exploration-header {
+    background-color: var(--light-background);
+    outline: 1px solid #000;
+}
+
+/* NewSourceNode.jsx */
+.new-source-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    max-width: 240px;
+    align-self: center;
+}
+
+.new-source-container h5 {
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.new-source-container p {
+    margin-bottom: 8px;
+    margin-top: 8px;
+    font-size: x-small;
+}
+
+.new-source {
+    margin-top: 0;
+    margin-left: 16px;
+    margin-bottom: 16px;
+    min-height: 50px;
+    min-width: 96px;
+    word-wrap: nowrap;
+    background: var(--light-background);
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.new-source:hover {
+    border: 2px solid var(--reed-red-hover);
+}
+
+.new-source-disabled {
+    margin-top: 0;
+    margin-left: 16px;
+    margin-bottom: 16px;
+    min-height: 50px;
+    min-width: 96px;
+    word-wrap: nowrap;
+    background: #888888;
+    color: #fff;
+    border: 2px solid var(--light-background);
+    border-radius: 5px;
+    text-align: center;
+    cursor: auto;
+}
+
+/* CSS for AncestorSelector.jsx, DescendantSelector.jsx, GoTermSelector.jsx */
+.info-icon-ancestor {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(50%);
+    color: grey;
+}
+
+.info-icon-descendant {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(50%);
+    color: grey;
+}
+
+.hierarchy-warning {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    background-color: rgb(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    z-index: 1;
+    display: none;
+    text-align: center;
+}
+
+.info-icon-container {
+    position: relative;
+}
+
+.info-icon-container:hover .hierarchy-warning {
+    display: block;
+}
+
+.new-go-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    max-width: 300px;
+    margin-right: 16px;
+    margin-left: 16px;
+}
+
+.new-go-container h5 {
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.new-go-form {
     display: inline-block;
+}
+
+.go-selector-container {
     margin-left: 24px;
-    margin-right: none;
+    margin-right: 24px;
+    margin-top: 16px;
+    max-width: 300px;
+    display: flex;
+}
+
+.go-input {
+    width: 120px;
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-bottom: 8px;
+}
+
+.go-hierarchy-input {
+    width: 100px;
+}
+
+
+.hierarchy-input-container {
+    position: relative;
+}
+
+.new-go-term-button {
+    display: inline-block;
+    min-height: 50px;
+    min-width: 200px;
+    word-wrap: nowrap;
+    background: var(--light-background);
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.new-go-term-button:hover {
+    border: 2px solid var(--graph-blue-hover);
+}
+
+.new-go-term-button-disabled {
+    display: inline-block;
+    min-height: 50px;
+    min-width: 200px;
+    word-wrap: nowrap;
+    background: #888888;
+    color: #fff;
+    border: 2px solid var(--light-background);
+    border-radius: 5px;
+    text-align: center;
+    cursor: auto;
+}
+
+/* ChangeLayout.jsx */
+.change-layout-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    max-width: 240px;
+}
+
+.change-layout-container h5 {
+    margin-bottom: 8px;
+    margin-top: 8px;
 }
 
 .change-layout {
@@ -1375,6 +1383,8 @@ select {
 }
 
 .align-change-layout {
+    margin-top: 16px;
+    margin-left: 30px;
     align-items: center;
     justify-content: center;
     display: inline-flex;
@@ -1384,24 +1394,32 @@ select {
 .layout-tooltip {
     display: flex;
     align-self: center;
-    margin-bottom: 10px;
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: small;
 }
 
 /* Tooltip text */
 .layout-tooltip .tooltiptext {
     visibility: hidden;
+    margin-left: 2px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .layout-tooltip:hover .tooltiptext {
     visibility: visible;
     align-self: center;
+    margin-left: 2px;
 }
 
 .layout-icon {
     border: 1px dotted black;
     pointer-events: auto;
     align-items: center;
+}
+
+.layout-icon:hover {
+    border: 1px solid var(--graph-tan)
 }
 
 .mode-container {

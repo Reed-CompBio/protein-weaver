@@ -81,8 +81,7 @@ export default function GraphSummary({
 
     return (
         <div className="query-result-summary">
-            <h4 className="graph-summary-title">Query Results</h4>
-            <h5>Ontology links:</h5>
+            <h4 className="graph-summary-title">Your Query Inputs</h4>
             <div className="query-result-container">
                 <div className="query-result-link-container">
                     <a

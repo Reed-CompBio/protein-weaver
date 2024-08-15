@@ -20,10 +20,13 @@ export default function NewSourceNode({
     return (
         <div>
             <div className="new-source-container">
+                <div className="graph-exploration-header">
+                    <h5>Change Query Protein</h5>
+                </div>
                 {currentNode && (
-                    <h5>Selected protein: {currentNode.label}</h5>
+                    <p>Selected node: {currentNode.label}</p>
                 )}
-                {!currentNode && <h5>Selected protein:</h5>}
+                {!currentNode && <p>Select a node...</p>}
 
                 <form method="post" onSubmit={handleSubmit}>
                     <button

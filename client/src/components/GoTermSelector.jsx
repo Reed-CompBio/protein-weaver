@@ -54,8 +54,10 @@ export default function GoTermSelector({
 
     return (
         <div>
-            <div className="go-container">
-                <h5>Change GO Term:</h5>
+            <div className="new-go-container">
+                <div className="graph-exploration-header">
+                    <h5>Change GO Term</h5>
+                </div>
                 <div className="go-selector-container">
                     <AncestorSelector
                         parentGoTerms={parentGoTerms}
@@ -71,23 +73,24 @@ export default function GoTermSelector({
                         }
                         inputValueDescendant={inputValueDescendant}
                     />
-                    <form
-                        method="post"
-                        onSubmit={handleSubmit}
-                        className="new-go-form"
-                    >
-                        <button
-                            className={goButtonClassname}
-                            onClick={handleNewGoButton}
-                            disabled={
-                                goButtonClassname ==
-                                "new-go-term-button-disabled"
-                            }
-                        >
-                            Set as New GO Term
-                        </button>
-                    </form>
                 </div>
+                <form
+                    method="post"
+                    onSubmit={handleSubmit}
+                    className="new-go-form"
+                >
+                    <button
+                        className={goButtonClassname}
+                        onClick={handleNewGoButton}
+                        disabled={
+                            goButtonClassname ==
+                            "new-go-term-button-disabled"
+                        }
+                    >
+                        Set as New GO Term
+                    </button>
+                </form>
+
             </div>
         </div>
     );
