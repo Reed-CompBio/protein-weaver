@@ -45,15 +45,17 @@ export default function SearchBar({
                             placeholder="Protein"
                             autocomplete="protein-autocomplete"
                         />
-                        <Autocomplete
-                            className="go-term-input-container"
-                            suggestions={goTermOptions} // Pass the go term suggestions to the Autocomplete component
-                            inputName="goTerm"
-                            inputValue={query.goTerm}
-                            onInputChange={handleInputChange}
-                            placeholder="Gene Ontology Term"
-                            autocomplete="go-term-autocomplete"
-                        />
+                        <div className="shrink-go-input">
+                            <Autocomplete
+                                className="go-term-input-container"
+                                suggestions={goTermOptions} // Pass the go term suggestions to the Autocomplete component
+                                inputName="goTerm"
+                                inputValue={query.goTerm}
+                                onInputChange={handleInputChange}
+                                placeholder="Gene Ontology Term"
+                                autocomplete="go-term-autocomplete"
+                            />
+                        </div>
                         <input
                             className="k-input" // User input for k
                             type="number"

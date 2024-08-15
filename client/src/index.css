@@ -386,10 +386,15 @@ a.inactivated {
     z-index: 999;
 }
 
+.shrink-go-input {
+    max-width: 250px;
+    margin-right: 10px;
+}
+
 .go-term-input-container {
     margin-top: 1px;
     position: relative;
-    width: 250px;
+    width: 100%;
     display: inline-block;
     flex-wrap: nowrap;
     height: 180px;
@@ -398,11 +403,10 @@ a.inactivated {
 }
 
 .go-term-input-container input {
-    margin-right: 10px;
     pointer-events: auto;
     height: 24px;
     min-height: 24px;
-    width: 225px;
+    width: 90%;
 }
 
 .go-term-autocomplete>.active,
