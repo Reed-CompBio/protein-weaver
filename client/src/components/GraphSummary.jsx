@@ -11,6 +11,7 @@ export default function GraphSummary({
     query,
     goTerm,
     exportPNG,
+    exportJSON,
     searchExecuted,
     queryCount,
     logs,
@@ -125,7 +126,7 @@ export default function GraphSummary({
             <GraphStats
                 networkStatistics={networkStatistics}
             />
-            <ExportGraph log={logs} exportPNG={exportPNG} />
+            <ExportGraph log={logs} exportPNG={exportPNG} exportJSON={exportJSON} />
         </div>
     )
 }

@@ -761,7 +761,17 @@ export default function Query() {
                 full: true,
                 bg: "white",
             });
-            saveAs(pngBlob, "graph.png");
+            saveAs(pngBlob, "PW-network.png");
+        }
+    };
+
+    // Allow users to export network as JSON object
+    const exportJSON = () => {
+        const cy = cyRef.current;
+        if (cy) {
+            const elements = cy.json().elements;
+            const jsonBlob = new Blob([JSON.stringify(elements, null, 2)], { type: "application/json" });
+            saveAs(jsonBlob, "PW-network.json");
         }
     };
 
@@ -1034,6 +1044,7 @@ export default function Query() {
                                                 query={query}
                                                 goTerm={goTerm}
                                                 exportPNG={exportPNG}
+                                                exportJSON={exportJSON}
                                                 searchExecuted={searchParams}
                                                 queryCount={queryCount}
                                                 logs={logs}
