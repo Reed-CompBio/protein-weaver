@@ -15,7 +15,7 @@ export default function GoDefinition({ open, children }) {
             <div>
                 {/* drop down to toggle GO term definition display */}
                 <div className="go-definition" onClick={handleShow}>
-                    <p>GO Term definition: </p>
+                    <p>GO Term Definition: </p>
                     {!isOpen ? (
                         <IconContext.Provider value={{
                             className: 'icon', size: '1.5em', color: '#7F95D1'

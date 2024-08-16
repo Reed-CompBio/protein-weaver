@@ -121,7 +121,7 @@ export default function GraphSummary({
                 </div>
             </div>
             <GoDefinition open>
-                <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
+                <p className="go-def-text">&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
                 <ProGoStats name={goTerm.name} txid={txid} species={query.species} />
             </GoDefinition>
             <GraphStats
