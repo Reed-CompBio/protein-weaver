@@ -15,11 +15,11 @@ export function NetworkParserPath(data) {
             let physicalDegree = currentPath[j].properties.degree.low;
 
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
-            if (nodeName !== null) {
+            if (nodeName) {
                 nodeName = nodeName === "-" ? nodeId : nodeName;
-            } else if (nodeGeneName !== null) {
+            } else if (nodeGeneName) {
                 nodeName = nodeGeneName === "-" ? nodeId : nodeGeneName;
-            } else if (nodeAltName !== null) {
+            } else if (nodeAltName) {
                 nodeName = nodeAltName;
             } else {
                 nodeName = nodeId;
@@ -386,11 +386,11 @@ export function NetworkParserNode(data, k) {
             let physicalDegree = currentPath[j].properties.degree.low;
 
             // handles the case where name param doesnt exist. representing node that only has regulatory interactions
-            if (nodeName !== null) {
+            if (nodeName) {
                 nodeName = nodeName === "-" ? nodeId : nodeName;
-            } else if (nodeGeneName !== null) {
+            } else if (nodeGeneName) {
                 nodeName = nodeGeneName === "-" ? nodeId : nodeGeneName;
-            } else if (nodeAltName !== null) {
+            } else if (nodeAltName) {
                 nodeName = nodeAltName;
             } else {
                 nodeName = nodeId;
