@@ -737,6 +737,7 @@ select {
 .go-def-text {
     margin-top: 0px;
     text-align: justify;
+    font-size: small;
 }
 
 .icon-top-right {
@@ -746,6 +747,25 @@ select {
     right: 0;
     top: 0;
     cursor: pointer;
+}
+
+.pro-go-stats {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.pro-go-stats h5 {
+    margin-right: 0px;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+.pro-go-stats p {
+    margin-top: 0px;
+    margin-left: 2px;
+    margin-bottom: 0px;
+    font-size: large;
+    align-self: center;
 }
 
 /* CSS for Legend.jsx */

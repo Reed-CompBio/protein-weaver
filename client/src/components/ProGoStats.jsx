@@ -29,8 +29,9 @@ export default function ProGoStats({ name, txid, species }) {
     }, [name]);
 
     return (
-        <div>
-            &nbsp;&nbsp;&nbsp;Number of Proteins Annotated to GO Term [{txid}]: {count}
+        <div className="pro-go-stats">
+            <h5>Total Proteins Annotated to GO Term [{txid}]:</h5>
+            <p>{count}</p>
         </div>
     )
 }
