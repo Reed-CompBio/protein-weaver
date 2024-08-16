@@ -1,109 +1,104 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { TbChevronCompactDown, TbChevronCompactUp } from 'react-icons/tb';
+import { IconContext } from 'react-icons';
 import iconNode from "/src/assets/icon-node.png";
 import iconPaths from "/src/assets/icon-paths.png";
 import iconEdges from "/src/assets/icon-edges.png";
 import iconDegree from "/src/assets/icon-degree.png";
 
-export default function GraphStats({
-    networkStatistics
-}) {
+export default function GraphStats({ networkStatistics }) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleShow = () => {
+        setIsOpen(prev => !prev);
+    };
+
+    const TooltipIcon = ({ icon, alt, tooltipId, tooltipContent, iconClass }) => (
+        <div className={iconClass}>
+            <img
+                src={icon}
+                alt={alt}
+                data-tooltip-id={tooltipId}
+            />
+            <ReactTooltip
+                id={tooltipId}
+                place="top"
+                content={tooltipContent}
+                effect="float"
+            />
+        </div>
+    );
+
     return (
         <div>
-            <h5 className="stats-title">Network statistics:</h5>
-            <div className="graph-stats-container">
-                <div className="align-graph-stats">
-                    <div className="img-text-container">
-                        <div>
-                            <div className="node-icon-container">
-                                <img
-                                    src={iconNode}
-                                    alt="Node Icon"
-                                    className="icon1"
-                                    data-tooltip-id="nodeTooltip"
-                                />
-                                <ReactTooltip
-                                    id="nodeTooltip"
-                                    place="top"
-                                    content="Number of nodes displayed on graph"
-                                    effect="float"
-                                />
-                            </div>
-                        </div>
-                        <div>
+            {/* drop down to toggle Network Stats display */}
+            <div className="graph-stats" onClick={handleShow}>
+                <p>Network Statistics:</p>
+                <IconContext.Provider value={{
+                    className: 'icon', size: '1.5em', color: '#7F95D1'
+                }}>
+                    {isOpen ? (
+                        <TbChevronCompactUp className="icon-top-right" />
+                    ) : (
+                        <TbChevronCompactDown className="icon-top-right" />
+                    )}
+                </IconContext.Provider>
+            </div>
+
+            {isOpen && (
+                <div className="graph-stats-container">
+                    <div className="align-graph-stats">
+                        <div className="img-text-container">
+                            <TooltipIcon
+                                icon={iconNode}
+                                alt="Node Icon"
+                                tooltipId="nodeTooltip"
+                                tooltipContent="Number of nodes displayed on graph"
+                                iconClass="graph-stats-icon-container"
+                            />
                             <p># of nodes: {networkStatistics.nodeCount}</p>
                         </div>
-                    </div>
-                    <div className="img-text-container">
-                        <div>
-                            <div className="edges-icon-container">
-                                <img
-                                    src={iconPaths}
-                                    alt="Edges icon"
-                                    className="icon2"
-                                    data-tooltip-id="edges-tooltip"
-                                />
-                                <ReactTooltip
-                                    id="edges-tooltip"
-                                    place="top"
-                                    content="Number of edges displayed on graph"
-                                    effect="float"
-                                />
-                            </div>
-                        </div>
-                        <div>
+
+                        <div className="img-text-container">
+                            <TooltipIcon
+                                icon={iconPaths}
+                                alt="Edges Icon"
+                                tooltipId="edges-tooltip"
+                                tooltipContent="Number of edges displayed on graph"
+                                iconClass="graph-stats-icon-container"
+                            />
                             <p># of edges: {networkStatistics.edgeCount}</p>
                         </div>
                     </div>
-                </div>
-                <div className="align-graph-stats">
-                    <div className="img-text-container">
-                        <div>
-                            <div className="paths-icon-container">
-                                <img
-                                    src={iconEdges}
-                                    alt="Paths icon"
-                                    className="icon3"
-                                    data-tooltip-id="paths-tooltip"
-                                />
-                                <ReactTooltip
-                                    id="paths-tooltip"
-                                    place="top"
-                                    content="Number of paths from the GO protein to source node"
-                                    effect="float"
-                                />
-                            </div>
-                        </div>
-                        <div>
+
+                    <div className="align-graph-stats">
+                        <div className="img-text-container">
+                            <TooltipIcon
+                                icon={iconEdges}
+                                alt="Paths Icon"
+                                tooltipId="paths-tooltip"
+                                tooltipContent="Number of paths from the GO protein to source node"
+                                iconClass="graph-stats-icon-container"
+                            />
                             <p># of paths: {networkStatistics.pathCount}</p>
                         </div>
-                    </div>
-                    <div className="img-text-container">
-                        <div>
-                            <div className="degree-icon-container">
-                                <img
-                                    src={iconDegree}
-                                    alt="Degree icon"
-                                    className="icon4"
-                                    data-tooltip-id="degree-tooltip"
-                                />
-                                <ReactTooltip
-                                    id="degree-tooltip"
-                                    place="top"
-                                    content="Higher degree indicates more neighboring nodes"
-                                    effect="float"
-                                />
-                            </div>
-                        </div>
-                        <div>
+
+                        <div className="img-text-container">
+                            <TooltipIcon
+                                icon={iconDegree}
+                                alt="Degree Icon"
+                                tooltipId="degree-tooltip"
+                                tooltipContent="Higher degree indicates more neighboring nodes"
+                                iconClass="graph-stats-icon-container"
+                            />
                             <p>
-                                Average node degree:{" "}
-                                {networkStatistics.avgNodeDegree}
+                                Average node degree: {networkStatistics.avgNodeDegree}
                             </p>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
-    )
+    );
 };

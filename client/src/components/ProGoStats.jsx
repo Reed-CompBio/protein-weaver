@@ -30,8 +30,7 @@ export default function ProGoStats({ name, txid, species }) {
 
     return (
         <div className="pro-go-stats">
-            <h5>Total Proteins Annotated to GO Term [{txid}]:</h5>
-            <p>{count}</p>
+            <h5>Total Proteins Annotated to GO Term [{txid}]: {count}</h5>
         </div>
     )
 }

@@ -474,7 +474,7 @@ select {
 /* CSS for ExportGraph.jsx */
 .exports-container {
     text-align: center;
-    margin-top: 8px;
+    margin-top: 16px;
     margin-bottom: 8px;
 }
 
@@ -485,6 +485,9 @@ select {
     cursor: pointer;
     font-size: 0.8em;
     margin-right: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-flex;
 }
 
 .export:hover {
@@ -758,14 +761,6 @@ select {
     margin-right: 0px;
     margin-top: 2px;
     margin-bottom: 0px;
-}
-
-.pro-go-stats p {
-    margin-top: 0px;
-    margin-left: 2px;
-    margin-bottom: 0px;
-    font-size: large;
-    align-self: center;
 }
 
 /* CSS for Legend.jsx */
@@ -1748,65 +1743,64 @@ select {
 }
 
 /* GraphStats.jsx */
+.graph-stats {
+    background-color: var(--light-background);
+    color: #000;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    text-align: left;
+    outline: 1px solid black;
+    width: 98%;
+    vertical-align: middle;
+    position: relative;
+    margin-left: 5px;
+    min-width: none;
+}
+
+.graph-stats p {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 10px;
+    display: inline-flex;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
 .graph-stats-container {
-    margin-left: 30px;
-    margin-top: 20px;
+    margin-left: 24px;
+    /* margin-top: 16px; */
 }
 
 .align-graph-stats {
-    display: inline-flex;
-}
-
-.node-icon-container {
     display: flex;
-    flex-direction: column;
-    width: 70px;
-    height: 5px;
-    margin-right: 20px;
+    flex-wrap: wrap;
+    /* gap: 20px; */
 }
 
 .img-text-container {
     display: flex;
-    margin-top: 20px;
-    margin-right: 20px;
+    align-items: center;
+    gap: 10px;
+    width: 250px;
 }
 
-.node-icon-container:hover {
-    display: block;
+.img-text-container p {
+    font-size: small;
+    font-weight: bold;
 }
 
-.edges-icon-container {
+.graph-stats-icon-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 70px;
-    height: 5px;
-    margin-right: 20px;
+    height: 70px;
+    transition: transform 0.2s ease;
 }
 
-.edges-icon-container:hover {
-    display: block;
-}
-
-.paths-icon-container {
-    display: flex;
-    flex-direction: column;
-    width: 70px;
-    height: 5px;
-    margin-right: 20px;
-}
-
-.paths-icon-container:hover {
-    display: block;
-}
-
-.degree-icon-container {
-    display: flex;
-    flex-direction: column;
-    width: 70px;
-    height: 55px;
-    margin-right: 20px;
-}
-
-.degree-icon-container:hover {
-    display: block;
+.graph-stats-icon-container:hover {
+    transform: scale(1.1);
 }
