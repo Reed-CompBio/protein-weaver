@@ -211,7 +211,6 @@ export default function Query() {
         }
     }, [networkResult]);
 
-
     //Once the network parsing has completed, get all the stats information of the subnetwork.
     useEffect(() => {
         if (dataParsingStatus) {
@@ -248,9 +247,7 @@ export default function Query() {
         }));
 
         // Check if the form is valid
-        setFormValid(
-            checked || query.ppi || query.regulatory
-        );
+        setFormValid(checked || query.ppi || query.regulatory);
     };
 
     // Function for submitting the query
@@ -379,7 +376,12 @@ export default function Query() {
                     })
                     .then((edgeData) => {
                         setNetworkResult(
-                            EdgeDataParser(network, edgeData, query.ppi, query.regulatory)
+                            EdgeDataParser(
+                                network,
+                                edgeData,
+                                query.ppi,
+                                query.regulatory
+                            )
                         );
                         setRawData(rawData);
                         setDataParsingStatus(true);
@@ -611,6 +613,8 @@ export default function Query() {
                         protein: "egfr",
                         goTerm: "Wnt signaling pathway",
                         k: "4",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -622,6 +626,8 @@ export default function Query() {
                         protein: "flw",
                         goTerm: "apical constriction",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -633,6 +639,8 @@ export default function Query() {
                         protein: "flw",
                         goTerm: "myosin II binding",
                         k: "3",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -647,6 +655,8 @@ export default function Query() {
                         protein: "smad2",
                         goTerm: "DNA damage response",
                         k: "4",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -658,6 +668,8 @@ export default function Query() {
                         protein: "smad1",
                         goTerm: "positive regulation of cell development",
                         k: "4",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -669,6 +681,8 @@ export default function Query() {
                         protein: "smad5",
                         goTerm: "neural plate pattern specification",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -683,6 +697,8 @@ export default function Query() {
                         protein: "GanP",
                         goTerm: "ABC-type carbohydrate transporter activity",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -694,6 +710,8 @@ export default function Query() {
                         protein: "MrpD",
                         goTerm: "monoatomic cation transmembrane transporter activity",
                         k: "6",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -705,6 +723,8 @@ export default function Query() {
                         protein: "OppC",
                         goTerm: "sporulation",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
