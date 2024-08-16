@@ -741,6 +741,8 @@ select {
     margin-top: 0px;
     text-align: justify;
     font-size: small;
+    padding-left: 8px;
+    padding-right: 4px;
 }
 
 .icon-top-right {
