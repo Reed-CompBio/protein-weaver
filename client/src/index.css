@@ -1629,7 +1629,7 @@ select {
     width: 100%;
     padding: 5px;
     text-align: center;
-    background-color: #828588;
+    background-color: var(--light-background);
 }
 
 .stats-tab-construction {
@@ -1644,6 +1644,7 @@ select {
     border-top-right-radius: 5px;
     text-decoration: underline;
     background-color: white;
+    font-weight: bold;
 }
 
 .stats-title {
@@ -1726,10 +1727,38 @@ select {
 }
 
 /* MotifTab.jsx */
+
 .motif-stats-container {
-    margin-left: 30px;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+    margin-left: 24px;
+    margin-bottom: 16px;
 }
+
+.motif-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.motif-item p {
+    font-size: small;
+    font-weight: bold;
+}
+
+.motif-icon {
+    width: 80px;
+    /* Adjust size as needed */
+    height: 55px;
+    /* Adjust size as needed */
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+
+
 
 /* EdgeTab.jsx */
 .edge-container {
