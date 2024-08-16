@@ -23,9 +23,9 @@ export default function ExportGraph({ log, exportPNG, exportJSON }) {
   const exportLogJson = (e) => {
     e.preventDefault();
     downloadFile({
-      data: JSON.stringify({ log }),
+      data: JSON.stringify({ log }, null, 2),
       fileName: "PW-log.json",
-      fileType: "text/json",
+      fileType: "application/json",
     });
   };
 

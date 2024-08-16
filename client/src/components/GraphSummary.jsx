@@ -60,7 +60,7 @@ export default function GraphSummary({
         if (currentNode) {
             const logKey = `protein${proteinCount + 1}`;
             const newProtein = {
-                protein: currentNode,
+                [logKey]: currentNode,
                 timestamp: new Date().toISOString(),
             };
             setProteinCount(proteinCount + 1);
@@ -73,8 +73,9 @@ export default function GraphSummary({
         if (query) {
             const logKey = `query${queryCount}`;
             const newQuery = {
-                query: query,
+                [logKey]: query,
                 timestamp: new Date().toISOString(),
+                url: new URL(window.location.href).searchParams.toString(),
             };
             handleLog(newQuery);
         }
