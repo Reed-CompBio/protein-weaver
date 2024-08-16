@@ -178,7 +178,7 @@ router.post("/Motif", jsonParser, async (req, res, next) => {
 });
 
 // dynamic query
-router.post("/getQuery", jsonParser, async (req, res, next) => {
+router.post("/getQueryByPath", jsonParser, async (req, res, next) => {
   const data = req.body;
   const species = data.species;
   const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
@@ -260,7 +260,7 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
       }
     }
   } catch (error) {
-    console.error("Error in /getQuery:", error);
+    console.error("Error in /getQueryByPath:", error);
     res.status(500).json({ error: "Internal server error." });
   }
 });

@@ -221,10 +221,17 @@ export default function Query() {
                         networkResult,
                         query.species
                     );
-                    setNetworkStatistics((prevState) => ({
-                        ...prevState,
-                        avgNodeDegree: avgNodeDegree.toFixed(1),
-                    }));
+                    if (avgNodeDegree != null) {
+                        setNetworkStatistics((prevState) => ({
+                            ...prevState,
+                            avgNodeDegree: avgNodeDegree.toFixed(1),
+                        }));
+                    }else {
+                        setNetworkStatistics((prevState) => ({
+                            ...prevState,
+                            avgNodeDegree: 0,
+                        }));
+                    }
                 } catch (error) {
                     return Promise.reject(
                         new Error(`${response.status} ${response.statusText}`)
@@ -272,8 +279,7 @@ export default function Query() {
         if (query.mode == "path") {
             try {
                 const requestBody = Object.assign(query);
-
-                network = await fetch("/api/getQuery", {
+                network = await fetch("/api/getQueryByPath", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -297,11 +303,7 @@ export default function Query() {
                     })
                     .then((data) => {
                         rawData = data;
-                        return NetworkParserPath(
-                            data,
-                            query.protein,
-                            query.goTerm
-                        );
+                        return NetworkParserPath(data);
                     });
             } catch (error) {
                 console.error("Error getting the network:", error.message);
@@ -337,7 +339,7 @@ export default function Query() {
                     })
                     .then((data) => {
                         rawData = data;
-                        return NetworkParserNode(data, query.protein, query.k);
+                        return NetworkParserNode(data, query.k);
                     });
             } catch (error) {
                 console.error("Error getting the network:", error.message);
@@ -349,11 +351,12 @@ export default function Query() {
             }
         }
         // get induced subgraph
-        if (network != null) {
-            let nodeList = { nodeList: network.nodeList };
-            nodeList.nodeList.push(network.goTerm.id);
-            setSourceNode(network.nodes[0].data);
-            setGoTerm(network.goTerm);
+        let tempNetwork = JSON.parse(JSON.stringify(network));
+        if (tempNetwork != null) {
+            let nodeList = { nodeList: tempNetwork.nodeList };
+            nodeList.nodeList.push(tempNetwork.goTerm.id);
+            setSourceNode(tempNetwork.nodes[0].data);
+            setGoTerm(tempNetwork.goTerm);
             let edgeData = null;
             try {
                 edgeData = await fetch("/api/getEdgeData", {
@@ -374,19 +377,16 @@ export default function Query() {
                             );
                         }
                     })
-                    .then((edgeData) => {
-                        setNetworkResult(
-                            EdgeDataParser(
-                                network,
-                                edgeData,
-                                query.ppi,
-                                query.regulatory
-                            )
-                        );
+                    .then((data) => {
                         setRawData(rawData);
                         setDataParsingStatus(true);
                         setQueryComplete(true);
-                        return networkResult;
+                        return EdgeDataParser(
+                            network,
+                            data,
+                            query.ppi,
+                            query.regulatory
+                        );
                     });
             } catch (error) {
                 console.error("Error getting the network:", error);
@@ -395,6 +395,7 @@ export default function Query() {
                 setIsLoading(false);
                 return;
             }
+            setNetworkResult(edgeData);
             setSearchParams({
                 mode: query.mode,
                 species: query.species,
@@ -470,6 +471,12 @@ export default function Query() {
                 });
         }
     }, [networkResult.goTerm]);
+
+    useEffect(() => {
+        if (networkResult != {}) {
+            // console.log(networkResult);
+        }
+    }, [networkResult]);
 
     // Get ancestors for queried GO term
     useEffect(() => {
@@ -725,6 +732,78 @@ export default function Query() {
                         k: "10",
                         ppi: true,
                         regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
+        } else if (query.species == "txid559292") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "node",
+                        species: "txid559292",
+                        protein: "P32657",
+                        goTerm: "DNA binding",
+                        k: "10",
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "path",
+                        species: "txid559292",
+                        protein: "p43639",
+                        goTerm: "membrane-bounded organelle",
+                        k: "10",
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid559292",
+                        protein: "p03069",
+                        goTerm: "cellular macromolecule localization",
+                        k: "10",
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
+        } else if (query.species == "txid6239") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "path",
+                        species: "txid6239",
+                        protein: "rnt-1",
+                        goTerm: "negative regulation of stem cell differentiation",
+                        k: "7",
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "node",
+                        species: "txid6239",
+                        protein: "gck-3",
+                        goTerm: "hyperosmotic response",
+                        k: "10",
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid6239",
+                        protein: "tac-1",
+                        goTerm: "cytoskeleton organization",
+                        k: "10",
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
