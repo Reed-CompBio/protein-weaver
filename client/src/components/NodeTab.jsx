@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Degree from "./Degree";
 
-export default function NodeTab({ currentNode, query }) {
+export default function NodeTab({ currentNode, query, goTerm }) {
     const [selectedDbLink, setSelectedDbLink] = useState("");
 
     // Map of species to database links
@@ -19,30 +19,61 @@ export default function NodeTab({ currentNode, query }) {
     }, [currentNode, query.species]);
 
     if (!currentNode) {
-        return <p>Select a protein</p>;
+        return (
+            <div className="node-tab-container">
+                <h5 className="node-tab-text">Select a node to learn more...</h5>
+            </div>
+        );
     }
 
     const linkClassMap = {
-        "intermediate": "tan-sidebar-link",
-        "source": "red-sidebar-link",
-        "go_protein": "blue-sidebar-link",
-        "go_source": "blue-sidebar-link",
+        "intermediate": "tan-node-link",
+        "source": "red-node-link",
+        "go_protein": "blue-node-link",
+        "go_source": "blue-node-link",
     };
 
     return (
-        <div className="protein-summary">
+        <div className="node-tab-container">
             <h5 className="node-tab-text">
-                Selected Protein: <span className="protein-label">{currentNode.label}</span>
+                Selected Protein: {currentNode.label}
+            </h5>
+            {currentNode.gene_name && (
+                <h5 className="node-tab-text">
+                    Gene Name: {currentNode.gene_name}
+                </h5>
+            )}
+            {currentNode.alt_name && currentNode.alt_name !== currentNode.label && (
+                <h5 className="node-tab-text">
+                    Alternate Name(s): {currentNode.alt_name}
+                </h5>
+            )}
+            <h5 className="node-tab-text">
                 <Degree id={currentNode.id} />
             </h5>
-            {currentNode.alt_name && currentNode.alt_name !== currentNode.label && (
-                <h5 className="node-tab-text">Alternate Name(s): {currentNode.alt_name}</h5>
-            )}
-            {currentNode.gene_name && currentNode.gene_name !== currentNode.label && (
-                <h5 className="node-tab-text">Gene Name: {currentNode.gene_name}</h5>
+            <h5 className="node-tab-text" style={{ textTransform: "capitalize" }}>
+                Node Type: {currentNode.type.replace("_", " ")}
+                {(currentNode.type === "go_protein" || currentNode.type === "go_source") && (
+                    <div className="align-go-disclaimer">
+                        <p className="go-protein-disclaimer">*</p>
+                    </div>
+                )}
+            </h5>
+            {(currentNode.type === "go_protein" || currentNode.type === "go_source") && (
+                <p className="go-annotation-info">
+                    {currentNode.go_protein === "inferred_from_descendant" ? (
+                        <div>
+                            *{currentNode.label} is annotated to {goTerm.name} <b>[{currentNode.go_protein.replaceAll("_", " ")}]</b>.
+                        </div>
+                    ) : (
+                        <div>
+                            *{currentNode.label} is <b>{currentNode.go_protein.replaceAll("_", " ")}</b> {goTerm.name}.
+                        </div>
+                    )}
+                </p>
             )}
             <h5 className="database-link">
-                Database Link:&nbsp;
+                Organism-Specific Database:&nbsp;
                 <a
                     className={linkClassMap[currentNode.type] || ""}
                     href={selectedDbLink}
@@ -53,19 +84,6 @@ export default function NodeTab({ currentNode, query }) {
                     {currentNode.id}
                 </a>
             </h5>
-            {(currentNode.type === "go_protein" || currentNode.type === "go_source") && (
-                <>
-                    <p className="go-protein-disclaimer">
-                        *This protein is annotated to the queried GO term with:
-                    </p>
-                    <h5
-                        className={`go-protein-annotation ${currentNode.go_protein === "inferred_from_descendant" ? "bold-text" : ""
-                            }`}
-                    >
-                        {currentNode.go_protein}
-                    </h5>
-                </>
-            )}
         </div>
     );
 };

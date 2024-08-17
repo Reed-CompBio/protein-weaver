@@ -1067,6 +1067,7 @@ export default function Query() {
                                             dataSource={dataSource}
                                             currentNode={sidebarNode}
                                             query={query}
+                                            goTerm={goTerm}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>
