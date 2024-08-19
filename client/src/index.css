@@ -173,6 +173,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    /* border:2px solid purple; */
 }
 
 .k-input {
@@ -1698,4 +1699,16 @@ select {
 
 .degree-icon-container:hover {
     display: block;
+}
+.search-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: lightblue;
+    border-radius: 5px;
+  }
+
+.search-box-pair{
+    font-size: 12.5px;
+    display: flex;
+    align-items:center;
 }

@@ -2,9 +2,10 @@ import React from "react";
 
 function CheckboxComponent({ handleCheckboxChange, query }) {
     return (
-        <div>
-            <label>
+        <div className="checkbox-container">
+            <label className="search-box-pair">
                 <input
+                    className="search-checkbox"
                     type="checkbox"
                     name="ppi"
                     checked={query.ppi}
@@ -13,8 +14,9 @@ function CheckboxComponent({ handleCheckboxChange, query }) {
                 />
                 Protein Protein Interaction
             </label>
-            <label>
+            <label className="search-box-pair">
                 <input
+                    className="search-checkbox"
                     type="checkbox"
                     name="regulatory"
                     checked={query.regulatory}

@@ -72,7 +72,6 @@ export function NetworkParserPath(data) {
                 parsedData.edgeList.push(startNode + endNode);
                 parsedData.edges.push(edgeEntry);
                 // console.log(parsedData.edges)
-
             }
         }
     }
@@ -109,6 +108,9 @@ export function EdgeDataParser(networkData, edgeData, ppi, regulatory) {
         let fbRef =
             edgeData[i]._fields[0].segments[0].relationship.properties
                 .reference;
+        let interaction =
+            edgeData[i]._fields[0].segments[0].relationship.properties
+                .interaction;
         //Check for shared edges
         //If the edge already exists in the initial network data, add it to the temp edge list
         if (
@@ -149,6 +151,28 @@ export function EdgeDataParser(networkData, edgeData, ppi, regulatory) {
                     };
                     tempEdgeList.push(startNode + endNode);
                     tempEdges.push(edgeEntry);
+                } else if (interaction) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: interaction,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                } else {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: "No Evidence",
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
                 }
             } else if (relType === "Reg" && regulatory) {
                 if (pubmed) {
@@ -180,6 +204,17 @@ export function EdgeDataParser(networkData, edgeData, ppi, regulatory) {
                             target: startNode,
                             relType: relType,
                             evidence: fbRef,
+                        },
+                    };
+                    tempEdgeList.push(startNode + endNode);
+                    tempEdges.push(edgeEntry);
+                } else if (interaction) {
+                    let edgeEntry = {
+                        data: {
+                            source: endNode,
+                            target: startNode,
+                            relType: relType,
+                            evidence: interaction,
                         },
                     };
                     tempEdgeList.push(startNode + endNode);
@@ -248,7 +283,19 @@ export function EdgeDataParser(networkData, edgeData, ppi, regulatory) {
                 };
                 tempEdgeList.push(startNode + endNode);
                 tempEdges.push(edgeEntry);
-            }else {
+            } else if (interaction) {
+                let edgeEntry = {
+                    data: {
+                        source: endNode,
+                        target: startNode,
+                        relType: relType,
+                        type: "shared",
+                        evidence: interaction,
+                    },
+                };
+                tempEdgeList.push(startNode + endNode);
+                tempEdges.push(edgeEntry);
+            } else {
                 let edgeEntry = {
                     data: {
                         source: endNode,
@@ -342,4 +389,4 @@ export function NetworkParserNode(data, k) {
     }
     parsedData.goTerm = data[data.length - 1][0]._fields[0].properties;
     return parsedData;
-};
+}

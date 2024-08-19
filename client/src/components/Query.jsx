@@ -226,7 +226,7 @@ export default function Query() {
                             ...prevState,
                             avgNodeDegree: avgNodeDegree.toFixed(1),
                         }));
-                    }else {
+                    } else {
                         setNetworkStatistics((prevState) => ({
                             ...prevState,
                             avgNodeDegree: 0,
@@ -575,6 +575,8 @@ export default function Query() {
             goTerm: "",
             k: [],
             species: e.target.value,
+            ppi: false,
+            regulatory: false,
         });
     };
 
@@ -746,6 +748,8 @@ export default function Query() {
                         protein: "P32657",
                         goTerm: "DNA binding",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -757,6 +761,8 @@ export default function Query() {
                         protein: "p43639",
                         goTerm: "membrane-bounded organelle",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -768,6 +774,8 @@ export default function Query() {
                         protein: "p03069",
                         goTerm: "cellular macromolecule localization",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -782,6 +790,8 @@ export default function Query() {
                         protein: "rnt-1",
                         goTerm: "negative regulation of stem cell differentiation",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -793,6 +803,8 @@ export default function Query() {
                         protein: "gck-3",
                         goTerm: "hyperosmotic response",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -804,6 +816,8 @@ export default function Query() {
                         protein: "tac-1",
                         goTerm: "cytoskeleton organization",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
