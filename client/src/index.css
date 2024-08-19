@@ -1837,14 +1837,48 @@ select {
 
 
 /* EdgeTab.jsx */
-.edge-container {
+.edge-tab-container {
+    margin-left: 24px;
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
 }
 
-.click-edge-container {
-    display: flex;
+.edge-tab-text {
+    font-size: small;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 10px;
+}
+
+.align-edge-link {
+    display: inline-block
+}
+
+.edge-tab-evidence {
+    font-size: small;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 10px;
+}
+
+.edge-tab-link {
+    font-weight: normal;
+    font-size: small;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 26px;
+}
+
+.edge-tab-link a {
+    font-weight: bold;
+    color: black;
+    text-decoration: underline;
+}
+
+.edge-tab-link a:hover {
+    text-decoration: underline;
+    color: var(--reed-red)
 }
 
 /* GraphStats.jsx */

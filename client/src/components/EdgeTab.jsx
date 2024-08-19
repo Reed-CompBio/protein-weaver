@@ -9,10 +9,7 @@ export default function EdgeTab({
     dataSource,
 }) {
     const [interactionDatabase, setInteractionDatabase] = useState("");
-
-    useEffect(() => {
-        getDatabase(edgeEvidence);
-    }, [edgeEvidence]);
+    const [interactionType, setInteractionType] = useState("");
 
     const getDatabase = (evidence) => {
         if (evidence.startsWith("FBrf")) {
@@ -27,6 +24,10 @@ export default function EdgeTab({
             setInteractionDatabase("");
         }
     }
+
+    useEffect(() => {
+        getDatabase(edgeEvidence);
+    }, [edgeEvidence]);
 
     const getLink = (evidence) => {
         if (evidence.startsWith("FBrf")) {
@@ -44,36 +45,68 @@ export default function EdgeTab({
 
     const edgeLink = getLink(edgeEvidence);
 
-    return (
-        <div>
-            <div className="click-edge-container">
-                <h4>
-                    <div>
-                        Selected edge:{" "}
-                        {edgeLink.length > 0 ? (
-                            edgeLink.map((link, index) => (
-                                <span key={index}>
-                                    <a href={link} target="_blank" rel="noopener noreferrer">
-                                        {edgeEvidence.split(";")[index]}
-                                    </a>
-                                    {` (${interactionDatabase})`}
-                                    {index < edgeLink.length - 1 && "; "}
-                                </span>
-                            ))
-                        ) : (
-                            edgeEvidence
-                        )}
-                    </div>
-                </h4>
+    const getInteractionType = (type) => {
+        if (type === "Reg") {
+            setInteractionType("Regulatory Interaction");
+        } else if (type === "ProPro") {
+            setInteractionType("Physical Interaction");
+        }
+    };
+
+    useEffect(() => {
+        getInteractionType(edgeType);
+    }, [edgeType]);
+
+    if (!edgeSource) {
+        return (
+            <div className="edge-tab-container">
+                <h5 className="edge-tab-text">Select an edge to learn more...</h5>
             </div>
+        );
+    }
+
+    return (
+        <div className="edge-tab-container">
             {edgeSource ? (
-                <div className="edge-container">
-                    {dataSource && <div>Interaction evidence: {dataSource}</div>}
-                    <div>Source node: {edgeSource}</div>
-                    <div>Target edge: {edgeTarget}</div>
-                    <div>Edge type: {edgeType}</div>
+                <div>
+                    <h5 className="edge-tab-text">
+                        Selected Interaction:
+                    </h5>
+                    <h5 className="edge-tab-text">
+                        &nbsp;&nbsp;&nbsp;Node 1: {edgeSource}
+                    </h5>
+                    <h5 className="edge-tab-text">
+                        &nbsp;&nbsp;&nbsp;Node 2: {edgeTarget}
+                    </h5>
+                    <h5 className="edge-tab-text">
+                        Interaction Type: {interactionType}
+                    </h5>
                     {edgeType === "Reg" &&
-                        <div>Regulation mode: {regType}</div>}
+                        <h5 className="edge-tab-text" style={{ textTransform: "capitalize" }}>Regulation Mode: {regType}</h5>}
+                    <h5 className="edge-tab-text">
+                        Data Source: {dataSource}
+                    </h5>
+                    <h5 className="edge-tab-evidence">
+                        Evidence [External Link]:{" "}
+                    </h5>
+                    <div className="align-edge-link">
+                        <h5 className="edge-tab-link">
+                            {edgeLink.length > 0 ? (
+                                edgeLink.map((link, index) => (
+                                    <span key={index}>
+                                        <a href={link} target="_blank" rel="noopener noreferrer">
+                                            {edgeEvidence.split(";")[index]}
+                                        </a>
+                                        {` [${interactionDatabase}]`}
+                                        {index < edgeLink.length - 1 && "; "}
+                                    </span>
+                                ))
+                            ) : (
+                                edgeEvidence
+                            )}
+                        </h5>
+                    </div>
+
                 </div>
             ) : (
                 <p>Select an edge for more information</p>
