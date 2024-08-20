@@ -60,17 +60,17 @@ export default function NodeTab({ currentNode, query, goTerm }) {
                 )}
             </h5>
             {(currentNode.type === "go_protein" || currentNode.type === "go_source") && (
-                <p className="go-annotation-info">
+                <div>
                     {currentNode.go_protein === "inferred_from_descendant" ? (
-                        <div>
+                        <p className="go-annotation-info">
                             *{currentNode.label} is annotated to {goTerm.name} <b>[{currentNode.go_protein.replaceAll("_", " ")}]</b>.
-                        </div>
+                        </p>
                     ) : (
-                        <div>
+                        <p className="go-annotation-info">
                             *{currentNode.label} is <b>{currentNode.go_protein.replaceAll("_", " ")}</b> {goTerm.name}.
-                        </div>
+                        </p>
                     )}
-                </p>
+                </div>
             )}
             <h5 className="database-link">
                 Organism-Specific Database:&nbsp;
