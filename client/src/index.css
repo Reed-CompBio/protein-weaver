@@ -1734,72 +1734,34 @@ select {
     height: 100%;
     width: 100%;
     overflow-y: auto;
+    overflow-x: auto;
+
 }
 
 .summary-panel-container::-webkit-scrollbar,
 .statistics-panel-container::-webkit-scrollbar,
 .graph-exploration-panel-container::-webkit-scrollbar {
     width: 5px;
-    /* Width of the scrollbar */
+    height: 5px;
 }
 
 .summary-panel-container::-webkit-scrollbar-track,
 .statistics-panel-container::-webkit-scrollbar-track,
 .graph-exploration-panel-container::-webkit-scrollbar-track {
     background: #f1f1f1;
-    /* Color of the scrollbar track */
 }
 
 .summary-panel-container::-webkit-scrollbar-thumb,
 .statistics-panel-container::-webkit-scrollbar-thumb,
 .graph-exploration-panel-container::-webkit-scrollbar-thumb {
     background: var(--reed-red);
-    /* Color of the scrollbar thumb */
     border-radius: 6px;
-    /* Rounded corners of the scrollbar thumb */
 }
 
 .summary-panel-container::-webkit-scrollbar-thumb:hover,
 .statistics-panel-container::-webkit-scrollbar-thumb:hover,
 .graph-exploration-panel-container::-webkit-scrollbar-thumb:hover {
     background: #555;
-    /* Color of the scrollbar thumb when hovered */
-}
-
-.scrollable-content {
-    max-height: 100%;
-    /* Set a fixed height to enable scrolling */
-    overflow-y: scroll;
-    /* Make the content scrollable */
-    direction: rtl;
-    /* Set the direction to right-to-left to move the scrollbar to the left */
-}
-
-.scrollable-content * {
-    direction: ltr;
-    /* Reset the text direction to left-to-right for the content */
-}
-
-.scrollable-content::-webkit-scrollbar {
-    width: 12px;
-    /* Width of the scrollbar */
-}
-
-.scrollable-content::-webkit-scrollbar-track {
-    background: var(--reed-red);
-    /* Color of the scrollbar track */
-}
-
-.scrollable-content::-webkit-scrollbar-thumb {
-    background: var(re);
-    /* Color of the scrollbar thumb */
-    border-radius: 6px;
-    /* Rounded corners of the scrollbar thumb */
-}
-
-.scrollable-content::-webkit-scrollbar-thumb:hover {
-    background: #555;
-    /* Color of the scrollbar thumb when hovered */
 }
 
 /* MotifTab.jsx */
