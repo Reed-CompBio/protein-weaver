@@ -92,50 +92,43 @@ export default function EdgeTab({
 
     return (
         <div className="edge-tab-container">
-            {edgeSource ? (
-                <div>
-                    <h5 className="edge-tab-text">
-                        Selected Interaction:
-                    </h5>
-                    <h5 className="edge-tab-text">
-                        &nbsp;&nbsp;&nbsp;Node 1: {edgeSource}
-                    </h5>
-                    <h5 className="edge-tab-text">
-                        &nbsp;&nbsp;&nbsp;Node 2: {edgeTarget}
-                    </h5>
-                    <h5 className="edge-tab-text">
-                        Interaction Type: {interactionType}
-                    </h5>
-                    {edgeType === "Reg" &&
-                        <h5 className="edge-tab-text" style={{ textTransform: "capitalize" }}>Regulation Mode: {regType}</h5>}
-                    <h5 className="edge-tab-text">
-                        Data Source: {interactionSource}
-                    </h5>
-                    <h5 className="edge-tab-evidence">
-                        Evidence [External Link]:{" "}
-                    </h5>
-                    <div className="align-edge-link">
-                        <h5 className="edge-tab-link">
-                            {edgeLink.length > 0 ? (
-                                edgeLink.map((link, index) => (
-                                    <span key={index}>
-                                        <a href={link} target="_blank" rel="noopener noreferrer">
-                                            {edgeEvidence.split(";")[index]}
-                                        </a>
-                                        {` [${interactionDatabase}]`}
-                                        {index < edgeLink.length - 1 && "; "}
-                                    </span>
-                                ))
-                            ) : (
-                                edgeEvidence
-                            )}
-                        </h5>
-                    </div>
-
-                </div>
-            ) : (
-                <p>Select an edge for more information</p>
-            )}
+            <h5 className="edge-tab-text">
+                Selected Interaction:
+            </h5>
+            <h5 className="edge-tab-text">
+                &nbsp;&nbsp;&nbsp;Node 1: {edgeSource}
+            </h5>
+            <h5 className="edge-tab-text">
+                &nbsp;&nbsp;&nbsp;Node 2: {edgeTarget}
+            </h5>
+            <h5 className="edge-tab-text">
+                Interaction Type: {interactionType}
+            </h5>
+            {edgeType === "Reg" &&
+                <h5 className="edge-tab-text" style={{ textTransform: "capitalize" }}>Regulation Mode: {regType}</h5>}
+            <h5 className="edge-tab-text">
+                Data Source: {interactionSource}
+            </h5>
+            <h5 className="edge-tab-evidence">
+                Evidence [External Link]:{" "}
+            </h5>
+            <div className="align-edge-link">
+                <h5 className="edge-tab-link">
+                    {edgeLink.length > 0 ? (
+                        edgeLink.map((link, index) => (
+                            <span key={index}>
+                                <a href={link} target="_blank" rel="noopener noreferrer">
+                                    {edgeEvidence.split(";")[index]}
+                                </a>
+                                {` [${interactionDatabase}]`}
+                                {index < edgeLink.length - 1 && "; "}
+                            </span>
+                        ))
+                    ) : (
+                        edgeEvidence
+                    )}
+                </h5>
+            </div>
         </div>
     );
 }
