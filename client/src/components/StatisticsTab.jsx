@@ -12,8 +12,11 @@ export default function StatisticsTab({
     edgeSource,
     edgeTarget,
     edgeType,
+    regType,
+    dataSource,
     currentNode,
     query,
+    goTerm,
 }) {
     const [tabIndex, setTabIndex] = useState(0);
 
@@ -26,37 +29,40 @@ export default function StatisticsTab({
                 selectedTabClassName="stats-tab-selected"
             >
                 <TabList className="stats-tab-list">
-                    <Tab className="stats-tab">Nodes</Tab>
-                    <Tab className="stats-tab">Edges</Tab>{" "}
+                    <Tab className="stats-tab">Proteins</Tab>
+                    <Tab className="stats-tab">Interactions</Tab>{" "}
                     <Tab className="stats-tab">Motifs</Tab>
                 </TabList>
                 <TabPanel>
-                    <h4 className="stats-title">Node stats</h4>
+                    <h4 className="stats-title">Protein Information</h4>
                     <NodeTab
                         currentNode={currentNode}
                         query={query}
+                        goTerm={goTerm}
                     />
                 </TabPanel>
                 <TabPanel>
-                    <h4 className="stats-title">Edge stats</h4>
+                    <h4 className="stats-title">Interaction Information</h4>
                     <EdgeTab
                         edgeEvidence={edgeEvidence}
                         edgeSource={edgeSource}
                         edgeTarget={edgeTarget}
                         edgeType={edgeType}
+                        regType={regType}
+                        dataSource={dataSource}
                     />
                 </TabPanel>
                 <TabPanel>
-                    <h4 className="stats-title">Motif counts</h4>
+                    <h4 className="stats-title">Network Motif Counts</h4>
                     <MotifTab nodeList={nodeList} />
                 </TabPanel>
             </Tabs>
-            <ReactTooltip
+            {/* <ReactTooltip
                 id="construction-tooltip"
                 place="bottom"
                 content="Feature currently under development"
                 style={{ backgroundColor: "#f7e3e1", color: "black" }}
-            />
+            /> */}
         </div>
     );
 }

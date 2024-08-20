@@ -1,4 +1,4 @@
-LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
+LOAD CSV WITH HEADERS FROM 'file:///interactome-txid7227-2024_08_19.txt' AS fly
         FIELDTERMINATOR '\t'
         CALL {
             with fly
@@ -7,14 +7,14 @@ LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' 
             MERGE (a)-[r:ProPro]-(b)
         } IN TRANSACTIONS OF 100 ROWS;
 MATCH (n:protein {txid: "txid7227"}) SET n.alt_name = n.name;
-LOAD CSV WITH HEADERS FROM 'file:///interactome-flybase-collapsed-weighted.txt' AS fly
+LOAD CSV WITH HEADERS FROM 'file:///interactome-txid7227-2024_08_19.txt' AS fly
         FIELDTERMINATOR '\t'
         CALL {
             with fly
             MATCH (p:protein {id: fly.FlyBase1,  txid:"txid7227"})-[r:ProPro]-(p2:protein {id: fly.FlyBase2,  txid:"txid7227"})
-            SET r.pubmed = fly.PubMedIDs
+            SET r.pubmed = fly.PubMedIDs, r.source = fly.source
         } IN TRANSACTIONS OF 100 ROWS;
-LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7227_2024-07-31.txt' AS dmel_reg
+LOAD CSV WITH HEADERS FROM 'file:///regulatory-txid7227-2024_08_19.txt' AS dmel_reg
         FIELDTERMINATOR '\t'
         CALL {
                 with dmel_reg
@@ -23,6 +23,7 @@ LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7227_2024-07-31.txt' AS dmel_
                 MERGE (a)-[r:Reg]->(b)
                 SET r.relationship = dmel_reg.Interaction_type,
                 r.reference = dmel_reg.Publication_FBrf,
+                r.source = dmel_reg.source,
                 a.gene_name = dmel_reg.Interacting_gene_symbol,
                 b.gene_name = dmel_reg.Starting_gene_symbol
         } IN TRANSACTIONS OF 100 ROWS;

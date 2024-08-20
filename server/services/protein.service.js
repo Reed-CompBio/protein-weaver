@@ -35,11 +35,13 @@ export default class ProteinService {
                 const nodeId = node.properties.id.split(';');
                 const nodeName = node.properties.name;
                 const altName = node.properties.alt_name;
+                const geneName = node.properties.gene_name;
 
                 const nodeOptions = {
                     id: nodeId[0],
                     name: nodeName,
-                    alt_name: altName
+                    alt_name: altName,
+                    gene_name: geneName
                 };
 
                 proteinOptions.push(nodeOptions);

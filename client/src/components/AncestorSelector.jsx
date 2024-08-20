@@ -42,7 +42,7 @@ export default function AncestorSelector({
     };
 
     return (
-        <div className="ancestor-input">
+        <div className="go-input">
             <div className="hierarchy-input-container">
                 {/* display warning message when at root GO term */}
                 {isEmpty && (
@@ -51,7 +51,7 @@ export default function AncestorSelector({
                         onMouseEnter={() => setShowTooltip(true)}
                         onMouseLeave={() => setShowTooltip(false)}
                     >
-                        <FaInfoCircle className="info-icon" />
+                        <FaInfoCircle className="info-icon-ancestor" />
                         {showTooltip && (
                             <div className="hierarchy-warning">
                                 You have reached the most general GO term.
@@ -61,11 +61,12 @@ export default function AncestorSelector({
                 )}
                 {/* normal input display */}
                 <input
+                    className="go-hierarchy-input"
                     list="parent-go-terms"
                     id="ancestor-selector"
                     name="ancestor-selector"
                     onChange={onChange}
-                    placeholder="Parent GO Terms"
+                    placeholder="Ancestors"
                     value={inputValueAncestor}
                 />
             </div>
