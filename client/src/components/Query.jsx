@@ -852,7 +852,7 @@ export default function Query() {
     const exportJSON = () => {
         const cy = cyRef.current;
         if (cy) {
-            const elements = cy.json().elements;
+            const elements = cy.json();
             const jsonBlob = new Blob([JSON.stringify(elements, null, 2)], { type: "application/json" });
             saveAs(jsonBlob, "PW-network.json");
         }
