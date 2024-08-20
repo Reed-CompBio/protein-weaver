@@ -10,6 +10,7 @@ export default function EdgeTab({
 }) {
     const [interactionDatabase, setInteractionDatabase] = useState("");
     const [interactionType, setInteractionType] = useState("");
+    const [interactionSource, setInteractionSource] = useState("");
 
     const getDatabase = (evidence) => {
         if (evidence.startsWith("FBrf")) {
@@ -28,6 +29,30 @@ export default function EdgeTab({
     useEffect(() => {
         getDatabase(edgeEvidence);
     }, [edgeEvidence]);
+
+    const getInteractionSource = (source) => {
+        if (source === "flybase") {
+            setInteractionSource("FlyBase");
+        } else if (source === "wormbase") {
+            setInteractionSource("WormBase");
+        } else if (source === "string-db") {
+            setInteractionSource("STRING-DB");
+        } else if (source === "psicquic") {
+            setInteractionSource("PSICQUIC");
+        } else if (source === "subtiwiki") {
+            setInteractionSource("SubtiWiki");
+        } else if (source === "biogrid") {
+            setInteractionSource("BioGRID");
+        } else if (source === "tf-link") {
+            setInteractionSource("TFLink");
+        } else {
+            setInteractionSource("");
+        }
+    }
+
+    useEffect(() => {
+        getInteractionSource(dataSource);
+    }, [dataSource]);
 
     const getLink = (evidence) => {
         if (evidence.startsWith("FBrf")) {
@@ -84,7 +109,7 @@ export default function EdgeTab({
                     {edgeType === "Reg" &&
                         <h5 className="edge-tab-text" style={{ textTransform: "capitalize" }}>Regulation Mode: {regType}</h5>}
                     <h5 className="edge-tab-text">
-                        Data Source: {dataSource}
+                        Data Source: {interactionSource}
                     </h5>
                     <h5 className="edge-tab-evidence">
                         Evidence [External Link]:{" "}

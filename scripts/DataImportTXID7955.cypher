@@ -1,4 +1,4 @@
-LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-07-30.txt' AS zfish
+LOAD CSV WITH HEADERS FROM 'file:///interactome-txid7955-2024_08_19.txt' AS zfish
         FIELDTERMINATOR '\t'
         CALL {
             with zfish
@@ -6,14 +6,14 @@ LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-07-30.txt' AS zfis
             MERGE (b:protein {id: zfish.uniprotID2, name: zfish.name2, alt_name: zfish.alt_name2, txid: "txid7955", species: "Danio rerio"})
             MERGE (a)-[r:ProPro]-(b)
         } IN TRANSACTIONS OF 100 ROWS;
-LOAD CSV WITH HEADERS FROM 'file:///interactome_txid7955_2024-07-30.txt' AS zfish
+LOAD CSV WITH HEADERS FROM 'file:///interactome-txid7955-2024_08_19.txt' AS zfish
         FIELDTERMINATOR '\t'
         CALL {
             with zfish
             MATCH (p:protein {id: zfish.uniprotID1, txid: "txid7955"})-[r:ProPro]-(p2:protein {id: zfish.uniprotID2, txid: "txid7955"})
             SET r.link = zfish.link, r.source = zfish.source
         } IN TRANSACTIONS OF 100 ROWS;
-LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7955_2024-07-31.txt' AS drer_reg
+LOAD CSV WITH HEADERS FROM 'file:///regulatory-txid7955-2024_08_19.txt' AS drer_reg
         FIELDTERMINATOR '\t'
         CALL {
                 with drer_reg
@@ -22,6 +22,7 @@ LOAD CSV WITH HEADERS FROM 'file:///regulatory_txid7955_2024-07-31.txt' AS drer_
                 MERGE (a)-[r:Reg]->(b)
                 SET r.relationship = "regulates",
                 r.pubmed = drer_reg.PubmedID,
+                r.source = drer_reg.source,
                 a.gene_name = drer_reg.Name_TF,
                 b.gene_name = drer_reg.Name_Target
         } IN TRANSACTIONS OF 100 ROWS;

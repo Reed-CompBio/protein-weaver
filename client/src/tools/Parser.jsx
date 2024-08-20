@@ -165,7 +165,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             source: endNode,
                             target: startNode,
                             relType: relType,
-                            evidence: "No Evidence",
+                            evidence: "No Link",
                             dataSource: dataSource,
                         },
                     };
@@ -222,7 +222,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             source: endNode,
                             target: startNode,
                             relType: relType,
-                            evidence: "No Evidence",
+                            evidence: "No Link",
                             regType: regType,
                             dataSource: dataSource,
                         },
@@ -295,7 +295,7 @@ export function EdgeDataParser(networkData, edgeData) {
                             target: startNode,
                             relType: relType,
                             type: "shared",
-                            evidence: "No Evidence",
+                            evidence: "No Link",
                             dataSource: dataSource,
                         },
                     };

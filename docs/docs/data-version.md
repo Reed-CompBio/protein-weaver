@@ -279,3 +279,7 @@ Looked up species name and got taxon ID.
         - Nodes: 10,168
         - Reg Edges: 25,960
         - ProGo Edges: 30,540
+
+### 2024-08-19:
+* Added data source as a column to all regulatory and physical datasets.
+* Updated naming convention for datasets: [`type-txid-TODAY_DATE.txt`].
