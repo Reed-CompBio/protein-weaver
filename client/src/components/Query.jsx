@@ -853,8 +853,11 @@ export default function Query() {
         const cy = cyRef.current;
         if (cy) {
             const elements = cy.json();
+            const date = new Date().toLocaleDateString();
+            const time = new Date().toLocaleTimeString([], { hour12: false });
+            const fileName = `PW-network-${date}-${time}`;
             const jsonBlob = new Blob([JSON.stringify(elements, null, 2)], { type: "application/json" });
-            saveAs(jsonBlob, "PW-network.json");
+            saveAs(jsonBlob, fileName);
         }
     };
 
