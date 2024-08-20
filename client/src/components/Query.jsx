@@ -46,6 +46,8 @@ export default function Query() {
     const [edgeSource, setEdgeSource] = useState("");
     const [edgeTarget, setEdgeTarget] = useState("");
     const [edgeType, setEdgeType] = useState("");
+    const [regType, setRegType] = useState("");
+    const [dataSource, setDataSource] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
     const submitRef = useRef();
@@ -167,9 +169,10 @@ export default function Query() {
                 const proteinNames = data.map((item) => item.name);
                 const proteinIds = data.map((item) => item.id);
                 const proteinAltNames = data.map((item) => item.alt_name);
+                const geneNames = data.map((item) => item.gene_name);
                 const proteinMerged = [
                     ...new Set(
-                        proteinNames.concat(proteinIds).concat(proteinAltNames)
+                        proteinNames.concat(proteinIds).concat(proteinAltNames).concat(geneNames)
                     ),
                 ].filter((item) => item !== undefined);
                 setProteinOptions(proteinMerged);
@@ -271,6 +274,7 @@ export default function Query() {
         setEdgeSource("");
         setEdgeTarget("");
         setEdgeType("");
+        setRegType("");
 
         // get the k shortest paths for the query
         e.preventDefault();
@@ -840,7 +844,17 @@ export default function Query() {
                 full: true,
                 bg: "white",
             });
-            saveAs(pngBlob, "graph.png");
+            saveAs(pngBlob, "PW-network.png");
+        }
+    };
+
+    // Allow users to export network as JSON object
+    const exportJSON = () => {
+        const cy = cyRef.current;
+        if (cy) {
+            const elements = cy.json().elements;
+            const jsonBlob = new Blob([JSON.stringify(elements, null, 2)], { type: "application/json" });
+            saveAs(jsonBlob, "PW-network.json");
         }
     };
 
@@ -1044,6 +1058,18 @@ export default function Query() {
                                                                     .data
                                                                     .relType
                                                             );
+                                                            setRegType(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .regType
+                                                            );
+                                                            setDataSource(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .dataSource
+                                                            );
                                                         }
                                                     );
                                                 }}
@@ -1107,6 +1133,7 @@ export default function Query() {
                                                 query={query}
                                                 goTerm={goTerm}
                                                 exportPNG={exportPNG}
+                                                exportJSON={exportJSON}
                                                 searchExecuted={searchParams}
                                                 queryCount={queryCount}
                                                 logs={logs}
@@ -1125,8 +1152,11 @@ export default function Query() {
                                             edgeSource={edgeSource}
                                             edgeTarget={edgeTarget}
                                             edgeType={edgeType}
+                                            regType={regType}
+                                            dataSource={dataSource}
                                             currentNode={sidebarNode}
                                             query={query}
+                                            goTerm={goTerm}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>

@@ -1,6 +1,6 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-export default function Modetooltip() {
+export default function ModeTooltip() {
   return (
     <div>
       <ReactTooltip

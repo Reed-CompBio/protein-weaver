@@ -1,4 +1,4 @@
-LOAD CSV WITH HEADERS FROM 'file:///elegans_ppi_2024-08-08.tsv' AS elegans
+LOAD CSV WITH HEADERS FROM 'file:///interactome-txid6239-2024_08_19.txt' AS elegans
 	FIELDTERMINATOR '\t'
 	CALL {
 		with elegans
@@ -7,14 +7,14 @@ LOAD CSV WITH HEADERS FROM 'file:///elegans_ppi_2024-08-08.tsv' AS elegans
 		MERGE (a)-[r:ProPro]-(b)
 	} IN TRANSACTIONS OF 100 ROWS;
 MATCH (n:protein {txid: "txid6239"}) SET n.alt_name = n.name;
-LOAD CSV WITH HEADERS FROM 'file:///elegans_ppi_2024-08-08.tsv' AS elegans
+LOAD CSV WITH HEADERS FROM 'file:///interactome-txid6239-2024_08_19.txt' AS elegans
 	FIELDTERMINATOR '\t'
 	CALL {
 		with elegans
 		MATCH (a:protein {id: elegans.Interactor1, name: elegans.commonName1, txid: "txid6239", species: "Caenorhabditis elegans"})-[r:ProPro]-(b:protein {id: elegans.Interactor2, name: elegans.commonName2, txid: "txid6239", species: "Caenorhabditis elegans"})
-		SET r.interaction = elegans.InteractionId
+		SET r.interaction = elegans.InteractionId, r.source = elegans.source
 	} IN TRANSACTIONS OF 100 ROWS;
-LOAD CSV WITH HEADERS FROM 'file:///elegans_reg_2024-08-08.tsv' AS elegans
+LOAD CSV WITH HEADERS FROM 'file:///regulatory-txid6239-2024_08_19.txt' AS elegans
 	FIELDTERMINATOR '\t'
 	CALL {
 		with elegans
@@ -23,6 +23,7 @@ LOAD CSV WITH HEADERS FROM 'file:///elegans_reg_2024-08-08.tsv' AS elegans
 		MERGE (a)-[r:Reg]->(b)
 		SET r.relationship = "regulates",
 		r.pubmed = elegans.PubmedID,
+		r.source = elegans.source,
 		a.gene_name = elegans.name_TF,
 		b.gene_name = elegans.name_Target
 	} IN TRANSACTIONS OF 100 ROWS;

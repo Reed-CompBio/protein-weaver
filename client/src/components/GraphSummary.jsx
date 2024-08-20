@@ -3,7 +3,7 @@ import GoDefinition from "./GoDefinition";
 import ExportGraph from "./ExportGraph";
 import GraphStats from "./GraphStats";
 import { PiWarningBold } from "react-icons/pi";
-import PGStats from "./ProGoStats";
+import ProGoStats from "./ProGoStats";
 
 export default function GraphSummary({
     currentNode,
@@ -11,6 +11,7 @@ export default function GraphSummary({
     query,
     goTerm,
     exportPNG,
+    exportJSON,
     searchExecuted,
     queryCount,
     logs,
@@ -21,6 +22,7 @@ export default function GraphSummary({
     const [sourceNodeLink, setSourceNodeLink] = useState("");
     const [neverAnnotateWarning, setNeverAnnotateWarning] = useState(false);
     const [showNeverAnnotate, setShowNeverAnnotate] = useState(false);
+    const [txid, setTxid] = useState("");
 
     // Create a warning if GO term is blacklisted
     useEffect(() => {
@@ -48,12 +50,17 @@ export default function GraphSummary({
         }
     }, [sourceNode.id]);
 
+    // Change species ID for graph statistics after search execution
+    useEffect(() => {
+        setTxid(query.species);
+    }, [searchExecuted]);
+
     // Keep track of the proteins in the query
     useEffect(() => {
         if (currentNode) {
             const logKey = `protein${proteinCount + 1}`;
             const newProtein = {
-                protein: currentNode,
+                [logKey]: currentNode,
                 timestamp: new Date().toISOString(),
             };
             setProteinCount(proteinCount + 1);
@@ -66,8 +73,9 @@ export default function GraphSummary({
         if (query) {
             const logKey = `query${queryCount}`;
             const newQuery = {
-                query: query,
+                [logKey]: query,
                 timestamp: new Date().toISOString(),
+                url: new URL(window.location.href).searchParams.toString(),
             };
             handleLog(newQuery);
         }
@@ -75,8 +83,7 @@ export default function GraphSummary({
 
     return (
         <div className="query-result-summary">
-            <h4 className="graph-summary-title">Query Results</h4>
-            <h5>Ontology links:</h5>
+            <h4 className="graph-summary-title">Your Query Inputs</h4>
             <div className="query-result-container">
                 <div className="query-result-link-container">
                     <a
@@ -89,14 +96,6 @@ export default function GraphSummary({
                     </a>
                 </div>
                 <div className="query-result-link-container">
-                    <a
-                        className="blue-sidebar-link sidebar-button-block"
-                        href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        {goTerm.name}
-                    </a>
                     {neverAnnotateWarning && (
                         <div
                             className="never-annotate-container"
@@ -111,16 +110,24 @@ export default function GraphSummary({
                             )}
                         </div>
                     )}
+                    <a
+                        className="blue-sidebar-link sidebar-button-block"
+                        href={`https://www.ebi.ac.uk/QuickGO/term/${goTerm.id}`}
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        {goTerm.name}
+                    </a>
                 </div>
             </div>
-            <GoDefinition open>
-                <p>&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
-                <PGStats name={goTerm.name} txid={query.species} />
+            <GoDefinition>
+                <p className="go-def-text">&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
+                <ProGoStats name={goTerm.name} txid={txid} species={query.species} />
             </GoDefinition>
             <GraphStats
                 networkStatistics={networkStatistics}
             />
-            <ExportGraph log={logs} exportPNG={exportPNG} />
+            <ExportGraph log={logs} exportPNG={exportPNG} exportJSON={exportJSON} />
         </div>
     )
 }
