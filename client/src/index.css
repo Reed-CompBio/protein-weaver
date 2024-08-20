@@ -1645,6 +1645,19 @@ select {
     }
 }
 
+.interaction-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px ;
+}
+
+.interaction-title{
+    /* border: 2px solid purple; */
+    /* width: 100px; */
+    display: inline
+}
+
 /* Create Panels in Query.jsx */
 .panel-container {
     margin-top: 82px;
@@ -1949,5 +1962,5 @@ select {
 }
 
 .checkbox-container {
-    margin-left: 10px;
+    padding-left: 5px;
 }

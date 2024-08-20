@@ -76,10 +76,6 @@ export default function SearchBar({
                                 required
                             />
                         </div>
-                        <CheckboxComponent
-                            handleCheckboxChange={handleCheckboxChange}
-                            query={query}
-                        ></CheckboxComponent>
                         <div className="search-input-header">
                             <label className="species-header"
                                 htmlFor="species-input-container">Organism (TXID)</label>
@@ -143,6 +139,14 @@ export default function SearchBar({
                     value="Nodes"
                 />
                 <ModeTooltip />
+            </div>
+
+            <div className="interaction-container">
+                <h4 className="interaction-title">Interaction Type: </h4>
+                <CheckboxComponent
+                    handleCheckboxChange={handleCheckboxChange}
+                    query={query}
+                ></CheckboxComponent>
             </div>
 
             {/* user examples */}

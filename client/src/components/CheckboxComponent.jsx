@@ -12,7 +12,7 @@ function CheckboxComponent({ handleCheckboxChange, query }) {
                     onChange={handleCheckboxChange}
                     required={!query.regulatory}
                 />
-                Protein Protein Interaction
+                Protein-Protein
             </label>
             <label className="search-box-pair">
                 <input
@@ -23,7 +23,7 @@ function CheckboxComponent({ handleCheckboxChange, query }) {
                     onChange={handleCheckboxChange}
                     required={!query.ppi}
                 />
-                Regulatory Interaction
+                Regulatory
             </label>
         </div>
     );
