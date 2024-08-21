@@ -43,11 +43,7 @@ export default function GraphSummary({
             setSourceNodeLink(
                 `https://bsubcyc.org/gene?orgid=BSUB&id=${sourceNode.id.replace('_', '')}#tab=GO`
             );
-        } else if (query.species === "txid7955") {
-            setSourceNodeLink(
-                `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
-            );
-        } else if (query.species === "txid559292") {
+        } else if (query.species === "txid7955" || query.species === "txid559292") {
             setSourceNodeLink(
                 `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
             );
