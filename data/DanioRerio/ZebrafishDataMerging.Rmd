@@ -13,6 +13,7 @@ library(tidyverse)
 
 Next process the data from PsicQuic into a nice format. This data was processed according to the `get-interactors.js`, `get-interactions.js`, and `GetXML.ipynb` scripts.
 ```{r}
+setwd("~/Desktop/GitHub_Repos/protein-weaver/data/DanioRerio/")
 # get interactor data from PsicQuic
 psicquic_interactors <- read_csv("interactors.csv")
 
@@ -45,7 +46,7 @@ psicquic_interactorsIDs <- psicquic_interactors %>% select(ID, uniprotId)
 # get interaction data from PsicQuic
 psicquic_interactions <- read_csv("interactions.csv")
 # change names to more readable ones
-colnames(psicquic_interactions) <- c("ID", "InteractorRef1", "InteractorRef2")
+colnames(psicquic_interactions) <- c("ID", "Type", "Experiment", "InteractorRef1", "InteractorRef2")
 
 # first join the IDs for Ref1
 psicquic_interactome <- left_join(psicquic_interactions, psicquic_interactorsIDs, by = c("InteractorRef1" = "ID"), relationship="many-to-many")
@@ -53,16 +54,24 @@ psicquic_interactome <- left_join(psicquic_interactions, psicquic_interactorsIDs
 # then join the IDs for Ref2
 psicquic_interactome <- left_join(psicquic_interactome, psicquic_interactorsIDs, by = c("InteractorRef2" = "ID"), relationship="many-to-many")
 
-colnames(psicquic_interactome) <- c("interactionID", "InteractorRef1", "InteractorRef2", 'uniprotID1', "uniprotID2")
+colnames(psicquic_interactome) <- c("interactionID", "Type", "Experiment", "InteractorRef1", "InteractorRef2", 'uniprotID1', "uniprotID2")
 
 # extract only the necessary information
 psicquic_interactome <- 
   psicquic_interactome %>% 
-  select(uniprotID1, uniprotID2) %>%
-  mutate(source = "psicquic")
+  select(Experiment, uniprotID1, uniprotID2) %>%
+  mutate(source = "psicquic", evidence = "experimental")
 
-psicquic_interactome <- psicquic_interactome %>% 
-  mutate(evidence = "experimental")
+# import the information about the experiments
+psicquic_experiments <- read_csv("experiments.csv")
+colnames(psicquic_experiments) <- c("ID", "Author", "Database", "link")
+
+# merge datasets together
+psicquic_interactome <- left_join(psicquic_interactome, psicquic_experiments, by = c("Experiment" = "ID"), relationship="many-to-many")
+
+psicquic_interactome <- psicquic_interactome %>%
+  group_by(uniprotID1, uniprotID2, source, evidence) %>%
+  summarise(link = paste(link, collapse = ";"), .groups = 'drop')
 ```
 
 Save the PsicQuic data to a separate file.
@@ -72,6 +81,7 @@ write_csv(psicquic_interactome, "./zfish_psicquic_results.csv")
 
 This is non-stringent data mining, filtered by experimental, database, and textmined data. The only thing we filter out is homology-inferred data.
 ```{r}
+setwd("~/Desktop/GitHub_Repos/protein-weaver/data/DanioRerio/")
 # read the file in
 string_db_interactome <- read_delim("7955.protein.physical.links.full.v12.0.txt", delim = " ")
 
@@ -105,12 +115,14 @@ string_db_interactome <- left_join(string_db_interactome, string_db_names2, by =
 string_db_interactome <- left_join(string_db_interactome, string_db_names2, by = c("protein2" = "string_protein_id"), relationship = "many-to-many")
 
 # rename the columns to prepare to merge datasets
-colnames(string_db_interactome) <- c("protein1", "protein2", "evidence", "uniprotID1", "uniprotID2")
+colnames(string_db_interactome) <- c("stringdbID1", "stringdbID2", "evidence", "uniprotID1", "uniprotID2")
+
+string_db_interactome$link <- paste(string_db_interactome$stringdbID1, string_db_interactome$stringdbID2, sep = "/")
 
 # extract only the relevant information
 string_db_interactome <- 
   string_db_interactome %>%
-  select(uniprotID1, uniprotID2, evidence) %>%
+  select(uniprotID1, uniprotID2, evidence, link) %>%
   mutate(source = "string-db")
 
 View(string_db_interactome)
@@ -149,12 +161,12 @@ common_names <- read_tsv("zfish_id_mapper.tsv")
 # Merge the two datasets based on the matching columns
 temp_df <- inner_join(zfish_interactome, common_names, by=c("uniprotID1" = "From"))
 
-temp_df <- temp_df %>% select(c(Entry, uniprotID2, source, evidence))
-colnames(temp_df) <- c("uniprotID1", "uniprotID2", "source", "evidence")
+temp_df <- temp_df %>% select(c(Entry, uniprotID2, link, source, evidence))
+colnames(temp_df) <- c("uniprotID1", "uniprotID2", "link", "source", "evidence")
 
 temp_df <- inner_join(temp_df, common_names, by=c("uniprotID2" = "From"))
-zfish_interactome <- temp_df %>% select(c(uniprotID1, Entry, source, evidence))
-colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "source", "evidence")
+zfish_interactome <- temp_df %>% select(c(uniprotID1, Entry, link, source, evidence))
+colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "link", "source", "evidence")
 
 View(zfish_interactome)
 ```
@@ -163,11 +175,11 @@ Once we have converted to the proper UniprotID, we need to import the common nam
 ```{r}
 common_names <- common_names %>% select(Entry, `Protein names`)
 
-zfish_interactome <- inner_join(zfish_interactome, common_names2, by = c("uniprotID1" = "Entry"))
+zfish_interactome <- inner_join(zfish_interactome, common_names, by = c("uniprotID1" = "Entry"))
 
-zfish_interactome <- inner_join(zfish_interactome, common_names2, by = c("uniprotID2" = "Entry"))
+zfish_interactome <- inner_join(zfish_interactome, common_names, by = c("uniprotID2" = "Entry"))
 
-colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "source", "evidence", "alt_name1", "alt_name2")
+colnames(zfish_interactome) <- c("uniprotID1", "uniprotID2", "link", "source", "evidence", "alt_name1", "alt_name2")
 
 View(zfish_interactome)
 ```
@@ -203,14 +215,14 @@ sum(is.na(gene_names$Gene_Names_primary))
 sum(is.na(gene_names$`Protein names`))
 sum(is.na(gene_names$From))
 
-zfish_interactome_deleted <- zfish_interactome_deleted %>% select(uniprotID1, uniprotID2, source, evidence)
+zfish_interactome_deleted <- zfish_interactome_deleted %>% select(uniprotID1, uniprotID2, link, source, evidence)
 
 
 zfish_interactome_deleted <- inner_join(zfish_interactome_deleted, gene_names, by = c("uniprotID1" = "From"))
 
 zfish_interactome_deleted <- inner_join(zfish_interactome_deleted, gene_names, by = c("uniprotID2" = "From"))
 
-colnames(zfish_interactome_deleted) <- c("uniprotID1", "uniprotID2", "source", "evidence", "alt_name1", "gene_name1", "alt_name2", "gene_name2")
+colnames(zfish_interactome_deleted) <- c("uniprotID1", "uniprotID2", "link", "source", "evidence", "alt_name1", "gene_name1", "alt_name2", "gene_name2")
 
 zfish_interactome_deleted <- zfish_interactome_deleted %>% mutate(
   name1 = case_when(
@@ -244,7 +256,7 @@ write_tsv(go_terms, "zfish_GO_data_Mar12_24.tsv")
 
 Sometimes the names will have trailing blank spaces so let's ensure that they won't with the following code. Finally, we will write out the final zebrafish interactome.
 ```{r}
-setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/DanioRerio/")
+setwd("~/Desktop/GitHub_Repos/protein-weaver/data/DanioRerio/")
 df <- zfish_interactome_deleted
 
 df %>% 
@@ -256,24 +268,5 @@ df$alt_name2 <- df$alt_name2 %>% str_trim()
 df$name1 <- df$name1 %>% str_trim()
 df$name2 <- df$name2 %>% str_trim()
 
-write_tsv(df, "zfish_interactome_Mar12_2024.txt")
-```
-
-Cleaning up dataset after an bug was found with trailing whitespaces on June 24, 2024.
-```{r}
-library(tidyverse)
-setwd("~/Desktop/GitHub_Repos/bio-net-viz/data/DanioRerio/")
-df <- read_tsv("zfish_interactome_Mar12_2024.txt")
-
-
-df %>% 
-  group_by(alt_name1) %>% 
-  View()
-
-df$alt_name1 <- df$alt_name1 %>% str_trim()
-df$alt_name2 <- df$alt_name2 %>% str_trim()
-df$name1 <- df$name1 %>% str_trim()
-df$name2 <- df$name2 %>% str_trim()
-
-write_tsv(df, "interactome_txid7955_2024-06-24.txt")
+write_tsv(df, "interactome_txid7955_2024-07-30.txt")
 ```

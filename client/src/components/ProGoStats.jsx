@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // create component
-export default function PGStats({ name, txid }) {
+export default function ProGoStats({ name, txid, species }) {
     // create empty object to store query results
     const [count, setCount] = useState([]);
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function PGStats({ name, txid }) {
             body: JSON.stringify({
                 // Example of json body request. need to match your POST request's parameters
                 GoName: name,
-                txid: txid
+                txid: species
             }),
         })
             .then(response => response.json())
@@ -29,8 +29,8 @@ export default function PGStats({ name, txid }) {
     }, [name]);
 
     return (
-        <div>
-            &nbsp;&nbsp;&nbsp;Species Specific GO Term Annotations: {count}
+        <div className="pro-go-stats">
+            <h5>Total Proteins Annotated to GO Term [{txid}]: {count}</h5>
         </div>
     )
 }

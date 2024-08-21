@@ -18,6 +18,7 @@ import GoFinderService from "../services/go.finder.service.js";
 import AvgDegreeService from "../services/avg.degree.service.js";
 import PGStats from "../services/pro.go.stats.service.js";
 import Degree from "../services/degree.service.js";
+import MotifService from "../services/motif.service.js";
 
 const router = new Router();
 const jsonParser = bodyParser.json();
@@ -142,7 +143,6 @@ router.post("/getProGoStats", jsonParser, async (req, res, next) => {
     const txid = data.txid;
     const PGS = new PGStats(getDriver());
     const edges = await PGS.ProGoStats(GoName, txid);
-    console.log("ProGo Edges: ", edges);
     res.json(edges);
 
   }
@@ -158,7 +158,6 @@ router.post("/Degree", jsonParser, async (req, res, next) => {
     const id = data.id.id;
     const DEG = new Degree(getDriver());
     const degrees = await DEG.getdegree(id);
-    console.log("Degrees: ", degrees);
     res.json(degrees);
   }
   catch (e) {
@@ -166,13 +165,28 @@ router.post("/Degree", jsonParser, async (req, res, next) => {
   }
 });
 
+router.post("/Motif", jsonParser, async (req, res, next) => {
+  try {
+    const data = req.body;
+    const nodeList = data.nodeList
+    const motif = new MotifService(getDriver());
+    const mCount = await motif.getMotif(nodeList);
+    res.json(mCount);
+  }
+  catch (e) {
+    next(e);
+  }
+});
+
 // dynamic query
-router.post("/getQuery", jsonParser, async (req, res, next) => {
+router.post("/getQueryByPath", jsonParser, async (req, res, next) => {
   const data = req.body;
   const species = data.species;
   const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
   const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
+  const ppi = data.ppi
+  const regulatory = data.regulatory
 
   console.log("Species:", species);
   console.log("Protein:", protein);
@@ -215,12 +229,21 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
             });
         } else {
           //DO this to all GOterm
+          let relType = ["ProGo"]
+          if (ppi){
+            relType.push("ProProUndirected")
+          }
+          if (regulatory){
+            relType.push("Reg")
+          }
+
           const queryService = new QueryService(getDriver());
           const queryResult = await queryService.getQuery(
             species,
             protein,
             goTerm,
-            k
+            k,
+            relType
           );
 
           if (queryResult.length === 0) {
@@ -238,7 +261,7 @@ router.post("/getQuery", jsonParser, async (req, res, next) => {
       }
     }
   } catch (error) {
-    console.error("Error in /getQuery:", error);
+    console.error("Error in /getQueryByPath:", error);
     res.status(500).json({ error: "Internal server error." });
   }
 });
@@ -249,11 +272,14 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
   const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
   const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
+  const ppi = data.ppi
+  const regulatory = data.regulatory
 
   console.log("Species:", species);
   console.log("Protein:", protein);
   console.log("GO Term:", goTerm);
   console.log("k:", k);
+
   console.log("getQueryByNode");
 
   try {
@@ -289,11 +315,18 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
               error: "No direct proteins connected to GO term for this species",
             });
         } else {
+          let relType = ["ProGo"]
+          if (ppi){
+            relType.push("ProProUndirected")
+          }
+          if (regulatory){
+            relType.push("Reg")
+          }
           const allShortestPathsService = new AllShortestPathsService(
             getDriver()
           );
           var allPaths = await allShortestPathsService.getAllShortestPaths(
-            protein
+            protein, relType
           );
           let neighborFound = 0;
           var paths = [];

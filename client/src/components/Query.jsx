@@ -34,6 +34,8 @@ export default function Query() {
         protein: "",
         goTerm: "",
         k: [],
+        ppi: false,
+        regulatory: false,
     });
     const [networkResult, setNetworkResult] = useState({});
     const cyRef = useRef(cytoscape.Core | undefined);
@@ -43,6 +45,12 @@ export default function Query() {
     const [predictionValue, setPredictionValue] = useState("");
     const [predictionDict, setPredictionDict] = useState(null);
     const [goTerm, setGoTerm] = useState("");
+    const [edgeEvidence, setEdgeEvidence] = useState("");
+    const [edgeSource, setEdgeSource] = useState("");
+    const [edgeTarget, setEdgeTarget] = useState("");
+    const [edgeType, setEdgeType] = useState("");
+    const [regType, setRegType] = useState("");
+    const [dataSource, setDataSource] = useState("");
     const [hasError, setHasError] = useState(false);
     const [queryCount, setQueryCount] = useState(0);
     const submitRef = useRef();
@@ -61,6 +69,8 @@ export default function Query() {
         protein: "",
         goTerm: "",
         k: "",
+        ppi: "",
+        regulatory: "",
     });
     const [guide, setGuide] = useState(guideConfig);
     const [activeModeButton, setActiveModeButton] = useState("");
@@ -75,9 +85,17 @@ export default function Query() {
     });
     const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
+    const [exState, setExState] = useState("");
+    const [formValid, setFormValid] = useState(true);
+
     cytoscape.use(cola);
 
     useEffect(() => {
+        const currentPPI = searchParams.get("ppi");
+        const currentRegulatory = searchParams.get("regulatory");
+
+        const ppiBoolean = currentPPI === "true";
+        const regulatoryBoolean = currentRegulatory === "true";
         if (searchParams.get("species") === "") {
             setQuery({
                 mode: "path",
@@ -85,6 +103,8 @@ export default function Query() {
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
+                ppi: ppiBoolean,
+                regulatory: regulatoryBoolean,
             });
             setActiveModeButton("path");
         } else {
@@ -94,6 +114,8 @@ export default function Query() {
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
+                ppi: ppiBoolean,
+                regulatory: regulatoryBoolean,
             });
             setActiveModeButton("path");
         }
@@ -101,12 +123,19 @@ export default function Query() {
 
     // Get the search params from the URL
     useEffect(() => {
+        const currentPPI = searchParams.get("ppi");
+        const currentRegulatory = searchParams.get("regulatory");
+
+        const ppiBoolean = currentPPI === "true";
+        const regulatoryBoolean = currentRegulatory === "true";
         if (
             searchParams.get("mode") != "" &&
             searchParams.get("species") != "" &&
             searchParams.get("protein") != "" &&
             searchParams.get("goTerm") != "" &&
-            searchParams.get("k") != ""
+            searchParams.get("k") != "" &&
+            searchParams.get("ppi") != "" &&
+            searchParams.get("reg") != ""
         ) {
             setQuery({
                 mode: searchParams.get("mode"),
@@ -114,6 +143,8 @@ export default function Query() {
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
+                ppi: ppiBoolean,
+                regulatory: regulatoryBoolean,
             });
             setActiveModeButton(searchParams.get("mode"));
         }
@@ -141,9 +172,10 @@ export default function Query() {
                 const proteinNames = data.map((item) => item.name);
                 const proteinIds = data.map((item) => item.id);
                 const proteinAltNames = data.map((item) => item.alt_name);
+                const geneNames = data.map((item) => item.gene_name);
                 const proteinMerged = [
                     ...new Set(
-                        proteinNames.concat(proteinIds).concat(proteinAltNames)
+                        proteinNames.concat(proteinIds).concat(proteinAltNames).concat(geneNames)
                     ),
                 ].filter((item) => item !== undefined);
                 setProteinOptions(proteinMerged);
@@ -195,10 +227,17 @@ export default function Query() {
                         networkResult,
                         query.species
                     );
-                    setNetworkStatistics((prevState) => ({
-                        ...prevState,
-                        avgNodeDegree: avgNodeDegree.toFixed(1),
-                    }));
+                    if (avgNodeDegree != null) {
+                        setNetworkStatistics((prevState) => ({
+                            ...prevState,
+                            avgNodeDegree: avgNodeDegree.toFixed(1),
+                        }));
+                    } else {
+                        setNetworkStatistics((prevState) => ({
+                            ...prevState,
+                            avgNodeDegree: 0,
+                        }));
+                    }
                 } catch (error) {
                     return Promise.reject(
                         new Error(`${response.status} ${response.statusText}`)
@@ -212,6 +251,18 @@ export default function Query() {
         }
     }, [dataParsingStatus]);
 
+    const handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+
+        setQuery((prevData) => ({
+            ...prevData,
+            [name]: checked,
+        }));
+
+        // Check if the form is valid
+        setFormValid(checked || query.ppi || query.regulatory);
+    };
+
     // Function for submitting the query
     async function handleSubmit(e) {
         setQueryComplete(false);
@@ -223,6 +274,11 @@ export default function Query() {
         setDataParsingStatus(false);
         setErrorMessage("");
         setPredictionValue({ value: "Loading", rank: "Loading" });
+        setEdgeEvidence("");
+        setEdgeSource("");
+        setEdgeTarget("");
+        setEdgeType("");
+        setRegType("");
 
         // get the k shortest paths for the query
         e.preventDefault();
@@ -230,12 +286,13 @@ export default function Query() {
         let rawData = null;
         if (query.mode == "path") {
             try {
-                network = await fetch("/api/getQuery", {
+                const requestBody = Object.assign(query);
+                network = await fetch("/api/getQueryByPath", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(query),
+                    body: JSON.stringify(requestBody),
                 })
                     .then((response) => {
                         if (response.ok) {
@@ -254,11 +311,7 @@ export default function Query() {
                     })
                     .then((data) => {
                         rawData = data;
-                        return NetworkParserPath(
-                            data,
-                            query.protein,
-                            query.goTerm
-                        );
+                        return NetworkParserPath(data);
                     });
             } catch (error) {
                 console.error("Error getting the network:", error.message);
@@ -294,7 +347,7 @@ export default function Query() {
                     })
                     .then((data) => {
                         rawData = data;
-                        return NetworkParserNode(data, query.protein, query.k);
+                        return NetworkParserNode(data, query.k);
                     });
             } catch (error) {
                 console.error("Error getting the network:", error.message);
@@ -306,12 +359,12 @@ export default function Query() {
             }
         }
         // get induced subgraph
-        if (network != null) {
-            let nodeList = { nodeList: network.nodeList };
-            nodeList.nodeList.push(network.goTerm.id);
-            setSourceNode(network.nodes[0].data);
-            setGoTerm(network.goTerm);
-
+        let tempNetwork = JSON.parse(JSON.stringify(network));
+        if (tempNetwork != null) {
+            let nodeList = { nodeList: tempNetwork.nodeList };
+            nodeList.nodeList.push(tempNetwork.goTerm.id);
+            setSourceNode(tempNetwork.nodes[0].data);
+            setGoTerm(tempNetwork.goTerm);
             let edgeData = null;
             try {
                 edgeData = await fetch("/api/getEdgeData", {
@@ -332,28 +385,33 @@ export default function Query() {
                             );
                         }
                     })
-                    .then((edgeData) => {
-                        setNetworkResult(EdgeDataParser(network, edgeData));
+                    .then((data) => {
                         setRawData(rawData);
                         setDataParsingStatus(true);
                         setQueryComplete(true);
-                        return EdgeDataParser(network, edgeData);
+                        return EdgeDataParser(
+                            network,
+                            data,
+                            query.ppi,
+                            query.regulatory
+                        );
                     });
             } catch (error) {
                 console.error("Error getting the network:", error);
                 setHasError(true);
                 setPageState(0);
                 setIsLoading(false);
-
                 return;
             }
-
+            setNetworkResult(edgeData);
             setSearchParams({
                 mode: query.mode,
                 species: query.species,
                 protein: network.nodes[0].data.id,
                 goTerm: network.goTerm.id,
                 k: query.k,
+                ppi: query.ppi,
+                regulatory: query.regulatory,
             });
         }
         setIsLoading(false);
@@ -393,7 +451,6 @@ export default function Query() {
                 for (let i = 0; i < nodeLst.length; i++) {
                     proteinDegree[nodeLst[i].data.id] = nodeLst[i].data.degree;
                 }
-
                 let values = Object.values(proteinDegree);
                 var pdMax = Math.max(...values),
                     pdMin = Math.min(...values);
@@ -445,6 +502,12 @@ export default function Query() {
                 });
         }
     }, [networkResult.goTerm]);
+
+    useEffect(() => {
+        if (networkResult != {}) {
+            // console.log(networkResult);
+        }
+    }, [networkResult]);
 
     // Get ancestors for queried GO term
     useEffect(() => {
@@ -543,6 +606,8 @@ export default function Query() {
             goTerm: "",
             k: [],
             species: e.target.value,
+            ppi: false,
+            regulatory: false,
         });
     };
 
@@ -588,8 +653,11 @@ export default function Query() {
                         protein: "egfr",
                         goTerm: "Wnt signaling pathway",
                         k: "4",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
+                    setExState(String(i));
                     break;
                 case 2:
                     setQuery({
@@ -598,8 +666,11 @@ export default function Query() {
                         protein: "flw",
                         goTerm: "apical constriction",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
                 case 3:
                     setQuery({
@@ -608,8 +679,11 @@ export default function Query() {
                         protein: "flw",
                         goTerm: "myosin II binding",
                         k: "3",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
+                    setExState(String(i));
                     break;
             }
         } else if (query.species == "txid7955") {
@@ -621,8 +695,11 @@ export default function Query() {
                         protein: "smad2",
                         goTerm: "DNA damage response",
                         k: "4",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
                 case 2:
                     setQuery({
@@ -631,8 +708,11 @@ export default function Query() {
                         protein: "smad1",
                         goTerm: "positive regulation of cell development",
                         k: "4",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
                 case 3:
                     setQuery({
@@ -641,8 +721,11 @@ export default function Query() {
                         protein: "smad5",
                         goTerm: "neural plate pattern specification",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
             }
         } else if (query.species == "txid224308") {
@@ -654,8 +737,11 @@ export default function Query() {
                         protein: "GanP",
                         goTerm: "ABC-type carbohydrate transporter activity",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
+                    setExState(String(i));
                     break;
                 case 2:
                     setQuery({
@@ -664,8 +750,11 @@ export default function Query() {
                         protein: "MrpD",
                         goTerm: "monoatomic cation transmembrane transporter activity",
                         k: "6",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
                     break;
                 case 3:
                     setQuery({
@@ -674,12 +763,104 @@ export default function Query() {
                         protein: "OppC",
                         goTerm: "sporulation",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
+        } else if (query.species == "txid559292") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "node",
+                        species: "txid559292",
+                        protein: "P32657",
+                        goTerm: "DNA binding",
+                        k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "path",
+                        species: "txid559292",
+                        protein: "p43639",
+                        goTerm: "membrane-bounded organelle",
+                        k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid559292",
+                        protein: "p03069",
+                        goTerm: "cellular macromolecule localization",
+                        k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
+        } else if (query.species == "txid6239") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "path",
+                        species: "txid6239",
+                        protein: "rnt-1",
+                        goTerm: "negative regulation of stem cell differentiation",
+                        k: "7",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "node",
+                        species: "txid6239",
+                        protein: "gck-3",
+                        goTerm: "hyperosmotic response",
+                        k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid6239",
+                        protein: "tac-1",
+                        goTerm: "cytoskeleton organization",
+                        k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
                     break;
             }
         }
     };
+
+    //Resets highlighted example when switching species
+    useEffect(() => {
+        setExState("");
+    }, [query.species]);
 
     // Allow users to export network as PNG
     const exportPNG = () => {
@@ -690,7 +871,20 @@ export default function Query() {
                 full: true,
                 bg: "white",
             });
-            saveAs(pngBlob, "graph.png");
+            saveAs(pngBlob, "PW-network.png");
+        }
+    };
+
+    // Allow users to export network as JSON object
+    const exportJSON = () => {
+        const cy = cyRef.current;
+        if (cy) {
+            const elements = cy.json();
+            const date = new Date().toLocaleDateString();
+            const time = new Date().toLocaleTimeString([], { hour12: false });
+            const fileName = `PW-network-${date}-${time}`;
+            const jsonBlob = new Blob([JSON.stringify(elements, null, 2)], { type: "application/json" });
+            saveAs(jsonBlob, fileName);
         }
     };
 
@@ -725,12 +919,30 @@ export default function Query() {
                 mode: "path",
             }));
             setActiveModeButton("path");
+            setSearchParams({
+                mode: "path",
+                species: query.species,
+                protein: query.protein,
+                goTerm: query.goTerm,
+                k: query.k,
+                ppi: query.ppi,
+                regulatory: query.regulatory,
+            });
         } else {
             setQuery((prevState) => ({
                 ...prevState,
                 mode: "node",
             }));
             setActiveModeButton("node");
+            setSearchParams({
+                mode: "node",
+                species: query.species,
+                protein: query.protein,
+                goTerm: query.goTerm,
+                k: query.k,
+                ppi: query.ppi,
+                regulatory: query.regulatory,
+            });
         }
     };
 
@@ -747,6 +959,9 @@ export default function Query() {
                 value: predictionDict[selectedNode.id].value,
                 rank: predictionDict[selectedNode.id].rank,
             });
+            console.log("value", predictionDict[selectedNode.id].value)
+            console.log("rank",  predictionDict[selectedNode.id].rank)
+
         }
     }, [selectedNode, predictionDict]);
 
@@ -783,8 +998,9 @@ export default function Query() {
                         handleSpeciesChange={handleSpeciesChange}
                         handleQueryMode={handleQueryMode}
                         activeModeButton={activeModeButton}
+                        exState={exState}
+                        handleCheckboxChange={handleCheckboxChange}
                     />
-
                     {hasError && <QueryError errorMessage={errorMessage} />}
 
                     {isLoading && <div className="loader"></div>}
@@ -822,6 +1038,8 @@ export default function Query() {
                             handleSpeciesChange={handleSpeciesChange}
                             handleQueryMode={handleQueryMode}
                             activeModeButton={activeModeButton}
+                            exState={exState}
+                            handleCheckboxChange={handleCheckboxChange}
                         />
 
                         {hasError && <QueryError errorMessage={errorMessage} />}
@@ -868,6 +1086,46 @@ export default function Query() {
                                                             );
                                                         }
                                                     );
+                                                    cy.on(
+                                                        "tap",
+                                                        "edge",
+                                                        (evt) => {
+                                                            setEdgeEvidence(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .evidence
+                                                            );
+                                                            setEdgeSource(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data.source
+                                                            );
+                                                            setEdgeTarget(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data.target
+                                                            );
+                                                            setEdgeType(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .relType
+                                                            );
+                                                            setRegType(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .regType
+                                                            );
+                                                            setDataSource(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                                    .dataSource
+                                                            );
+                                                        }
+                                                    );
                                                 }}
                                             />
                                             <Legend // Render legend within Cytoscape visualization
@@ -876,9 +1134,6 @@ export default function Query() {
                                                 }
                                                 showSharedEdges={
                                                     showSharedEdges
-                                                }
-                                                handleLayoutChange={
-                                                    handleLayoutChange
                                                 }
                                             />
                                         </div>
@@ -892,16 +1147,13 @@ export default function Query() {
                                         <div className="graph-exploration-panel-container">
                                             <GraphExploration // Render graph exploration panel
                                                 currentNode={sidebarNode}
-                                                query={query}
                                                 handleSourceNode={
                                                     handleSourceNode
                                                 }
+                                                handleLayoutChange={
+                                                    handleLayoutChange
+                                                }
                                                 handleSubmit={handleSubmit}
-                                                exportPNG={exportPNG}
-                                                searchExecuted={searchParams}
-                                                queryCount={queryCount}
-                                                logs={logs}
-                                                handleLog={handleLog}
                                                 parentGoTerms={ancestorsOptions}
                                                 childrenGoTerms={
                                                     descendantsOptions
@@ -934,18 +1186,31 @@ export default function Query() {
                                                 sourceNode={sourceNode}
                                                 query={query}
                                                 goTerm={goTerm}
-                                                predictionValue={
-                                                    predictionValue
-                                                }
+                                                predictionValue={predictionValue}
+                                                exportPNG={exportPNG}
+                                                exportJSON={exportJSON}
+                                                searchExecuted={searchParams}
+                                                queryCount={queryCount}
+                                                logs={logs}
+                                                handleLog={handleLog}
+                                                networkStatistics={networkStatistics}
                                             />
                                         </div>
                                     </Panel>
                                     <PanelResizeHandle className="panel-resize-handle" />
                                     <Panel defaultSize={40} minSize={10}>
                                         <StatisticsTab
-                                            networkStatistics={
-                                                networkStatistics
-                                            }
+                                            nodeList={networkResult.nodeList}
+                                            edgeEvidence={edgeEvidence}
+                                            edgeSource={edgeSource}
+                                            edgeTarget={edgeTarget}
+                                            edgeType={edgeType}
+                                            regType={regType}
+                                            dataSource={dataSource}
+                                            currentNode={sidebarNode}
+                                            query={query}
+                                            goTerm={goTerm}
+                                            predictionValue={predictionValue}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>

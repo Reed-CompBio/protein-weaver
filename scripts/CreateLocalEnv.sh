@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define paths that match your personal environment
-CLIENT=$HOME/Desktop/GitHub_Repos/bio-net-viz/client
-SERVER=$HOME/Desktop/GitHub_Repos/bio-net-viz/server
+CLIENT=$HOME/Desktop/GitHub_Repos/protein-weaver/client
+SERVER=$HOME/Desktop/GitHub_Repos/protein-weaver/server
 
 # Check if the Docker container already exists
 if [ "$(docker ps -aq -f name=proteinweaver)" ]; then
@@ -30,6 +30,7 @@ fi
 # Wait for Neo4j to start (adjust sleep time as needed)
 echo "Waiting for Neo4j to start..."
 sleep 60
+echo "Neo4j started."
 
 # Execute Cypher query within Neo4j database
 echo "Calling graph projection"
@@ -39,11 +40,14 @@ cat CallGraphProjection.cypher | docker exec --interactive proteinweaver cypher-
 echo "Starting server..."
 cd $SERVER
 npm start &
+echo "Server started."
 
 # Start client
 echo "Starting client..."
 cd $CLIENT
 npm run dev &
+echo "Client started..."
 
 # End of script
+echo "ProteinWeaver is available at http://localhost:5173/"
 echo "Script execution completed."

@@ -82,11 +82,11 @@ button:focus-visible {
     padding-left: 12px;
 }
 
-.navbar > ul {
+.navbar>ul {
     list-style-type: none;
 }
 
-.navbar > ul > * {
+.navbar>ul>* {
     margin-left: 10px;
     color: black;
 }
@@ -136,7 +136,7 @@ body {
     width: 100%;
 }
 
-/* SearchBar */
+/* CSS for SearchBar.jsx */
 .search-bar-container {
     position: absolute;
     left: 0;
@@ -165,7 +165,8 @@ body {
     align-items: center;
     margin-right: 10px;
     margin-left: 18px;
-    margin-top: 18px;
+    margin-top: 9px;
+    margin-bottom: 9px;
     overflow: hidden;
 }
 
@@ -173,6 +174,147 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    /* border:2px solid purple; */
+}
+
+.search-input-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-input-header label {
+    display: block;
+    font-weight: bold;
+    padding-left: 6px;
+    font-size: small;
+}
+
+.k-input {
+    margin-top: 1px;
+    width: 40px;
+    height: 24px;
+    min-height: 24px;
+    text-align: center;
+}
+
+.species-header {
+    margin-left: 12px;
+}
+
+.species-input-container {
+    margin-top: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 40px;
+    border-radius: 5px;
+    width: 180px;
+}
+
+.example {
+    align-items: center;
+    margin-left: 16px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.align-examples-below {
+    margin-top: 0;
+    margin-bottom: 0;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.align-examples {
+    margin-top: 0;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.example h4 {
+    margin: 0px;
+    font-size: 15px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    width: 100px;
+}
+
+.example i {
+    font-weight: bold;
+    text-align: center;
+    display: inline-flex;
+}
+
+.example>a {
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.activated {
+    color: Black;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.inactivated {
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.activated {
+    color: Black;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.inactivated {
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.guide-button {
+    padding: 2.5px;
+    margin-top: 24px;
+    margin-right: 12px;
+    margin-left: auto;
+    margin-bottom: auto;
+    font-size: 15px;
+    border: 2px solid white;
+    background-color: white;
+    cursor: pointer;
+    color: #000;
+    z-index: 999;
+}
+
+.search-button {
+    margin-top: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-right: 10px;
+    height: 41px;
+    width: 80px;
+    word-wrap: nowrap;
+    background: #000;
+    color: #fff;
+    border: 1px solid black;
+    border-radius: 5px;
+    order: 4;
+    flex: 0 1 auto;
+    text-align: center;
 }
 
 /* Autocomplete */
@@ -228,7 +370,7 @@ body {
     width: 125px;
 }
 
-.protein-autocomplete > .active,
+.protein-autocomplete>.active,
 .protein-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -262,10 +404,15 @@ body {
     z-index: 999;
 }
 
+.shrink-go-input {
+    max-width: 250px;
+    margin-right: 10px;
+}
+
 .go-term-input-container {
     margin-top: 1px;
     position: relative;
-    width: 250px;
+    width: 100%;
     display: inline-block;
     flex-wrap: nowrap;
     height: 180px;
@@ -274,14 +421,13 @@ body {
 }
 
 .go-term-input-container input {
-    margin-right: 10px;
     pointer-events: auto;
     height: 24px;
     min-height: 24px;
-    width: 225px;
+    width: 90%;
 }
 
-.go-term-autocomplete > .active,
+.go-term-autocomplete>.active,
 .go-term-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -296,14 +442,6 @@ body {
     position: absolute;
     height: 90px;
     max-height: 90px;
-}
-
-.k-input {
-    margin-top: 1px;
-    width: 40px;
-    height: 24px;
-    min-height: 24px;
-    text-align: center;
 }
 
 input {
@@ -334,247 +472,34 @@ select {
     align-self: auto;
 }
 
-.search-button {
-    margin-top: 1px;
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-right: 16px;
-    height: 40px;
-    width: 80px;
-    word-wrap: nowrap;
-    background: #000;
-    color: #fff;
-    border: 1px solid black;
-    border-radius: 5px;
-    order: 4;
-    flex: 0 1 auto;
-    text-align: center;
-}
-
-.example {
-    padding-left: 16px;
-    margin-left: 10px;
-    margin-right: 16px;
-    font-size: 15px;
-    display: inline-flex;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-}
-
-.example i {
-    margin-right: 8px;
-}
-
-.example > a {
-    color: white;
-    font-weight: bold;
-    margin-left: 5px;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.guide-button {
-    padding: 2.5px;
-    margin-top: 24px;
-    margin-right: 12px;
-    margin-left: auto;
-    margin-bottom: auto;
-    font-size: 15px;
-    border: 2px solid white;
-    background-color: white;
-    cursor: pointer;
-    color: #000;
-    z-index: 999;
-}
-
-/* Graph Exploration */
-.graph-exploration {
-    display: flex;
-    flex-wrap: wrap;
-    max-height: 180px;
-}
-
-.graph-exploration-title,
-.stats-title {
-    margin-left: 16px;
-    margin-top: 16px;
-    margin-bottom: 0;
-}
-
-.align-graph-exploration {
-    display: flex;
-}
-
-.new-source {
-    margin-top: 0;
-    margin-left: 16px;
-    margin-bottom: 16px;
-    min-height: 50px;
-    min-width: 96px;
-    word-wrap: nowrap;
-    background: #000;
-    color: #fff;
-    border: 2px solid var(--light-background);
-    border-radius: 5px;
-    text-align: center;
-}
-
-.new-source-disabled {
-    margin-top: 0;
-    margin-left: 16px;
-    margin-bottom: 16px;
-    min-height: 50px;
-    min-width: 96px;
-    word-wrap: nowrap;
-    background: #888888;
-    color: #fff;
-    border: 2px solid var(--light-background);
-    border-radius: 5px;
-    text-align: center;
-    cursor: auto;
-}
-
-.new-source-container {
-    padding-left: 24px;
-    flex: 1;
-    max-height: 90px;
-    margin-left: auto;
-    margin-right: auto;
-    /* max-width: 240px; */
-}
-
-.new-source-container h5 {
-    margin-bottom: 8px;
-    margin-top: 8px;
-}
-
-.go-container {
-    margin-left: auto;
-    margin-right: auto;
-    flex: 1;
-    max-height: 100px;
-    /* max-width: 900px; */
-}
-
-.go-container h5 {
-    margin-bottom: 8px;
-    margin-top: 8px;
-}
-
-.new-go-form {
-    display: inline-block;
-}
-
-.go-selector-container {
-    margin-left: 24px;
-    margin-right: 36px;
-    display: flex;
-}
-
-.ancestor-input {
-    width: 120px;
-    margin-right: 48px;
-}
-
-.ancestor-input input {
-    width: 120px;
-}
-
-.ancestor-input label {
-    font-size: small;
-    color: black !important;
-}
-
-.descendant-input {
-    width: 120px;
-}
-
-.descendant-input input {
-    width: 120px;
-}
-
-.descendant-input label {
-    font-size: small;
-    color: black !important;
-    margin-top: 0px;
-}
-
-.align-selectors {
-    display: flex;
-}
-
-.hierarchy-input-container {
-    position: relative;
-}
-
-.new-go-term-button {
-    display: inline-block;
-    margin-left: 36px;
-    min-height: 50px;
-    min-width: 200px;
-    word-wrap: nowrap;
-    background: #000;
-    color: #fff;
-    border: 2px solid var(--light-background);
-    border-radius: 5px;
-    text-align: center;
-}
-
-.new-go-term-button-disabled {
-    display: inline-block;
-    margin-left: 36px;
-    min-height: 50px;
-    min-width: 200px;
-    word-wrap: nowrap;
-    background: #888888;
-    color: #fff;
-    border: 2px solid var(--light-background);
-    border-radius: 5px;
-    text-align: center;
-    cursor: auto;
-}
-
+/* CSS for ExportGraph.jsx */
 .exports-container {
     text-align: center;
-    flex: 1;
-}
-
-.exports-container h5 {
+    margin-top: 16px;
     margin-bottom: 8px;
-    margin-top: 0;
 }
 
-.search {
-    flex: 2 1 auto;
+.export {
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-right: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-flex;
 }
 
-.date-from {
-    flex: 1 1 auto;
+.export:hover {
+    color: var(--reed-red);
 }
 
-.date-to {
-    flex: 1 1 auto;
-}
-
+/* CytoscapeComponent Query.jsx */
 .cytoscape-graph {
     height: 100%;
     width: 100%;
     padding-left: 50px;
-}
-
-.search-box-align {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-
-.sidebar-align {
-    display: flex;
-    justify-content: center;
-    width: 1080px;
-    align-self: center;
 }
 
 /* Graph Summary Component */
@@ -605,11 +530,10 @@ select {
 }
 
 .query-result-link-container {
+    position: relative;
+    display: flex;
+    align-items: center;
     margin: auto;
-}
-
-.sidebar-button-block {
-    display: block;
 }
 
 .red-sidebar-link {
@@ -622,6 +546,7 @@ select {
     border: 2px solid black;
     text-align: center;
     max-width: 500px;
+    margin-bottom: 5px;
 }
 
 .red-sidebar-link:hover {
@@ -639,6 +564,7 @@ select {
     border: 2px solid black;
     text-align: center;
     max-width: 500px;
+    margin-bottom: 5px;
 }
 
 .blue-sidebar-link:hover {
@@ -646,7 +572,84 @@ select {
     background-color: var(--graph-blue-hover);
 }
 
-.tan-sidebar-link {
+.query-result-link-container a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-button-block {
+    display: block;
+}
+
+/* CSS for NodeTab.jsx */
+.node-tab-container {
+    margin-left: 24px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.node-tab-text {
+    font-size: small;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 10px;
+}
+
+.database-link {
+    font-size: small;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 10px;
+    margin-right: 26px;
+    display: flex;
+    flex-direction: column;
+}
+
+.database-link a:hover {
+    text-decoration: underline;
+}
+
+.red-node-link {
+    font-weight: 500;
+    text-decoration: none;
+    background-color: var(--reed-red);
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid black;
+    text-align: center;
+    max-width: 160px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.red-node-link:hover {
+    color: white;
+    background-color: var(--reed-red-hover);
+}
+
+.blue-node-link {
+    font-weight: 500;
+    text-decoration: none;
+    background-color: var(--graph-blue);
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid black;
+    text-align: center;
+    max-width: 160px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.blue-node-link:hover {
+    color: white;
+    background-color: var(--graph-blue-hover);
+}
+
+.tan-node-link {
     font-weight: 500;
     text-decoration: none;
     background-color: var(--graph-tan);
@@ -655,77 +658,34 @@ select {
     border-radius: 10px;
     border: 2px solid black;
     text-align: center;
+    max-width: 160px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 10px;
 }
 
-.tan-sidebar-link:hover {
+.tan-node-link:hover {
     color: black;
     background-color: var(--graph-tan-hover);
 }
 
-.protein-selection-suggestion {
-    margin-left: 16px;
-    margin-top: 16px;
-    margin-bottom: 0;
+.align-go-disclaimer {
+    display: inline-flex;
+    margin: 0;
 }
 
-.protein-summary {
-    margin-left: 16px;
-    display: flex;
-    flex-direction: column;
-}
-
-.database-link {
+.go-annotation-info {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 24px;
     font-size: small;
 }
 
-.go-protein-summary {
-    margin-left: 16px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* .go-qualifier {
-  display: flex;
-  flex-direction: row;
-} */
-
 .go-protein-disclaimer {
-    font-weight: bold;
-    font-size: x-small;
+    margin: 0;
 }
 
-.sidebar {
-    width: 250px;
-    height: 480px;
-    background-color: var(--light-background);
-    border: 2px solid var(--light-background);
-    border-radius: 0;
-    padding: 10px;
-    margin-left: 2px;
-    margin-top: 5px;
-    overflow-y: scroll;
-    box-shadow: 0px -0px 10px 5px var(--shadow);
-}
-
-.sidebar > h2,
-h3,
-p {
-    color: black;
-    word-wrap: break-word;
-}
-
-.export {
-    color: black;
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 0.8em;
-}
-
-.export:hover {
-    color: var(--reed-red);
-}
-
-/* Query Error */
+/* CSS for QueryError.jsx */
 .query-error {
     position: relative;
     margin: auto;
@@ -766,29 +726,7 @@ p {
     width: 100px;
 }
 
-.center-buttons {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.go-description {
-    overflow: auto;
-    text-overflow: ellipsis;
-    height: 120px;
-    flex-wrap: break-word;
-}
-
-select {
-    margin-top: 1px;
-    margin-left: 10px;
-    margin-right: 10px;
-    height: 40px;
-    border-radius: 5px;
-}
-
+/* CSS for Footer.jsx */
 .footer-container {
     position: relative;
     bottom: 0;
@@ -806,14 +744,14 @@ select {
     align-items: center;
 }
 
-.footer > * {
+.footer>* {
     margin-left: 15px;
     color: black;
     font-family: "Lora", serif;
     font-weight: 600;
 }
 
-.footer > *:hover {
+.footer>*:hover {
     color: var(--home-button-hover);
 }
 
@@ -826,6 +764,7 @@ select {
     align-items: center;
 }
 
+/* CSS for GoDefinition.jsx */
 .icon {
     color: white;
     margin-right: 0.5em;
@@ -838,13 +777,16 @@ select {
 .go-definition {
     background-color: var(--light-background);
     color: #000;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     text-align: left;
     outline: 1px solid black;
-    width: 100%;
+    width: 98%;
     vertical-align: middle;
     position: relative;
+    margin-left: 5px;
+    /* max-width: 525px; */
+    min-width: none;
 }
 
 .go-definition p {
@@ -855,12 +797,25 @@ select {
     padding-left: 10px;
     display: inline-flex;
     vertical-align: middle;
+    font-weight: bold;
 }
 
 .go-def-content {
-    padding-left: 16px;
-    padding-right: 16px;
-    margin-bottom: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 12px;
+    margin-left: 2px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    /* max-width: 405px; */
+}
+
+.go-def-text {
+    margin-top: 0px;
+    text-align: justify;
+    font-size: small;
+    padding-left: 8px;
+    padding-right: 4px;
 }
 
 .icon-top-right {
@@ -872,6 +827,18 @@ select {
     cursor: pointer;
 }
 
+.pro-go-stats {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.pro-go-stats h5 {
+    margin-right: 0px;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+/* CSS for Legend.jsx */
 .legend {
     width: 1045px;
     height: 300px;
@@ -904,6 +871,32 @@ select {
     align-items: center;
 }
 
+.legend-max {
+    padding-left: 10px;
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    font-size: 10px;
+    pointer-events: none;
+    /* This makes the div non-interactive */
+}
+
+.shared-edge-toggle {
+    display: inline-flex;
+}
+
+.checkbox {
+    margin-left: 2px;
+    text-align: center;
+    cursor: pointer;
+    pointer-events: auto;
+    display: inline-flex;
+    /* This makes the div interactive */
+}
+
 .black-line {
     background-color: black;
     border: none;
@@ -922,6 +915,64 @@ select {
     margin-bottom: 3px;
 }
 
+.red-dashed-arrow {
+    background-color: transparent;
+    /* Set background to transparent */
+    border: none;
+    height: 0;
+    /* Height set to 0 for the line */
+    width: 28px;
+    display: inline-block;
+    position: relative;
+    border-top: 3px dashed red;
+    margin-bottom: 3px;
+    margin-right: 2px;
+}
+
+.red-dashed-arrow::after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    /* Adjust this value to position the arrowhead */
+    right: -2px;
+    /* Adjust this value to position the arrowhead */
+    border-top: 6px solid transparent;
+    /* Change this value for arrowhead size */
+    border-bottom: 6px solid transparent;
+    /* Change this value for arrowhead size */
+    border-left: 6px solid red;
+    /* Match the color of the arrow body */
+}
+
+.pink-dashed-arrow {
+    background-color: transparent;
+    /* Set background to transparent */
+    border: none;
+    height: 0;
+    /* Height set to 0 for the line */
+    width: 28px;
+    display: inline-block;
+    position: relative;
+    border-top: 3px dashed #994758;
+    margin-bottom: 3px;
+    margin-right: 2px;
+}
+
+.pink-dashed-arrow::after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    /* Adjust this value to position the arrowhead */
+    right: -2px;
+    /* Adjust this value to position the arrowhead */
+    border-top: 6px solid transparent;
+    /* Change this value for arrowhead size */
+    border-bottom: 6px solid transparent;
+    /* Change this value for arrowhead size */
+    border-left: 6px solid #994758;
+    /* Match the color of the arrow body */
+}
+
 .line-align {
     width: 525px;
     display: inline-block;
@@ -931,14 +982,6 @@ select {
     width: 525px;
     display: inline-flex;
     align-items: center;
-}
-
-.intermediate-dot-align {
-    width: 525px;
-    display: inline-flex;
-    align-items: center;
-    margin-top: -5px;
-    margin-bottom: 5px;
 }
 
 .key-align {
@@ -983,9 +1026,15 @@ select {
     height: 15px;
     width: 15px;
     display: inline-block;
-    margin-top: none;
 }
 
+.node-size {
+    height: 15px;
+    width: 20px;
+    display: inline-block;
+}
+
+/* CSS for loading icon after query submission */
 .loader {
     border: 16px solid #f3f3f3;
     /* Light grey */
@@ -999,6 +1048,7 @@ select {
     margin: auto;
 }
 
+/* CSS for AboutPage.jsx */
 .about-body {
     background-color: var(--reed-red);
     width: 1000px;
@@ -1019,8 +1069,8 @@ select {
     text-align: center;
 }
 
-.about-body > p,
-.about-body > h3,
+.about-body>p,
+.about-body>h3,
 .about-body-text {
     color: white;
     text-align: justify;
@@ -1031,82 +1081,29 @@ select {
     color: white;
 }
 
-.about-body > ul {
+.about-body>ul {
     list-style-type: disc;
 }
 
-.about-body > p > a,
-.about-list > li > a,
+.about-body>p>a,
+.about-list>li>a,
 .about-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.about-body > p > a:hover,
-.about-body > p > ul > li > a:hover,
+.about-body>p>a:hover,
+.about-body>p>ul>li>a:hover,
 .about-body-link:hover {
     color: var(--text-hover);
 }
 
-.about-list > li > a:hover {
+.about-list>li>a:hover {
     color: var(--text-hover);
 }
 
-.faq-body {
-    background-color: var(--reed-red);
-    width: 1000px;
-    margin: auto;
-    margin-top: 50px;
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-bottom: 25px;
-    padding-top: 5px;
-    border-radius: 10px;
-    color: white;
-    box-shadow: 0px -0px 10px 5px var(--shadow);
-}
-
-.faq-title {
-    padding-bottom: 5px;
-    border-bottom: 3px solid white;
-    text-align: center;
-}
-
-.faq-body > p,
-.faq-body > h3,
-.faq-body-text {
-    color: white;
-    text-align: justify;
-}
-
-.faq-body-text-heading {
-    text-align: left;
-    color: white;
-}
-
-.faq-body > ul {
-    list-style-type: disc;
-}
-
-.faq-body > p > a,
-.faq-list > li > a,
-.faq-body-link {
-    color: white;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.faq-body > p > a:hover,
-.faq-body > p > ul > li > a:hover,
-.faq-body-link:hover {
-    color: var(--text-hover);
-}
-
-.faq-list > li > a:hover {
-    color: var(--text-hover);
-}
-
+/* CSS for TOSPage.jsx */
 .tos-body {
     background-color: var(--reed-red);
     width: 1000px;
@@ -1127,8 +1124,8 @@ select {
     text-align: center;
 }
 
-.tos-body > p,
-.tos-body > h3,
+.tos-body>p,
+.tos-body>h3,
 .tos-body-text {
     color: white;
     text-align: justify;
@@ -1139,28 +1136,29 @@ select {
     color: white;
 }
 
-.tos-body > ul {
+.tos-body>ul {
     list-style-type: disc;
 }
 
-.tos-body > p > a,
-.tos-list > li > a,
+.tos-body>p>a,
+.tos-list>li>a,
 .tos-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.tos-body > p > a:hover,
-.tos-body > p > ul > li > a:hover,
+.tos-body>p>a:hover,
+.tos-body>p>ul>li>a:hover,
 .tos-body-link:hover {
     color: var(--text-hover);
 }
 
-.tos-list > li > a:hover {
+.tos-list>li>a:hover {
     color: var(--text-hover);
 }
 
+/* CSS and icons for App.jsx page */
 .home-body {
     background-color: var(--reed-red);
     width: 1000px;
@@ -1230,6 +1228,61 @@ select {
     color: var(--text-hover);
 }
 
+/* CSS for images on FAQPage.jsx */
+.faq-body {
+    background-color: var(--reed-red);
+    width: 1000px;
+    margin: auto;
+    margin-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-top: 5px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0px -0px 10px 5px var(--shadow);
+}
+
+.faq-title {
+    padding-bottom: 5px;
+    border-bottom: 3px solid white;
+    text-align: center;
+}
+
+.faq-body>p,
+.faq-body>h3,
+.faq-body-text {
+    color: white;
+    text-align: justify;
+}
+
+.faq-body-text-heading {
+    text-align: left;
+    color: white;
+}
+
+.faq-body>ul {
+    list-style-type: disc;
+}
+
+.faq-body>p>a,
+.faq-list>li>a,
+.faq-body-link {
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.faq-body>p>a:hover,
+.faq-body>p>ul>li>a:hover,
+.faq-body-link:hover {
+    color: var(--text-hover);
+}
+
+.faq-list>li>a:hover {
+    color: var(--text-hover);
+}
+
 .faq-image-container {
     display: flex;
 }
@@ -1249,17 +1302,132 @@ select {
     height: 180px;
 }
 
-.checkbox {
-    margin-left: 10px;
-    margin-top: 5px;
-    cursor: pointer;
-    pointer-events: auto;
-    /* This makes the div non-interactive */
+/* CSS for warning for GO terms that should never be annotated */
+.never-annotate-container {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
 }
 
-.info-icon {
+.never-annotate-icon {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--graph-blue);
+    /* Adjust this value as needed */
+}
+
+.never-annotate-warning {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Adjust this value as needed */
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    z-index: -1;
+    display: none;
+    text-align: center;
+    width: 80px;
+}
+
+.never-annotate-container:hover .never-annotate-warning {
+    display: block;
+}
+
+/* CSS for GraphExploration.jsx */
+.graph-exploration {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 180px;
+    justify-content: center;
+    text-align: center;
+}
+
+.graph-exploration-title,
+.stats-title {
+    margin-left: 16px;
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+.graph-exploration-header {
+    background-color: var(--light-background);
+    outline: 1px solid #000;
+}
+
+/* NewSourceNode.jsx */
+.new-source-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 240px;
+    max-width: 240px;
+    align-self: center;
+}
+
+.new-source-container h5 {
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.new-source-container p {
+    margin-bottom: 8px;
+    margin-top: 8px;
+    font-size: x-small;
+}
+
+.new-source {
+    margin-top: 0;
+    margin-bottom: 16px;
+    min-height: 50px;
+    min-width: 96px;
+    word-wrap: nowrap;
+    background: var(--graph-tan);
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+    align-self: center;
+}
+
+.new-source:hover {
+    border: 2px solid var(--reed-red-hover);
+}
+
+.new-source-disabled {
+    margin-top: 0;
+    margin-bottom: 16px;
+    min-height: 50px;
+    min-width: 96px;
+    word-wrap: nowrap;
+    background: #888888;
+    color: #fff;
+    border: 2px solid var(--light-background);
+    border-radius: 5px;
+    text-align: center;
+    cursor: auto;
+    pointer-events: none;
+}
+
+/* CSS for AncestorSelector.jsx, DescendantSelector.jsx, GoTermSelector.jsx */
+.info-icon-ancestor {
     position: absolute;
     left: -20px;
+    top: 50%;
+    transform: translateY(50%);
+    color: grey;
+}
+
+.info-icon-descendant {
+    position: absolute;
+    right: -20px;
     top: 50%;
     transform: translateY(50%);
     color: grey;
@@ -1287,35 +1455,86 @@ select {
     display: block;
 }
 
-.never-annotate-container {
+.new-go-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    max-width: 300px;
+    margin-right: 16px;
+    margin-left: 16px;
+}
+
+.new-go-container h5 {
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.new-go-form {
+    display: inline-block;
+}
+
+.go-selector-container {
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: 16px;
+    max-width: 300px;
+    display: flex;
+}
+
+.go-input {
+    width: 120px;
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-bottom: 8px;
+}
+
+.go-hierarchy-input {
+    width: 100px;
+}
+
+
+.hierarchy-input-container {
     position: relative;
 }
 
-.never-annotate-icon {
-    position: absolute;
-    top: -50px;
-    left: 80px;
-    color: var(--graph-blue);
-    /* Adjust this value as needed */
-}
-
-.never-annotate-warning {
-    position: absolute;
-    top: -35px;
-    left: 60px;
-    /* Adjust this value as needed */
-    background-color: rgba(0, 0, 0, 0.75);
-    color: #fff;
-    padding: 5px;
+.new-go-term-button {
+    display: inline-block;
+    min-height: 50px;
+    min-width: 200px;
+    word-wrap: nowrap;
+    background: var(--graph-tan);
+    color: black;
+    border: 2px solid black;
     border-radius: 5px;
-    font-size: 10px;
-    z-index: 1;
-    display: none;
     text-align: center;
 }
 
-.never-annotate-container:hover .never-annotate-warning {
-    display: block;
+.new-go-term-button:hover {
+    border: 2px solid var(--graph-blue-hover);
+}
+
+.new-go-term-button-disabled {
+    display: inline-block;
+    min-height: 50px;
+    min-width: 200px;
+    word-wrap: nowrap;
+    background: #888888;
+    color: #fff;
+    border: 2px solid var(--light-background);
+    border-radius: 5px;
+    text-align: center;
+    pointer-events: none;
+}
+
+/* ChangeLayout.jsx */
+.change-layout-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    max-width: 240px;
+}
+
+.change-layout-container h5 {
+    margin-bottom: 8px;
+    margin-top: 8px;
 }
 
 .change-layout {
@@ -1324,26 +1543,33 @@ select {
 }
 
 .align-change-layout {
+    margin-top: 16px;
+    margin-left: 30px;
     align-items: center;
     justify-content: center;
+    display: inline-flex;
 }
 
 /* Tooltip container */
 .layout-tooltip {
     display: flex;
     align-self: center;
-    margin-bottom: 10px;
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: small;
 }
 
 /* Tooltip text */
 .layout-tooltip .tooltiptext {
     visibility: hidden;
+    margin-left: 2px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .layout-tooltip:hover .tooltiptext {
     visibility: visible;
     align-self: center;
+    margin-left: 2px;
 }
 
 .layout-icon {
@@ -1352,10 +1578,15 @@ select {
     align-items: center;
 }
 
+.layout-icon:hover {
+    border: 1px solid var(--graph-tan)
+}
+
 .mode-container {
     margin-top: 0;
     display: flex;
     align-items: center;
+
 }
 
 .active-button {
@@ -1414,6 +1645,20 @@ select {
     }
 }
 
+.interaction-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px ;
+}
+
+.interaction-title{
+    /* border: 2px solid purple; */
+    /* width: 100px; */
+    display: inline
+}
+
+/* Create Panels in Query.jsx */
 .panel-container {
     margin-top: 82px;
     width: 100%;
@@ -1458,52 +1703,7 @@ select {
     width: 100%;
 }
 
-.summary-panel-container,
-.statistics-panel-container,
-.graph-exploration-panel-container {
-    height: 100%;
-    width: 100%;
-    overflow-y: auto;
-}
-
-.summary-panel-container::-webkit-scrollbar,
-.statistics-panel-container::-webkit-scrollbar,
-.graph-exploration-panel-container::-webkit-scrollbar {
-    width: 5px; /* Width of the scrollbar */
-}
-
-.summary-panel-container::-webkit-scrollbar-track,
-.statistics-panel-container::-webkit-scrollbar-track,
-.graph-exploration-panel-container::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color of the scrollbar track */
-}
-
-.summary-panel-container::-webkit-scrollbar-thumb,
-.statistics-panel-container::-webkit-scrollbar-thumb,
-.graph-exploration-panel-container::-webkit-scrollbar-thumb {
-    background: var(--reed-red); /* Color of the scrollbar thumb */
-    border-radius: 6px; /* Rounded corners of the scrollbar thumb */
-}
-
-.summary-panel-container::-webkit-scrollbar-thumb:hover,
-.statistics-panel-container::-webkit-scrollbar-thumb:hover,
-.graph-exploration-panel-container::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color of the scrollbar thumb when hovered */
-}
-
-.legend-max {
-    padding-left: 10px;
-    width: 10%;
-    height: 10%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    font-size: 10px;
-    pointer-events: none;
-    /* This makes the div non-interactive */
-}
-
+/* StatisticsTab.jsx */
 .stats-tab-list {
     list-style-type: none;
     /* Remove bullets */
@@ -1519,7 +1719,7 @@ select {
     width: 100%;
     padding: 5px;
     text-align: center;
-    background-color: #828588;
+    background-color: var(--light-background);
 }
 
 .stats-tab-construction {
@@ -1534,72 +1734,186 @@ select {
     border-top-right-radius: 5px;
     text-decoration: underline;
     background-color: white;
+    font-weight: bold;
 }
 
 .stats-title {
     text-align: left;
 }
 
-.scrollable-content {
-    max-height: 100%; /* Set a fixed height to enable scrolling */
-    overflow-y: scroll; /* Make the content scrollable */
-    direction: rtl; /* Set the direction to right-to-left to move the scrollbar to the left */
+/* makes tabs and panels scrollable */
+.summary-panel-container,
+.statistics-panel-container,
+.graph-exploration-panel-container {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: auto;
+
 }
 
-.scrollable-content * {
-    direction: ltr; /* Reset the text direction to left-to-right for the content */
+.summary-panel-container::-webkit-scrollbar,
+.statistics-panel-container::-webkit-scrollbar,
+.graph-exploration-panel-container::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
 }
 
-.scrollable-content::-webkit-scrollbar {
-    width: 12px; /* Width of the scrollbar */
+.summary-panel-container::-webkit-scrollbar-track,
+.statistics-panel-container::-webkit-scrollbar-track,
+.graph-exploration-panel-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
 }
 
-.scrollable-content::-webkit-scrollbar-track {
-    background: var(--reed-red); /* Color of the scrollbar track */
+.summary-panel-container::-webkit-scrollbar-thumb,
+.statistics-panel-container::-webkit-scrollbar-thumb,
+.graph-exploration-panel-container::-webkit-scrollbar-thumb {
+    background: var(--reed-red);
+    border-radius: 6px;
 }
 
-.scrollable-content::-webkit-scrollbar-thumb {
-    background: var(re); /* Color of the scrollbar thumb */
-    border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+.summary-panel-container::-webkit-scrollbar-thumb:hover,
+.statistics-panel-container::-webkit-scrollbar-thumb:hover,
+.graph-exploration-panel-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
-.scrollable-content::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color of the scrollbar thumb when hovered */
+/* MotifTab.jsx */
+
+.motif-stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+    margin-left: 24px;
+    margin-bottom: 16px;
 }
 
-.right-aligned-list {
-    list-style: none;
-    text-align: right;
+.motif-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.motif-item p {
+    font-size: small;
+    font-weight: bold;
+}
+
+.motif-icon {
+    width: 80px;
+    /* Adjust size as needed */
+    height: 55px;
+    /* Adjust size as needed */
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+
+
+
+/* EdgeTab.jsx */
+.edge-tab-container {
+    margin-left: 24px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.edge-tab-text {
+    font-size: small;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 10px;
+}
+
+.align-edge-link {
+    display: inline-block
+}
+
+.edge-tab-evidence {
+    font-size: small;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 10px;
+}
+
+.edge-tab-link {
+    font-weight: normal;
+    font-size: small;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 26px;
+}
+
+.edge-tab-link a {
+    font-weight: bold;
+    color: black;
+    text-decoration: underline;
+}
+
+.edge-tab-link a:hover {
+    text-decoration: underline;
+    color: var(--reed-red)
+}
+
+/* GraphStats.jsx */
+.graph-stats {
+    background-color: var(--light-background);
+    color: #000;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    text-align: left;
+    outline: 1px solid black;
+    width: 98%;
+    vertical-align: middle;
+    position: relative;
+    margin-left: 5px;
+    min-width: none;
+}
+
+.graph-stats p {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 10px;
+    display: inline-flex;
+    vertical-align: middle;
+    font-weight: bold;
 }
 
 .graph-stats-container {
-    margin-left: 30px;
-    margin-top: 20px;
+    margin-left: 24px;
+    /* margin-top: 16px; */
 }
 
-.node-icon-container {
+.align-graph-stats {
     display: flex;
-    flex-direction: column;
-    width: 70px;
-    height: 5px;
-    margin-right: 20px;
+    flex-wrap: wrap;
+    /* gap: 20px; */
 }
 
 .img-text-container {
     display: flex;
-    margin-top: 20px;
+    align-items: center;
+    gap: 10px;
+    width: 250px;
 }
 
-.node-icon-container:hover {
-    display: block;
+.img-text-container p {
+    font-size: small;
+    font-weight: bold;
 }
 
-.edges-icon-container {
+.graph-stats-icon-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 70px;
-    height: 5px;
-    margin-right: 20px;
+    height: 70px;
+    transition: transform 0.2s ease;
 }
 
 .edges-icon-container:hover {
@@ -1628,4 +1942,25 @@ select {
 
 .degree-icon-container:hover {
     display: block;
+}
+
+.search-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: lightblue;
+    border-radius: 5px;
+}
+
+.search-box-pair {
+    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+}
+
+.graph-stats-icon-container:hover {
+    transform: scale(1.1);
+}
+
+.checkbox-container {
+    padding-left: 5px;
 }

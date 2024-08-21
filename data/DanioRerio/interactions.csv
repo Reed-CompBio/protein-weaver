@@ -1,509 +1,509 @@
-ID,Participants/0/InteractorRef/0,Participants/1/InteractorRef/0
-777,1,2
-779,9,9
-781,17,1
-783,25,26
-785,1,25
-787,17,26
-789,9,17
-791,57,58
-793,65,66
-795,57,74
-797,17,17
-799,2,25
-801,65,65
-803,57,74
-805,2,1
-807,9,17
-809,129,130
-811,137,129
-813,17,25
-815,17,26
-817,2,25
-819,130,9
-821,177,177
-823,137,129
-825,193,65
-827,130,129
-829,209,210
-831,2,2
-833,17,1
-835,137,130
-837,26,1
-839,130,9
-841,26,137
-843,129,26
-845,2,1
-847,281,281
-849,193,193
-851,26,2
-853,26,129
-855,313,313
-857,74,74
-859,137,26
-861,25,17
-863,26,26
-865,1,1
-867,210,210
-869,9,26
-871,26,1
-873,9,26
-875,130,137
-877,401,401
-879,193,66
-881,26,25
-883,25,1
-885,66,193
-887,441,2
-889,9,1
-891,65,193
-893,1,9
-895,441,2
-897,481,481
-899,2,129
-901,497,498
-903,497,498
-905,25,25
-907,58,57
-909,66,65
-911,210,210
-913,313,313
-915,193,193
-917,498,497
-919,74,57
-921,57,58
-923,2,441
-925,66,193
-927,193,65
-929,66,65
-931,481,481
-933,74,74
-935,281,281
-937,401,401
-939,498,497
-941,57,74
-943,58,57
-945,66,193
-947,2,1
-949,2,2
-951,2,129
-953,1,2
-955,2,26
-957,717,718
-959,718,724
-961,717,718
-963,735,735
-965,741,741
-967,747,748
-969,753,735
-971,759,760
-973,765,766
-975,759,772
-601,1,2
-603,7,8
-605,7,14
-607,19,20
-609,25,26
-611,31,32
-613,37,32
-615,37,44
-617,49,37
-619,55,37
-621,61,37
-623,37,68
-625,73,37
-627,79,37
-629,85,31
-631,91,61
-633,91,73
-635,103,91
-637,103,110
-639,110,61
-641,121,61
-643,121,73
-645,79,55
-647,79,140
-649,140,68
-651,55,152
-653,140,2
-655,163,32
-657,37,170
-659,175,37
-661,181,44
-663,181,188
-665,110,68
-667,199,200
-669,205,199
-671,175,1
-673,217,218
-675,223,224
-677,37,49
-679,163,49
-681,1,2
-683,7,8
-685,14,7
-687,19,20
-689,26,25
-691,31,32
-693,32,37
-695,37,44
-697,37,49
-699,55,37
-701,37,61
-703,37,68
-705,37,73
-707,79,37
-709,85,31
-711,91,61
-713,91,73
-715,91,103
-717,110,103
-719,61,110
-721,121,61
-723,73,121
-725,55,79
-727,140,68
-729,79,140
-731,152,55
-733,2,140
-735,163,32
-737,170,37
-739,175,37
-741,181,44
-743,188,181
-745,68,110
-747,199,200
-749,205,199
-751,1,175
-753,121,121
-755,463,463
-757,469,469
-759,475,475
-761,481,481
-763,487,487
-765,217,494
-767,494,218
-769,505,217
-771,218,505
-773,223,518
-775,523,524
-777,529,32
-779,535,31
-781,541,542
-783,200,103
-785,200,49
-787,559,200
-789,565,205
-791,524,49
-793,565,578
-795,188,584
-797,49,578
-799,1,188
-600,1,2
-602,2,8
-604,13,14
-606,19,20
-608,25,19
-610,31,32
-612,37,19
-614,13,44
-616,13,50
-618,55,56
-620,56,62
-622,67,62
-624,73,74
-626,19,80
-628,19,86
-630,19,92
-632,97,98
-634,103,98
-636,103,50
-638,73,31
-640,103,73
-642,127,73
-644,97,14
-646,139,14
-648,14,103
-650,127,14
-652,103,2
-654,127,2
-656,103,170
-658,175,103
-660,31,92
-662,92,103
-664,127,92
-666,31,2
-668,127,98
-670,73,212
-672,20,13
-674,139,20
-676,127,13
-678,8,31
-680,44,1
-682,44,8
-684,13,14
-686,19,20
-688,25,19
-690,37,19
-692,31,32
-694,13,44
-696,50,13
-698,31,2
-700,98,127
-702,212,73
-704,13,20
-706,139,20
-708,13,127
-710,31,8
-712,44,1
-714,44,8
-716,92,92
-718,355,355
-720,175,175
-722,13,13
-724,373,373
-726,1,1
-728,8,8
-730,391,392
-732,397,398
-734,398,373
-736,409,410
-738,13,175
-740,1,13
-742,8,13
-744,398,92
-746,409,398
-748,445,13
-750,1,8
-752,457,170
-754,97,13
-756,139,13
-758,391,392
-760,398,397
-762,398,373
-764,409,494
-766,13,175
-768,8,13
-770,1,13
-772,398,92
-774,409,398
-776,1,8
-778,445,13
-780,457,170
-782,13,139
-784,97,13
-786,559,560
-788,1,97
-790,559,572
-792,1,97
-794,582,32
-796,355,391
-798,8,175
-834,1,2
-836,7,8
-838,13,2
-840,19,20
-842,25,26
-844,19,26
-846,37,8
-848,8,1
-850,13,50
-852,25,8
-854,13,2
-856,8,7
-858,26,25
-860,37,8
-862,1,8
-864,13,50
-866,8,25
-868,103,104
-870,103,109
-872,26,103
-874,118,119
-876,126,127
-878,8,134
-880,103,109
-882,7,8
-884,154,8
-886,8,50
-888,13,8
-890,25,26
-892,182,182
-894,182,182
-896,190,191
-898,196,197
-900,206,207
-902,196,197
-904,225,196
-906,235,236
-908,244,235
-910,235,254
-912,236,263
-914,263,244
-916,254,263
-918,263,290
-920,236,300
-922,244,300
-924,300,254
-926,236,327
-928,327,336
-930,244,327
-932,206,191
-934,362,206
-936,190,191
-938,382,190
-940,190,362
-942,191,401
-944,362,401
-946,206,191
-948,191,191
-950,191,439
-952,191,362
-954,191,190
-956,401,191
-958,191,103
-960,439,362
-962,362,401
-964,191,362
-966,362,362
-968,362,103
-970,206,362
-972,362,190
-974,190,382
-976,439,191
-978,439,382
-980,439,362
-982,362,103
-984,103,191
-986,604,605
-988,604,615
-990,604,625
-992,634,635
-994,645,635
-996,635,634
-998,667,668
-1000,676,677
-1002,685,677
-1004,694,694
-1006,290,704
-1008,713,290
-1010,290,724
-1012,733,290
-1014,196,225
-1016,327,754
-1018,254,327
-1020,236,772
-1022,772,336
-1024,772,254
-1026,236,235
-1028,236,327
-1030,263,236
-1032,236,826
-828,1,2
-830,10,2
-832,19,1
-834,19,29
-836,19,10
-838,46,19
-840,19,56
-842,19,65
-844,73,1
-846,29,73
-848,73,46
-850,73,65
-852,56,73
-854,118,29
-856,118,10
-858,136,29
-860,145,29
-862,145,10
-864,163,164
-866,172,173
-868,182,183
-870,192,193
-872,202,203
-874,212,213
-876,221,222
-878,231,232
-880,232,241
-882,232,231
-884,241,231
-886,231,173
-888,173,278
-890,287,288
-892,296,287
-894,305,182
-896,315,182
-898,183,182
-900,193,336
-902,344,336
-904,353,353
-906,193,363
-908,193,372
-910,193,192
-912,241,232
-914,231,241
-916,173,241
-918,418,419
-920,428,419
-922,419,439
-924,182,315
-926,305,182
-928,468,305
-930,477,203
-932,231,488
-934,164,163
-936,212,213
-938,514,193
-940,523,514
-942,532,2
-944,419,372
-946,193,372
-948,477,203
-950,203,202
-952,580,581
-954,587,587
-956,598,587
-958,607,587
-960,587,598
-962,587,607
-964,607,587
-966,607,587
-968,587,598
-970,587,598
-972,587,607
-974,607,587
-976,607,587
-978,587,598
-980,691,692
-982,692,696
-984,699,692
-986,703,704
-988,704,708
-990,711,708
-992,715,711
-994,703,711
-996,711,704
-998,708,703
-1000,703,711
-1002,703,704
-1004,703,708
-1006,704,703
-1008,704,703
-1010,704,703
-1012,767,768
-1014,772,773
-1016,779,772
-1018,363,786
-1020,794,795
-1022,587,805
-1024,587,812
-1026,587,805
-48,1,
-50,7,1
-52,7,1
-54,23,1
-56,31,32
-58,35,32
-60,31,32
-62,31,32
+ID,Type,Experiment,Participants/0/InteractorRef,Participants/1/InteractorRef
+777,physical association,778,1,2
+779,physical association,780,9,9
+781,physical association,782,17,1
+783,physical association,784,25,26
+785,physical association,786,1,25
+787,physical association,788,17,26
+789,physical association,790,9,17
+791,physical association,792,57,58
+793,physical association,794,65,66
+795,physical association,796,57,74
+797,physical association,798,17,17
+799,physical association,800,2,25
+801,physical association,802,65,65
+803,physical association,804,57,74
+805,physical association,806,2,1
+807,physical association,808,9,17
+809,physical association,810,129,130
+811,physical association,812,137,129
+813,physical association,814,17,25
+815,physical association,816,17,26
+817,physical association,818,2,25
+819,physical association,820,130,9
+821,physical association,822,177,177
+823,physical association,824,137,129
+825,physical association,826,193,65
+827,physical association,828,130,129
+829,physical association,830,209,210
+831,physical association,832,2,2
+833,physical association,834,17,1
+835,physical association,836,137,130
+837,physical association,838,26,1
+839,physical association,840,130,9
+841,physical association,842,26,137
+843,physical association,844,129,26
+845,physical association,846,2,1
+847,physical association,848,281,281
+849,physical association,850,193,193
+851,physical association,852,26,2
+853,physical association,854,26,129
+855,physical association,856,313,313
+857,physical association,858,74,74
+859,physical association,860,137,26
+861,physical association,862,25,17
+863,physical association,864,26,26
+865,physical association,866,1,1
+867,physical association,868,210,210
+869,physical association,870,9,26
+871,physical association,872,26,1
+873,physical association,874,9,26
+875,physical association,876,130,137
+877,physical association,878,401,401
+879,physical association,880,193,66
+881,physical association,882,26,25
+883,physical association,884,25,1
+885,physical association,886,66,193
+887,physical association,888,441,2
+889,physical association,890,9,1
+891,physical association,892,65,193
+893,physical association,894,1,9
+895,physical association,896,441,2
+897,physical association,898,481,481
+899,physical association,900,2,129
+901,physical association,902,497,498
+903,physical association,904,497,498
+905,physical association,906,25,25
+907,physical association,908,58,57
+909,physical association,910,66,65
+911,physical association,912,210,210
+913,physical association,914,313,313
+915,physical association,916,193,193
+917,physical association,918,498,497
+919,physical association,920,74,57
+921,physical association,922,57,58
+923,physical association,924,2,441
+925,physical association,926,66,193
+927,physical association,928,193,65
+929,physical association,930,66,65
+931,physical association,932,481,481
+933,physical association,934,74,74
+935,physical association,936,281,281
+937,physical association,938,401,401
+939,physical association,940,498,497
+941,physical association,942,57,74
+943,physical association,944,58,57
+945,physical association,946,66,193
+947,physical association,948,2,1
+949,physical association,950,2,2
+951,physical association,952,2,129
+953,physical association,954,1,2
+955,physical association,956,2,26
+957,direct interaction,958,717,718
+959,direct interaction,960,718,724
+961,colocalization,962,717,718
+963,physical association,964,735,735
+965,physical association,966,741,741
+967,physical association,968,747,748
+969,physical association,970,753,735
+971,physical association,972,759,760
+973,physical association,974,765,766
+975,physical association,976,759,772
+601,physical association,602,1,2
+603,physical association,604,7,8
+605,physical association,606,7,14
+607,physical association,608,19,20
+609,physical association,610,25,26
+611,physical association,612,31,32
+613,physical association,614,37,32
+615,physical association,616,37,44
+617,physical association,618,49,37
+619,physical association,620,55,37
+621,physical association,622,61,37
+623,physical association,624,37,68
+625,physical association,626,73,37
+627,physical association,628,79,37
+629,physical association,630,85,31
+631,physical association,632,91,61
+633,physical association,634,91,73
+635,physical association,636,103,91
+637,physical association,638,103,110
+639,physical association,640,110,61
+641,physical association,642,121,61
+643,physical association,644,121,73
+645,physical association,646,79,55
+647,physical association,648,79,140
+649,physical association,650,140,68
+651,physical association,652,55,152
+653,physical association,654,140,2
+655,physical association,656,163,32
+657,physical association,658,37,170
+659,physical association,660,175,37
+661,physical association,662,181,44
+663,physical association,664,181,188
+665,physical association,666,110,68
+667,physical association,668,199,200
+669,physical association,670,205,199
+671,physical association,672,175,1
+673,physical association,674,217,218
+675,physical association,676,223,224
+677,physical association,678,37,49
+679,physical association,680,163,49
+681,physical association,682,1,2
+683,physical association,684,7,8
+685,physical association,686,14,7
+687,physical association,688,19,20
+689,physical association,690,26,25
+691,physical association,692,31,32
+693,physical association,694,32,37
+695,physical association,696,37,44
+697,physical association,698,37,49
+699,physical association,700,55,37
+701,physical association,702,37,61
+703,physical association,704,37,68
+705,physical association,706,37,73
+707,physical association,708,79,37
+709,physical association,710,85,31
+711,physical association,712,91,61
+713,physical association,714,91,73
+715,physical association,716,91,103
+717,physical association,718,110,103
+719,physical association,720,61,110
+721,physical association,722,121,61
+723,physical association,724,73,121
+725,physical association,726,55,79
+727,physical association,728,140,68
+729,physical association,730,79,140
+731,physical association,732,152,55
+733,physical association,734,2,140
+735,physical association,736,163,32
+737,physical association,738,170,37
+739,physical association,740,175,37
+741,physical association,742,181,44
+743,physical association,744,188,181
+745,physical association,746,68,110
+747,physical association,748,199,200
+749,physical association,750,205,199
+751,physical association,752,1,175
+753,physical association,754,121,121
+755,physical association,756,463,463
+757,physical association,758,469,469
+759,physical association,760,475,475
+761,physical association,762,481,481
+763,physical association,764,487,487
+765,physical association,766,217,494
+767,physical association,768,494,218
+769,physical association,770,505,217
+771,physical association,772,218,505
+773,physical association,774,223,518
+775,physical association,776,523,524
+777,physical association,778,529,32
+779,physical association,780,535,31
+781,physical association,782,541,542
+783,physical association,784,200,103
+785,physical association,786,200,49
+787,physical association,788,559,200
+789,physical association,790,565,205
+791,physical association,792,524,49
+793,physical association,794,565,578
+795,physical association,796,188,584
+797,physical association,798,49,578
+799,physical association,800,1,188
+600,physical association,601,1,2
+602,physical association,603,2,8
+604,physical association,605,13,14
+606,physical association,607,19,20
+608,physical association,609,25,19
+610,physical association,611,31,32
+612,physical association,613,37,19
+614,physical association,615,13,44
+616,physical association,617,13,50
+618,physical association,619,55,56
+620,physical association,621,56,62
+622,physical association,623,67,62
+624,physical association,625,73,74
+626,physical association,627,19,80
+628,physical association,629,19,86
+630,physical association,631,19,92
+632,physical association,633,97,98
+634,physical association,635,103,98
+636,physical association,637,103,50
+638,physical association,639,73,31
+640,physical association,641,103,73
+642,physical association,643,127,73
+644,physical association,645,97,14
+646,physical association,647,139,14
+648,physical association,649,14,103
+650,physical association,651,127,14
+652,physical association,653,103,2
+654,physical association,655,127,2
+656,physical association,657,103,170
+658,physical association,659,175,103
+660,physical association,661,31,92
+662,physical association,663,92,103
+664,physical association,665,127,92
+666,physical association,667,31,2
+668,physical association,669,127,98
+670,physical association,671,73,212
+672,physical association,673,20,13
+674,physical association,675,139,20
+676,physical association,677,127,13
+678,physical association,679,8,31
+680,physical association,681,44,1
+682,physical association,683,44,8
+684,physical association,685,13,14
+686,physical association,687,19,20
+688,physical association,689,25,19
+690,physical association,691,37,19
+692,physical association,693,31,32
+694,physical association,695,13,44
+696,physical association,697,50,13
+698,physical association,699,31,2
+700,physical association,701,98,127
+702,physical association,703,212,73
+704,physical association,705,13,20
+706,physical association,707,139,20
+708,physical association,709,13,127
+710,physical association,711,31,8
+712,physical association,713,44,1
+714,physical association,715,44,8
+716,physical association,717,92,92
+718,physical association,719,355,355
+720,physical association,721,175,175
+722,physical association,723,13,13
+724,physical association,725,373,373
+726,physical association,727,1,1
+728,physical association,729,8,8
+730,physical association,731,391,392
+732,physical association,733,397,398
+734,physical association,735,398,373
+736,physical association,737,409,410
+738,physical association,739,13,175
+740,physical association,741,1,13
+742,physical association,743,8,13
+744,physical association,745,398,92
+746,physical association,747,409,398
+748,physical association,749,445,13
+750,physical association,751,1,8
+752,physical association,753,457,170
+754,physical association,755,97,13
+756,physical association,757,139,13
+758,physical association,759,391,392
+760,physical association,761,398,397
+762,physical association,763,398,373
+764,physical association,765,409,494
+766,physical association,767,13,175
+768,physical association,769,8,13
+770,physical association,771,1,13
+772,physical association,773,398,92
+774,physical association,775,409,398
+776,physical association,777,1,8
+778,physical association,779,445,13
+780,physical association,781,457,170
+782,physical association,783,13,139
+784,physical association,785,97,13
+786,physical association,787,559,560
+788,physical association,789,1,97
+790,physical association,791,559,572
+792,physical association,793,1,97
+794,physical association,795,582,32
+796,physical association,797,355,391
+798,physical association,799,8,175
+834,physical association,835,1,2
+836,physical association,837,7,8
+838,physical association,839,13,2
+840,physical association,841,19,20
+842,physical association,843,25,26
+844,physical association,845,19,26
+846,physical association,847,37,8
+848,physical association,849,8,1
+850,physical association,851,13,50
+852,physical association,853,25,8
+854,physical association,855,13,2
+856,physical association,857,8,7
+858,physical association,859,26,25
+860,physical association,861,37,8
+862,physical association,863,1,8
+864,physical association,865,13,50
+866,physical association,867,8,25
+868,direct interaction,869,103,104
+870,direct interaction,871,103,109
+872,direct interaction,873,26,103
+874,colocalization,875,118,119
+876,physical association,877,126,127
+878,physical association,879,8,134
+880,physical association,881,103,109
+882,physical association,883,7,8
+884,physical association,885,154,8
+886,physical association,887,8,50
+888,physical association,889,13,8
+890,physical association,891,25,26
+892,direct interaction,893,182,182
+894,direct interaction,895,182,182
+896,colocalization,897,190,191
+898,physical association,899,196,197
+900,physical association,901,206,207
+902,physical association,903,196,197
+904,physical association,905,225,196
+906,physical association,907,235,236
+908,physical association,909,244,235
+910,physical association,911,235,254
+912,physical association,913,236,263
+914,physical association,915,263,244
+916,physical association,917,254,263
+918,physical association,919,263,290
+920,physical association,921,236,300
+922,physical association,923,244,300
+924,physical association,925,300,254
+926,physical association,927,236,327
+928,physical association,929,327,336
+930,physical association,931,244,327
+932,physical association,933,206,191
+934,physical association,935,362,206
+936,physical association,937,190,191
+938,physical association,939,382,190
+940,physical association,941,190,362
+942,physical association,943,191,401
+944,physical association,945,362,401
+946,physical association,947,206,191
+948,physical association,949,191,191
+950,physical association,951,191,439
+952,physical association,953,191,362
+954,physical association,955,191,190
+956,physical association,957,401,191
+958,physical association,959,191,103
+960,physical association,961,439,362
+962,physical association,963,362,401
+964,physical association,965,191,362
+966,physical association,967,362,362
+968,physical association,969,362,103
+970,physical association,971,206,362
+972,physical association,973,362,190
+974,physical association,975,190,382
+976,physical association,977,439,191
+978,physical association,979,439,382
+980,physical association,981,439,362
+982,physical association,983,362,103
+984,physical association,985,103,191
+986,physical association,987,604,605
+988,physical association,989,604,615
+990,physical association,991,604,625
+992,physical association,993,634,635
+994,physical association,995,645,635
+996,physical association,997,635,634
+998,physical association,999,667,668
+1000,physical association,1001,676,677
+1002,physical association,1003,685,677
+1004,physical association,1005,694,694
+1006,physical association,1007,290,704
+1008,physical association,1009,713,290
+1010,physical association,1011,290,724
+1012,physical association,1013,733,290
+1014,physical association,1015,196,225
+1016,physical association,1017,327,754
+1018,physical association,1019,254,327
+1020,physical association,1021,236,772
+1022,physical association,1023,772,336
+1024,physical association,1025,772,254
+1026,physical association,1027,236,235
+1028,physical association,1029,236,327
+1030,physical association,1031,263,236
+1032,physical association,1033,236,826
+828,physical association,829,1,2
+830,physical association,831,10,2
+832,physical association,833,19,1
+834,physical association,835,19,29
+836,physical association,837,19,10
+838,physical association,839,46,19
+840,physical association,841,19,56
+842,physical association,843,19,65
+844,physical association,845,73,1
+846,physical association,847,29,73
+848,physical association,849,73,46
+850,physical association,851,73,65
+852,physical association,853,56,73
+854,physical association,855,118,29
+856,physical association,857,118,10
+858,physical association,859,136,29
+860,physical association,861,145,29
+862,physical association,863,145,10
+864,physical association,865,163,164
+866,physical association,867,172,173
+868,physical association,869,182,183
+870,physical association,871,192,193
+872,physical association,873,202,203
+874,physical association,875,212,213
+876,physical association,877,221,222
+878,physical association,879,231,232
+880,physical association,881,232,241
+882,physical association,883,232,231
+884,physical association,885,241,231
+886,physical association,887,231,173
+888,physical association,889,173,278
+890,physical association,891,287,288
+892,physical association,893,296,287
+894,physical association,895,305,182
+896,physical association,897,315,182
+898,physical association,899,183,182
+900,physical association,901,193,336
+902,physical association,903,344,336
+904,physical association,905,353,353
+906,physical association,907,193,363
+908,physical association,909,193,372
+910,physical association,911,193,192
+912,physical association,913,241,232
+914,physical association,915,231,241
+916,physical association,917,173,241
+918,physical association,919,418,419
+920,physical association,921,428,419
+922,physical association,923,419,439
+924,physical association,925,182,315
+926,physical association,927,305,182
+928,physical association,929,468,305
+930,physical association,931,477,203
+932,physical association,933,231,488
+934,physical association,935,164,163
+936,physical association,937,212,213
+938,physical association,939,514,193
+940,physical association,941,523,514
+942,physical association,943,532,2
+944,physical association,945,419,372
+946,physical association,947,193,372
+948,physical association,949,477,203
+950,physical association,951,203,202
+952,physical association,953,580,581
+954,phosphorylation reaction,955,587,587
+956,phosphorylation reaction,957,598,587
+958,phosphorylation reaction,959,607,587
+960,phosphorylation reaction,961,587,598
+962,phosphorylation reaction,963,587,607
+964,phosphorylation reaction,965,607,587
+966,phosphorylation reaction,967,607,587
+968,phosphorylation reaction,969,587,598
+970,association,971,587,598
+972,association,973,587,607
+974,physical association,975,607,587
+976,phosphorylation reaction,977,607,587
+978,phosphorylation reaction,979,587,598
+980,proximity,981,691,692
+982,proximity,983,692,696
+984,proximity,985,699,692
+986,proximity,987,703,704
+988,proximity,989,704,708
+990,proximity,991,711,708
+992,proximity,993,715,711
+994,proximity,995,703,711
+996,proximity,997,711,704
+998,proximity,999,708,703
+1000,colocalization,1001,703,711
+1002,colocalization,1003,703,704
+1004,colocalization,1005,703,708
+1006,colocalization,1007,704,703
+1008,colocalization,1009,704,703
+1010,physical association,1011,704,703
+1012,colocalization,1013,767,768
+1014,direct interaction,1015,772,773
+1016,physical association,1017,779,772
+1018,physical association,1019,363,786
+1020,physical association,1021,794,795
+1022,phosphorylation reaction,1023,587,805
+1024,phosphorylation reaction,1025,587,812
+1026,phosphorylation reaction,1027,587,805
+48,phosphorylation reaction,49,1,
+50,phosphorylation reaction,51,7,1
+52,phosphorylation reaction,53,7,1
+54,phosphorylation reaction,55,23,1
+56,direct interaction,57,31,32
+58,direct interaction,59,35,32
+60,association,61,31,32
+62,physical association,63,31,32
