@@ -47,6 +47,14 @@ export default function GraphSummary({
             setSourceNodeLink(
                 `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
             );
+        } else if (query.species === "txid559292") {
+            setSourceNodeLink(
+                `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
+            );
+        } else if (query.species === "txid6239") {
+            setSourceNodeLink(
+                `https://amigo.geneontology.org/amigo/gene_product/WB:${sourceNode.id}`
+            );
         }
     }, [sourceNode.id]);
 
