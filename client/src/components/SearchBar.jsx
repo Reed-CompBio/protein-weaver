@@ -142,7 +142,7 @@ export default function SearchBar({
             </div>
 
             <div className="interaction-container">
-                <h4 className="interaction-title">Interaction Type: </h4>
+                <h4 className="interaction-title">Network: </h4>
                 <CheckboxComponent
                     handleCheckboxChange={handleCheckboxChange}
                     query={query}

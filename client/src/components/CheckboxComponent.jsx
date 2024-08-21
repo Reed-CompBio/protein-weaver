@@ -1,6 +1,6 @@
 import React from "react";
 
-function CheckboxComponent({ handleCheckboxChange, query }) {
+export default function CheckboxComponent({ handleCheckboxChange, query }) {
     return (
         <div className="checkbox-container">
             <label className="search-box-pair">
@@ -12,7 +12,7 @@ function CheckboxComponent({ handleCheckboxChange, query }) {
                     onChange={handleCheckboxChange}
                     required={!query.regulatory}
                 />
-                Protein-Protein
+                &nbsp;Protein-Protein
             </label>
             <label className="search-box-pair">
                 <input
@@ -23,10 +23,8 @@ function CheckboxComponent({ handleCheckboxChange, query }) {
                     onChange={handleCheckboxChange}
                     required={!query.ppi}
                 />
-                Regulatory
+                &nbsp;Regulatory
             </label>
         </div>
     );
-}
-
-export default CheckboxComponent;
+};
