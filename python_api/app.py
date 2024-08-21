@@ -33,6 +33,10 @@ def get_pagerank_prediction():
         graph_file_path = Path("./data/zfish/go_protein.pickle")
     elif species == "txid224308": 
         graph_file_path = Path("./data/bsub/go_protein.pickle")
+    elif species == "txid6239": 
+        graph_file_path = Path("./data/elegans/go_protein.pickle")
+    elif species == "txid559292": 
+        graph_file_path = Path("./data/yeast/go_protein.pickle")
 
     G = import_graph_from_pickle(graph_file_path)
     p = nx.pagerank(G, alpha=0.7, personalization={go_term: 1})
@@ -46,7 +50,6 @@ def get_pagerank_prediction():
             print(key , sorted_dict[key])
             i+=1
 
-    # return jsonify(page_rank=p.get(protein), ranking=sorted_dict.get(protein)), 200
     return jsonify(prediction_dict = sorted_dict), 200
 
 

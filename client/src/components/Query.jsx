@@ -503,12 +503,6 @@ export default function Query() {
         }
     }, [networkResult.goTerm]);
 
-    useEffect(() => {
-        if (networkResult != {}) {
-            // console.log(networkResult);
-        }
-    }, [networkResult]);
-
     // Get ancestors for queried GO term
     useEffect(() => {
         if (networkResult.goTerm != null) {
@@ -959,9 +953,6 @@ export default function Query() {
                 value: predictionDict[selectedNode.id].value,
                 rank: predictionDict[selectedNode.id].rank,
             });
-            console.log("value", predictionDict[selectedNode.id].value)
-            console.log("rank",  predictionDict[selectedNode.id].rank)
-
         }
     }, [selectedNode, predictionDict]);
 

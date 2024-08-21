@@ -17,9 +17,6 @@ export default function NodeTab({ currentNode, query, goTerm, predictionValue })
             setSelectedDbLink(speciesLinkMap[query.species] || "");
         }
     }, [currentNode, query.species]);
-    useEffect(() => {
-        console.log(predictionValue)
-    }, [predictionValue]);
 
     if (!currentNode) {
         return (
