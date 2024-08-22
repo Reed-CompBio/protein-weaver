@@ -12,7 +12,7 @@ export default function CheckboxComponent({ handleCheckboxChange, query }) {
                     onChange={handleCheckboxChange}
                     required={!query.regulatory}
                 />
-                &nbsp;Protein-Protein
+                &nbsp;Physical
             </label>
             <label className="search-box-pair">
                 <input
