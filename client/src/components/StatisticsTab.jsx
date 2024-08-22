@@ -17,6 +17,8 @@ export default function StatisticsTab({
     currentNode,
     query,
     goTerm,
+    predictionValue
+
 }) {
     const [tabIndex, setTabIndex] = useState(0);
 
@@ -39,6 +41,7 @@ export default function StatisticsTab({
                         currentNode={currentNode}
                         query={query}
                         goTerm={goTerm}
+                        predictionValue={predictionValue}
                     />
                 </TabPanel>
                 <TabPanel>

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getDriver } from "../src/neo4j.js";
+import http from 'http';
 import bodyParser from "body-parser";
 import NetworkService from "../services/network.service.js";
 import EdgeDataService from "../services/edge.data.service.js";
@@ -184,6 +185,8 @@ router.post("/getQueryByPath", jsonParser, async (req, res, next) => {
   const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
   const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
+  const ppi = data.ppi
+  const regulatory = data.regulatory
 
   console.log("Species:", species);
   console.log("Protein:", protein);
@@ -226,12 +229,21 @@ router.post("/getQueryByPath", jsonParser, async (req, res, next) => {
             });
         } else {
           //DO this to all GOterm
+          let relType = ["ProGo"]
+          if (ppi){
+            relType.push("ProProUndirected")
+          }
+          if (regulatory){
+            relType.push("Reg")
+          }
+
           const queryService = new QueryService(getDriver());
           const queryResult = await queryService.getQuery(
             species,
             protein,
             goTerm,
-            k
+            k,
+            relType
           );
 
           if (queryResult.length === 0) {
@@ -260,11 +272,14 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
   const protein = data.protein.replace(/[^a-zA-Z0-9\s]/g, '.');
   const goTerm = data.goTerm.replace(/[^a-zA-Z0-9\s]/g, '.');
   const k = data.k;
+  const ppi = data.ppi
+  const regulatory = data.regulatory
 
   console.log("Species:", species);
   console.log("Protein:", protein);
   console.log("GO Term:", goTerm);
   console.log("k:", k);
+
   console.log("getQueryByNode");
 
   try {
@@ -300,11 +315,18 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
               error: "No direct proteins connected to GO term for this species",
             });
         } else {
+          let relType = ["ProGo"]
+          if (ppi){
+            relType.push("ProProUndirected")
+          }
+          if (regulatory){
+            relType.push("Reg")
+          }
           const allShortestPathsService = new AllShortestPathsService(
             getDriver()
           );
           var allPaths = await allShortestPathsService.getAllShortestPaths(
-            protein
+            protein, relType
           );
           let neighborFound = 0;
           var paths = [];
@@ -341,5 +363,90 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
     res.status(500).json({ error: "Internal server error." });
   }
 });
+
+router.get('/call-flask', (req, res) => {
+  const options = {
+      hostname: 'localhost',
+      port: 5000,
+      path: '/test',
+      method: 'GET'
+  };
+
+  const flaskReq = http.request(options, (flaskRes) => {
+      let data = '';
+
+      // A chunk of data has been received.
+      flaskRes.on('data', (chunk) => {
+          data += chunk;
+      });
+
+      // The whole response has been received. Print out the result.
+      flaskRes.on('end', () => {
+          try {
+              const jsonData = JSON.parse(data);
+              res.json(jsonData);
+          } catch (error) {
+              console.error('Error parsing JSON:', error);
+              res.status(500).json({ message: 'Error parsing JSON from Flask API' });
+          }
+      });
+  });
+
+  flaskReq.on('error', (error) => {
+      console.error('Error calling Flask API:', error);
+      res.status(500).json({ message: 'Error calling Flask API' });
+  });
+
+  flaskReq.end();
+});
+
+router.post('/getPageRank', (req, res) => {
+  const postData = JSON.stringify({
+    protein: req.body.protein,
+    goTerm: req.body.goTerm,
+    species: req.body.species
+  });
+
+  const options = {
+    hostname: 'localhost',
+    port: 5000,
+    path: '/pageRank',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(postData)
+    }
+  };
+
+  const flaskReq = http.request(options, (flaskRes) => {
+    let data = '';
+
+    // A chunk of data has been received.
+    flaskRes.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    // The whole response has been received. Print out the result.
+    flaskRes.on('end', () => {
+      try {
+        const jsonData = JSON.parse(data);
+        res.json(jsonData);
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+        res.status(500).json({ message: 'Error parsing JSON from Flask API' });
+      }
+    });
+  });
+
+  flaskReq.on('error', (error) => {
+    console.error('Error calling Flask API:', error);
+    res.status(500).json({ message: 'Error calling Flask API' });
+  });
+
+  // Write data to request body
+  flaskReq.write(postData);
+  flaskReq.end();
+});
+
 
 export default router;

@@ -174,6 +174,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    /* border:2px solid purple; */
 }
 
 .search-input-header {
@@ -1644,6 +1645,19 @@ select {
     }
 }
 
+.interaction-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px ;
+}
+
+.interaction-title{
+    /* border: 2px solid purple; */
+    /* width: 100px; */
+    display: inline
+}
+
 /* Create Panels in Query.jsx */
 .panel-container {
     margin-top: 82px;
@@ -1902,6 +1916,51 @@ select {
     transition: transform 0.2s ease;
 }
 
+.edges-icon-container:hover {
+    display: block;
+}
+
+.paths-icon-container {
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    height: 5px;
+    margin-right: 20px;
+}
+
+.paths-icon-container:hover {
+    display: block;
+}
+
+.degree-icon-container {
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    height: 55px;
+    margin-right: 20px;
+}
+
+.degree-icon-container:hover {
+    display: block;
+}
+
+.search-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: lightblue;
+    border-radius: 5px;
+}
+
+.search-box-pair {
+    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+}
+
 .graph-stats-icon-container:hover {
     transform: scale(1.1);
+}
+
+.checkbox-container {
+    padding-left: 5px;
 }

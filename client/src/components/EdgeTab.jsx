@@ -21,6 +21,8 @@ export default function EdgeTab({
             setInteractionDatabase("PMID");
         } else if (evidence.includes(";")) {
             setInteractionDatabase("PMID");
+        } else if (evidence.startsWith("WB")) {
+            setInteractionDatabase("Wormbase");
         } else {
             setInteractionDatabase("");
         }
@@ -63,7 +65,9 @@ export default function EdgeTab({
             return [`https://pubmed.ncbi.nlm.nih.gov/${evidence}`]
         } else if (evidence.includes(";")) {
             return evidence.split(";").map(i => `https://pubmed.ncbi.nlm.nih.gov/${i}`);
-        } else {
+        } else if (evidence.startsWith("WB")) {
+            return [`http://api.wormbase.org/species/all/interaction/${evidence}`];
+        }  else {
             return [];
         }
     };

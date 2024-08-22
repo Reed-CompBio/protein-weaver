@@ -14,8 +14,8 @@ export default class QueryService {
     this.driver = driver;
   }
 
-  async getQuery(speciesInput, proteinInput, goTermInput, kInput) {
-    if (!speciesInput || !proteinInput || !goTermInput || !kInput) {
+  async getQuery(speciesInput, proteinInput, goTermInput, kInput, relType) {
+    if (!speciesInput || !proteinInput || !goTermInput || !kInput || !relType) {
       console.error(
         "Organism, Protein, GO Term and Number of Pathways are required inputs."
       );
@@ -30,7 +30,9 @@ export default class QueryService {
       "with k =",
       kInput,
       "for",
-      speciesInput
+      speciesInput,
+      "with",
+      relType
     );
 
     const session = this.driver.session();
@@ -47,7 +49,7 @@ export default class QueryService {
               sourceNode: source,
               targetNode: target,
               k: toInteger($k),
-              relationshipTypes: ["ProGo", "ProProUndirected","Reg"]
+              relationshipTypes: toStringList($relType)
             })
             YIELD index, sourceNode, targetNode, nodeIds, path
             RETURN
@@ -63,6 +65,7 @@ export default class QueryService {
             protein: proteinInput,
             goTerm: goTermInput,
             k: kInput,
+            relType, relType
           }
         );
         return network.records;

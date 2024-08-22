@@ -34,11 +34,16 @@ export default function Query() {
         protein: "",
         goTerm: "",
         k: [],
+        ppi: false,
+        regulatory: false,
     });
     const [networkResult, setNetworkResult] = useState({});
     const cyRef = useRef(cytoscape.Core | undefined);
     const [sidebarNode, setSidebarNode] = useState("");
     const [sourceNode, setSourceNode] = useState("");
+    const [selectedNode, setSelectedNode] = useState("");
+    const [predictionValue, setPredictionValue] = useState("");
+    const [predictionDict, setPredictionDict] = useState(null);
     const [goTerm, setGoTerm] = useState("");
     const [edgeEvidence, setEdgeEvidence] = useState("");
     const [edgeSource, setEdgeSource] = useState("");
@@ -64,6 +69,8 @@ export default function Query() {
         protein: "",
         goTerm: "",
         k: "",
+        ppi: "",
+        regulatory: "",
     });
     const [guide, setGuide] = useState(guideConfig);
     const [activeModeButton, setActiveModeButton] = useState("");
@@ -79,9 +86,16 @@ export default function Query() {
     const [queryComplete, setQueryComplete] = useState(false);
     const [pageState, setPageState] = useState(0);
     const [exState, setExState] = useState("");
+    const [formValid, setFormValid] = useState(true);
+
     cytoscape.use(cola);
 
     useEffect(() => {
+        const currentPPI = searchParams.get("ppi");
+        const currentRegulatory = searchParams.get("regulatory");
+
+        const ppiBoolean = currentPPI === "true";
+        const regulatoryBoolean = currentRegulatory === "true";
         if (searchParams.get("species") === "") {
             setQuery({
                 mode: "path",
@@ -89,6 +103,8 @@ export default function Query() {
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
+                ppi: ppiBoolean,
+                regulatory: regulatoryBoolean,
             });
             setActiveModeButton("path");
         } else {
@@ -98,6 +114,8 @@ export default function Query() {
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
+                ppi: ppiBoolean,
+                regulatory: regulatoryBoolean,
             });
             setActiveModeButton("path");
         }
@@ -105,12 +123,19 @@ export default function Query() {
 
     // Get the search params from the URL
     useEffect(() => {
+        const currentPPI = searchParams.get("ppi");
+        const currentRegulatory = searchParams.get("regulatory");
+
+        const ppiBoolean = currentPPI === "true";
+        const regulatoryBoolean = currentRegulatory === "true";
         if (
             searchParams.get("mode") != "" &&
             searchParams.get("species") != "" &&
             searchParams.get("protein") != "" &&
             searchParams.get("goTerm") != "" &&
-            searchParams.get("k") != ""
+            searchParams.get("k") != "" &&
+            searchParams.get("ppi") != "" &&
+            searchParams.get("reg") != ""
         ) {
             setQuery({
                 mode: searchParams.get("mode"),
@@ -118,6 +143,8 @@ export default function Query() {
                 protein: searchParams.get("protein"),
                 goTerm: searchParams.get("goTerm"),
                 k: searchParams.get("k"),
+                ppi: ppiBoolean,
+                regulatory: regulatoryBoolean,
             });
             setActiveModeButton(searchParams.get("mode"));
         }
@@ -200,10 +227,17 @@ export default function Query() {
                         networkResult,
                         query.species
                     );
-                    setNetworkStatistics((prevState) => ({
-                        ...prevState,
-                        avgNodeDegree: avgNodeDegree.toFixed(1),
-                    }));
+                    if (avgNodeDegree != null) {
+                        setNetworkStatistics((prevState) => ({
+                            ...prevState,
+                            avgNodeDegree: avgNodeDegree.toFixed(1),
+                        }));
+                    } else {
+                        setNetworkStatistics((prevState) => ({
+                            ...prevState,
+                            avgNodeDegree: 0,
+                        }));
+                    }
                 } catch (error) {
                     return Promise.reject(
                         new Error(`${response.status} ${response.statusText}`)
@@ -217,6 +251,18 @@ export default function Query() {
         }
     }, [dataParsingStatus]);
 
+    const handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+
+        setQuery((prevData) => ({
+            ...prevData,
+            [name]: checked,
+        }));
+
+        // Check if the form is valid
+        setFormValid(checked || query.ppi || query.regulatory);
+    };
+
     // Function for submitting the query
     async function handleSubmit(e) {
         setQueryComplete(false);
@@ -227,6 +273,7 @@ export default function Query() {
         setIsLoading(true);
         setDataParsingStatus(false);
         setErrorMessage("");
+        setPredictionValue({ value: "Loading", rank: "Loading" });
         setEdgeEvidence("");
         setEdgeSource("");
         setEdgeTarget("");
@@ -239,12 +286,13 @@ export default function Query() {
         let rawData = null;
         if (query.mode == "path") {
             try {
+                const requestBody = Object.assign(query);
                 network = await fetch("/api/getQueryByPath", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(query),
+                    body: JSON.stringify(requestBody),
                 })
                     .then((response) => {
                         if (response.ok) {
@@ -341,7 +389,12 @@ export default function Query() {
                         setRawData(rawData);
                         setDataParsingStatus(true);
                         setQueryComplete(true);
-                        return EdgeDataParser(tempNetwork, data);
+                        return EdgeDataParser(
+                            network,
+                            data,
+                            query.ppi,
+                            query.regulatory
+                        );
                     });
             } catch (error) {
                 console.error("Error getting the network:", error);
@@ -357,11 +410,36 @@ export default function Query() {
                 protein: network.nodes[0].data.id,
                 goTerm: network.goTerm.id,
                 k: query.k,
+                ppi: query.ppi,
+                regulatory: query.regulatory,
             });
         }
         setIsLoading(false);
         setPageState(1);
     }
+
+    // when we have successfully queried something, we want to get the predicted values for all nodes in the network
+    useEffect(() => {
+        if (Object.keys(networkResult).length !== 0) {
+            //getting prediction values for all nodes
+            fetch("api/getPageRank", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    protein: selectedNode.id,
+                    goTerm: searchParams.get("goTerm"),
+                    species: searchParams.get("species"),
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setPredictionDict(data.prediction_dict);
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+    }, [networkResult]);
 
     //Scale node sizes to their degree
     useEffect(() => {
@@ -424,12 +502,6 @@ export default function Query() {
                 });
         }
     }, [networkResult.goTerm]);
-
-    useEffect(() => {
-        if (networkResult != {}) {
-            // console.log(networkResult);
-        }
-    }, [networkResult]);
 
     // Get ancestors for queried GO term
     useEffect(() => {
@@ -528,6 +600,8 @@ export default function Query() {
             goTerm: "",
             k: [],
             species: e.target.value,
+            ppi: false,
+            regulatory: false,
         });
     };
 
@@ -573,6 +647,8 @@ export default function Query() {
                         protein: "egfr",
                         goTerm: "Wnt signaling pathway",
                         k: "4",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -584,6 +660,8 @@ export default function Query() {
                         protein: "flw",
                         goTerm: "apical constriction",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -595,6 +673,8 @@ export default function Query() {
                         protein: "flw",
                         goTerm: "myosin II binding",
                         k: "3",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -609,6 +689,8 @@ export default function Query() {
                         protein: "smad2",
                         goTerm: "DNA damage response",
                         k: "4",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -620,6 +702,8 @@ export default function Query() {
                         protein: "smad1",
                         goTerm: "positive regulation of cell development",
                         k: "4",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -631,6 +715,8 @@ export default function Query() {
                         protein: "smad5",
                         goTerm: "neural plate pattern specification",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -645,6 +731,8 @@ export default function Query() {
                         protein: "GanP",
                         goTerm: "ABC-type carbohydrate transporter activity",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -656,6 +744,8 @@ export default function Query() {
                         protein: "MrpD",
                         goTerm: "monoatomic cation transmembrane transporter activity",
                         k: "6",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -667,6 +757,8 @@ export default function Query() {
                         protein: "OppC",
                         goTerm: "sporulation",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -681,6 +773,8 @@ export default function Query() {
                         protein: "P32657",
                         goTerm: "DNA binding",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -692,6 +786,8 @@ export default function Query() {
                         protein: "p43639",
                         goTerm: "membrane-bounded organelle",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -703,6 +799,8 @@ export default function Query() {
                         protein: "p03069",
                         goTerm: "cellular macromolecule localization",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -717,6 +815,8 @@ export default function Query() {
                         protein: "rnt-1",
                         goTerm: "negative regulation of stem cell differentiation",
                         k: "7",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("path");
                     setExState(String(i));
@@ -728,6 +828,8 @@ export default function Query() {
                         protein: "gck-3",
                         goTerm: "hyperosmotic response",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -739,6 +841,8 @@ export default function Query() {
                         protein: "tac-1",
                         goTerm: "cytoskeleton organization",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
                     });
                     setActiveModeButton("node");
                     setExState(String(i));
@@ -769,9 +873,12 @@ export default function Query() {
     const exportJSON = () => {
         const cy = cyRef.current;
         if (cy) {
-            const elements = cy.json().elements;
+            const elements = cy.json();
+            const date = new Date().toLocaleDateString();
+            const time = new Date().toLocaleTimeString([], { hour12: false });
+            const fileName = `PW-network-${date}-${time}`;
             const jsonBlob = new Blob([JSON.stringify(elements, null, 2)], { type: "application/json" });
-            saveAs(jsonBlob, "PW-network.json");
+            saveAs(jsonBlob, fileName);
         }
     };
 
@@ -812,6 +919,8 @@ export default function Query() {
                 protein: query.protein,
                 goTerm: query.goTerm,
                 k: query.k,
+                ppi: query.ppi,
+                regulatory: query.regulatory,
             });
         } else {
             setQuery((prevState) => ({
@@ -825,9 +934,27 @@ export default function Query() {
                 protein: query.protein,
                 goTerm: query.goTerm,
                 k: query.k,
+                ppi: query.ppi,
+                regulatory: query.regulatory,
             });
         }
     };
+
+    // when a user selects a node or if the prediction dict changes, set the the currently selected prediction values
+    useEffect(() => {
+        if (
+            selectedNode.id != null &&
+            predictionDict != null &&
+            selectedNode.id in predictionDict &&
+            predictionDict[selectedNode.id].value != undefined &&
+            predictionDict[selectedNode.id].rank != undefined
+        ) {
+            setPredictionValue({
+                value: predictionDict[selectedNode.id].value,
+                rank: predictionDict[selectedNode.id].rank,
+            });
+        }
+    }, [selectedNode, predictionDict]);
 
     return (
         <div>
@@ -863,6 +990,7 @@ export default function Query() {
                         handleQueryMode={handleQueryMode}
                         activeModeButton={activeModeButton}
                         exState={exState}
+                        handleCheckboxChange={handleCheckboxChange}
                     />
                     {hasError && <QueryError errorMessage={errorMessage} />}
 
@@ -902,6 +1030,7 @@ export default function Query() {
                             handleQueryMode={handleQueryMode}
                             activeModeButton={activeModeButton}
                             exState={exState}
+                            handleCheckboxChange={handleCheckboxChange}
                         />
 
                         {hasError && <QueryError errorMessage={errorMessage} />}
@@ -940,6 +1069,11 @@ export default function Query() {
                                                         (evt) => {
                                                             getSidePanelData(
                                                                 evt
+                                                            );
+                                                            setSelectedNode(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
                                                             );
                                                         }
                                                     );
@@ -1043,15 +1177,14 @@ export default function Query() {
                                                 sourceNode={sourceNode}
                                                 query={query}
                                                 goTerm={goTerm}
+                                                predictionValue={predictionValue}
                                                 exportPNG={exportPNG}
                                                 exportJSON={exportJSON}
                                                 searchExecuted={searchParams}
                                                 queryCount={queryCount}
                                                 logs={logs}
                                                 handleLog={handleLog}
-                                                networkStatistics={
-                                                    networkStatistics
-                                                }
+                                                networkStatistics={networkStatistics}
                                             />
                                         </div>
                                     </Panel>
@@ -1068,6 +1201,7 @@ export default function Query() {
                                             currentNode={sidebarNode}
                                             query={query}
                                             goTerm={goTerm}
+                                            predictionValue={predictionValue}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>

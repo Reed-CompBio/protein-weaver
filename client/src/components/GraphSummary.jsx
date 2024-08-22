@@ -10,6 +10,7 @@ export default function GraphSummary({
     sourceNode,
     query,
     goTerm,
+    predictionValue,
     exportPNG,
     exportJSON,
     searchExecuted,
@@ -43,9 +44,13 @@ export default function GraphSummary({
             setSourceNodeLink(
                 `https://bsubcyc.org/gene?orgid=BSUB&id=${sourceNode.id.replace('_', '')}#tab=GO`
             );
-        } else if (query.species === "txid7955") {
+        } else if (query.species === "txid7955" || query.species === "txid559292") {
             setSourceNodeLink(
                 `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
+            );
+        } else if (query.species === "txid6239") {
+            setSourceNodeLink(
+                `https://amigo.geneontology.org/amigo/gene_product/WB:${sourceNode.id}`
             );
         }
     }, [sourceNode.id]);

@@ -1,7 +1,7 @@
 import { React, useEffect } from "react";
 import Autocomplete from "./Autocomplete";
-import ModeTooltip from "./ModeTooltip";
-
+import CheckboxComponent from "./CheckboxComponent";
+import ModeTooltip from './ModeTooltip.jsx'
 export default function SearchBar({
     handleSubmit,
     submitRef,
@@ -15,6 +15,7 @@ export default function SearchBar({
     handleQueryMode,
     activeModeButton,
     exState,
+    handleCheckboxChange,
 }) {
     let spName = "";
     if (query.species == "txid224308") {
@@ -138,6 +139,14 @@ export default function SearchBar({
                     value="Nodes"
                 />
                 <ModeTooltip />
+            </div>
+
+            <div className="interaction-container">
+                <h4 className="interaction-title">Network: </h4>
+                <CheckboxComponent
+                    handleCheckboxChange={handleCheckboxChange}
+                    query={query}
+                ></CheckboxComponent>
             </div>
 
             {/* user examples */}
