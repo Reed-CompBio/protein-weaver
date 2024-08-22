@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Degree from "./Degree";
 
-export default function NodeTab({ currentNode, query, goTerm }) {
+export default function NodeTab({ currentNode, query, goTerm, predictionValue }) {
     const [selectedDbLink, setSelectedDbLink] = useState("");
 
     // Map of species to database links
@@ -50,6 +50,12 @@ export default function NodeTab({ currentNode, query, goTerm }) {
             )}
             <h5 className="node-tab-text">
                 <Degree id={currentNode.id} />
+            </h5>
+            <h5 className="node-tab-text">
+                Prediction Rank: {predictionValue.rank}
+            </h5>
+            <h5 className="node-tab-text">
+                Prediction Value: {predictionValue.value}
             </h5>
             <h5 className="node-tab-text" style={{ textTransform: "capitalize" }}>
                 Node Type: {currentNode.type.replace("_", " ")}

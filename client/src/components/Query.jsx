@@ -41,6 +41,9 @@ export default function Query() {
     const cyRef = useRef(cytoscape.Core | undefined);
     const [sidebarNode, setSidebarNode] = useState("");
     const [sourceNode, setSourceNode] = useState("");
+    const [selectedNode, setSelectedNode] = useState("");
+    const [predictionValue, setPredictionValue] = useState("");
+    const [predictionDict, setPredictionDict] = useState(null);
     const [goTerm, setGoTerm] = useState("");
     const [edgeEvidence, setEdgeEvidence] = useState("");
     const [edgeSource, setEdgeSource] = useState("");
@@ -270,6 +273,7 @@ export default function Query() {
         setIsLoading(true);
         setDataParsingStatus(false);
         setErrorMessage("");
+        setPredictionValue({ value: "Loading", rank: "Loading" });
         setEdgeEvidence("");
         setEdgeSource("");
         setEdgeTarget("");
@@ -414,6 +418,29 @@ export default function Query() {
         setPageState(1);
     }
 
+    // when we have successfully queried something, we want to get the predicted values for all nodes in the network
+    useEffect(() => {
+        if (Object.keys(networkResult).length !== 0) {
+            //getting prediction values for all nodes
+            fetch("api/getPageRank", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    protein: selectedNode.id,
+                    goTerm: searchParams.get("goTerm"),
+                    species: searchParams.get("species"),
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setPredictionDict(data.prediction_dict);
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+    }, [networkResult]);
+
     //Scale node sizes to their degree
     useEffect(() => {
         if (networkResult != null && queryComplete == true) {
@@ -475,12 +502,6 @@ export default function Query() {
                 });
         }
     }, [networkResult.goTerm]);
-
-    useEffect(() => {
-        if (networkResult != {}) {
-            // console.log(networkResult);
-        }
-    }, [networkResult]);
 
     // Get ancestors for queried GO term
     useEffect(() => {
@@ -919,6 +940,22 @@ export default function Query() {
         }
     };
 
+    // when a user selects a node or if the prediction dict changes, set the the currently selected prediction values
+    useEffect(() => {
+        if (
+            selectedNode.id != null &&
+            predictionDict != null &&
+            selectedNode.id in predictionDict &&
+            predictionDict[selectedNode.id].value != undefined &&
+            predictionDict[selectedNode.id].rank != undefined
+        ) {
+            setPredictionValue({
+                value: predictionDict[selectedNode.id].value,
+                rank: predictionDict[selectedNode.id].rank,
+            });
+        }
+    }, [selectedNode, predictionDict]);
+
     return (
         <div>
             {/* pageState is responsible for handling if we are in query search only page or query w/ results page */}
@@ -1033,6 +1070,11 @@ export default function Query() {
                                                             getSidePanelData(
                                                                 evt
                                                             );
+                                                            setSelectedNode(
+                                                                evt.target
+                                                                    ._private
+                                                                    .data
+                                                            );
                                                         }
                                                     );
                                                     cy.on(
@@ -1135,15 +1177,14 @@ export default function Query() {
                                                 sourceNode={sourceNode}
                                                 query={query}
                                                 goTerm={goTerm}
+                                                predictionValue={predictionValue}
                                                 exportPNG={exportPNG}
                                                 exportJSON={exportJSON}
                                                 searchExecuted={searchParams}
                                                 queryCount={queryCount}
                                                 logs={logs}
                                                 handleLog={handleLog}
-                                                networkStatistics={
-                                                    networkStatistics
-                                                }
+                                                networkStatistics={networkStatistics}
                                             />
                                         </div>
                                     </Panel>
@@ -1160,6 +1201,7 @@ export default function Query() {
                                             currentNode={sidebarNode}
                                             query={query}
                                             goTerm={goTerm}
+                                            predictionValue={predictionValue}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>

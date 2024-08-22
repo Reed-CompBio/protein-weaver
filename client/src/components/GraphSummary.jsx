@@ -10,6 +10,7 @@ export default function GraphSummary({
     sourceNode,
     query,
     goTerm,
+    predictionValue,
     exportPNG,
     exportJSON,
     searchExecuted,
