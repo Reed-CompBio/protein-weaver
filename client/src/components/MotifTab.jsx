@@ -13,7 +13,7 @@ export default function MotifTab({ nodeList }) {
         if (nodeList != undefined) {
             const fetchData = async () => {
                 try {
-                    const response = await fetch("/api/Motif", {
+                    const response = await fetch("/api/getMotif", {
                         method: "POST", // Change to GET if your call is a GET request
                         headers: {
                             "Content-Type": "application/json",

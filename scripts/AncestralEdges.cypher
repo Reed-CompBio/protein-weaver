@@ -63,3 +63,23 @@ MATCH (pr:protein{txid: "txid6239"})
         SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)};
 MATCH (pr:protein{txid: "txid559292"})
         SET pr.degree = COUNT{(pr)-[:ProPro]-(:protein)};
+MATCH (pr:protein{txid: "txid224308"})
+		SET pr.regDegreeOut = COUNT{(pr)-[:Reg]->(:protein)};
+MATCH (pr:protein{txid: "txid7955"})
+		SET pr.regDegreeOut = COUNT{(pr)-[:Reg]->(:protein)};
+MATCH (pr:protein{txid: "txid7227"})
+		SET pr.regDegreeOut = COUNT{(pr)-[:Reg]->(:protein)};
+MATCH (pr:protein{txid: "txid6239"})
+		SET pr.regDegreeOut = COUNT{(pr)-[:Reg]->(:protein)};
+MATCH (pr:protein{txid: "txid559292"})
+		SET pr.regDegreeOut = COUNT{(pr)-[:Reg]->(:protein)};
+MATCH (pr:protein{txid: "txid224308"})
+		SET pr.regDegreeIn = COUNT{(pr)<-[:Reg]-(:protein)};
+MATCH (pr:protein{txid: "txid7955"})
+		SET pr.regDegreeIn = COUNT{(pr)<-[:Reg]-(:protein)};
+MATCH (pr:protein{txid: "txid7227"})
+		SET pr.regDegreeIn = COUNT{(pr)<-[:Reg]-(:protein)};
+MATCH (pr:protein{txid: "txid6239"})
+		SET pr.regDegreeIn = COUNT{(pr)<-[:Reg]-(:protein)};
+MATCH (pr:protein{txid: "txid559292"})
+		SET pr.regDegreeIn = COUNT{(pr)<-[:Reg]-(:protein)};

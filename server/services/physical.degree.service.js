@@ -1,4 +1,4 @@
-export default class Degree {
+export default class PhysicalDegree {
     /**
      * @type {neo4j.Driver}
      */
