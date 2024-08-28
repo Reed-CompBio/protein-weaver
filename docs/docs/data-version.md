@@ -33,15 +33,20 @@ This section of the documentation outlines the data sources, processing steps an
 * Added PubMed identifiers as a property to ProPro edges.
 
 ### 2024-07-31:
+#### Regulatory data:
 * Added genetic regulatory data [(Source)](https://wiki.flybase.org/wiki/FlyBase:Downloads_Overview#Genetic_interaction_table_.28gene_genetic_interactions_.2A.tsv.29) and processed into [`regulatory_txid7227_2024-07-31.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DrosophilaMelanogaster/regulatory_txid7227_2024-07-31.txt) according to [`SplitRegulatoryColumns7227.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SplitRegulatoryColumns7227.R).
     - Nodes: 1322
     - Reg Edges: 17530
 
-### Current _D. melanogaster_ Network [Updated 2024-07-17]
+### Current _D. melanogaster_ Network [Updated 2024-08-28]
 ```
-| Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
-| -------- | --------------------- | :------------------ | ---------------- |
-| 12823    | 233054                | 492331              | 17530            |
+| Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
+| ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
+| 12823       | 7905             | 1322             | 3596           | 233054                | 17530              |
+
+| GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
+| -------- | ----------------- | -------------------- | ---------------------- |
+| 11774    | 492331            | 98799                | 393532                 |
 ```
 
 ## *Bacillus subtilis* Data Sources (TXID224308)
@@ -91,15 +96,20 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 * [`interactome_txid224308_2024-07-30.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/interactome_txid224308_2024-07-30.txt): Added "link" and "source" properties to edges to link to STRING-DB entries for ProPro interactions.
 
 ### 2024-07-31:
+#### Regulatory data:
 * Downloaded genetic regulatory data [(Regulations dataset)](https://subtiwiki.uni-goettingen.de/v4/exports) and renamed it [`regulatory_txid224308_2024-07-31.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/BacillusSubtilis/regulatory_txid224308_2024-07-31.csv). Imported without further modifications.
     - Nodes: 1230
     - Reg Edges: 5634
 
-### Current _B. subtilis_ Network [Updated 2024-07-17]
+### Current _B. subtilis_ Network [Updated 2024-08-28]
 ```
-| Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
-| -------- | --------------------- | :------------------ | ---------------- | 
-| 3163     | 6441                  | 78015               |  5634            |
+| Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
+| ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
+| 3163        | 484              | 1230             | 1449           | 6441                  | 5634               |
+
+| GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
+| -------- | ----------------- | -------------------- | ---------------------- |
+| 3681     | 78015             | 14384                | 63631                  |
 ```
 
 ## *Danio rerio* Data Sources (TXID7955)
@@ -123,7 +133,7 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 
 * Merged all *D. rerio* data together into one master file using the instructions in `scripts/ZebrafishDataMerging.Rmd`.
 
-#### GO Association Data:
+#### GO association Data:
 * [`zfish_GO_data_Mar12_24.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/zfish_GO_data_Mar12_24.tsv) [(Source)](https://www.ebi.ac.uk/QuickGO/annotations)
 * Used QuickGO to get all 65,876 "Reviewed" GO annotations for *D. rerio*. Replaced the " " in headers with "_" to ease data import.
 
@@ -147,16 +157,66 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 * [`interactome_txid7955_2024-07-30.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/interactome_txid7955_2024-07-30.txt): Added "link" and "source" properties to edges to link to STRING-DB or PubMed entries (if available) for ProPro interactions.
 
 ### 2024-07-31:
+#### Regulatory data:
 * Added genetic regulatory data [(Source)](https://tflink.net/download/) and processed into [`regulatory_txid7955_2024-07-31.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/regulatory_txid7955_2024-07-31.txt) according to [`SubColNames.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R).
     - Nodes: 10168
     - Reg Edges: 25960
 
-### Current _D. rerio_ Network [Updated 2024-07-17]
+### Current _D. rerio_ Network [Updated 2024-08-28]
 ```
-| Proteins | Interactions (ProPro) | Annotations (ProGo) | Regulatory (Reg) |
-| -------- | --------------------- | :------------------ | ---------------- |
-| 16606    | 45003                 | 133619              |    25960         |
+| Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
+| ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
+| 4106        | 411              | 1083             | 2612           | 13915                 | 78223              |
+
+| GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
+| -------- | ----------------- | -------------------- | ---------------------- |
+| 7868     | 202845            | 42898                | 159947                 |
 ```
+
+## *Caenorhabditis elegans* Data Sources (TXID6239)
+### 2024-08-28:
+#### Interaction data:
+* Added physical interaction data from WormBase [(Source)](https://downloads.wormbase.org/releases/current-production-release/) and filtered to only UniProt verified proteins with physical interactions producing [`interactome-txid6239-2024_08_19.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/CaenorhabditisElegans/interactome-txid6239-2024_08_19.txt) according to [`elegans.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/elegans.R).
+
+#### Regulatory data:
+* Added genetic regulatory data [(Source)](https://tflink.net/download/) and processed into [`regulatory-txid6239-2024_08_19.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/CaenorhabditisElegans/regulatory-txid6239-2024_08_19.txt) according to [`elegans.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/elegans.R).
+
+#### GO association data:
+* Added GO assocation data [`elegans_go_annotation_2024-08-08.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/CaenorhabditisElegans/elegans_go_annotation_2024-08-08.tsv) from WormBase [(Source)](https://downloads.wormbase.org/releases/current-production-release/) and filtered to only UniProt verified proteins according to [`elegans.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/elegans.R).
+
+### Current _C. elegans_ Network [Updated 2024-08-28]
+```
+| Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
+| ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
+| 16606       | 2833             | 10168            | 3605           | 45003                 | 17530              |
+
+| GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
+| -------- | ----------------- | -------------------- | ---------------------- |
+| 8321     | 133619            | 29065                | 104554                 |
+```
+
+## *Saccharomyces cerevisiae* Data Sources (TXID559292)
+### 2024-08-28:
+#### Interaction data:
+Added physical interaction data [(Source)](https://downloads.thebiogrid.org/BioGRID/Release-Archive/BIOGRID-4.4.236/) and processed into [`interactome-txid559292-2024_08_19.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/SaccharomycesCerevisiae/interactome-txid559292-2024_08_19.txt) according to [`yeast.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/yeast.R).
+
+#### Regulatory data:
+* Added genetic regulatory data [(Source)](https://tflink.net/download/) and processed into [`regulatory-txid559292-2024_08_19.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/SaccharomycesCerevisiae/regulatory-txid559292-2024_08_19.txt) according to [`yeast.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/yeast.R).
+
+#### GO association data:
+Added GO association data from QuickGO [(Source)](https://www.ebi.ac.uk/QuickGO/) and processed into [`yeast_go_annotation-2024-08-08.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/SaccharomycesCerevisiae/yeast_go_annotation-2024-08-08.tsv) according to [`yeast.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/yeast.R) using the [UniProt namespace mapper](https://www.uniprot.org/id-mapping).
+
+### Current _S. cerevisiae_ Network [Updated 2024-08-28]
+```
+| Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
+| ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
+| 7644        | 1092             | 858              | 5694           | 164432                | 237315             |
+
+| GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
+| -------- | ----------------- | -------------------- | ---------------------- |
+| 8300     | 328186            | 69760                | 258426                 |
+```
+
 
 ## Gene Ontology Hierarchy Data Sources
 ### 2023-09-29:
@@ -283,3 +343,16 @@ Looked up species name and got taxon ID.
 ### 2024-08-19:
 * Added data source as a column to all regulatory and physical datasets.
 * Updated naming convention for datasets: [`type-txid-TODAY_DATE.txt`].
+
+### 2024-08-28:
+* Added two new species: _C. elegans_ and _S. cerevisiae_.
+    * _C. elegans_ (TXID6239):
+        - Nodes: 4,106
+        - PPI Edges: 13,915
+        - Reg Edges: 78,223
+        - ProGo Edges: 202,845
+    * _S. cerevisiae_ (TXID559292):
+        - Nodes: 7,644
+        - PPI Edges: 164,432
+        - Reg Edges: 237,315
+        - ProGo Edges: 328,186
