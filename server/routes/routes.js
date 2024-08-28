@@ -17,7 +17,8 @@ import ProteinFinderService from "../services/protein.finder.service.js";
 import GoFinderService from "../services/go.finder.service.js";
 import AvgDegreeService from "../services/avg.degree.service.js";
 import PGStats from "../services/pro.go.stats.service.js";
-import Degree from "../services/degree.service.js";
+import PhysicalDegree from "../services/physical.degree.service.js";
+import RegulatoryDegree from "../services/regulatory.degree.service.js";
 import MotifService from "../services/motif.service.js";
 
 const router = new Router();
@@ -151,12 +152,11 @@ router.post("/getProGoStats", jsonParser, async (req, res, next) => {
   }
 });
 
-
-router.post("/Degree", jsonParser, async (req, res, next) => {
+router.post("/getPhysicalDegree", jsonParser, async (req, res, next) => {
   try {
     const data = req.body;
     const id = data.id.id;
-    const DEG = new Degree(getDriver());
+    const DEG = new PhysicalDegree(getDriver());
     const degrees = await DEG.getdegree(id);
     res.json(degrees);
   }
@@ -165,7 +165,20 @@ router.post("/Degree", jsonParser, async (req, res, next) => {
   }
 });
 
-router.post("/Motif", jsonParser, async (req, res, next) => {
+router.post("/getRegulatoryDegree", jsonParser, async (req, res, next) => {
+  try {
+    const data = req.body;
+    const id = data.id.id;
+    const DEG = new RegulatoryDegree(getDriver());
+    const degrees = await DEG.getDegree(id);
+    res.json(degrees);
+  }
+  catch (e) {
+    next(e);
+  }
+});
+
+router.post("/getMotif", jsonParser, async (req, res, next) => {
   try {
     const data = req.body;
     const nodeList = data.nodeList
@@ -230,10 +243,10 @@ router.post("/getQueryByPath", jsonParser, async (req, res, next) => {
         } else {
           //DO this to all GOterm
           let relType = ["ProGo"]
-          if (ppi){
+          if (ppi) {
             relType.push("ProProUndirected")
           }
-          if (regulatory){
+          if (regulatory) {
             relType.push("Reg")
           }
 
@@ -316,10 +329,10 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
             });
         } else {
           let relType = ["ProGo"]
-          if (ppi){
+          if (ppi) {
             relType.push("ProProUndirected")
           }
-          if (regulatory){
+          if (regulatory) {
             relType.push("Reg")
           }
           const allShortestPathsService = new AllShortestPathsService(
@@ -366,35 +379,35 @@ router.post("/getQueryByNode", jsonParser, async (req, res, next) => {
 
 router.get('/call-flask', (req, res) => {
   const options = {
-      hostname: 'localhost',
-      port: 5000,
-      path: '/test',
-      method: 'GET'
+    hostname: 'localhost',
+    port: 5000,
+    path: '/test',
+    method: 'GET'
   };
 
   const flaskReq = http.request(options, (flaskRes) => {
-      let data = '';
+    let data = '';
 
-      // A chunk of data has been received.
-      flaskRes.on('data', (chunk) => {
-          data += chunk;
-      });
+    // A chunk of data has been received.
+    flaskRes.on('data', (chunk) => {
+      data += chunk;
+    });
 
-      // The whole response has been received. Print out the result.
-      flaskRes.on('end', () => {
-          try {
-              const jsonData = JSON.parse(data);
-              res.json(jsonData);
-          } catch (error) {
-              console.error('Error parsing JSON:', error);
-              res.status(500).json({ message: 'Error parsing JSON from Flask API' });
-          }
-      });
+    // The whole response has been received. Print out the result.
+    flaskRes.on('end', () => {
+      try {
+        const jsonData = JSON.parse(data);
+        res.json(jsonData);
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+        res.status(500).json({ message: 'Error parsing JSON from Flask API' });
+      }
+    });
   });
 
   flaskReq.on('error', (error) => {
-      console.error('Error calling Flask API:', error);
-      res.status(500).json({ message: 'Error calling Flask API' });
+    console.error('Error calling Flask API:', error);
+    res.status(500).json({ message: 'Error calling Flask API' });
   });
 
   flaskReq.end();

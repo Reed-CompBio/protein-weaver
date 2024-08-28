@@ -1645,14 +1645,14 @@ select {
     }
 }
 
-.interaction-container{
+.interaction-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 10px ;
+    padding-left: 10px;
 }
 
-.interaction-title{
+.interaction-title {
     /* border: 2px solid purple; */
     /* width: 100px; */
     display: inline

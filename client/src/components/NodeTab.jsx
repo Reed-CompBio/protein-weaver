@@ -48,9 +48,7 @@ export default function NodeTab({ currentNode, query, goTerm, predictionValue })
                     Alternate Name(s): {currentNode.alt_name}
                 </h5>
             )}
-            <h5 className="node-tab-text">
-                <Degree id={currentNode.id} />
-            </h5>
+            <Degree id={currentNode.id} />
             <h5 className="node-tab-text">
                 Prediction Rank: {predictionValue.rank}
             </h5>
