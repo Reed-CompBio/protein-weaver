@@ -25,6 +25,11 @@ export default function GraphSummary({
     const [showNeverAnnotate, setShowNeverAnnotate] = useState(false);
     const [txid, setTxid] = useState("");
 
+    // Change species ID for after search execution
+    useEffect(() => {
+        setTxid(query.species);
+    }, [searchExecuted]);
+
     // Create a warning if GO term is blacklisted
     useEffect(() => {
         if (goTerm.never_annotate === "true") {
@@ -36,29 +41,24 @@ export default function GraphSummary({
 
     // Change the link for queried protein when species changes
     useEffect(() => {
-        if (query.species === "txid7227") {
+        if (txid === "txid7227") {
             setSourceNodeLink(
                 `https://amigo.geneontology.org/amigo/gene_product/FB:${sourceNode.id}`
             );
-        } else if (query.species === "txid224308") {
+        } else if (txid === "txid224308") {
             setSourceNodeLink(
                 `https://bsubcyc.org/gene?orgid=BSUB&id=${sourceNode.id.replace('_', '')}#tab=GO`
             );
-        } else if (query.species === "txid7955" || query.species === "txid559292") {
+        } else if (txid === "txid7955" || txid === "txid559292") {
             setSourceNodeLink(
                 `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
             );
-        } else if (query.species === "txid6239") {
+        } else if (txid === "txid6239") {
             setSourceNodeLink(
                 `https://amigo.geneontology.org/amigo/gene_product/WB:${sourceNode.id}`
             );
         }
-    }, [sourceNode.id]);
-
-    // Change species ID for graph statistics after search execution
-    useEffect(() => {
-        setTxid(query.species);
-    }, [searchExecuted]);
+    }, [txid]);
 
     // Keep track of the proteins in the query
     useEffect(() => {
@@ -127,7 +127,7 @@ export default function GraphSummary({
             </div>
             <GoDefinition>
                 <p className="go-def-text">&nbsp;&nbsp;&nbsp;{goTerm.def}</p>
-                <ProGoStats name={goTerm.name} txid={txid} species={query.species} />
+                <ProGoStats name={goTerm.name} txid={txid} />
             </GoDefinition>
             <GraphStats
                 networkStatistics={networkStatistics}

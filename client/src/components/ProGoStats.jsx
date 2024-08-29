@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // create component
-export default function ProGoStats({ name, txid, species }) {
+export default function ProGoStats({ name, txid }) {
     // create empty object to store query results
     const [count, setCount] = useState([]);
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function ProGoStats({ name, txid, species }) {
             body: JSON.stringify({
                 // Example of json body request. need to match your POST request's parameters
                 GoName: name,
-                txid: species
+                txid: txid
             }),
         })
             .then(response => response.json())

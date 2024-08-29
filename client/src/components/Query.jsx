@@ -1202,6 +1202,8 @@ export default function Query() {
                                             query={query}
                                             goTerm={goTerm}
                                             predictionValue={predictionValue}
+                                            searchExecuted={searchParams}
+                                            networkResult={networkResult}
                                         ></StatisticsTab>
                                     </Panel>
                                 </PanelGroup>

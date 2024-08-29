@@ -6,9 +6,56 @@ import iconCoregProteins from "/src/assets/icon-coreg-proteins.svg";
 import iconMFL from "/src/assets/icon-mixed-feedback-loop.svg";
 
 // create component
-export default function MotifTab({ nodeList }) {
+export default function MotifTab({ nodeList, query, searchExecuted, networkResult }) {
     // create empty object to store query results
     const [MotifCount, setMotifCount] = useState([]);
+    const [txid, setTxid] = useState("");
+    const [globalMotifCount, setGlobalMotifCount] = useState([]);
+    const [globalDegree, setGlobalDegree] = useState([]);
+    const [localDegree, setLocalDegree] = useState([]);
+
+    useEffect(() => {
+        setTxid(query.species);
+    }, [searchExecuted]);
+
+    // logic for setting global count variables
+    useEffect(() => {
+        const txidMapping = {
+            "txid7227": {
+                motifCount: [1267922, 5049, 3706, 3236, 1439],
+                degree: [],
+            },
+            "txid224308": {
+                motifCount: [43088, 164, 972, 1359, 65],
+                degree: [],
+            },
+            "txid7955": {
+                motifCount: [319540, 960, 2257, 523, 14],
+                degree: [],
+            },
+            "txid559292": {
+                motifCount: [1816919, 171664, 1036451, 522163, 76231],
+                degree: [],
+            },
+            "txid6239": {
+                motifCount: [16880, 28856, 457362, 82309, 18579],
+                degree: [],
+            },
+        };
+
+        const selectedTxid = txidMapping[txid];
+        if (selectedTxid) {
+            setGlobalMotifCount(selectedTxid.motifCount);
+            setGlobalDegree(selectedTxid.degree);
+        }
+    }, [searchExecuted]);
+
+    // logic for setting total degree of subnetwork
+    useEffect(() => {
+
+    }, [nodeList]);
+
+
     useEffect(() => {
         if (nodeList != undefined) {
             const fetchData = async () => {

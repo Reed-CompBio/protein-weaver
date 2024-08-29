@@ -17,8 +17,8 @@ export default function StatisticsTab({
     currentNode,
     query,
     goTerm,
-    predictionValue
-
+    predictionValue,
+    searchExecuted,
 }) {
     const [tabIndex, setTabIndex] = useState(0);
 
@@ -42,6 +42,7 @@ export default function StatisticsTab({
                         query={query}
                         goTerm={goTerm}
                         predictionValue={predictionValue}
+                        searchExecuted={searchExecuted}
                     />
                 </TabPanel>
                 <TabPanel>
@@ -57,7 +58,7 @@ export default function StatisticsTab({
                 </TabPanel>
                 <TabPanel>
                     <h4 className="stats-title">Network Motif Counts</h4>
-                    <MotifTab nodeList={nodeList} />
+                    <MotifTab nodeList={nodeList} query={query} searchExecuted={searchExecuted} />
                 </TabPanel>
             </Tabs>
             {/* <ReactTooltip
