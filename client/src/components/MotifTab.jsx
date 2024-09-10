@@ -154,7 +154,7 @@ export default function MotifTab({ nodeList, query, searchExecuted }) {
             <MotifItem icon={iconMFL} label="Mixed feedback loop" motifCount={motifCount[4]} e={e.eMFL} z={z.zMFL} p={p.pMFL} />
         </div>
     );
-}
+};
 
 function MotifItem({ icon, label, motifCount, e, z, p }) {
     return (
