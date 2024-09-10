@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import MotifTable from "./MotifTable";
 import iconPC from "/src/assets/icon-protein-clique.svg";
 import iconCoregTFs from "/src/assets/icon-coreg-tfs.svg";
 import iconFFL from "/src/assets/icon-feed-fwd-loop.svg";
@@ -147,23 +148,28 @@ export default function MotifTab({ nodeList, query, searchExecuted }) {
 
     return (
         <div className="motif-stats-container">
-            <MotifItem icon={iconPC} label="Protein clique" motifCount={motifCount[0]} e={e.ePC} z={z.zPC} p={p.pPC} />
-            <MotifItem icon={iconCoregTFs} label="Interacting transcription factors" motifCount={motifCount[1]} e={e.eCoregTFs} z={z.zCoregTFs} p={p.pCoregTFs} />
-            <MotifItem icon={iconFFL} label="Feed forward loop" motifCount={motifCount[2]} e={e.eFFL} z={z.zFFL} p={p.pFFL} />
-            <MotifItem icon={iconCoregProteins} label="Coregulating interacting proteins" motifCount={motifCount[3]} e={e.eCoregProteins} z={z.zCoregProteins} p={p.pCoregProteins} />
-            <MotifItem icon={iconMFL} label="Mixed feedback loop" motifCount={motifCount[4]} e={e.eMFL} z={z.zMFL} p={p.pMFL} />
+            {/* Motif Item Icons */}
+            {/* <div className="motif-icons">
+                <MotifItem icon={iconPC} label="Protein clique" motifCount={motifCount[0]} e={e.ePC} z={z.zPC} p={p.pPC} />
+                <MotifItem icon={iconCoregTFs} label="Interacting transcription factors" motifCount={motifCount[1]} e={e.eCoregTFs} z={z.zCoregTFs} p={p.pCoregTFs} />
+                <MotifItem icon={iconFFL} label="Feed forward loop" motifCount={motifCount[2]} e={e.eFFL} z={z.zFFL} p={p.pFFL} />
+                <MotifItem icon={iconCoregProteins} label="Coregulating interacting proteins" motifCount={motifCount[3]} e={e.eCoregProteins} z={z.zCoregProteins} p={p.pCoregProteins} />
+                <MotifItem icon={iconMFL} label="Mixed feedback loop" motifCount={motifCount[4]} e={e.eMFL} z={z.zMFL} p={p.pMFL} />
+            </div> */}
+
+            <MotifTable motifCount={motifCount} e={e} z={z} p={p} />
         </div>
     );
 };
 
-function MotifItem({ icon, label, motifCount, e, z, p }) {
-    return (
-        <div className="motif-item">
-            <img src={icon} alt={`${label} Icon`} className="motif-icon" />
-            <p>{label}: {motifCount || 0}</p>
-            <p>E: {e || "N/A"}</p>
-            <p>Z: {z || "N/A"}</p>
-            <p>p: {p || "N/A"}</p>
-        </div>
-    );
-};
+// function MotifItem({ icon, label, motifCount, e, z, p }) {
+//     return (
+//         <div className="motif-item">
+//             <img src={icon} alt={`${label} Icon`} className="motif-icon" />
+//             <p>{label}: {motifCount || 0}</p>
+//             <p>E: {e || "N/A"}</p>
+//             <p>Z: {z || "N/A"}</p>
+//             <p>p: {p || "N/A"}</p>
+//         </div>
+//     );
+// };
