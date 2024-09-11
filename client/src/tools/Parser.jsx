@@ -343,7 +343,7 @@ export function EdgeDataParser(networkData, edgeData, ppi, regulatory) {
                     tempEdges.push(edgeEntry);
                 }
             }
-            if (relType === "Reg") {
+            else if (relType === "Reg") {
                 let regType = edgeData[i]._fields[0].segments[0].relationship.properties.relationship;
                 if (pubmed) {
                     let edgeEntry = {
