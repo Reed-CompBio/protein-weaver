@@ -20,13 +20,12 @@ export default class LocalDegreeService {
             tx.run(
                 `
                 WITH $nodeList AS nodeList
-                    MATCH (n:protein)
-                    WHERE n.id IN nodeList
-                    RETURN sum(n.degree) AS ppiDegree, 
-                        sum(n.regDegreeIn + n.regDegreeOut) AS grnDegree, 
-                        sum(n.degree + n.regDegreeOut + n.regDegreeIn) AS mixedDegree;
-
-            `,
+                    MATCH (n:protein)-[r]->(m:protein)
+                    WHERE n.id IN nodeList AND m.id IN nodeList
+                    WITH COUNT(CASE WHEN type(r) = 'ProPro' THEN 1 END) AS proProCount,
+                    COUNT(CASE WHEN type(r) = 'Reg' THEN 1 END) AS regCount
+                    RETURN proProCount, regCount
+                `,
                 {
                     nodeList: nodeList
                 }

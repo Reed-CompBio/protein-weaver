@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // import { MdConstruction } from "react-icons/md";
-import { Tooltip as ReactTooltip } from "react-tooltip";
+// import { Tooltip as ReactTooltip } from "react-tooltip";
 import MotifTab from "./MotifTab";
 import NodeTab from "./NodeTab";
 import EdgeTab from "./EdgeTab";
