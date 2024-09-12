@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
 import MotifTable from "./MotifTable";
-import iconPC from "/src/assets/icon-protein-clique.svg";
-import iconCoregTFs from "/src/assets/icon-coreg-tfs.svg";
-import iconFFL from "/src/assets/icon-feed-fwd-loop.svg";
-import iconCoregProteins from "/src/assets/icon-coreg-proteins.svg";
-import iconMFL from "/src/assets/icon-mixed-feedback-loop.svg";
 
 const txidMapping = {
     "txid7227": [(1267922 / 466108), (5049 / 501168), (3706 / 35060), (3236 / 501168), (1439 / 501168)],
