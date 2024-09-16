@@ -1185,6 +1185,7 @@ export default function Query() {
                                                 logs={logs}
                                                 handleLog={handleLog}
                                                 networkStatistics={networkStatistics}
+                                                nodeList={networkResult.nodeList}
                                             />
                                         </div>
                                     </Panel>
