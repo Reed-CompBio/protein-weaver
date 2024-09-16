@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Degree from "./Degree";
 
-export default function NodeTab({ currentNode, query, goTerm, predictionValue }) {
+export default function NodeTab({ currentNode, query, goTerm, predictionValue, searchExecuted }) {
     const [selectedDbLink, setSelectedDbLink] = useState("");
+    const [txid, setTxid] = useState("");
+
+    useEffect(() => {
+        setTxid(query.species);
+    }, [searchExecuted]);
 
     // Map of species to database links
     useEffect(() => {
-        if (currentNode && query.species) {
+        if (currentNode && txid) {
             const speciesLinkMap = {
                 "txid7227": `https://flybase.org/reports/${currentNode.id}.htm`,
                 "txid224308": `https://bsubcyc.org/gene?orgid=BSUB&id=${currentNode.id.replace("_", "")}`,
@@ -14,9 +19,9 @@ export default function NodeTab({ currentNode, query, goTerm, predictionValue })
                 "txid559292": `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`,
                 "txid6239": `https://www.wormbase.org/species/c_elegans/gene/${currentNode.id}`,
             };
-            setSelectedDbLink(speciesLinkMap[query.species] || "");
+            setSelectedDbLink(speciesLinkMap[txid] || "");
         }
-    }, [currentNode, query.species]);
+    }, [currentNode, txid]);
 
     if (!currentNode) {
         return (

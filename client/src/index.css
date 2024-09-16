@@ -1800,6 +1800,22 @@ select {
     font-weight: bold;
 }
 
+.motif-table {
+    margin-right: 18px;
+    align-items: center;
+    text-align: center;
+}
+
+.motif-table td {
+    font-size: small;
+    font-weight: bold;
+}
+
+.motif-table th {
+    font-weight: bold;
+    background-color: var(--light-background);
+}
+
 .motif-icon {
     width: 80px;
     /* Adjust size as needed */
