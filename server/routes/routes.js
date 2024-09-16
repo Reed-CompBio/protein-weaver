@@ -2,7 +2,6 @@ import { Router } from "express";
 import { getDriver } from "../src/neo4j.js";
 import http from 'http';
 import bodyParser from "body-parser";
-import NetworkService from "../services/network.service.js";
 import EdgeDataService from "../services/edge.data.service.js";
 import ProteinService from "../services/protein.service.js";
 import GoTermService from "../services/go.term.service.js";
@@ -28,18 +27,6 @@ const jsonParser = bodyParser.json();
 router.get("/test", (req, res) => {
   res.json({ message: "Successfully connected to the backend API" });
   console.log("successfully connected to the backend API");
-});
-
-router.get("/getNetwork", async (res, next) => {
-  try {
-    const networkService = new NetworkService(getDriver());
-
-    const network = await networkService.getNetwork();
-
-    res.json(network);
-  } catch (e) {
-    next(e);
-  }
 });
 
 router.post("/getProteinOptions", jsonParser, async (req, res, next) => {
