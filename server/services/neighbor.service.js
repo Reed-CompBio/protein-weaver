@@ -20,7 +20,7 @@ export default class NeighborService {
       tx => tx.run(
         `
             MATCH (goTerm:go_term)
-            WHERE goTerm.id =~'(?i)' + $goTermInput OR goTerm.name =~'(?i)' + $goTermInput 
+            WHERE goTerm.id =~'(?i)' + $goTermInput OR goTerm.name =~'(?i)' + $goTermInput OR goTerm.alt_name =~'(?i)' + $goTermInput OR goTerm.gene_name =~'(?i)' + $goTermInput 
             CALL apoc.neighbors.athop(goTerm, "ProGo", 1)
             YIELD node
             MATCH (node where node.txid = $speciesInput)
