@@ -9,12 +9,27 @@ updates:
     directory: "/client" 
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-type: "all"
+    allow:
+      - dependency-type: "security"
+
   - package-ecosystem: "npm"
     directory: "/server" 
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-type: "all"
+    allow:
+      - dependency-type: "security"
+
   - package-ecosystem: "pip"
     directory: "/python_api" 
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-type: "all"
+    allow:
+      - dependency-type: "security"
+
 
