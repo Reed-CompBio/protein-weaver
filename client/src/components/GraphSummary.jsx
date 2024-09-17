@@ -17,7 +17,8 @@ export default function GraphSummary({
     queryCount,
     logs,
     handleLog,
-    networkStatistics
+    networkStatistics,
+    nodeList
 }) {
     const [proteinCount, setProteinCount] = useState(0);
     const [sourceNodeLink, setSourceNodeLink] = useState("");
@@ -132,7 +133,7 @@ export default function GraphSummary({
             <GraphStats
                 networkStatistics={networkStatistics}
             />
-            <ExportGraph log={logs} exportPNG={exportPNG} exportJSON={exportJSON} />
+            <ExportGraph log={logs} exportPNG={exportPNG} exportJSON={exportJSON} nodeList={nodeList} />
         </div>
     )
 }
