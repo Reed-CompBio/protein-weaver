@@ -20,6 +20,7 @@ import PGStats from "../services/pro.go.stats.service.js";
 import PhysicalDegree from "../services/physical.degree.service.js";
 import RegulatoryDegree from "../services/regulatory.degree.service.js";
 import MotifService from "../services/motif.service.js";
+import LocalDegreeService from "../services/local.degree.service.js";
 
 const router = new Router();
 const jsonParser = bodyParser.json();
@@ -185,6 +186,19 @@ router.post("/getMotif", jsonParser, async (req, res, next) => {
     const motif = new MotifService(getDriver());
     const mCount = await motif.getMotif(nodeList);
     res.json(mCount);
+  }
+  catch (e) {
+    next(e);
+  }
+});
+
+router.post("/getLocalDegrees", jsonParser, async (req, res, next) => {
+  try {
+    const data = req.body;
+    const nodeList = data.nodeList
+    const degrees = new LocalDegreeService(getDriver());
+    const localDegrees = await degrees.getLocalDegrees(nodeList);
+    res.json(localDegrees);
   }
   catch (e) {
     next(e);
