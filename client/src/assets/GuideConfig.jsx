@@ -104,7 +104,7 @@ export const guideConfig = {
         disableAnimation: true,
       },
       spotlightPadding: 5,
-      target: ".righ-panel-container",
+      target: ".right-panel-container",
     },
     {
       content: (

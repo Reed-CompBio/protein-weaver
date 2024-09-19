@@ -21,7 +21,7 @@ export default class AllShortestPathsService {
       tx => tx.run(
         `
           MATCH (source:protein)
-          WHERE source.id =~'(?i)' + $source OR source.name =~'(?i)' + $source OR source.alt_name =~'(?i)' + $source
+          WHERE source.id =~'(?i)' + $source OR source.name =~'(?i)' + $source OR source.alt_name =~'(?i)' + $source OR source.gene_name =~'(?i)' + $source
           CALL gds.allShortestPaths.dijkstra.stream('proGoGraph', {
               sourceNode: source,
               relationshipTypes: toStringList($relType),

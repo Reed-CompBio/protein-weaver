@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ExportGraph({ log, exportPNG, exportJSON }) {
+export default function ExportGraph({ log, exportPNG, exportJSON, nodeList }) {
   // Function to download the file as JSON
   const downloadFile = ({ data, fileName, fileType }) => {
     // Create a blob with the data we want to download as a file
@@ -29,6 +29,16 @@ export default function ExportGraph({ log, exportPNG, exportJSON }) {
     });
   };
 
+  const exportNodeListJson = (e) => {
+    e.preventDefault();
+    const timestamp = new Date().toISOString(); // Get the current timestamp
+    downloadFile({
+      data: JSON.stringify({ nodeList, timestamp }, null, 2), // Add the timestamp to the JSON
+      fileName: "PW-nodes.json",
+      fileType: "application/json",
+    });
+  };
+
   return (
     // display the download text
     <div className="exports-container">
@@ -40,6 +50,9 @@ export default function ExportGraph({ log, exportPNG, exportJSON }) {
       </a>
       <a className="export" onClick={exportJSON}>
         Export Graph to JSON
+      </a>
+      <a className="export" onClick={exportNodeListJson}>
+        Export Node List to JSON
       </a>
     </div>
   );

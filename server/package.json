@@ -7,8 +7,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000",
     "start": "npm run dev",
-    "dev": "nodemon src",
-    "lint": "eslint {src,example,test} --fix"
+    "dev": "nodemon src"
   },
   "keywords": [],
   "author": "",
