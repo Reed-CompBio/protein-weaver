@@ -82,11 +82,11 @@ button:focus-visible {
     padding-left: 12px;
 }
 
-.navbar>ul {
+.navbar > ul {
     list-style-type: none;
 }
 
-.navbar>ul>* {
+.navbar > ul > * {
     margin-left: 10px;
     color: black;
 }
@@ -247,7 +247,7 @@ body {
     display: inline-flex;
 }
 
-.example>a {
+.example > a {
     color: white;
     font-weight: bold;
     text-decoration: underline;
@@ -370,7 +370,7 @@ a.inactivated {
     width: 125px;
 }
 
-.protein-autocomplete>.active,
+.protein-autocomplete > .active,
 .protein-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -427,7 +427,7 @@ a.inactivated {
     width: 90%;
 }
 
-.go-term-autocomplete>.active,
+.go-term-autocomplete > .active,
 .go-term-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -744,14 +744,14 @@ select {
     align-items: center;
 }
 
-.footer>* {
+.footer > * {
     margin-left: 15px;
     color: black;
     font-family: "Lora", serif;
     font-weight: 600;
 }
 
-.footer>*:hover {
+.footer > *:hover {
     color: var(--home-button-hover);
 }
 
@@ -930,7 +930,7 @@ select {
 }
 
 .red-dashed-arrow::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -7px;
     /* Adjust this value to position the arrowhead */
@@ -959,7 +959,7 @@ select {
 }
 
 .pink-dashed-arrow::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -7px;
     /* Adjust this value to position the arrowhead */
@@ -1069,8 +1069,8 @@ select {
     text-align: center;
 }
 
-.about-body>p,
-.about-body>h3,
+.about-body > p,
+.about-body > h3,
 .about-body-text {
     color: white;
     text-align: justify;
@@ -1081,25 +1081,25 @@ select {
     color: white;
 }
 
-.about-body>ul {
+.about-body > ul {
     list-style-type: disc;
 }
 
-.about-body>p>a,
-.about-list>li>a,
+.about-body > p > a,
+.about-list > li > a,
 .about-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.about-body>p>a:hover,
-.about-body>p>ul>li>a:hover,
+.about-body > p > a:hover,
+.about-body > p > ul > li > a:hover,
 .about-body-link:hover {
     color: var(--text-hover);
 }
 
-.about-list>li>a:hover {
+.about-list > li > a:hover {
     color: var(--text-hover);
 }
 
@@ -1124,8 +1124,8 @@ select {
     text-align: center;
 }
 
-.tos-body>p,
-.tos-body>h3,
+.tos-body > p,
+.tos-body > h3,
 .tos-body-text {
     color: white;
     text-align: justify;
@@ -1136,25 +1136,25 @@ select {
     color: white;
 }
 
-.tos-body>ul {
+.tos-body > ul {
     list-style-type: disc;
 }
 
-.tos-body>p>a,
-.tos-list>li>a,
+.tos-body > p > a,
+.tos-list > li > a,
 .tos-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.tos-body>p>a:hover,
-.tos-body>p>ul>li>a:hover,
+.tos-body > p > a:hover,
+.tos-body > p > ul > li > a:hover,
 .tos-body-link:hover {
     color: var(--text-hover);
 }
 
-.tos-list>li>a:hover {
+.tos-list > li > a:hover {
     color: var(--text-hover);
 }
 
@@ -1193,14 +1193,17 @@ select {
     align-items: center;
 }
 
-.home-query-img {
-    width: 50%;
-    margin-left: 75px;
+.home-query-video {
     box-shadow: 0px -0px 10px 5px var(--shadow);
+    border-radius: 15px; /* Adjust this value for more or less roundness */
 }
 
 .home-feature-text {
     margin-left: 20px;
+}
+
+.button-align {
+    text-align: center; /* This centers the button horizontally */
 }
 
 .home-button {
@@ -1249,8 +1252,8 @@ select {
     text-align: center;
 }
 
-.faq-body>p,
-.faq-body>h3,
+.faq-body > p,
+.faq-body > h3,
 .faq-body-text {
     color: white;
     text-align: justify;
@@ -1261,25 +1264,25 @@ select {
     color: white;
 }
 
-.faq-body>ul {
+.faq-body > ul {
     list-style-type: disc;
 }
 
-.faq-body>p>a,
-.faq-list>li>a,
+.faq-body > p > a,
+.faq-list > li > a,
 .faq-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.faq-body>p>a:hover,
-.faq-body>p>ul>li>a:hover,
+.faq-body > p > a:hover,
+.faq-body > p > ul > li > a:hover,
 .faq-body-link:hover {
     color: var(--text-hover);
 }
 
-.faq-list>li>a:hover {
+.faq-list > li > a:hover {
     color: var(--text-hover);
 }
 
@@ -1491,7 +1494,6 @@ select {
     width: 100px;
 }
 
-
 .hierarchy-input-container {
     position: relative;
 }
@@ -1579,14 +1581,13 @@ select {
 }
 
 .layout-icon:hover {
-    border: 1px solid var(--graph-tan)
+    border: 1px solid var(--graph-tan);
 }
 
 .mode-container {
     margin-top: 0;
     display: flex;
     align-items: center;
-
 }
 
 .active-button {
@@ -1655,7 +1656,7 @@ select {
 .interaction-title {
     /* border: 2px solid purple; */
     /* width: 100px; */
-    display: inline
+    display: inline;
 }
 
 /* Create Panels in Query.jsx */
@@ -1749,7 +1750,6 @@ select {
     width: 100%;
     overflow-y: auto;
     overflow-x: auto;
-
 }
 
 .summary-panel-container::-webkit-scrollbar,
@@ -1825,9 +1825,6 @@ select {
     border-radius: 8px;
 }
 
-
-
-
 /* EdgeTab.jsx */
 .edge-tab-container {
     margin-left: 24px;
@@ -1844,7 +1841,7 @@ select {
 }
 
 .align-edge-link {
-    display: inline-block
+    display: inline-block;
 }
 
 .edge-tab-evidence {
@@ -1870,7 +1867,7 @@ select {
 
 .edge-tab-link a:hover {
     text-decoration: underline;
-    color: var(--reed-red)
+    color: var(--reed-red);
 }
 
 /* GraphStats.jsx */
