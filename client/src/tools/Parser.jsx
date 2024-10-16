@@ -155,9 +155,9 @@ export function EdgeDataParser(networkData, edgeData, ppi, regulatory) {
             }
         } else if (sharedEdgeExists) {
             // Edge exists but in reversed order, label it as "shared"
-            if (relType === "ProPro") {
+            if (relType === "ProPro" && ppi && sharedEdgeExists) {
                 processProProEdge(startNode, endNode, relType, evidence, dataSource);
-            } else if (relType === "Reg") {
+            } else if (relType === "Reg" && sharedEdgeExists) {
                 processRegEdge(startNode, endNode, relType, evidence, dataSource, regType, "shared");
             }
         } else if (!edgeExists) {
