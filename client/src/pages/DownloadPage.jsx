@@ -110,7 +110,21 @@ export default function Download() {
                                     </p>
                                 </div>
                                 <div className="download-table-column">
-                                    Gene ontology annotation for{" "}
+                                    GO annotation for{" "}
+                                    <strong>
+                                        <em>{species}</em>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div className="download-table-row">
+                                <div className="download-table-column">
+                                    <p onClick={handleDownload}>
+                                        mixed_interaction_annotation.csv
+                                    </p>
+                                </div>
+                                <div className="download-table-column">
+                                    Complete edge file with protein-protein interactions,
+                                    regulatory interactions, & GO annotations for{" "}
                                     <strong>
                                         <em>{species}</em>
                                     </strong>
@@ -123,7 +137,7 @@ export default function Download() {
                                     </p>
                                 </div>
                                 <div className="download-table-column">
-                                    Complete gene ontology annotation for all
+                                    Complete GO annotation for all
                                     species
                                 </div>
                             </div>
@@ -134,7 +148,7 @@ export default function Download() {
                                     </p>
                                 </div>
                                 <div className="download-table-column">
-                                    Complete gene ontology hierarchy
+                                    Complete GO hierarchy
                                 </div>
                             </div>
                         </div>
