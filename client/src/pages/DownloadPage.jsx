@@ -13,8 +13,9 @@ export default function Download() {
     };
 
     const handleSpeciesChange = (event) => {
-        setTxid(event.target.value);
-        console.log(speciesDict[event.target.value]);
+        const txid = event.target.value
+        setTxid(txid);
+        setSpecies(speciesDict[txid])
     };
 
     async function handleDownload(e) {
@@ -23,7 +24,7 @@ export default function Download() {
             console.log(`API call on /api/downloads/${file}`);
         } else {
             console.log(
-                `API call on /api/downloads/${txid}_${species}_${file}`
+                `API call on /api/downloads/${txid}_${file}`
             );
         }
     }
@@ -61,11 +62,10 @@ export default function Download() {
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div
-                                    className="download-table-column"
-                                    onClick={handleDownload}
-                                >
-                                    <p>protein_protein_interaction.csv</p>
+                                <div className="download-table-column">
+                                    <p onClick={handleDownload}>
+                                        protein_protein_interaction.csv
+                                    </p>
                                 </div>
                                 <div className="download-table-column">
                                     Complete edge file of protein-protein
@@ -76,11 +76,10 @@ export default function Download() {
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div
-                                    className="download-table-column"
-                                    onClick={handleDownload}
-                                >
-                                    <p>regulatory_interaction.csv</p>
+                                <div className="download-table-column">
+                                    <p onClick={handleDownload}>
+                                        regulatory_interaction.csv
+                                    </p>
                                 </div>
                                 <div className="download-table-column">
                                     Complete edge file of
@@ -91,11 +90,10 @@ export default function Download() {
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div
-                                    className="download-table-column"
-                                    onClick={handleDownload}
-                                >
-                                    <p>mixed_interaction.csv</p>
+                                <div className="download-table-column">
+                                    <p onClick={handleDownload}>
+                                        mixed_interaction.csv
+                                    </p>
                                 </div>
                                 <div className="download-table-column">
                                     Complete edge file with both protein-protein
@@ -106,11 +104,10 @@ export default function Download() {
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div
-                                    className="download-table-column"
-                                    onClick={handleDownload}
-                                >
-                                    <p>gene_ontology_annotation.csv</p>
+                                <div className="download-table-column">
+                                    <p onClick={handleDownload}>
+                                        gene_ontology_annotation.csv
+                                    </p>
                                 </div>
                                 <div className="download-table-column">
                                     Gene ontology annotation for{" "}
@@ -120,11 +117,10 @@ export default function Download() {
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div
-                                    className="download-table-column"
-                                    onClick={handleDownload}
-                                >
-                                    <p>complete_gene_ontology_annotation.csv</p>
+                                <div className="download-table-column">
+                                    <p onClick={handleDownload}>
+                                        complete_gene_ontology_annotation.csv
+                                    </p>
                                 </div>
                                 <div className="download-table-column">
                                     Complete gene ontology annotation for all
@@ -132,11 +128,10 @@ export default function Download() {
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div
-                                    className="download-table-column"
-                                    onClick={handleDownload}
-                                >
-                                    <p>complete_gene_ontology_hierarchy.csv</p>
+                                <div className="download-table-column">
+                                    <p onClick={handleDownload}>
+                                        complete_gene_ontology_hierarchy.csv
+                                    </p>
                                 </div>
                                 <div className="download-table-column">
                                     Complete gene ontology hierarchy
