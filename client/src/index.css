@@ -2035,5 +2035,15 @@ input {
 
 .download-table-column{
     width: 50%;
-    border-right: 2px solid black;
+    border-right: 2px solid black; 
+}
+
+.download-table-column > p{
+    align-self: flex-start;
+    display: inline-block;
+}
+
+.download-table-column > p:hover{
+    color: #4130ff;
+    cursor: pointer;
 }
