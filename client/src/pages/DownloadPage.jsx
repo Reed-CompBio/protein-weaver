@@ -106,11 +106,11 @@ export default function Download() {
                             <div className="download-table-row">
                                 <div className="download-table-column">
                                     <p onClick={handleDownload}>
-                                        gene_ontology_annotation.csv
+                                        direct_go_annotation.csv
                                     </p>
                                 </div>
                                 <div className="download-table-column">
-                                    GO annotation for{" "}
+                                    Direct GO annotations for{" "}
                                     <strong>
                                         <em>{species}</em>
                                     </strong>
@@ -119,18 +119,17 @@ export default function Download() {
                             <div className="download-table-row">
                                 <div className="download-table-column">
                                     <p onClick={handleDownload}>
-                                        mixed_interaction_annotation.csv
+                                        go_annotation.csv
                                     </p>
                                 </div>
                                 <div className="download-table-column">
-                                    Complete edge file with protein-protein interactions,
-                                    regulatory interactions, & GO annotations for{" "}
+                                    All GO annotations for{" "}
                                     <strong>
                                         <em>{species}</em>
                                     </strong>
                                 </div>
                             </div>
-                            <div className="download-table-row">
+                            {/* <div className="download-table-row">
                                 <div className="download-table-column">
                                     <p onClick={handleDownload}>
                                         complete_gene_ontology_annotation.csv
@@ -140,8 +139,12 @@ export default function Download() {
                                     Complete GO annotation for all
                                     species
                                 </div>
-                            </div>
-                            <div className="download-table-row">
+                            </div> */}
+                            {/*
+                            Provide link to GO hierarchy download:
+                            https://geneontology.org/docs/download-ontology/
+                             */}
+                            {/* <div className="download-table-row">
                                 <div className="download-table-column">
                                     <p onClick={handleDownload}>
                                         complete_gene_ontology_hierarchy.csv
@@ -150,7 +153,7 @@ export default function Download() {
                                 <div className="download-table-column">
                                     Complete GO hierarchy
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

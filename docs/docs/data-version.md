@@ -166,11 +166,11 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ```
 | Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
 | ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
-| 4106        | 411              | 1083             | 2612           | 13915                 | 78223              |
+| 16606       | 2833             | 10168            | 3605           | 45003                 | 25960              |
 
 | GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
 | -------- | ----------------- | -------------------- | ---------------------- |
-| 7868     | 202845            | 42898                | 159947                 |
+| 8321     | 133619            | 29065                | 104554                 |
 ```
 
 ## *Caenorhabditis elegans* Data Sources (TXID6239)
@@ -188,11 +188,11 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 ```
 | Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
 | ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
-| 16606       | 2833             | 10168            | 3605           | 45003                 | 17530              |
+| 4106        | 411              | 1083             | 2612           | 13915                 | 78223              |
 
 | GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
 | -------- | ----------------- | -------------------- | ---------------------- |
-| 8321     | 133619            | 29065                | 104554                 |
+| 7868     | 202845            | 42898                | 159947                 |
 ```
 
 ## *Saccharomyces cerevisiae* Data Sources (TXID559292)
