@@ -11,7 +11,6 @@ export default function Download() {
         txid559292: "S. cerevisiae",
         txid6239: "C. elegans",
     };
-
     const handleSpeciesChange = (event) => {
         const txid = event.target.value
         setTxid(txid);
@@ -20,14 +19,35 @@ export default function Download() {
 
     async function handleDownload(e) {
         const file = e.target.textContent;
-        if (file.includes("complete")) {
-            console.log(`API call on /api/downloads/${file}`);
-        } else {
-            console.log(
-                `API call on /api/downloads/${file}`
-            );
+        const url = `https://raw.githubusercontent.com/ctrlaltaf/protein-weaver/refs/heads/file-api/data/Downloads/${txid}/${file}`;
+
+        console.log(`Downloading file from ${url}`);
+
+        try {
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            const downloadUrl = URL.createObjectURL(blob);
+
+            // Create an anchor element to trigger download
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = file; // Use the file name for the download
+            document.body.appendChild(a);
+            a.click();
+
+            // Clean up
+            URL.revokeObjectURL(downloadUrl);
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error(`Error downloading file: ${error.message}`);
         }
     }
+
 
     return (
         <div>
@@ -70,6 +90,9 @@ export default function Download() {
                                     <p onClick={handleDownload}>
                                         {txid}-protein_protein_interaction.csv
                                     </p>
+                                    {/* <a onClick={handleDownload} href={url} download>
+                                        {txid}-protein_protein_interaction.csv
+                                    </a> */}
                                 </div>
                                 <div className="download-table-column">
                                     Complete edge file of protein-protein
@@ -133,10 +156,13 @@ export default function Download() {
                                     </strong>
                                 </div>
                             </div>
-                            {/*
-                            Provide link to GO hierarchy download:
-                            https://geneontology.org/docs/download-ontology/
-                             */}
+                        </div>
+                        <div className="download-note">
+                            <a
+                                href='https://geneontology.org/docs/download-ontology/'
+                                target='_blank'
+                                rel='noopener noreferrer'
+                            >Download page</a> for the most up to date Gene Onotology hierarchy.
                         </div>
                     </div>
                 </div>
