@@ -54,7 +54,7 @@ export default function Download() {
             <MainLayout>
                 <div className="main-layout-body">
                     <div className="download-body">
-                        <h2 className="download-title">Download Page</h2>
+                        <h2 className="download-title">Data Download</h2>
                         <select
                             className="species-input-container"
                             value={txid}
@@ -76,81 +76,92 @@ export default function Download() {
                                 C. elegans (6239)
                             </option>
                         </select>
-                        <div>
-                            <div className="download-table-row">
-                                <div className="download-table-column">
-                                    File
+                        <div className="download-table">
+                            <div className="download-header-row">
+                                <div className="download-table-left-column">
+                                    <h4>
+                                        File
+                                    </h4>
                                 </div>
-                                <div className="download-table-column">
-                                    Description
+                                <div className="download-table-right-column">
+                                    <h4>
+                                        Description
+                                    </h4>
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div className="download-table-column">
+                                <div className="download-table-left-column">
                                     <p onClick={handleDownload}>
                                         {txid}-protein_protein_interaction.csv
                                     </p>
                                 </div>
-                                <div className="download-table-column">
-                                    Complete edge file of protein-protein
-                                    interactions for{" "}
-                                    <strong>
-                                        <em>{species}</em>
-                                    </strong>
+                                <div className="download-table-right-column">
+                                    <p>Complete edge file of PPIs for{" "}
+                                        <strong>
+                                            <em>{species}</em>
+                                        </strong>
+                                    </p>
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div className="download-table-column">
+                                <div className="download-table-left-column">
                                     <p onClick={handleDownload}>
                                         {txid}-regulatory_interaction.csv
                                     </p>
                                 </div>
-                                <div className="download-table-column">
-                                    Complete edge file of
-                                    regulatory_interactions for{" "}
-                                    <strong>
-                                        <em>{species}</em>
-                                    </strong>
+                                <div className="download-table-right-column">
+                                    <p>
+                                        Complete edge file of
+                                        regulatory interactions for{" "}
+                                        <strong>
+                                            <em>{species}</em>
+                                        </strong>
+                                    </p>
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div className="download-table-column">
+                                <div className="download-table-left-column">
                                     <p onClick={handleDownload}>
                                         {txid}-mixed_interaction.csv
                                     </p>
                                 </div>
-                                <div className="download-table-column">
-                                    Complete edge file with both protein-protein
-                                    and regulatory interactions for{" "}
-                                    <strong>
-                                        <em>{species}</em>
-                                    </strong>
+                                <div className="download-table-right-column">
+                                    <p>
+                                        Complete edge file (PPI & regulatory) for{" "}
+                                        <strong>
+                                            <em>{species}</em>
+                                        </strong>
+                                    </p>
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div className="download-table-column">
+                                <div className="download-table-left-column">
                                     <p onClick={handleDownload}>
                                         {txid}-direct_go_annotation.csv
                                     </p>
                                 </div>
-                                <div className="download-table-column">
-                                    Direct GO annotations for{" "}
-                                    <strong>
-                                        <em>{species}</em>
-                                    </strong>
+                                <div className="download-table-right-column">
+                                    <p>
+                                        Direct GO annotations for{" "}
+                                        <strong>
+                                            <em>{species}</em>
+                                        </strong>
+                                    </p>
                                 </div>
                             </div>
                             <div className="download-table-row">
-                                <div className="download-table-column">
+                                <div className="download-table-left-column">
                                     <p onClick={handleDownload}>
                                         {txid}-go_annotation.csv
                                     </p>
                                 </div>
-                                <div className="download-table-column">
-                                    All GO annotations for{" "}
-                                    <strong>
-                                        <em>{species}</em>
-                                    </strong>
+                                <div className="download-table-right-column">
+                                    <p>
+                                        All GO annotations for{" "}
+                                        <strong>
+                                            <em>{species}</em>
+                                        </strong>
+                                    </p>
                                 </div>
                             </div>
                         </div>

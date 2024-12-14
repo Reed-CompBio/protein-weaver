@@ -7,7 +7,7 @@ export default function AboutPage() {
       <MainLayout>
         <div className="main-layout-body">
           <div className="about-body">
-            <h2 className="about-title">About Page</h2>
+            <h2 className="about-title">About ProteinWeaver</h2>
             <p>
               ProteinWeaver is a web-based interface designed to enhance the
               visualization and analysis of protein interaction networks through

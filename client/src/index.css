@@ -82,11 +82,11 @@ button:focus-visible {
     padding-left: 12px;
 }
 
-.navbar > ul {
+.navbar>ul {
     list-style-type: none;
 }
 
-.navbar > ul > * {
+.navbar>ul>* {
     margin-left: 10px;
     color: black;
 }
@@ -238,7 +238,7 @@ body {
     display: inline-flex;
 }
 
-.example > a {
+.example>a {
     color: white;
     font-weight: bold;
     text-decoration: underline;
@@ -361,7 +361,7 @@ a.inactivated {
     width: 125px;
 }
 
-.protein-autocomplete > .active,
+.protein-autocomplete>.active,
 .protein-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -418,7 +418,7 @@ a.inactivated {
     width: 90%;
 }
 
-.go-term-autocomplete > .active,
+.go-term-autocomplete>.active,
 .go-term-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -738,14 +738,14 @@ input {
     align-items: center;
 }
 
-.footer > * {
+.footer>* {
     margin-left: 15px;
     color: black;
     font-family: "Lora", serif;
     font-weight: 600;
 }
 
-.footer > *:hover {
+.footer>*:hover {
     color: var(--home-button-hover);
 }
 
@@ -1063,8 +1063,8 @@ input {
     text-align: center;
 }
 
-.about-body > p,
-.about-body > h3,
+.about-body>p,
+.about-body>h3,
 .about-body-text {
     color: white;
     text-align: justify;
@@ -1075,25 +1075,25 @@ input {
     color: white;
 }
 
-.about-body > ul {
+.about-body>ul {
     list-style-type: disc;
 }
 
-.about-body > p > a,
-.about-list > li > a,
+.about-body>p>a,
+.about-list>li>a,
 .about-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.about-body > p > a:hover,
-.about-body > p > ul > li > a:hover,
+.about-body>p>a:hover,
+.about-body>p>ul>li>a:hover,
 .about-body-link:hover {
     color: var(--text-hover);
 }
 
-.about-list > li > a:hover {
+.about-list>li>a:hover {
     color: var(--text-hover);
 }
 
@@ -1109,48 +1109,71 @@ input {
     padding-top: 5px;
     border-radius: 10px;
     color: rgb(0, 0, 0);
-    /* box-shadow: 0px -0px 10px 5px var(--shadow); */
+    box-shadow: 0px -0px 10px 5px var(--shadow);
 }
 
-/* .about-title {
+.download-title {
     padding-bottom: 5px;
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid black;
     text-align: center;
 }
 
-.about-body > p,
-.about-body > h3,
-.about-body-text {
-    color: white;
-    text-align: justify;
+.download-table {
+    border: 4px solid black;
 }
 
-.about-body-text-heading {
-    text-align: left;
-    color: white;
+.download-table-row {
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid black;
 }
 
-.about-body > ul {
-    list-style-type: disc;
+.download-table-row p {
+    align-self: flex-start;
+    display: inline-block;
+    padding-left: 8px;
 }
 
-.about-body > p > a,
-.about-list > li > a,
-.about-body-link {
-    color: white;
-    text-decoration: underline;
+.download-header-row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 2px solid black;
+}
+
+.download-header-row h4 {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.download-table-left-column {
+    width: 50%;
+    border-right: 2px solid black;
+}
+
+.download-table-left-column p:hover {
+    color: var(--graph-blue-hover);
     cursor: pointer;
 }
 
-.about-body > p > a:hover,
-.about-body > p > ul > li > a:hover,
-.about-body-link:hover {
-    color: var(--text-hover);
+.download-table-right-column {
+    width: 50%;
 }
 
-.about-list > li > a:hover {
-    color: var(--text-hover);
-} */
+.download-note {
+    margin-top: 25px;
+    padding-left: 8px;
+    padding-top: 0;
+}
+
+.download-note a {
+    color: var(--reed-red);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+}
 
 /* CSS for TOSPage.jsx */
 .tos-body {
@@ -1173,8 +1196,8 @@ input {
     text-align: center;
 }
 
-.tos-body > p,
-.tos-body > h3,
+.tos-body>p,
+.tos-body>h3,
 .tos-body-text {
     color: white;
     text-align: justify;
@@ -1185,25 +1208,25 @@ input {
     color: white;
 }
 
-.tos-body > ul {
+.tos-body>ul {
     list-style-type: disc;
 }
 
-.tos-body > p > a,
-.tos-list > li > a,
+.tos-body>p>a,
+.tos-list>li>a,
 .tos-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.tos-body > p > a:hover,
-.tos-body > p > ul > li > a:hover,
+.tos-body>p>a:hover,
+.tos-body>p>ul>li>a:hover,
 .tos-body-link:hover {
     color: var(--text-hover);
 }
 
-.tos-list > li > a:hover {
+.tos-list>li>a:hover {
     color: var(--text-hover);
 }
 
@@ -1244,7 +1267,8 @@ input {
 
 .home-query-video {
     box-shadow: 0px -0px 10px 5px var(--shadow);
-    border-radius: 15px; /* Adjust this value for more or less roundness */
+    border-radius: 15px;
+    /* Adjust this value for more or less roundness */
 }
 
 .home-feature-text {
@@ -1252,7 +1276,8 @@ input {
 }
 
 .button-align {
-    text-align: center; /* This centers the button horizontally */
+    text-align: center;
+    /* This centers the button horizontally */
 }
 
 .home-button {
@@ -1301,8 +1326,8 @@ input {
     text-align: center;
 }
 
-.faq-body > p,
-.faq-body > h3,
+.faq-body>p,
+.faq-body>h3,
 .faq-body-text {
     color: white;
     text-align: justify;
@@ -1313,25 +1338,25 @@ input {
     color: white;
 }
 
-.faq-body > ul {
+.faq-body>ul {
     list-style-type: disc;
 }
 
-.faq-body > p > a,
-.faq-list > li > a,
+.faq-body>p>a,
+.faq-list>li>a,
 .faq-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.faq-body > p > a:hover,
-.faq-body > p > ul > li > a:hover,
+.faq-body>p>a:hover,
+.faq-body>p>ul>li>a:hover,
 .faq-body-link:hover {
     color: var(--text-hover);
 }
 
-.faq-list > li > a:hover {
+.faq-list>li>a:hover {
     color: var(--text-hover);
 }
 
@@ -2025,25 +2050,4 @@ input {
 
 .checkbox-container {
     padding-left: 5px;
-}
-
-.download-table-row{
-    display: flex;
-    flex-direction: row;
-    border: 2px solid black;
-}
-
-.download-table-column{
-    width: 50%;
-    border-right: 2px solid black; 
-}
-
-.download-table-column > p{
-    align-self: flex-start;
-    display: inline-block;
-}
-
-.download-table-column > p:hover{
-    color: #4130ff;
-    cursor: pointer;
 }
