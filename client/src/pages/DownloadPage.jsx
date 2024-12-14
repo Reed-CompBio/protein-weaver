@@ -5,7 +5,7 @@ export default function Download() {
     const [txid, setTxid] = useState("txid224308");
     const [species, setSpecies] = useState("B. subtilis");
     const speciesDict = {
-        txid224308: "B. subtillis",
+        txid224308: "B. subtilis",
         txid7227: "D. melanogaster",
         txid7955: "D. rerio",
         txid559292: "S. cerevisiae",
@@ -24,7 +24,7 @@ export default function Download() {
             console.log(`API call on /api/downloads/${file}`);
         } else {
             console.log(
-                `API call on /api/downloads/${txid}_${file}`
+                `API call on /api/downloads/${file}`
             );
         }
     }
@@ -46,11 +46,15 @@ export default function Download() {
                             <option value="txid7227">
                                 D. melanogaster (7227)
                             </option>
-                            <option value="txid7955">D. rerio (7955)</option>
+                            <option value="txid7955">
+                                D. rerio (7955)
+                            </option>
                             <option value="txid559292">
                                 S. cerevisiae (559292)
                             </option>
-                            <option value="txid6239">C. elegans (6239)</option>
+                            <option value="txid6239">
+                                C. elegans (6239)
+                            </option>
                         </select>
                         <div>
                             <div className="download-table-row">
@@ -64,7 +68,7 @@ export default function Download() {
                             <div className="download-table-row">
                                 <div className="download-table-column">
                                     <p onClick={handleDownload}>
-                                        protein_protein_interaction.csv
+                                        {txid}-protein_protein_interaction.csv
                                     </p>
                                 </div>
                                 <div className="download-table-column">
@@ -78,7 +82,7 @@ export default function Download() {
                             <div className="download-table-row">
                                 <div className="download-table-column">
                                     <p onClick={handleDownload}>
-                                        regulatory_interaction.csv
+                                        {txid}-regulatory_interaction.csv
                                     </p>
                                 </div>
                                 <div className="download-table-column">
@@ -92,7 +96,7 @@ export default function Download() {
                             <div className="download-table-row">
                                 <div className="download-table-column">
                                     <p onClick={handleDownload}>
-                                        mixed_interaction.csv
+                                        {txid}-mixed_interaction.csv
                                     </p>
                                 </div>
                                 <div className="download-table-column">
@@ -106,7 +110,7 @@ export default function Download() {
                             <div className="download-table-row">
                                 <div className="download-table-column">
                                     <p onClick={handleDownload}>
-                                        direct_go_annotation.csv
+                                        {txid}-direct_go_annotation.csv
                                     </p>
                                 </div>
                                 <div className="download-table-column">
@@ -119,7 +123,7 @@ export default function Download() {
                             <div className="download-table-row">
                                 <div className="download-table-column">
                                     <p onClick={handleDownload}>
-                                        go_annotation.csv
+                                        {txid}-go_annotation.csv
                                     </p>
                                 </div>
                                 <div className="download-table-column">
@@ -129,31 +133,10 @@ export default function Download() {
                                     </strong>
                                 </div>
                             </div>
-                            {/* <div className="download-table-row">
-                                <div className="download-table-column">
-                                    <p onClick={handleDownload}>
-                                        complete_gene_ontology_annotation.csv
-                                    </p>
-                                </div>
-                                <div className="download-table-column">
-                                    Complete GO annotation for all
-                                    species
-                                </div>
-                            </div> */}
                             {/*
                             Provide link to GO hierarchy download:
                             https://geneontology.org/docs/download-ontology/
                              */}
-                            {/* <div className="download-table-row">
-                                <div className="download-table-column">
-                                    <p onClick={handleDownload}>
-                                        complete_gene_ontology_hierarchy.csv
-                                    </p>
-                                </div>
-                                <div className="download-table-column">
-                                    Complete GO hierarchy
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                 </div>
