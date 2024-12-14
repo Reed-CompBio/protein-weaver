@@ -90,9 +90,6 @@ export default function Download() {
                                     <p onClick={handleDownload}>
                                         {txid}-protein_protein_interaction.csv
                                     </p>
-                                    {/* <a onClick={handleDownload} href={url} download>
-                                        {txid}-protein_protein_interaction.csv
-                                    </a> */}
                                 </div>
                                 <div className="download-table-column">
                                     Complete edge file of protein-protein
