@@ -1119,7 +1119,7 @@ input {
 }
 
 .download-table {
-    border: 4px solid black;
+    border: 3px solid black;
 }
 
 .download-table-row {
@@ -1137,7 +1137,7 @@ input {
 .download-header-row {
     display: flex;
     flex-direction: row;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid black;
 }
 
 .download-header-row h4 {
