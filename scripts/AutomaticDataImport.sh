@@ -83,6 +83,7 @@ if [ "$IMPORT_ALL" = true ]; then
     import_data_by_txid 7955
     import_data_by_txid 6239
     import_data_by_txid 559292
+    import_data_by_txid 3702
 else
     IFS=',' read -ra TXID_ARRAY <<< "$SPECIFIC_TXIDS"
     for txid in "${TXID_ARRAY[@]}"; do

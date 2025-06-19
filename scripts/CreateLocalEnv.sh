@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Activate conda environment first before running script (conda activate protein-weaver)
+# Open Docker Desktop before running this script
+
 # Define paths that match your personal environment
 CLIENT=$HOME/Desktop/GitHub_Repos/protein-weaver/client
 SERVER=$HOME/Desktop/GitHub_Repos/protein-weaver/server

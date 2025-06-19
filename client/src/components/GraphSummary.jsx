@@ -50,7 +50,7 @@ export default function GraphSummary({
             setSourceNodeLink(
                 `https://bsubcyc.org/gene?orgid=BSUB&id=${sourceNode.id.replace('_', '')}#tab=GO`
             );
-        } else if (txid === "txid7955" || txid === "txid559292") {
+        } else if (txid === "txid7955" || txid === "txid559292" || txid === "txid3702") {
             setSourceNodeLink(
                 `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
             );
