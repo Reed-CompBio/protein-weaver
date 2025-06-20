@@ -39,6 +39,11 @@ if [ "$(docker ps -aq -f name=proteinweaver)" ]; then
 		sleep 90
 		echo "Neo4j started."
     fi
+
+    # Create constraints
+	echo "Creating constraints.."
+	cat ProteinWeaverConstraints.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
+	echo "Constraints created."
 else
     echo "Container 'proteinweaver' does not exist. Creating and starting a new container..."
     docker run \
@@ -58,7 +63,7 @@ else
         neo4j:latest
     # Wait for Neo4j to start (adjust sleep time as needed)
 	echo "Waiting for Neo4j to start..."
-	sleep 60
+	sleep 120
 	echo "Neo4j started."
 	
 	# Create constraints

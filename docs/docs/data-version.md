@@ -217,6 +217,28 @@ Added GO association data from QuickGO [(Source)](https://www.ebi.ac.uk/QuickGO/
 | 8300     | 328186            | 69760                | 258426                 |
 ```
 
+## *Arabidopsis thaliana* Data Sources (TXID3702)
+### 2025-06-19:
+#### Interaction data:
+Added physical interaction data [(Source)](https://downloads.thebiogrid.org/BioGRID/Release-Archive/BIOGRID-/4.4.246) and processed into [`interactome-txid3702-2025_06_18.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/ArabidopsisThaliana/interactome-txid3702-2025_06_18.txt) according to [`ArabidopsisThaliana.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ArabidopsisThaliana.R).
+
+#### Regulatory data:
+* Added genetic regulatory data [(Source)](https://atrm.gao-lab.org/download.php) and processed into [`regulatory-txid3702-2025_06_18.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/ArabidopsisThaliana/regulatory-txid3702-2025_06_18.txt) according to [`ArabidopsisThaliana.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ArabidopsisThaliana.R).
+
+#### GO association data:
+Added GO association data from QuickGO [(Source)](https://www.ebi.ac.uk/QuickGO/) and processed into [`annotations-txid3702-2025_06_19.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/ArabidopsisThaliana/annotations-txid3702-2025_06_19.txt) according to [`ArabidopsisThaliana.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ArabidopsisThaliana.R) using the [UniProt namespace mapper](https://www.uniprot.org/id-mapping).
+
+### Current _A. thaliana_ Network [Updated 2025-06-19]
+```
+| Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
+| ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
+|         |              |               |            |                 |              |
+
+| GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
+| -------- | ----------------- | -------------------- | ---------------------- |
+|      |             |                 |                  |
+```
+
 
 ## Gene Ontology Hierarchy Data Sources
 ### 2023-09-29:

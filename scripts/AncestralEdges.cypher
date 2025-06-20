@@ -58,10 +58,20 @@ MATCH (p:protein {txid: 'txid3702'})-[:ProGo]-(g:go_term)
 
         MERGE (p)-[r:ProGo]-(parent_term);
 
-MATCH (p:protein)-[r:ProGo]-(g:go_term)
-        WHERE r.relationship IS NULL
-        SET r.relationship = "inferred_from_descendant";
+CALL apoc.periodic.iterate(
+  "
+  MATCH (p:protein)-[r:ProGo]-(g:go_term)
+  WHERE r.relationship IS NULL
+  RETURN r
+  ",
+  "
+  SET r.relationship = 'inferred_from_descendant'
+  ",
+  {batchSize: 1000, parallel: false}
+)
+
 MATCH (p:protein)-[rel:ProPro]-(p) DETACH DELETE rel;
+MATCH (p:protein)-[rel:Reg]->(p) DETACH DELETE rel;
 MATCH (g:go_term) WHERE NOT (g)-[:GoGo]-() DETACH DELETE g;
 
 MATCH (pr:protein{txid: "txid224308"})

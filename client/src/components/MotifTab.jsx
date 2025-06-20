@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import MotifTable from "./MotifTable";
 
+
+// Constants for motif enrichment scores
+// Format { "txidXXXX" ; [(N.proteinClique/global.ppiDegree), (N.interactCoReg/global.mixedDegree), (N.feedFwdLoop/global.grnDegree), (N.coRegInteract/global.mixedDegree), (N.mixedFeedback/global.mixedDegree)] }
 const txidMapping = {
     "txid7227": [(1267922 / 466108), (5049 / 501168), (3706 / 35060), (3236 / 501168), (1439 / 501168)],
     "txid224308": [(43088 / 12882), (164 / 24150), (972 / 11268), (1359 / 24150), (65 / 24150)],
