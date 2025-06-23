@@ -1,0 +1,159 @@
+# Count all nodes for a species
+MATCH (fly:protein {txid :"txid7227"})
+    WITH COUNT(fly) AS flyCount
+MATCH (bsub:protein {txid :"txid224308"})
+    WITH flyCount, COUNT(bsub) AS bsubCount
+MATCH (drerio:protein {txid :"txid7955"})
+    WITH flyCount, bsubCount, COUNT(drerio) AS drerioCount
+MATCH (yeast:protein {txid :"txid559292"})
+    WITH flyCount, bsubCount, drerioCount, COUNT(yeast) AS yeastCount
+MATCH (elegans:protein {txid :"txid6239"})
+    WITH flyCount, bsubCount, drerioCount, yeastCount, COUNT(elegans) AS elegansCount
+MATCH (arabThal:protein {txid :"txid3702"})
+    WITH flyCount, bsubCount, drerioCount, yeastCount, elegansCount, COUNT(arabThal) AS arabThalCount
+RETURN flyCount, bsubCount, drerioCount, yeastCount, elegansCount, arabThalCount
+
+# Count PPI only nodes
+MATCH (fly:protein {txid :"txid7227"})
+	WHERE NOT (fly)-[:Reg]->(:protein) AND NOT (fly)<-[:Reg]-(:protein)
+    WITH COUNT(DISTINCT(fly)) AS flyProProNodesCount
+MATCH (bsub:protein {txid :"txid224308"})
+	WHERE NOT (bsub)-[:Reg]->(:protein) AND NOT (bsub)<-[:Reg]-(:protein)
+    WITH flyProProNodesCount, COUNT(DISTINCT(bsub)) AS bsubProProNodesCount
+MATCH (drerio:protein {txid :"txid7955"})
+	WHERE NOT (drerio)-[:Reg]->(:protein) AND NOT (drerio)<-[:Reg]-(:protein)
+    WITH flyProProNodesCount, bsubProProNodesCount, COUNT(DISTINCT(drerio)) AS drerioProProNodesCount
+MATCH (yeast:protein {txid :"txid559292"})
+	WHERE NOT (yeast)-[:Reg]->(:protein) AND NOT (yeast)<-[:Reg]-(:protein)
+    WITH flyProProNodesCount, bsubProProNodesCount, drerioProProNodesCount, COUNT(DISTINCT(yeast)) AS yeastProProNodesCount
+MATCH (elegans:protein {txid :"txid6239"})
+	WHERE NOT (elegans)-[:Reg]->(:protein) AND NOT (elegans)<-[:Reg]-(:protein)
+    WITH flyProProNodesCount, bsubProProNodesCount, drerioProProNodesCount, yeastProProNodesCount, COUNT(DISTINCT(elegans)) AS elegansProProNodesCount
+MATCH (arabThal:protein {txid :"txid3702"})
+	WHERE NOT (arabThal)-[:Reg]->(:protein) AND NOT (arabThal)<-[:Reg]-(:protein)
+    WITH flyProProNodesCount, bsubProProNodesCount, drerioProProNodesCount, yeastProProNodesCount, elegansProProNodesCount, COUNT(DISTINCT(arabThal)) AS arabThalProProNodesCount
+RETURN flyProProNodesCount, bsubProProNodesCount, drerioProProNodesCount, yeastProProNodesCount, elegansProProNodesCount, arabThalProProNodesCount
+
+# Count Reg nodes only
+MATCH (fly:protein {txid :"txid7227"})
+	WHERE NOT (fly)-[:ProPro]-(:protein)
+    WITH COUNT(DISTINCT(fly)) AS flyRegNodesCount
+MATCH (bsub:protein {txid :"txid224308"})
+	WHERE NOT (bsub)-[:ProPro]-(:protein)
+    WITH flyRegNodesCount, COUNT(DISTINCT(bsub)) AS bsubRegNodesCount
+MATCH (drerio:protein {txid :"txid7955"})
+	WHERE NOT (drerio)-[:ProPro]-(:protein)
+    WITH flyRegNodesCount, bsubRegNodesCount, COUNT(DISTINCT(drerio)) AS drerioRegNodesCount
+MATCH (yeast:protein {txid :"txid559292"})
+	WHERE NOT (yeast)-[:ProPro]-(:protein)
+    WITH flyRegNodesCount, bsubRegNodesCount, drerioRegNodesCount, COUNT(DISTINCT(yeast)) AS yeastRegNodesCount
+MATCH (elegans:protein {txid :"txid6239"})
+	WHERE NOT (elegans)-[:ProPro]-(:protein)
+    WITH flyRegNodesCount, bsubRegNodesCount, drerioRegNodesCount, yeastRegNodesCount, COUNT(DISTINCT(elegans)) AS elegansRegNodesCount
+MATCH (arabThal:protein {txid :"txid3702"})
+	WHERE NOT (arabThal)-[:ProPro]-(:protein)
+    WITH flyRegNodesCount, bsubRegNodesCount, drerioRegNodesCount, yeastRegNodesCount, elegansRegNodesCount, COUNT(DISTINCT(arabThal)) AS arabThalRegNodesCount
+RETURN flyRegNodesCount, bsubRegNodesCount, drerioRegNodesCount, yeastRegNodesCount, elegansRegNodesCount, arabThalRegNodesCount
+
+# Count shared nodes
+MATCH (fly:protein {txid :"txid7227"})
+	WHERE (fly)-[:ProPro]-(:protein) AND ((fly)-[:Reg]->(:protein) OR (fly)<-[:Reg]-(:protein))
+    WITH COUNT(DISTINCT(fly)) AS flySharedNodesCount
+MATCH (bsub:protein {txid :"txid224308"})
+	WHERE (bsub)-[:ProPro]-(:protein) AND ((bsub)-[:Reg]->(:protein) OR (bsub)<-[:Reg]-(:protein))
+    WITH flySharedNodesCount, COUNT(DISTINCT(bsub)) AS bsubSharedNodesCount
+MATCH (drerio:protein {txid :"txid7955"})
+	WHERE (drerio)-[:ProPro]-(:protein) AND ((drerio)-[:Reg]->(:protein) OR (drerio)<-[:Reg]-(:protein))
+    WITH flySharedNodesCount, bsubSharedNodesCount, COUNT(DISTINCT(drerio)) AS drerioSharedNodesCount
+MATCH (yeast:protein {txid :"txid559292"})
+	WHERE (yeast)-[:ProPro]-(:protein) AND ((yeast)-[:Reg]->(:protein) OR (yeast)<-[:Reg]-(:protein))
+    WITH flySharedNodesCount, bsubSharedNodesCount, drerioSharedNodesCount, COUNT(DISTINCT(yeast)) AS yeastSharedNodesCount
+MATCH (elegans:protein {txid :"txid6239"})
+	WHERE (elegans)-[:ProPro]-(:protein) AND ((elegans)-[:Reg]->(:protein) OR (elegans)<-[:Reg]-(:protein))
+    WITH flySharedNodesCount, bsubSharedNodesCount, drerioSharedNodesCount, yeastSharedNodesCount, COUNT(DISTINCT(elegans)) AS elegansSharedNodesCount
+MATCH (arabThal:protein {txid :"txid3702"})
+	WHERE (arabThal)-[:ProPro]-(:protein) AND ((arabThal)-[:Reg]->(:protein) OR (arabThal)<-[:Reg]-(:protein))
+    WITH flySharedNodesCount, bsubSharedNodesCount, drerioSharedNodesCount, yeastSharedNodesCount, elegansSharedNodesCount, COUNT(DISTINCT(arabThal)) AS arabThalSharedNodesCount
+RETURN flySharedNodesCount, bsubSharedNodesCount, drerioSharedNodesCount, yeastSharedNodesCount, elegansSharedNodesCount, arabThalSharedNodesCount
+
+# Count all GO terms, and get all "is_a" relationships
+MATCH (go:go_term)
+    WITH COUNT(go) AS goCount
+MATCH (go:go_term)-[goGo:GoGo {relationship: "is_a"}]->(go2:go_term)
+	WITH goCount, COUNT(goGo) AS isACount
+RETURN goCount, isACount
+
+# Count all PPI edges
+MATCH (fly1 {txid :"txid7227"}) -[flyProPro:ProPro]- (fly2 {txid :"txid7227"})
+    WITH goCount, COUNT(flyProPro)/2 AS flyProProCount
+MATCH (bsub1 {txid :"txid224308"}) -[bsubProPro:ProPro]- (bsub2 {txid :"txid224308"})
+    WITH goCount, flyProProCount, COUNT(bsubProPro)/2 AS bsubProProCount
+MATCH (drerio1 {txid :"txid7955"}) -[drerioProPro:ProPro]- (drerio2 {txid :"txid7955"})
+    WITH goCount, flyProProCount, bsubProProCount, COUNT(drerioProPro)/2 AS drerioProProCount
+MATCH (yeast1 {txid :"txid559292"}) -[yeastProPro:ProPro]- (yeast2 {txid :"txid559292"})
+    WITH goCount, flyProProCount, bsubProProCount, drerioProProCount, COUNT(yeastProPro)/2 AS yeastProProCount
+MATCH (elegans1 {txid :"txid6239"}) -[elegansProPro:ProPro]- (elegans2 {txid :"txid6239"})
+    WITH goCount, flyProProCount, bsubProProCount, drerioProProCount, yeastProProCount, COUNT(elegansProPro)/2 AS elegansProProCount
+MATCH (arabThal1 {txid :"txid3702"}) -[arabThalProPro:ProPro]- (arabThal2 {txid :"txid3702"})
+    WITH goCount, flyProProCount, bsubProProCount, drerioProProCount, yeastProProCount, elegansProProCount, COUNT(arabThalProPro)/2 AS arabThalProProCount
+RETURN goCount, flyProProCount, bsubProProCount, drerioProProCount, yeastProProCount, elegansProProCount, arabThalProProCount
+
+# Count all Reg edges
+MATCH (fly1 {txid :"txid7227"}) -[flyReg:Reg]-> (fly2 {txid :"txid7227"})
+    WITH COUNT(flyReg) AS flyRegCount
+MATCH (bsub1 {txid :"txid224308"}) -[bsubReg:Reg]-> (bsub2 {txid :"txid224308"})
+    WITH flyRegCount, COUNT(bsubReg) AS bsubRegCount
+MATCH (drerio1 {txid :"txid7955"}) -[drerioReg:Reg]-> (drerio2 {txid :"txid7955"})
+    WITH flyRegCount, bsubRegCount, COUNT(drerioReg) AS drerioRegCount
+MATCH (yeast1 {txid :"txid559292"}) -[yeastReg:Reg]-> (yeast2 {txid :"txid559292"})
+    WITH flyRegCount, bsubRegCount, drerioRegCount, COUNT(yeastReg) AS yeastRegCount
+MATCH (elegans1 {txid :"txid6239"}) -[elegansReg:Reg]-> (elegans2 {txid :"txid6239"})
+    WITH flyRegCount, bsubRegCount, drerioRegCount, yeastRegCount, COUNT(elegansReg) AS elegansRegCount
+MATCH (arabThal1 {txid :"txid3702"}) -[arabThalReg:Reg]-> (arabThal2 {txid :"txid3702"})
+    WITH flyRegCount, bsubRegCount, drerioRegCount, yeastRegCount, elegansRegCount, COUNT(arabThalReg) AS arabThalRegCount
+RETURN flyRegCount, bsubRegCount, drerioRegCount, yeastRegCount, elegansRegCount, arabThalRegCount
+
+# Count all GO Annotations
+MATCH (fly:protein {txid :"txid7227"}) -[flyProGo:ProGo]-(go:go_term)
+    WITH COUNT(flyProGo) AS flyProGoCount
+MATCH (bsub:protein {txid :"txid224308"}) -[bsubProGo:ProGo]-(go:go_term)
+    WITH flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
+MATCH (drerio:protein {txid :"txid7955"}) -[drerioProGo:ProGo]- (go:go_term)
+    WITH flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
+MATCH (yeast:protein {txid :"txid559292"}) -[yeastProGo:ProGo]- (go:go_term)
+    WITH flyProGoCount, bsubProGoCount, drerioProGoCount, COUNT(yeastProGo) AS yeastProGoCount
+MATCH (elegans:protein {txid :"txid6239"}) -[elegansProGo:ProGo]- (go:go_term)
+    WITH flyProGoCount, bsubProGoCount, drerioProGoCount, yeastProGoCount, COUNT(elegansProGo) AS elegansProGoCount
+MATCH (arabThal:protein {txid :"txid3702"}) -[arabThalProGo:ProGo]- (go:go_term)
+    WITH flyProGoCount, bsubProGoCount, drerioProGoCount, yeastProGoCount, elegansProGoCount, COUNT(arabThalProGo) AS arabThalProGoCount
+RETURN flyProGoCount, bsubProGoCount, drerioProGoCount, yeastProGoCount, elegansProGoCount, arabThalProGoCount
+
+# Count all Inferred GO Annotations
+MATCH (fly:protein {txid :"txid7227"}) -[flyProGo:ProGo {relationship: "inferred_from_descendant"}]-(go:go_term)
+    WITH COUNT(flyProGo) AS flyProGoCount
+MATCH (bsub:protein {txid :"txid224308"}) -[bsubProGo:ProGo {relationship: "inferred_from_descendant"}]-(go:go_term)
+    WITH flyProGoCount, COUNT(bsubProGo) AS bsubProGoCount
+MATCH (drerio:protein {txid :"txid7955"}) -[drerioProGo:ProGo {relationship: "inferred_from_descendant"}]- (go:go_term)
+    WITH flyProGoCount, bsubProGoCount, COUNT(drerioProGo) AS drerioProGoCount
+MATCH (yeast:protein {txid :"txid559292"}) -[yeastProGo:ProGo {relationship: "inferred_from_descendant"}]- (go:go_term)
+    WITH flyProGoCount, bsubProGoCount, drerioProGoCount, COUNT(yeastProGo) AS yeastProGoCount
+MATCH (elegans:protein {txid :"txid6239"}) -[elegansProGo:ProGo {relationship: "inferred_from_descendant"}]- (go:go_term)
+    WITH flyProGoCount, bsubProGoCount, drerioProGoCount, yeastProGoCount, COUNT(elegansProGo) AS elegansProGoCount
+MATCH (arabThal:protein {txid :"txid3702"}) -[arabThalProGo:ProGo {relationship: "inferred_from_descendant"}]- (go:go_term)
+    WITH flyProGoCount, bsubProGoCount, drerioProGoCount, yeastProGoCount, elegansProGoCount, COUNT(arabThalProGo) AS arabThalProGoCount
+RETURN flyProGoCount, bsubProGoCount, drerioProGoCount, yeastProGoCount, elegansProGoCount, arabThalProGoCount
+
+# Count all unique GO terms annotated to each species
+MATCH (fly:protein {txid :"txid7227"}) -[flyProGo:ProGo]-(go:go_term)
+    WITH COUNT(DISTINCT(go)) AS flyGoCount
+MATCH (bsub:protein {txid :"txid224308"}) -[bsubProGo:ProGo]-(go:go_term)
+    WITH flyGoCount, COUNT(DISTINCT(go)) AS bsubGoCount
+MATCH (drerio:protein {txid :"txid7955"}) -[drerioProGo:ProGo]- (go:go_term)
+    WITH flyGoCount, bsubGoCount, COUNT(DISTINCT(go)) AS drerioGoCount
+MATCH (yeast:protein {txid :"txid559292"}) -[yeastProGo:ProGo]- (go:go_term)
+    WITH flyGoCount, bsubGoCount, drerioGoCount, COUNT(DISTINCT(go)) AS yeastGoCount
+MATCH (elegans:protein {txid :"txid6239"}) -[elegansProGo:ProGo]- (go:go_term)
+    WITH flyGoCount, bsubGoCount, drerioGoCount, yeastGoCount, COUNT(DISTINCT(go)) AS elegansGoCount
+MATCH (arabThal:protein {txid :"txid3702"}) -[arabThalProGo:ProGo]- (go:go_term)
+    WITH flyGoCount, bsubGoCount, drerioGoCount, yeastGoCount, elegansGoCount, COUNT(DISTINCT(go)) AS arabThalGoCount
+RETURN flyGoCount, bsubGoCount, drerioGoCount, yeastGoCount, elegansGoCount, arabThalGoCount

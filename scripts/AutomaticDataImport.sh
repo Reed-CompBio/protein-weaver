@@ -105,6 +105,11 @@ echo "Propagating ancestral edges..."
 cat AncestralEdges.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
 echo "Edges propagated."
 
+# Remove nodes with no Reg or ProPro edges
+echo "Removing no-edge nodes..."
+cat RemoveNoEdgeNodes.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
+echo "Nodes removed."
+
 # Call graph projection
 echo "Calling graph projection..."
 cat CallGraphProjection.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j

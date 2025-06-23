@@ -850,6 +850,48 @@ export default function Query() {
                     setExState(String(i));
                     break;
             }
+        } else if (query.species == "txid3702") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "path",
+                        species: "txid3702",
+                        protein: "NPR1",
+                        goTerm: "immune response",
+                        k: "7",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "node",
+                        species: "txid3702",
+                        protein: "TGA3",
+                        goTerm: "response to stimulus",
+                        k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid3702",
+                        protein: "RAD51",
+                        goTerm: "homologous recombination",
+                        k: "6",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
         }
     };
 

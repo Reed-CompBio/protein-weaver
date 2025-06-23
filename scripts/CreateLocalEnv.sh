@@ -32,7 +32,7 @@ fi
 
 # Wait for Neo4j to start (adjust sleep time as needed)
 echo "Waiting for Neo4j to start..."
-sleep 60
+sleep 120
 echo "Neo4j started."
 
 # Execute Cypher query within Neo4j database

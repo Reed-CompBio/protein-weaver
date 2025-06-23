@@ -59,7 +59,7 @@ export default function GraphSummary({
                 `https://amigo.geneontology.org/amigo/gene_product/WB:${sourceNode.id}`
             );
         }
-    }, [txid]);
+    }, [searchExecuted]);
 
     // Keep track of the proteins in the query
     useEffect(() => {
