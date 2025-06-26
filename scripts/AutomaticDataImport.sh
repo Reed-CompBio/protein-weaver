@@ -36,7 +36,7 @@ if [ "$(docker ps -aq -f name=proteinweaver)" ]; then
         docker start proteinweaver
         # Wait for Neo4j to start (adjust sleep time as needed)
 		echo "Waiting for Neo4j to start..."
-		sleep 90
+		sleep 120
 		echo "Neo4j started."
     fi
 
@@ -89,6 +89,7 @@ if [ "$IMPORT_ALL" = true ]; then
     import_data_by_txid 6239
     import_data_by_txid 559292
     import_data_by_txid 3702
+    import_data_by_txid 511145
 else
     IFS=',' read -ra TXID_ARRAY <<< "$SPECIFIC_TXIDS"
     for txid in "${TXID_ARRAY[@]}"; do

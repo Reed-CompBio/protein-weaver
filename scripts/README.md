@@ -5,6 +5,10 @@ This folder contains supplementary scripts to generate and clean the data used i
 ## Folder Structure
 
 - **`/scripts`**: Contains the data scraping and cleaning scripts.
+  - [`ArabidopsisThaliana.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ArabidopsisThaliana.R): R file that processes protein-protein interaction, gene ontology annotations, and regulatory interactions from STRING, ATRM, QuickGO and Uniprot
+  - [`AutomaticDataImport.sh`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/AutomaticDataImport.sh): A bash script that automates the data import in a pre-existing `proteinweaver` Neo4j Docker instance. Each corresponding `.cypher` extension file will have to be updated when datasets are updated.
+  - [`elegans.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/elegans.R): R file that processes protein-protein interaction, gene ontology annotations, and regulatory interactions from Wormbase, TFLink, and Uniprot
+  - [`EscherichiaColi.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/EscherichiaColi.R): R file that processes protein-protein interaction, gene ontology annotations, and regulatory interactions from STRING, RegulonDB, QuickGO and Uniprot
   - [`GeneOntologyNeverAnnotate.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/GeneOntologyNeverAnnotate.R): R script to identify GO terms that should never be annotated to proteins.
   - [`get-interactors.js`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/get-interactors.js): JavaScript for getting interactor data from XML and converting to JSON format.
   - [`get-interactions.js`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/get-interactions.js): JavaScript for getting interaction data from XML and converting to JSON format.
@@ -14,11 +18,9 @@ This folder contains supplementary scripts to generate and clean the data used i
   - [`ParseOntologyRelationship.ipynb`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ParseOntologyRelationship.ipynb): Jupyter Notebook for parsing Gene Ontology relationships from OBO format into tab-delimited format.
   - [`RemoveNotQualifier.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/RemoveNotQualifier.R): R script to remove NOT| qualifiers from GO Association data files.
   - [`SubColNames.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/SubColNames.R): R script to replace column names from QuickGO data for easy Neo4j import.
+  - [`yeast.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/yeast.R): R file that processes protein-protein interaction, gene ontology annotations, and regulatory interactions from Biogrid, TFLink, and Uniprot
   - [`ZebrafishDataMerging.Rmd`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ZebrafishDataMerging.Rmd): R Markdown for merging, filtering, and cleaning zebrafish data from STRING-DB & PSICQUIC.
-  - [`elegans.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/elegans.R): R file that processes protein-protein interaction, gene ontology annotations, and regulatory interactions from Wormbase, TFLink, and Uniprot
-  - [`yeast.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/elegans.R): R file that processes protein-protein interaction, gene ontology annotations, and regulatory interactions from Biogrid, TFLink, and Uniprot
-  - [`AutomaticDataImport.sh`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/AutomaticDataImport.sh): A bash script that automates the data import in a pre-existing `proteinweaver` Neo4j Docker instance. Each corresponding `.cypher` extension file will have to be updated when datasets are updated.
-
+  
 - **`/data`**: Placeholder for any intermediate or processed data files.
   - [`DanioRerio/zfish_psicquic_results.xml`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/): Results from PSICQUIC database in XML format.
   - [`DanioRerio/interactors.csv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/DanioRerio/interactors.csv): Resulting dataset from `/scripts/get-interactors.js`.
