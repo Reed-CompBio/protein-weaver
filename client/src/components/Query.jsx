@@ -892,6 +892,48 @@ export default function Query() {
                     setExState(String(i));
                     break;
             }
+        } else if (query.species == "txid511145") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "path",
+                        species: "txid511145",
+                        protein: "OxyR",
+                        goTerm: "regulation of RNA metabolic process",
+                        k: "7",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "node",
+                        species: "txid511145",
+                        protein: "ZntR",
+                        goTerm: "zinc ion transmembrane transporter activity",
+                        k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid511145",
+                        protein: "Crp",
+                        goTerm: "regulation of growth",
+                        k: "6",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
         }
     };
 

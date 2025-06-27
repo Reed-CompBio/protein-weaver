@@ -19,6 +19,7 @@ export default function NodeTab({ currentNode, query, goTerm, predictionValue, s
                 "txid559292": `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`,
                 "txid6239": `https://www.wormbase.org/species/c_elegans/gene/${currentNode.id}`,
                 "txid3702": `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`,
+                "txid511145": `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`,
             };
             setSelectedDbLink(speciesLinkMap[txid] || "");
         }

@@ -109,7 +109,7 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 
 | GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
 | -------- | ----------------- | -------------------- | ---------------------- |
-| 3681     | 78015             | 14384                | 63631                  |
+| 3666     | 77533             | 14287                | 63246                  |
 ```
 
 ## *Danio rerio* Data Sources (TXID7955)
@@ -192,7 +192,7 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 
 | GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
 | -------- | ----------------- | -------------------- | ---------------------- |
-| 7862     | 202644            | 42850                | 159794                 |
+| 7849     | 202109            | 42723                | 159386                 |
 ```
 
 ## *Saccharomyces cerevisiae* Data Sources (TXID559292)
@@ -236,7 +236,29 @@ Added GO association data from QuickGO [(Source)](https://www.ebi.ac.uk/QuickGO/
 
 | GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
 | -------- | ----------------- | -------------------- | ---------------------- |
-| 8119     | 432297            | 96390                | 335907                 |
+| 8094     | 430415            | 95970                | 334445                 |
+```
+
+## *Escherichia coli* Data Sources (TXID511145)
+### 2025-06-26:
+#### Interaction data:
+Added physical interaction data from STRING-DB. Downloaded `511145.protein.physical.links.full.v12.0.txt`, `511145.protein.aliases.v12.0.txt`, and `511145.protein.info.v12.0.txt` from the STRING-DB [downloads page](https://string-db.org/cgi/download?species=Escherichia+coli+str.+K-12+substr.+MG1655) and processed into [`interactome-txid511145-2025_06_24.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/EscherichiaColi/interactome-txid511145-2025_06_24.txt) according to [`EscherichiaColi.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/EscherichiaColi.R).
+
+#### Regulatory data:
+* Downloaded genetic regulatory datasets `NetworkRegulatorGene.tsv` and `GeneProductAllIdentifiersSet.tsv` from [RegulonDB](https://regulondb.ccg.unam.mx/datasets) and processed into [`regulatory-txid511145-2025_06_24.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/EscherichiaColi/regulatory-txid511145-2025_06_24.txt) according to [`EscherichiaColi.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/EscherichiaColi.R).
+
+#### GO association data:
+Added GO association data from QuickGO [(Source)](https://www.ebi.ac.uk/QuickGO/) and processed into [`annotations-txid511145-2025_06_26.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/EscherichiaColi/annotations-txid511145-2025_06_26.txt) according to [`EscherichiaColi.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/EscherichiaColi.R) using the [UniProt namespace mapper](https://www.uniprot.org/id-mapping).
+
+### Current _E. coli_ Network [Updated 2025-06-26]
+```
+| Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
+| ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
+| 3228        | 1219             | 615              | 1394           | 29382                 | 2995               |
+
+| GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
+| -------- | ----------------- | -------------------- | ---------------------- |
+| 5297     | 126909            | 28687                | 98222                  |
 ```
 
 
@@ -385,10 +407,10 @@ Looked up species name and got taxon ID.
         - Nodes: 8,583
         - PPI Edges: 51,384
         - Reg Edges: 1,375
-        - ProGo Edges: 432,297
+        - ProGo Edges: 430,415
 * Removed NOT qualifiers from _C. elegans_ and _S. cerevisiae_:
     * _C. elegans_ (TXID6239):
-        - ProGo Edges: 202,644
+        - ProGo Edges: 202,109
     * _S. cerevisiae_ (TXID559292):
         - ProGo Edges: 328,060
 * Added script that removed all nodes without a ProPro or Reg relationship. New nodes counts:
@@ -402,3 +424,11 @@ Looked up species name and got taxon ID.
         - Nodes: 4,098
     * _S. cerevisiae_ (TXID559292):
         - Nodes: No changes
+
+### 2025-06-27
+* Added _E. coli_ K-12.
+    * _E. coli_ K-12 (TXID511145):
+        - Nodes: 3,228
+        - PPI Edges: 29,382
+        - Reg Edges: 2,995
+        - ProGo Edges: 126,909

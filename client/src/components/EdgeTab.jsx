@@ -49,6 +49,8 @@ export default function EdgeTab({
             setInteractionSource("TFLink");
         } else if (source === "atrm") {
             setInteractionSource("ATRM");
+        } else if (source === "regulonDB") {
+            setInteractionSource("RegulonDB");
         } else {
             setInteractionSource("");
         }
