@@ -10,6 +10,8 @@ export default function Download() {
         txid7955: "D. rerio",
         txid559292: "S. cerevisiae",
         txid6239: "C. elegans",
+        txid3702: "A. thaliana",
+        txid511145: "E. coli",
     };
     const handleSpeciesChange = (event) => {
         const txid = event.target.value
@@ -19,7 +21,7 @@ export default function Download() {
 
     async function handleDownload(e) {
         const file = e.target.textContent;
-        const url = `https://raw.githubusercontent.com/ctrlaltaf/protein-weaver/refs/heads/file-api/data/Downloads/${txid}/${file}`;
+        const url = `https://raw.githubusercontent.com/Reed-CompBio/protein-weaver/refs/main/data/Downloads/${txid}/${file}`;
 
         console.log(`Downloading file from ${url}`);
 
@@ -74,6 +76,12 @@ export default function Download() {
                             </option>
                             <option value="txid6239">
                                 C. elegans (6239)
+                            </option>
+                            <option value="txid3702">
+                                A. thaliana (3702)
+                            </option>
+                            <option value="txid511145">
+                                E. coli (511145)
                             </option>
                         </select>
                         <div className="download-table">
