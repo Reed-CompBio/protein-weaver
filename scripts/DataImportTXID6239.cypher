@@ -27,7 +27,7 @@ LOAD CSV WITH HEADERS FROM 'file:///regulatory-txid6239-2024_08_19.txt' AS elega
 		a.gene_name = elegans.name_TF,
 		b.gene_name = elegans.name_Target
 	} IN TRANSACTIONS OF 100 ROWS;
-LOAD CSV WITH HEADERS FROM 'file:///elegans_go_annotation_2024-08-08.tsv' AS go
+LOAD CSV WITH HEADERS FROM 'file:///annotations-txid6239-2025_06_19.txt' AS go
 	FIELDTERMINATOR '\t'
 	CALL {
 		with go
@@ -35,7 +35,7 @@ LOAD CSV WITH HEADERS FROM 'file:///elegans_go_annotation_2024-08-08.tsv' AS go
 		MERGE (g:go_term {id: go.go_id})
 		MERGE (n)-[r:ProGo]-(g)
 	} IN TRANSACTIONS OF 1000 ROWS;
-LOAD CSV WITH HEADERS FROM 'file:///elegans_go_annotation_2024-08-08.tsv' AS go
+LOAD CSV WITH HEADERS FROM 'file:///annotations-txid6239-2025_06_19.txt' AS go
 	FIELDTERMINATOR '\t'
 	CALL {
 		with go

@@ -26,7 +26,7 @@ LOAD CSV WITH HEADERS FROM 'file:///regulatory-txid559292-2024_08_19.txt' AS yea
 		a.gene_name = yeast.tf_name,
 		b.gene_name = yeast.target_name
 	} IN TRANSACTIONS OF 100 ROWS;
-LOAD CSV WITH HEADERS FROM 'file:///yeast_go_annotation-2024-08-08.tsv' AS go
+LOAD CSV WITH HEADERS FROM 'file:///annotations-txid559292-2025_06_19.txt' AS go
 	FIELDTERMINATOR '\t'
 	CALL {
 		with go
@@ -34,7 +34,7 @@ LOAD CSV WITH HEADERS FROM 'file:///yeast_go_annotation-2024-08-08.tsv' AS go
 		MERGE (g:go_term {id: go.go_term})
 		MERGE (n)-[r:ProGo]-(g)
 	} IN TRANSACTIONS OF 1000 ROWS;
-LOAD CSV WITH HEADERS FROM 'file:///yeast_go_annotation-2024-08-08.tsv' AS go
+LOAD CSV WITH HEADERS FROM 'file:///annotations-txid559292-2025_06_19.txt' AS go
 	FIELDTERMINATOR '\t'
 	CALL {
 		with go
