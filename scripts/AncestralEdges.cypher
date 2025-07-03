@@ -69,6 +69,7 @@ CALL apoc.periodic.iterate(
   ",
   {batchSize: 1000, parallel: false}
 )
+YIELD batches;
 
 MATCH (p:protein)-[rel:ProPro]-(p) DETACH DELETE rel;
 MATCH (p:protein)-[rel:Reg]->(p) DETACH DELETE rel;
