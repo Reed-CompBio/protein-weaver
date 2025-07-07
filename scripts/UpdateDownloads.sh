@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # List of TXIDs
-TXIDS=("txid6239" "txid7227" "txid7955" "txid224308" "txid559292")
+TXIDS=("txid6239" "txid7227" "txid7955" "txid224308" "txid559292" "txid3702" "txid511145")
+# TXIDS=("txid511145")
 
 # Import directory
 IMPORT_DIR="$HOME/neo4j/import"
@@ -31,7 +32,7 @@ fi
 
 # Wait for Neo4j to start (adjust sleep time as needed)
 echo "Waiting for Neo4j to start..."
-sleep 60
+sleep 120
 echo "Neo4j started."
 
 # Function to download CSVs for each TXID
@@ -40,11 +41,11 @@ download_csvs() {
     local downloads_dir="../data/Downloads/$txid"
 
     echo "Downloading CSVs for $txid..."
-    if [ ! -f "DownloadCSVs.cypher" ]; then
-        echo "Error: 'DownloadCSVs.cypher' file not found."
+    if [ ! -f "DownloadCSV-$txid.cypher" ]; then
+        echo "Error: 'DownloadCSV-$txid.cypher' file not found."
         exit 1
     fi
-    cat DownloadCSVs.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
+    cat DownloadCSV-$txid.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
 
     echo "Copying downloaded CSVs for $txid from $IMPORT_DIR to $downloads_dir..."
     mkdir -p "$downloads_dir"
