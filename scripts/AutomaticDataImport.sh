@@ -58,8 +58,7 @@ else
         -e NEO4J_apoc_export_file_enabled=true \
         -e NEO4J_apoc_import_file_enabled=true \
         -e NEO4J_apoc_import_file_use__neo4j__config=true \
-        -e NEO4J_PLUGINS='["graph-data-science"]' \
-        -e NEO4JLABS_PLUGINS=\[\"apoc\"\] \
+        -e NEO4J_PLUGINS='["graph-data-science", "apoc"]' \
         neo4j:latest
     # Wait for Neo4j to start (adjust sleep time as needed)
 	echo "Waiting for Neo4j to start..."
