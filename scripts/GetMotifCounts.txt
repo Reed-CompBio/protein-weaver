@@ -1,0 +1,35 @@
+Count Global Motifs:
+
+match path=(p1:protein {txid: $txid})-[:ProPro]-(p2:protein {txid: $txid})-[:ProPro]-(p3:protein {txid: $txid})-[:ProPro]-(p1)
+	where elementId(p1) < elementId(p2) and
+	elementId(p2) < elementId(p3) and
+	elementId(p1) < elementId(p3)
+	with count(*) as proteinClique
+match (p1:protein {txid: $txid})-[:Reg]->(p2:protein {txid: $txid})-[:Reg]->(p3:protein {txid: $txid})<-[:Reg]-(p1)
+	where elementId(p1) < elementId(p2) and
+	elementId(p2) < elementId(p3) and
+	elementId(p1) < elementId(p3)
+	with proteinClique, count(*) as fFL
+match (p1:protein {txid: $txid})-[:ProPro]-(p2:protein {txid: $txid})-[:Reg]->(p3:protein {txid: $txid})<-[:Reg]-(p1)
+	where elementId(p1) < elementId(p2) and
+	elementId(p2) < elementId(p3) and
+	elementId(p1) < elementId(p3)
+	with proteinClique, fFL, count(*) as interactCoreg
+match (p1:protein {txid: $txid})-[:Reg]->(p2:protein {txid: $txid})-[:ProPro]-(p3:protein {txid: $txid})<-[:Reg]-(p1)
+	where elementId(p1) < elementId(p2) and
+	elementId(p2) < elementId(p3) and
+	elementId(p1) < elementId(p3)
+	with proteinClique, fFL, interactCoreg, count(*) as coregInteract
+match (p1:protein {txid: $txid})-[:Reg]->(p2:protein {txid: $txid})-[:Reg]->(p3:protein {txid: $txid})<-[:Reg]-(p1),(p1)-[:ProPro]-(p2)
+	where elementId(p1) < elementId(p2) and
+	elementId(p2) < elementId(p3) and
+	elementId(p1) < elementId(p3)
+return proteinClique, fFL, interactCoreg, coregInteract, count(*) as mixedLoop
+
+Count Global Degree:
+
+MATCH (n:protein)
+WHERE n.txid = $txid
+RETURN sum(n.degree) AS ppiDegree,
+sum(n.regDegreeIn + n.regDegreeOut) AS grnDegree,
+sum(n.degree + n.regDegreeOut + n.regDegreeIn) AS mixedDegree

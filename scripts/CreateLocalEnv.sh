@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Activate conda environment first before running script (conda activate protein-weaver)
+# Open Docker Desktop before running this script
+
 # Define paths that match your personal environment
 CLIENT=$HOME/Desktop/GitHub_Repos/protein-weaver/client
 SERVER=$HOME/Desktop/GitHub_Repos/protein-weaver/server
@@ -29,7 +32,7 @@ fi
 
 # Wait for Neo4j to start (adjust sleep time as needed)
 echo "Waiting for Neo4j to start..."
-sleep 60
+sleep 120
 echo "Neo4j started."
 
 # Execute Cypher query within Neo4j database

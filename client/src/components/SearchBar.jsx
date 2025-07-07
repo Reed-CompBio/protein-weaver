@@ -28,6 +28,10 @@ export default function SearchBar({
         spName = "S. cerevisiae";
     } else if (query.species == "txid6239") {
         spName = "C. elegans";
+    } else if (query.species == "txid3702") {
+        spName = "A. thaliana";
+    } else if (query.species == "txid511145") {
+        spName = "E. coli K-12";
     }
 
     return (
@@ -99,6 +103,12 @@ export default function SearchBar({
                                 </option>
                                 <option value="txid6239">
                                     C. elegans (6239)
+                                </option>
+                                <option value="txid3702">
+                                    A. thaliana (3702)
+                                </option>
+                                <option value="txid511145">
+                                    E. coli K-12 (511145)
                                 </option>
                             </select>
                         </div>

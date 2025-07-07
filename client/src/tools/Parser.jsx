@@ -2,10 +2,13 @@ export function NetworkParserPath(data) {
     const parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
 
     const getNodeLabel = (node) => {
-        const { name, id, alt_name, gene_name } = node.properties;
+        const { name, id, alt_name, gene_name, alt_id, alt_gene_id } = node.properties;
         if (name && name !== "-") return name;
         if (gene_name && gene_name !== "-") return gene_name;
-        return alt_name || id;
+        if (alt_name && alt_name !== "-") return alt_name;
+        if (id && id !== "-") return id;
+        if (alt_id && alt_id !== "-") return alt_id;
+        return alt_id || alt_gene_id;
     };
 
     const createNodeEntry = (node, nodeType, degree) => ({
@@ -13,8 +16,10 @@ export function NetworkParserPath(data) {
             id: node.properties.id,
             label: getNodeLabel(node),
             degree: degree.low,
-            alt_name: node.properties.alt_name,
             gene_name: node.properties.gene_name,
+            alt_name: node.properties.alt_name,
+            alt_id: node.properties.alt_id,
+            alt_gene_id: node.properties.alt_gene_id,
             type: nodeType,
         },
     });
@@ -140,34 +145,33 @@ export function EdgeDataParser(networkData, edgeData, ppi, regulatory) {
         const sharedEdgeExists = networkData.edgeList.includes(endNode + startNode);
 
         // Handle edge existence
-        if (edgeExists) {
-            // Handle ProPro edges
-            if (relType === "ProPro" && ppi && edgeExists) {
-                processProProEdge(startNode, endNode, relType, evidence, dataSource);
+        if (relType === "ProGo") {
+            processProGoEdge(startNode, properties.relationship);
+        } else
+            if (edgeExists) {
+                // Handle ProPro edges
+                if (relType === "ProPro" && ppi && edgeExists) {
+                    processProProEdge(startNode, endNode, relType, evidence, dataSource);
+                }
+                // Handle Reg edges
+                else if (relType === "Reg" && regulatory && edgeExists) {
+                    processRegEdge(startNode, endNode, relType, evidence, dataSource, regType);
+                }
+            } else if (sharedEdgeExists) {
+                // Edge exists but in reversed order, label it as "shared"
+                if (relType === "ProPro" && ppi && sharedEdgeExists) {
+                    processProProEdge(startNode, endNode, relType, evidence, dataSource);
+                } else if (relType === "Reg" && sharedEdgeExists) {
+                    processRegEdge(startNode, endNode, relType, evidence, dataSource, regType, "shared");
+                }
+            } else if (!edgeExists) {
+                // Edge exists but in reversed order, label it as "shared"
+                if (relType === "ProPro") {
+                    processProProEdge(startNode, endNode, relType, evidence, dataSource, "shared");
+                } else if (relType === "Reg") {
+                    processRegEdge(startNode, endNode, relType, evidence, dataSource, regType, "shared");
+                }
             }
-            // Handle Reg edges
-            else if (relType === "Reg" && regulatory && edgeExists) {
-                processRegEdge(startNode, endNode, relType, evidence, dataSource, regType);
-            }
-            // Handle ProGo edges
-            else if (relType === "ProGo") {
-                processProGoEdge(startNode, properties.relationship);
-            }
-        } else if (sharedEdgeExists) {
-            // Edge exists but in reversed order, label it as "shared"
-            if (relType === "ProPro" && ppi && sharedEdgeExists) {
-                processProProEdge(startNode, endNode, relType, evidence, dataSource);
-            } else if (relType === "Reg" && sharedEdgeExists) {
-                processRegEdge(startNode, endNode, relType, evidence, dataSource, regType, "shared");
-            }
-        } else if (!edgeExists) {
-            // Edge exists but in reversed order, label it as "shared"
-            if (relType === "ProPro") {
-                processProProEdge(startNode, endNode, relType, evidence, dataSource, "shared");
-            } else if (relType === "Reg") {
-                processRegEdge(startNode, endNode, relType, evidence, dataSource, regType, "shared");
-            }
-        }
     }
 
     networkData.edgeList = tempEdgeList;
@@ -179,10 +183,13 @@ export function NetworkParserNode(data, k) {
     const parsedData = { nodes: [], edges: [], nodeList: [], edgeList: [] };
 
     const getNodeLabel = (node) => {
-        const { name, id, alt_name, gene_name } = node.properties;
+        const { name, id, alt_name, gene_name, alt_id, alt_gene_id } = node.properties;
         if (name && name !== "-") return name;
         if (gene_name && gene_name !== "-") return gene_name;
-        return alt_name || id;
+        if (alt_name && alt_name !== "-") return alt_name;
+        if (id && id !== "-") return id;
+        if (alt_id && alt_id !== "-") return alt_id;
+        return alt_id || alt_gene_id;
     };
 
     const createNodeEntry = (node, nodeType, degree) => ({
@@ -190,8 +197,10 @@ export function NetworkParserNode(data, k) {
             id: node.properties.id,
             label: getNodeLabel(node),
             degree: degree.low,
-            alt_name: node.properties.alt_name,
             gene_name: node.properties.gene_name,
+            alt_name: node.properties.alt_name,
+            alt_id: node.properties.alt_id,
+            alt_gene_id: node.properties.alt_gene_id,
             type: nodeType,
         },
     });
@@ -231,10 +240,14 @@ export function NetworkParserNode(data, k) {
 
         currentPath.forEach((node, index) => {
             const nodeType = determineNodeType(node, sourceId, index, currentPath.length);
-            const nodeEntry = createNodeEntry(node, nodeType, node.properties.degree);
-            addNodeIfNotExists(nodeEntry, parsedData);
+            if (nodeType === "go_protein" || nodeType === "go_source") {
+                const nodeEntry = createNodeEntry(node, nodeType, node.properties.degree, node.properties.relationship);
+                addNodeIfNotExists(nodeEntry, parsedData);
+            } else {
+                const nodeEntry = createNodeEntry(node, nodeType, node.properties.degree);
+                addNodeIfNotExists(nodeEntry, parsedData);
+            }
         });
-
         addEdges(currentPath, parsedData);
     });
 

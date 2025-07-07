@@ -12,8 +12,11 @@ involved_in
 is_active_in
 located_in
 NOT|acts_upstream_of_or_within
+NOT|acts_upstream_of_or_within_negative_effect
+NOT|acts_upstream_of_or_within_positive_effect
 NOT|enables
 NOT|involved_in
+NOT|is_active_in
 NOT|located_in
 NOT|part_of
 part_of
