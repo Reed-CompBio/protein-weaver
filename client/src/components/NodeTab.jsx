@@ -18,6 +18,8 @@ export default function NodeTab({ currentNode, query, goTerm, predictionValue, s
                 "txid7955": `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`,
                 "txid559292": `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`,
                 "txid6239": `https://www.wormbase.org/species/c_elegans/gene/${currentNode.id}`,
+                "txid3702": `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`,
+                "txid511145": `https://www.uniprot.org/uniprotkb/${currentNode.id}/entry`,
             };
             setSelectedDbLink(speciesLinkMap[txid] || "");
         }
@@ -53,6 +55,16 @@ export default function NodeTab({ currentNode, query, goTerm, predictionValue, s
                     Alternate Name(s): {currentNode.alt_name}
                 </h5>
             )}
+            {currentNode.alt_id && currentNode.alt_id !== currentNode.label && (
+                <h5 className="node-tab-text">
+                    Alternate ID(s): {currentNode.alt_id}
+                </h5>
+            )}
+            {currentNode.alt_gene_id && currentNode.alt_gene_id !== currentNode.label && (
+                <h5 className="node-tab-text">
+                    Alternate Gene ID(s): {currentNode.alt_gene_id}
+                </h5>
+            )}
             <Degree id={currentNode.id} />
             <h5 className="node-tab-text">
                 Prediction Rank: {predictionValue.rank}
@@ -76,7 +88,7 @@ export default function NodeTab({ currentNode, query, goTerm, predictionValue, s
                         </p>
                     ) : (
                         <p className="go-annotation-info">
-                            *{currentNode.label} is <b>{currentNode.go_protein.replaceAll("_", " ")}</b> {goTerm.name}.
+                            *{currentNode.label} is <b>{currentNode.go_protein?.replaceAll("_", " ") || "unavailable"}</b> {goTerm.name}.
                         </p>
                     )}
                 </div>

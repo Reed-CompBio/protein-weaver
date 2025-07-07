@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <div className="footer-container">
       <footer className="footer">
-        <p className="footer-title">ProteinWeaver © 2023</p>
+        <p className="footer-title">ProteinWeaver © 2025</p>
         {/* Terms of Service */}
         <Link to={"/tos"}>TOS</Link>
         <p> | </p>

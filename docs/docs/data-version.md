@@ -38,7 +38,7 @@ This section of the documentation outlines the data sources, processing steps an
     - Nodes: 1322
     - Reg Edges: 17530
 
-### Current _D. melanogaster_ Network [Updated 2024-08-28]
+### Current _D. melanogaster_ Network [Updated 2025-06-19]
 ```
 | Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
 | ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
@@ -101,15 +101,15 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
     - Nodes: 1230
     - Reg Edges: 5634
 
-### Current _B. subtilis_ Network [Updated 2024-08-28]
+### Current _B. subtilis_ Network [Updated 2025-06-19]
 ```
 | Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
 | ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
-| 3163        | 484              | 1230             | 1449           | 6441                  | 5634               |
+| 3143        | 464              | 1271             | 1408           | 6441                  | 5524               |
 
 | GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
 | -------- | ----------------- | -------------------- | ---------------------- |
-| 3681     | 78015             | 14384                | 63631                  |
+| 3666     | 77533             | 14287                | 63246                  |
 ```
 
 ## *Danio rerio* Data Sources (TXID7955)
@@ -162,15 +162,15 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
     - Nodes: 10168
     - Reg Edges: 25960
 
-### Current _D. rerio_ Network [Updated 2024-08-28]
+### Current _D. rerio_ Network [Updated 2025-06-19]
 ```
 | Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
 | ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
-| 4106        | 411              | 1083             | 2612           | 13915                 | 78223              |
+| 16603       | 2830             | 10169            | 3604           | 45003                 | 25955              |
 
 | GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
 | -------- | ----------------- | -------------------- | ---------------------- |
-| 7868     | 202845            | 42898                | 159947                 |
+| 8321     | 133619            | 29065                | 104554                 |
 ```
 
 ## *Caenorhabditis elegans* Data Sources (TXID6239)
@@ -184,15 +184,15 @@ wget 'https://golr-aux.geneontology.io/solr/select?defType=edismax&qt=standard&i
 #### GO association data:
 * Added GO assocation data [`elegans_go_annotation_2024-08-08.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/CaenorhabditisElegans/elegans_go_annotation_2024-08-08.tsv) from WormBase [(Source)](https://downloads.wormbase.org/releases/current-production-release/) and filtered to only UniProt verified proteins according to [`elegans.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/elegans.R).
 
-### Current _C. elegans_ Network [Updated 2024-08-28]
+### Current _C. elegans_ Network [Updated 2025-06-19]
 ```
 | Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
 | ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
-| 16606       | 2833             | 10168            | 3605           | 45003                 | 17530              |
+| 4098        | 403              | 1102             | 2593           | 13915                 | 78152              |
 
 | GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
 | -------- | ----------------- | -------------------- | ---------------------- |
-| 8321     | 133619            | 29065                | 104554                 |
+| 7849     | 202109            | 42723                | 159386                 |
 ```
 
 ## *Saccharomyces cerevisiae* Data Sources (TXID559292)
@@ -206,15 +206,59 @@ Added physical interaction data [(Source)](https://downloads.thebiogrid.org/BioG
 #### GO association data:
 Added GO association data from QuickGO [(Source)](https://www.ebi.ac.uk/QuickGO/) and processed into [`yeast_go_annotation-2024-08-08.tsv`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/SaccharomycesCerevisiae/yeast_go_annotation-2024-08-08.tsv) according to [`yeast.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/yeast.R) using the [UniProt namespace mapper](https://www.uniprot.org/id-mapping).
 
-### Current _S. cerevisiae_ Network [Updated 2024-08-28]
+### Current _S. cerevisiae_ Network [Updated 2025-06-19]
 ```
 | Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
 | ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
-| 7644        | 1092             | 858              | 5694           | 164432                | 237315             |
+| 7644        | 1092             | 858              | 5694           | 164432                | 237156             |
 
 | GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
 | -------- | ----------------- | -------------------- | ---------------------- |
-| 8300     | 328186            | 69760                | 258426                 |
+| 8299     | 328060            | 69740                | 258320                 |
+```
+
+## *Arabidopsis thaliana* Data Sources (TXID3702)
+### 2025-06-19:
+#### Interaction data:
+Added physical interaction data [(Source)](https://downloads.thebiogrid.org/BioGRID/Release-Archive/BIOGRID-/4.4.246) and processed into [`interactome-txid3702-2025_06_18.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/ArabidopsisThaliana/interactome-txid3702-2025_06_18.txt) according to [`ArabidopsisThaliana.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ArabidopsisThaliana.R).
+
+#### Regulatory data:
+* Added genetic regulatory data [(Source)](https://atrm.gao-lab.org/download.php) and processed into [`regulatory-txid3702-2025_06_18.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/ArabidopsisThaliana/regulatory-txid3702-2025_06_18.txt) according to [`ArabidopsisThaliana.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ArabidopsisThaliana.R).
+
+#### GO association data:
+Added GO association data from QuickGO [(Source)](https://www.ebi.ac.uk/QuickGO/) and processed into [`annotations-txid3702-2025_06_19.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/ArabidopsisThaliana/annotations-txid3702-2025_06_19.txt) according to [`ArabidopsisThaliana.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/ArabidopsisThaliana.R) using the [UniProt namespace mapper](https://www.uniprot.org/id-mapping).
+
+### Current _A. thaliana_ Network [Updated 2025-06-19]
+```
+| Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
+| ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
+| 8583        | 7813             | 125              | 645            | 51384                 | 1375               |
+
+| GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
+| -------- | ----------------- | -------------------- | ---------------------- |
+| 8094     | 430415            | 95970                | 334445                 |
+```
+
+## *Escherichia coli* Data Sources (TXID511145)
+### 2025-06-26:
+#### Interaction data:
+Added physical interaction data from STRING-DB. Downloaded `511145.protein.physical.links.full.v12.0.txt`, `511145.protein.aliases.v12.0.txt`, and `511145.protein.info.v12.0.txt` from the STRING-DB [downloads page](https://string-db.org/cgi/download?species=Escherichia+coli+str.+K-12+substr.+MG1655) and processed into [`interactome-txid511145-2025_06_24.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/EscherichiaColi/interactome-txid511145-2025_06_24.txt) according to [`EscherichiaColi.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/EscherichiaColi.R).
+
+#### Regulatory data:
+* Downloaded genetic regulatory datasets `NetworkRegulatorGene.tsv` and `GeneProductAllIdentifiersSet.tsv` from [RegulonDB](https://regulondb.ccg.unam.mx/datasets) and processed into [`regulatory-txid511145-2025_06_24.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/EscherichiaColi/regulatory-txid511145-2025_06_24.txt) according to [`EscherichiaColi.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/EscherichiaColi.R).
+
+#### GO association data:
+Added GO association data from QuickGO [(Source)](https://www.ebi.ac.uk/QuickGO/) and processed into [`annotations-txid511145-2025_06_26.txt`](https://github.com/Reed-CompBio/protein-weaver/blob/main/data/EscherichiaColi/annotations-txid511145-2025_06_26.txt) according to [`EscherichiaColi.R`](https://github.com/Reed-CompBio/protein-weaver/blob/main/scripts/EscherichiaColi.R) using the [UniProt namespace mapper](https://www.uniprot.org/id-mapping).
+
+### Current _E. coli_ Network [Updated 2025-06-26]
+```
+| Nodes (All) | Nodes (PPI-Only) | Nodes (GRN-Only) | Nodes (Shared) | Interactions (ProPro) | Interactions (Reg) |
+| ----------- | ---------------- | ---------------- | -------------- | --------------------- | ------------------ |
+| 3228        | 1219             | 615              | 1394           | 29382                 | 2995               |
+
+| GO Terms | Annotations (All) | Annotations (Direct) | Annotations (Inferred) |
+| -------- | ----------------- | -------------------- | ---------------------- |
+| 5297     | 126909            | 28687                | 98222                  |
 ```
 
 
@@ -243,7 +287,7 @@ Added GO association data from QuickGO [(Source)](https://www.ebi.ac.uk/QuickGO/
 * [`relationship_import_2024-07-17.tsv`] created with `scripts/ParseOntologyRelationship.ipynb`.
 * [`go_2024-07-17.txt`] created with `scripts/ParseOBOtoTXT.ipynb` and `scripts/GeneOntologyNeverAnnotate.R`.
 
-### Gene Ontology Data Structure [Updated 2024-07-17]
+### Gene Ontology Data Structure [Updated 2025-06-19]
 ```
 | GO Terms | "is_a" Relationships (GoGo) |
 | -------- | :-------------------------- |
@@ -356,3 +400,35 @@ Looked up species name and got taxon ID.
         - PPI Edges: 164,432
         - Reg Edges: 237,315
         - ProGo Edges: 328,186
+
+### 2025-06-19
+* Added _A. thaliana_.
+    * _A. thaliana_ (TXID3702):
+        - Nodes: 8,583
+        - PPI Edges: 51,384
+        - Reg Edges: 1,375
+        - ProGo Edges: 430,415
+* Removed NOT qualifiers from _C. elegans_ and _S. cerevisiae_:
+    * _C. elegans_ (TXID6239):
+        - ProGo Edges: 202,109
+    * _S. cerevisiae_ (TXID559292):
+        - ProGo Edges: 328,060
+* Added script that removed all nodes without a ProPro or Reg relationship. New nodes counts:
+    * _D. melanogaster_ (TXID7227):
+        - Nodes: No changes
+    * _B. subtilis_ (TXID224308):
+        - Nodes: 3,143
+    * _D. rerio_ (TXID7955):
+        - Nodes: 16,603
+    * _C. elegans_ (TXID6239):
+        - Nodes: 4,098
+    * _S. cerevisiae_ (TXID559292):
+        - Nodes: No changes
+
+### 2025-06-27
+* Added _E. coli_ K-12.
+    * _E. coli_ K-12 (TXID511145):
+        - Nodes: 3,228
+        - PPI Edges: 29,382
+        - Reg Edges: 2,995
+        - ProGo Edges: 126,909

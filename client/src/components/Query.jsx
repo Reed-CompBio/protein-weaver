@@ -172,10 +172,12 @@ export default function Query() {
                 const proteinNames = data.map((item) => item.name);
                 const proteinIds = data.map((item) => item.id);
                 const proteinAltNames = data.map((item) => item.alt_name);
+                const proteinAltIds = data.map((item) => item.alt_id);
+                const geneAltIds = data.map((item) => item.gene_alt_id);
                 const geneNames = data.map((item) => item.gene_name);
                 const proteinMerged = [
                     ...new Set(
-                        proteinNames.concat(proteinIds).concat(proteinAltNames).concat(geneNames)
+                        proteinNames.concat(proteinIds).concat(proteinAltNames).concat(geneNames).concat(proteinAltIds).concat(geneAltIds)
                     ),
                 ].filter((item) => item !== undefined);
                 setProteinOptions(proteinMerged);
@@ -841,6 +843,90 @@ export default function Query() {
                         protein: "tac-1",
                         goTerm: "cytoskeleton organization",
                         k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
+        } else if (query.species == "txid3702") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "path",
+                        species: "txid3702",
+                        protein: "NPR1",
+                        goTerm: "immune response",
+                        k: "7",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "node",
+                        species: "txid3702",
+                        protein: "TGA3",
+                        goTerm: "response to stimulus",
+                        k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid3702",
+                        protein: "RAD51",
+                        goTerm: "homologous recombination",
+                        k: "6",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+            }
+        } else if (query.species == "txid511145") {
+            switch (i) {
+                case 1:
+                    setQuery({
+                        mode: "path",
+                        species: "txid511145",
+                        protein: "OxyR",
+                        goTerm: "regulation of RNA metabolic process",
+                        k: "7",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("path");
+                    setExState(String(i));
+                    break;
+                case 2:
+                    setQuery({
+                        mode: "node",
+                        species: "txid511145",
+                        protein: "ZntR",
+                        goTerm: "zinc ion transmembrane transporter activity",
+                        k: "10",
+                        ppi: true,
+                        regulatory: true,
+                    });
+                    setActiveModeButton("node");
+                    setExState(String(i));
+                    break;
+                case 3:
+                    setQuery({
+                        mode: "node",
+                        species: "txid511145",
+                        protein: "Crp",
+                        goTerm: "regulation of growth",
+                        k: "6",
                         ppi: true,
                         regulatory: true,
                     });

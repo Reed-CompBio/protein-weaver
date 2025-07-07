@@ -36,9 +36,14 @@ if [ "$(docker ps -aq -f name=proteinweaver)" ]; then
         docker start proteinweaver
         # Wait for Neo4j to start (adjust sleep time as needed)
 		echo "Waiting for Neo4j to start..."
-		sleep 90
+		sleep 120
 		echo "Neo4j started."
     fi
+
+    # Create constraints
+	echo "Creating constraints.."
+	cat ProteinWeaverConstraints.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
+	echo "Constraints created."
 else
     echo "Container 'proteinweaver' does not exist. Creating and starting a new container..."
     docker run \
@@ -53,12 +58,11 @@ else
         -e NEO4J_apoc_export_file_enabled=true \
         -e NEO4J_apoc_import_file_enabled=true \
         -e NEO4J_apoc_import_file_use__neo4j__config=true \
-        -e NEO4J_PLUGINS='["graph-data-science"]' \
-        -e NEO4JLABS_PLUGINS=\[\"apoc\"\] \
+        -e NEO4J_PLUGINS='["graph-data-science", "apoc"]' \
         neo4j:latest
     # Wait for Neo4j to start (adjust sleep time as needed)
 	echo "Waiting for Neo4j to start..."
-	sleep 60
+	sleep 120
 	echo "Neo4j started."
 	
 	# Create constraints
@@ -83,6 +87,8 @@ if [ "$IMPORT_ALL" = true ]; then
     import_data_by_txid 7955
     import_data_by_txid 6239
     import_data_by_txid 559292
+    import_data_by_txid 3702
+    import_data_by_txid 511145
 else
     IFS=',' read -ra TXID_ARRAY <<< "$SPECIFIC_TXIDS"
     for txid in "${TXID_ARRAY[@]}"; do
@@ -98,6 +104,11 @@ echo "GO hierarchy imported."
 echo "Propagating ancestral edges..."
 cat AncestralEdges.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
 echo "Edges propagated."
+
+# Remove nodes with no Reg or ProPro edges
+echo "Removing no-edge nodes..."
+cat RemoveNoEdgeNodes.cypher | docker exec --interactive proteinweaver cypher-shell -u neo4j
+echo "Nodes removed."
 
 # Call graph projection
 echo "Calling graph projection..."

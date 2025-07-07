@@ -47,6 +47,10 @@ export default function EdgeTab({
             setInteractionSource("BioGRID");
         } else if (source === "tf-link") {
             setInteractionSource("TFLink");
+        } else if (source === "atrm") {
+            setInteractionSource("ATRM");
+        } else if (source === "regulonDB") {
+            setInteractionSource("RegulonDB");
         } else {
             setInteractionSource("");
         }
@@ -67,7 +71,7 @@ export default function EdgeTab({
             return evidence.split(";").map(i => `https://pubmed.ncbi.nlm.nih.gov/${i}`);
         } else if (evidence.startsWith("WB")) {
             return [`http://api.wormbase.org/species/all/interaction/${evidence}`];
-        }  else {
+        } else {
             return [];
         }
     };

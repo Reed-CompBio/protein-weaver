@@ -50,7 +50,7 @@ export default function GraphSummary({
             setSourceNodeLink(
                 `https://bsubcyc.org/gene?orgid=BSUB&id=${sourceNode.id.replace('_', '')}#tab=GO`
             );
-        } else if (txid === "txid7955" || txid === "txid559292") {
+        } else if (txid === "txid7955" || txid === "txid559292" || txid === "txid3702" || txid === "txid511145") {
             setSourceNodeLink(
                 `https://www.uniprot.org/uniprotkb/${sourceNode.id}/entry#function`
             );
@@ -59,7 +59,7 @@ export default function GraphSummary({
                 `https://amigo.geneontology.org/amigo/gene_product/WB:${sourceNode.id}`
             );
         }
-    }, [txid]);
+    }, [searchExecuted]);
 
     // Keep track of the proteins in the query
     useEffect(() => {
