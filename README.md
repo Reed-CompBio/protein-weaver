@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15843724.svg)](https://doi.org/10.5281/zenodo.15843724)
+
 # ProteinWeaver
 [ProteinWeaver](https://proteinweaver.reedcompbio.org/) is a web interface for ontology-based protein network visualization.
 
