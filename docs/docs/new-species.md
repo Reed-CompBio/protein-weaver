@@ -52,8 +52,8 @@ ProteinWeaver requires three data files for a new species entry:
     - `RemoveNoEdgeNodes.cypher`
         - Add line for new species to remove nodes with no edges.
 4. Import your data manually or automatically with the `AutomaticDataImport.sh` script.
-5. Add new download queries to `DownloadCSVs.cypher`.
-6. Add new species entry to `UpdateDownloads.sh` and run the script to update the `Downlaods` directory with the newest datasets.
+5. Create new script and add new download queries to `DownloadCSV-txidXXXX.cypher`.
+6. Add new species entry to `UpdateDownloads.sh` and run the script to update the `Downloads/` directory with the newest datasets.
 
 **PRO-TIP:**
 - If you add all the commands to the cypher scripts first, then you can run `AutomaticDataImport.sh` and it should import your new species for you!
