@@ -1,6 +1,7 @@
 import pickle
 import numpy as np
 
+
 def import_graph_from_pickle(filename):
     with open(filename, "rb") as f:
         return pickle.load(f)
