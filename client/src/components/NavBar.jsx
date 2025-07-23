@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaInfo, FaHome, FaSearch } from "react-icons/fa";
+import { FaInfo, FaHome, FaSearch, FaCloudDownloadAlt} from "react-icons/fa";
 import { IconContext } from "react-icons";
 
 export default function NavBar() {
@@ -47,6 +47,20 @@ export default function NavBar() {
                 <FaInfo />
               </IconContext.Provider>
               <div>About</div>
+            </button>
+          </Link>
+        </li>
+        <li>
+          <Link to={`/download`}>
+            <button className="navbar-menu-button">
+              <IconContext.Provider
+                value={{
+                  size: "1.5em",
+                }}
+              >
+                <FaCloudDownloadAlt />
+              </IconContext.Provider>
+              <div>Data</div>
             </button>
           </Link>
         </li>

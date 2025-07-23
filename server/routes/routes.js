@@ -2,6 +2,10 @@ import { Router } from "express";
 import { getDriver } from "../src/neo4j.js";
 import http from 'http';
 import bodyParser from "body-parser";
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+import {FILE_STORAGE_PATH, SECRET_KEY} from '../src/constants.js';
 import EdgeDataService from "../services/edge.data.service.js";
 import ProteinService from "../services/protein.service.js";
 import GoTermService from "../services/go.term.service.js";
@@ -23,7 +27,6 @@ import LocalDegreeService from "../services/local.degree.service.js";
 
 const router = new Router();
 const jsonParser = bodyParser.json();
-
 
 router.get("/test", (req, res) => {
   res.json({ message: "Successfully connected to the backend API" });
@@ -462,5 +465,67 @@ router.post('/getPageRank', (req, res) => {
   flaskReq.end();
 });
 
+// Helper function to generate a signed token
+const generateToken = (filename, expires) => {
+  return crypto
+    .createHmac('sha256', SECRET_KEY)
+    .update(`${filename}:${expires}`)
+    .digest('hex');
+};
+
+// Endpoint to generate a signed URL
+router.get('/generate-signed-url/:filename', (req, res) => {
+  const { filename } = req.params;
+  const expires = Date.now() + 5 * 60 * 1000; // Token valid for 5 minutes
+
+  const filePath = path.join(FILE_STORAGE_PATH, filename);
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: 'File not found' });
+  }
+
+  const token = generateToken(filename, expires);
+
+  res.json({
+    url: `/api/files/${filename}?token=${token}&expires=${expires}`,
+  });
+});
+
+// Endpoint to securely serve the file
+router.get('/files/:filename', (req, res) => {
+  const { filename } = req.params;
+  const { token, expires } = req.query;
+
+  // Validate the token and expiration
+  const expectedToken = generateToken(filename, expires);
+  if (token !== expectedToken || Date.now() > parseInt(expires, 10)) {
+    return res.status(403).json({ error: 'Unauthorized or expired link' });
+  }
+
+  const filePath = path.join(FILE_STORAGE_PATH, filename);
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: 'File not found' });
+  }
+
+  res.sendFile(filePath);
+});
+
+router.get('/download/test.txt', (req, res) => {
+  // Define the path to the test.txt file in the storage directory
+  const filePath = path.join(FILE_STORAGE_PATH, 'test.txt');
+  
+  // Check if the file exists
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+          return res.status(404).send('File not found');
+      }
+
+      // Serve the file as a download
+      res.download(filePath, 'test.txt', (downloadErr) => {
+          if (downloadErr) {
+              return res.status(500).send('Failed to download the file');
+          }
+      });
+  });
+});
 
 export default router;

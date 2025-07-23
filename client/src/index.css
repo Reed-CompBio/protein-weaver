@@ -82,11 +82,11 @@ button:focus-visible {
     padding-left: 12px;
 }
 
-.navbar > ul {
+.navbar>ul {
     list-style-type: none;
 }
 
-.navbar > ul > * {
+.navbar>ul>* {
     margin-left: 10px;
     color: black;
 }
@@ -201,15 +201,6 @@ body {
     margin-left: 12px;
 }
 
-.species-input-container {
-    margin-top: 1px;
-    margin-left: 10px;
-    margin-right: 10px;
-    height: 40px;
-    border-radius: 5px;
-    width: 180px;
-}
-
 .example {
     align-items: center;
     margin-left: 16px;
@@ -247,7 +238,7 @@ body {
     display: inline-flex;
 }
 
-.example > a {
+.example>a {
     color: white;
     font-weight: bold;
     text-decoration: underline;
@@ -370,7 +361,7 @@ a.inactivated {
     width: 125px;
 }
 
-.protein-autocomplete > .active,
+.protein-autocomplete>.active,
 .protein-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -427,7 +418,7 @@ a.inactivated {
     width: 90%;
 }
 
-.go-term-autocomplete > .active,
+.go-term-autocomplete>.active,
 .go-term-autocomplete li:hover {
     background-color: rgba(0, 0, 0, 0.24);
     cursor: pointer;
@@ -458,18 +449,21 @@ input {
     align-self: auto;
 }
 
-select {
+.search-select {
     border: none;
     position: relative;
     min-width: 20px;
     min-height: 25px;
     padding: 8px;
-    margin: 0;
     border-radius: 5px;
-    height: 25px;
-    width: 140px;
     order: 0;
     align-self: auto;
+    margin-top: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 40px;
+    border-radius: 5px;
+    width: 180px;
 }
 
 /* CSS for ExportGraph.jsx */
@@ -744,14 +738,14 @@ select {
     align-items: center;
 }
 
-.footer > * {
+.footer>* {
     margin-left: 15px;
     color: black;
     font-family: "Lora", serif;
     font-weight: 600;
 }
 
-.footer > *:hover {
+.footer>*:hover {
     color: var(--home-button-hover);
 }
 
@@ -1069,8 +1063,8 @@ select {
     text-align: center;
 }
 
-.about-body > p,
-.about-body > h3,
+.about-body>p,
+.about-body>h3,
 .about-body-text {
     color: white;
     text-align: justify;
@@ -1081,26 +1075,104 @@ select {
     color: white;
 }
 
-.about-body > ul {
+.about-body>ul {
     list-style-type: disc;
 }
 
-.about-body > p > a,
-.about-list > li > a,
+.about-body>p>a,
+.about-list>li>a,
 .about-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.about-body > p > a:hover,
-.about-body > p > ul > li > a:hover,
+.about-body>p>a:hover,
+.about-body>p>ul>li>a:hover,
 .about-body-link:hover {
     color: var(--text-hover);
 }
 
-.about-list > li > a:hover {
+.about-list>li>a:hover {
     color: var(--text-hover);
+}
+
+/* CSS for DownloadPage.jsx */
+.download-body {
+    background-color: var(--graph-tan-hover);
+    width: 1000px;
+    margin: auto;
+    margin-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-top: 5px;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0px -0px 10px 5px var(--shadow);
+}
+
+.download-title {
+    padding-bottom: 5px;
+    border-bottom: 3px solid black;
+    text-align: center;
+}
+
+.download-table {
+    border: 3px solid black;
+}
+
+.download-table-row {
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid black;
+}
+
+.download-table-row p {
+    align-self: flex-start;
+    display: inline-block;
+    padding-left: 8px;
+}
+
+.download-header-row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+}
+
+.download-header-row h4 {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.download-table-left-column {
+    width: 50%;
+    border-right: 2px solid black;
+}
+
+.download-table-left-column p:hover {
+    color: var(--graph-blue-hover);
+    cursor: pointer;
+}
+
+.download-table-right-column {
+    width: 50%;
+}
+
+.download-note {
+    margin-top: 25px;
+    padding-left: 8px;
+    padding-top: 0;
+}
+
+.download-note a {
+    color: var(--reed-red);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 /* CSS for TOSPage.jsx */
@@ -1124,8 +1196,8 @@ select {
     text-align: center;
 }
 
-.tos-body > p,
-.tos-body > h3,
+.tos-body>p,
+.tos-body>h3,
 .tos-body-text {
     color: white;
     text-align: justify;
@@ -1136,25 +1208,25 @@ select {
     color: white;
 }
 
-.tos-body > ul {
+.tos-body>ul {
     list-style-type: disc;
 }
 
-.tos-body > p > a,
-.tos-list > li > a,
+.tos-body>p>a,
+.tos-list>li>a,
 .tos-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.tos-body > p > a:hover,
-.tos-body > p > ul > li > a:hover,
+.tos-body>p>a:hover,
+.tos-body>p>ul>li>a:hover,
 .tos-body-link:hover {
     color: var(--text-hover);
 }
 
-.tos-list > li > a:hover {
+.tos-list>li>a:hover {
     color: var(--text-hover);
 }
 
@@ -1195,7 +1267,8 @@ select {
 
 .home-query-video {
     box-shadow: 0px -0px 10px 5px var(--shadow);
-    border-radius: 15px; /* Adjust this value for more or less roundness */
+    border-radius: 15px;
+    /* Adjust this value for more or less roundness */
 }
 
 .home-feature-text {
@@ -1203,7 +1276,8 @@ select {
 }
 
 .button-align {
-    text-align: center; /* This centers the button horizontally */
+    text-align: center;
+    /* This centers the button horizontally */
 }
 
 .home-button {
@@ -1252,8 +1326,8 @@ select {
     text-align: center;
 }
 
-.faq-body > p,
-.faq-body > h3,
+.faq-body>p,
+.faq-body>h3,
 .faq-body-text {
     color: white;
     text-align: justify;
@@ -1264,25 +1338,25 @@ select {
     color: white;
 }
 
-.faq-body > ul {
+.faq-body>ul {
     list-style-type: disc;
 }
 
-.faq-body > p > a,
-.faq-list > li > a,
+.faq-body>p>a,
+.faq-list>li>a,
 .faq-body-link {
     color: white;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.faq-body > p > a:hover,
-.faq-body > p > ul > li > a:hover,
+.faq-body>p>a:hover,
+.faq-body>p>ul>li>a:hover,
 .faq-body-link:hover {
     color: var(--text-hover);
 }
 
-.faq-list > li > a:hover {
+.faq-list>li>a:hover {
     color: var(--text-hover);
 }
 
@@ -1968,6 +2042,10 @@ select {
     font-size: 12.5px;
     display: flex;
     align-items: center;
+}
+
+.search-checkbox-text {
+    padding-left: 5px;
 }
 
 .graph-stats-icon-container:hover {

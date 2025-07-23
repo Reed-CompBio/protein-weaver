@@ -34,8 +34,8 @@ export default function Query() {
         protein: "",
         goTerm: "",
         k: [],
-        ppi: false,
-        regulatory: false,
+        ppi: true,
+        regulatory: true,
     });
     const [networkResult, setNetworkResult] = useState({});
     const cyRef = useRef(cytoscape.Core | undefined);
@@ -69,8 +69,8 @@ export default function Query() {
         protein: "",
         goTerm: "",
         k: "",
-        ppi: "",
-        regulatory: "",
+        ppi: "true",
+        regulatory: "true",
     });
     const [guide, setGuide] = useState(guideConfig);
     const [activeModeButton, setActiveModeButton] = useState("");

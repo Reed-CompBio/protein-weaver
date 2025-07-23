@@ -29,7 +29,10 @@ export default function MotifTable({
     );
 
     const getFormatted = (value) => {
-        if (value === undefined || value === null || isNaN(value)) {
+        if (value === undefined) {
+            return 'Loading...'
+        }
+        else if (value === null || isNaN(value)) {
             return 'N/A';
         } else
             return value.toFixed(4);

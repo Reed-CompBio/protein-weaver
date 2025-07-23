@@ -82,9 +82,9 @@ export default function SearchBar({
                         </div>
                         <div className="search-input-header">
                             <label className="species-header"
-                                htmlFor="species-input-container">Organism (TXID)</label>
+                                htmlFor="search select">Organism (TXID)</label>
                             <select
-                                className="species-input-container" // User input for species
+                                className="search-select" // User input for species
                                 name="species" // User input for species
                                 value={query.species}
                                 onChange={handleSpeciesChange}
@@ -152,7 +152,7 @@ export default function SearchBar({
             </div>
 
             <div className="interaction-container">
-                <h4 className="interaction-title">Network: </h4>
+                <h4 className="interaction-title">Network:</h4>
                 <CheckboxComponent
                     handleCheckboxChange={handleCheckboxChange}
                     query={query}

@@ -12,7 +12,7 @@ export default function CheckboxComponent({ handleCheckboxChange, query }) {
                     onChange={handleCheckboxChange}
                     required={!query.regulatory}
                 />
-                &nbsp;Physical
+                <span className="search-checkbox-text">Physical</span>
             </label>
             <label className="search-box-pair">
                 <input
@@ -23,7 +23,7 @@ export default function CheckboxComponent({ handleCheckboxChange, query }) {
                     onChange={handleCheckboxChange}
                     required={!query.ppi}
                 />
-                &nbsp;Regulatory
+                <span className="search-checkbox-text">Regulatory</span>
             </label>
         </div>
     );
