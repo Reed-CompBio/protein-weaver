@@ -2044,6 +2044,10 @@ input {
     align-items: center;
 }
 
+.search-checkbox-text {
+    padding-left: 5px;
+}
+
 .graph-stats-icon-container:hover {
     transform: scale(1.1);
 }
